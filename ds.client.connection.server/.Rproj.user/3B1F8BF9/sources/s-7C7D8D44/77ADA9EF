@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1559314807417.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "77ADA9EF",
+    "lastKnownWriteTime" : 1559316695,
+    "last_content_update" : 1559316695536,
+    "path" : "~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/R/ds.login.R",
+    "project_path" : "R/ds.login.R",
+    "properties" : {
+        "cursorPosition" : "23,72",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
