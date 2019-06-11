@@ -17,7 +17,7 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
   if (is.null(login.data.frame))
   {
      warning("You have yet to provide some login details.")
-     return(1)
+     return("ERR:003")
   }
   else
   {

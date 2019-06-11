@@ -38,18 +38,21 @@ ds.build.login.data.frame.o <- function (data.computers.name, data.computers.url
 
   if (expected.elements != total.elements)
   {
-    stop("The length of the vectors passed as arguments are not the same length.")
+     warning("The length of the vectors passed as arguments are not the same length.")
+     return("ERR:001")
+     
   }
   else
   {
-    if (!all(startsWith(url,"http")))
-    {
-      stop("Make sure each url starts with http")
-    }
-    if (!all(startsWith(url,"https")))
-    {
-      warning("Each url should starts with https")
-    }
-    return(data.frame(server,url,user,password,table))
+   
+      if (!all(startsWith(url,"https")))
+      {
+        warning("The URL should starts with https")
+        return("ERR:002")
+      }
+      else
+      {
+        return(data.frame(server,url,user,password,table))
+      }
   }
 }

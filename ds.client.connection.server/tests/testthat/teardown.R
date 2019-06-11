@@ -9,16 +9,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #-------------------------------------------------------------------------------
 source("connection_to_datasets/init_all_datasets.R")
-print("teardown.r - clearing all the r objects")
+
 
 log.out.data.server()
 
 
 
-
-
-
-#if (!is.null(opals)) {
-#    datashield.logout(opals)
-#    opals <- NULL
-#}
