@@ -12,12 +12,17 @@
 #'@author Patricia Ryser-Welch
 #'@export
 #'
+#'
+library(DSI)
+library(DSOpal)
+
 ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, symbol = 'D')
 {
+ 
   if (is.null(login.data.frame))
   {
-     warning("You have yet to provide some login details.")
-     return("ERR:003")
+     message("You have yet to provide some login details.")
+     stop("ERR:003")
   }
   else
   {

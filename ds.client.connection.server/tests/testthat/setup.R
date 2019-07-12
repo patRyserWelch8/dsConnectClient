@@ -12,15 +12,16 @@
 #
 
 library(opal)
+library(DSOpal)
+
 library(dsBaseClient)
 library(RCurl)
-
-
-
 
 source("connection_to_datasets/login_details.R")
 source("connection_to_datasets/init_all_datasets.R")
 #source("libraries/load_libraries.R")
+
+options(show.error.messages = FALSE)
 
 
 init.all.datasets()
@@ -34,46 +35,27 @@ test_that("The virtual machine is loaded. ",
     print("A server is available")
 })
 
-#define test_environment variables - connection to data shield and read from local files
-
-
-#load.libraries()
-#load the packages required for datashield to work
-#test_that(" The packages dsBase, dsModelling, dsGraphics, dsStats are installed and loaded.",
-#{
-#  expect_true(require('dsBase'))
-#  expect_true(require('dsGraphics'))
-#  expect_true(require('dsStats'))
-#  expect_true(require('dsModelling'))
-#})
-
-
+#connect to an Opal or DSI ....
 print ("connect to server")
-if (ds.test_env$context == ds.test_env$contexts[1])
+if (ds.test_env$context == ds.test_env$contexts[1] 
+   || ds.test_env$context == ds.test_env$contexts[2] )
 {
-  #ds.test_env$connection.opal <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
   log.in.data.server()
-  print(class(ds.test_env$connection.opal))
-  
 }
-
-
 
 test_that("The number of servers the same has setup",
 {
-  expect_true(length(ds.test_env$connection.opal) == length(ds.test_env$server))
+  expect_true(length(ds.test_env$connection.DSI) == length(ds.test_env$server))
 })
 
-
-#print("dimensions")
-#print(dimensions[[1]][1])
-#print(nrow(ds.test_env$local.values))
-#print(dimensions[[1]][1] == nrow(ds.test_env$local.values))
-
+if (FALSE) #problem with DSI NEEDS SOME ATTENTION
+{
 context("The number of rows of the test data are the same on the server and locally")
 test_that("The of rows are the same",
 {
-  dimensions <- ds.dim(x='D',type='combine',datasources = ds.test_env$connection.opal)
+  dimensions <- ds.dim(x='D',type='combine',datasources = ds.test_env$connection.DSI)
   expect_true(dimensions[[1]][1] == nrow(ds.test_env$local.values))
 })
+}
 
+log.out.data.server()

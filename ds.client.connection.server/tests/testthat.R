@@ -1,4 +1,4 @@
 library(testthat)
-library(ds.client.gateway)
+library(ds.client.connection.server)
 
-test_check("ds.client.gateway")
+test_check("ds.client.connection.server")
