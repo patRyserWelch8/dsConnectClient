@@ -141,6 +141,8 @@ test_that ('The login information is in an incorrect format ',
           c(ds.test_env$password_1,ds.test_env$password_2,ds.test_env$password_3),
           c("TESTING.DATASET1", "TESTING.DATASET3"))
   
+  .test.empty()
+  
 })
 
 

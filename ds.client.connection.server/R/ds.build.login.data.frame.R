@@ -27,19 +27,23 @@ ds.build.login.data.frame.o <- function (data.computers.name, data.computers.url
   user <- as.character(users.id)
   password <- as.character(users.password)
   table <- as.character(data.computers.table.name)
-  return.data.frame  =  data.frame(server = character(0), user = character(0),user= character(0), password = character(0),table=character(0))
-  colnames(return.data.frame) <- c('server','url','user','password','table')
+#  return.data.frame  =  data.frame(server = character(0), user = character(0),user= character(0), password = character(0),table=character(0))
+ # colnames(return.data.frame) <- c('server','url','user','password','table')
   NO.COLUMNS = 5
 
   #Verify the length of each vector is the same
   expected.elements = length(server) * NO.COLUMNS
   total.elements = length(server) + length(url) + length(user) + length(password) + length(table)
 
-
   if (expected.elements != total.elements)
   {
-     message("The length of the vectors passed as arguments are not the same length.")
-     stop("ERR:001")
+      message("The length of the vectors passed as arguments are not the same length.")
+      stop("ERR:001")
+  }
+  else if (length(server) == 0 || length(url) == 0 ||  length(user) == 0 || length(password) == 0 || length(table) == 0)
+  {
+      message("The length of the vectors passed as arguments must be greater than 1.")
+      stop("ERR:004")
   }
   else
   {

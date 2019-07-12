@@ -18,7 +18,7 @@ library(DSOpal)
 
 ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, symbol = 'D')
 {
- 
+  
   if (is.null(login.data.frame))
   {
      message("You have yet to provide some login details.")
@@ -26,7 +26,15 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
   }
   else
   {
-     return(datashield.login(login.data.frame, assign, variables, symbol))
+    if(length(login.data.frame[,1]) > 0)
+    {
+       return(datashield.login(login.data.frame, assign, variables, symbol))
+    }
+    else
+    {
+      message("The length of the vectors passed as arguments must be greater than 1.")
+      stop("ERR:004")
+    }
   }
 }
 
