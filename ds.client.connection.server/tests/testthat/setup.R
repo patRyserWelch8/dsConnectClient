@@ -21,7 +21,7 @@ source("connection_to_datasets/login_details.R")
 source("connection_to_datasets/init_all_datasets.R")
 #source("libraries/load_libraries.R")
 
-options(show.error.messages = FALSE)
+#options(show.error.messages = FALSE)
 
 
 init.all.datasets()
