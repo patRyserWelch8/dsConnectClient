@@ -5,8 +5,8 @@
 
 source("connection_to_datasets/init_local_settings.R")
 
-#set_config( config( ssl_verifypeer = 0L ) )
-#set_config( config( ssl_verifyhost = 0L ) )
+set_config( config( ssl_verifypeer = 0L ) )
+set_config( config( ssl_verifyhost = 0L ) )
 init.ip.address()
 ds.test_env <- new.env()
 

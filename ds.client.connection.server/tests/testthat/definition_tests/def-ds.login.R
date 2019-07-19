@@ -12,9 +12,6 @@
   password <- some.passwords
   table <- some.tables
   expect_error(ds.login(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table),"ERR:001")
-  
-  
-  
 }
 
 .test.empty <- function()
@@ -31,9 +28,7 @@
   table <-  c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
   login <- data.frame(server,url,user,password,table)
   connection <- ds.login(login,assign = FALSE,table)
- # c <- ds.login(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table)
-   expect_true(length(connection) == length(server))
- 
+  expect_true(length(connection) == length(server))
 }
 
 .test.http.connection.single <- function()
@@ -70,4 +65,16 @@
   table <-  c("TESTING.DATASET1")
   connection <-ds.login(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table)
   expect_true(length(connection) == length(server))
+}
+
+
+.test.https.incorrect.URL <- function()
+{
+  server <-   c('study1')
+  url <- c("https://my.website")
+  user <-  c(ds.test_env$user_1)
+  password <- c(ds.test_env$password_1)
+  login <- data.frame(server,url,user,password,table)
+  connection <- ds.login(login,assign = FALSE,table)
+  expect_error()
 }

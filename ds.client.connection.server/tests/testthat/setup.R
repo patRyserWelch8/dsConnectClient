@@ -11,7 +11,7 @@
 # Datashield test suite set up
 #
 
-library(opal)
+library(DSI)
 library(DSOpal)
 
 library(dsBaseClient)
@@ -48,14 +48,11 @@ test_that("The number of servers the same has setup",
   expect_true(length(ds.test_env$connection.DSI) == length(ds.test_env$server))
 })
 
-if (FALSE) #problem with DSI NEEDS SOME ATTENTION
-{
 context("The number of rows of the test data are the same on the server and locally")
 test_that("The of rows are the same",
 {
   dimensions <- ds.dim(x='D',type='combine',datasources = ds.test_env$connection.DSI)
   expect_true(dimensions[[1]][1] == nrow(ds.test_env$local.values))
 })
-}
 
 log.out.data.server()

@@ -2,7 +2,7 @@
     "path" : "~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/R",
     "sortOrder" : [
         {
-            "ascending" : true,
+            "ascending" : false,
             "columnIndex" : 2
         }
     ]

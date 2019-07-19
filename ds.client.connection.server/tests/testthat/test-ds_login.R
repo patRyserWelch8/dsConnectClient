@@ -63,3 +63,9 @@ test_that('https connection single',
   .test.https.connection.single()
 })
 
+context('ds.login()::incorrect_url::single')
+test_that('https connection single',
+{
+  .test.https.incorrect.URL()
+})
+
