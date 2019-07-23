@@ -5,7 +5,6 @@ library(httr)
 
 source("definition_tests/def-ds.login.R")
 
-
 context('ds.login():incorrect format')
 test_that('incorrect format',
 {

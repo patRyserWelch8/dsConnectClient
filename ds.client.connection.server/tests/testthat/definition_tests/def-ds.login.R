@@ -1,7 +1,9 @@
 
 .test.no.login.info <- function()
 {
-    expect_error(ds.login(NULL),"ERR:003")
+  ds.login(NULL)
+    expect_error(.make.connection(NULL),"ERR:003")
+    expect_true(is.null(ds.login(NULL)))
 }
 
 .test.incorrect.format <- function(some.server,some.urls,some.users,some.passwords,some.tables)
@@ -11,12 +13,15 @@
   user <- some.users
   password <- some.passwords
   table <- some.tables
-  expect_error(ds.login(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table),"ERR:001")
+  
+  expect_error(.make.connection(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table),"ERR:001")
 }
 
 .test.empty <- function()
 {
-  expect_error(ds.login(ds.build.login.data.frame.o(c(),c(),c(),c(),c()),assign = FALSE,table),"ERR:004")
+  
+  expect_error(.make.connection(ds.build.login.data.frame.o(c(),c(),c(),c(),c()),assign = FALSE,table),"ERR:004")
+  #expect_true(is.null(suppressMessages(ds.login(ds.build.login.data.frame.o(c(),c(),c(),c(),c()),assign = FALSE,table))))
 }
 
 .test.http.connection.multiple <- function()
@@ -74,7 +79,10 @@
   url <- c("https://my.website")
   user <-  c(ds.test_env$user_1)
   password <- c(ds.test_env$password_1)
+  table <-  c("TESTING.DATASET1")
+ 
   login <- data.frame(server,url,user,password,table)
   connection <- ds.login(login,assign = FALSE,table)
-  expect_error()
+  expect_error(.make.connection(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table))
+  expect_true(is.null(connection))
 }

@@ -19,7 +19,8 @@
 #'Expectation no 4: the number of row is 0, if any of the urls does not start with http
 #'@author Patricia Ryser-Welch
 #'@export
-ds.build.login.data.frame.o <- function (data.computers.name, data.computers.url, data.computers.table.name,  users.id, users.password)
+ds.build.login.data.frame.o <- function (data.computers.name, data.computers.url, data.computers.table.name,users.id, users.password, 
+                                         some.options =  c("","c(ssl.verifyhost=2,ssl.verifypeer=1)"), driver.connection = c("","OpalDriver"))
 {
   #assign the arguments to the data frame format.
   server <- as.character(data.computers.name)
@@ -27,20 +28,24 @@ ds.build.login.data.frame.o <- function (data.computers.name, data.computers.url
   user <- as.character(users.id)
   password <- as.character(users.password)
   table <- as.character(data.computers.table.name)
+  some.options <- options
+  driver <- driver.connection
+  
 #  return.data.frame  =  data.frame(server = character(0), user = character(0),user= character(0), password = character(0),table=character(0))
  # colnames(return.data.frame) <- c('server','url','user','password','table')
-  NO.COLUMNS = 5
+  NO.COLUMNS = 7
 
   #Verify the length of each vector is the same
   expected.elements = length(server) * NO.COLUMNS
-  total.elements = length(server) + length(url) + length(user) + length(password) + length(table)
+  total.elements = length(server) + length(url) + length(user) + length(password) + length(table) + length(some.options) + length(driver)
 
   if (expected.elements != total.elements)
   {
       message("The length of the vectors passed as arguments are not the same length.")
       stop("ERR:001")
   }
-  else if (length(server) == 0 || length(url) == 0 ||  length(user) == 0 || length(password) == 0 || length(table) == 0)
+  else if (length(server) == 0 || length(url) == 0 ||  length(user) == 0 || length(password) == 0 || length(table) == 0 
+           || length(options) == 0 || length(driver) == 0)
   {
       message("The length of the vectors passed as arguments must be greater than 1.")
       stop("ERR:004")
@@ -49,7 +54,7 @@ ds.build.login.data.frame.o <- function (data.computers.name, data.computers.url
   {
       if (all(startsWith(url,"https")))
       {
-         return(data.frame(server,url,user,password,table))
+         return(data.frame(server,url,user,password,table,options,driver))
       }
       else
       {
