@@ -14,14 +14,14 @@
   password <- some.passwords
   table <- some.tables
   
-  expect_error(.make.connection(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table))
+  expect_error(.make.connection(ds.build.login.data.frame(server,url,table,user,password),assign = FALSE,table))
 }
 
 .test.empty <- function()
 {
   
-  expect_error(.make.connection(ds.build.login.data.frame.o(c(),c(),c(),c(),c()),assign = FALSE,table))
-  #expect_true(is.null(suppressMessages(ds.login(ds.build.login.data.frame.o(c(),c(),c(),c(),c()),assign = FALSE,table))))
+  expect_error(.make.connection(ds.build.login.data.frame(c(),c(),c(),c(),c()),assign = FALSE,table))
+  #expect_true(is.null(suppressMessages(ds.login(ds.build.login.data.frame(c(),c(),c(),c(),c()),assign = FALSE,table))))
 }
 
 .test.http.connection.multiple <- function()
@@ -47,7 +47,7 @@
   connection <- ds.login(login,assign = FALSE,table)
   options.ssl <-  c("c(ssl.verifyhost=0,ssl.verifypeer=0)")
   drivers <- c("OpalDriver")
-  login <- ds.build.login.data.frame.o(server,url,user,password,table,options.ssl,drivers)
+  login <- ds.build.login.data.frame(server,url,user,password,table,options.ssl,drivers)
   connection <- ds.login(login,assign = FALSE,table)
   expect_true(is.null(connection))
 
@@ -63,7 +63,7 @@
   table <-  c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
   options.ssl <-  c("c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)")
   drivers <- c("OpalDriver","OpalDriver","OpalDriver")
-  login <- ds.build.login.data.frame.o(server,url,user,password,table,options.ssl,drivers)
+  login <- ds.build.login.data.frame(server,url,user,password,table,options.ssl,drivers)
   connection <- ds.login(login,assign = FALSE,table)
   expect_true(!is.null(connection))
   
@@ -78,7 +78,7 @@
   table <-  c("TESTING.DATASET1")
   options.ssl <-  c("c(ssl.verifyhost=0,ssl.verifypeer=0)")
   drivers <- c("OpalDriver")
-  login <- ds.build.login.data.frame.o(server,url,user,password,table,options.ssl,drivers)
+  login <- ds.build.login.data.frame(server,url,user,password,table,options.ssl,drivers)
   connection <- ds.login(login,assign = FALSE,table)
   expect_true(!is.null(connection))
   
@@ -98,7 +98,7 @@
  
   login <- data.frame(server,url,user,password,table)
   connection <- ds.login(login,assign = FALSE,table)
-  expect_error(.make.connection(ds.build.login.data.frame.o(server,url,table,user,password),assign = FALSE,table))
+  expect_error(.make.connection(ds.build.login.data.frame(server,url,table,user,password),assign = FALSE,table))
   expect_true(is.null(connection))
   
 }

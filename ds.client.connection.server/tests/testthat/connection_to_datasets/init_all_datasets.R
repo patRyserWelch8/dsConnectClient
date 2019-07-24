@@ -16,7 +16,7 @@ init.all.datasets <- function()
     ds.test_env$user <- c(ds.test_env$user_1,ds.test_env$user_2,ds.test_env$user_3)
     ds.test_env$password <- c(ds.test_env$password_1,ds.test_env$password_2,ds.test_env$password_3)
     ds.test_env$table <- c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
-    ds.test_env$login.data <- ds.build.login.data.frame.o(ds.test_env$server,
+    ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
                                                               ds.test_env$url,
                                                               ds.test_env$table,
                                                               ds.test_env$user,
@@ -45,7 +45,7 @@ init.dataset.3 <- function()
     ds.test_env$user <- c(ds.test_env$user_3)
     ds.test_env$password <- c(ds.test_env$password_3)
     ds.test_env$table <- c("TESTING.DATASET3")
-    ds.test_env$login.data <- ds.build.login.data.frame.o(ds.test_env$server,
+    ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
                                                                   ds.test_env$url,
                                                                   ds.test_env$table,
                                                                   ds.test_env$user,
@@ -72,7 +72,7 @@ init.dataset.2 <- function()
     ds.test_env$user <- c(ds.test_env$user_2)
     ds.test_env$password <- c(ds.test_env$password_2)
     ds.test_env$table <- c("TESTING.DATASET2")
-    ds.test_env$login.data <- ds.build.login.data.frame.o(ds.test_env$server,
+    ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
                                                                   ds.test_env$url,
                                                                   ds.test_env$table,
                                                                   ds.test_env$user,
@@ -99,7 +99,7 @@ init.dataset.1 <- function()
     ds.test_env$user <- c(ds.test_env$user_1)
     ds.test_env$password <- c(ds.test_env$password_1)
     ds.test_env$table <- c("TESTING.DATASET1")
-    ds.test_env$login.data <- ds.build.login.data.frame.o(ds.test_env$server,
+    ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
                                                                   ds.test_env$url,
                                                                   ds.test_env$table,
                                                                   ds.test_env$user,

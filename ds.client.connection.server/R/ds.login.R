@@ -29,7 +29,7 @@
 #'ßFACTOR_INTEGER')
 #'options <- c("","c(ssl.verifyhost=2,ssl.verifypeer=1)")
 #'driver <- c("","OpalDriver")
-#'login.data.frame <- ds.build.login.data.frame.o(server,url,table,user,password)
+#'login.data.frame <- ds.build.login.data.frame(server,url,table,user,password)
 #'connections <- ds.login(login.data.frame, FALSE, variables,'V') 
 #'@author Patricia Ryser-Welch
 #'@export

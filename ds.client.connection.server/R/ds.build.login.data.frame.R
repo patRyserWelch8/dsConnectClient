@@ -21,7 +21,7 @@
 #'Expectation no 4: the number of row is 0, if any of the urls does not start with http
 #'@author Patricia Ryser-Welch
 #'@export
-ds.build.login.data.frame.o <- function (data.computers.name, 
+ds.build.login.data.frame <- function (data.computers.name, 
                                          data.computers.url, 
                                          data.computers.table.name,
                                          users.id, 

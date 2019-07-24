@@ -8,7 +8,7 @@
   options.ssl <- some.options
   drivers <- some.drivers
   
-  login.info <- ds.build.login.data.frame.o(server,url,table,user,password,options.ssl, drivers)
+  login.info <- ds.build.login.data.frame(server,url,table,user,password,options.ssl, drivers)
   
   expect_true(length(login.info) == 7)
   expect_that(login.info,is_a('data.frame'))
@@ -31,7 +31,7 @@
   options.ssl <- some.options
   drivers <- some.drivers
   expect_error(build.data.frame(server,url,table,user,password,option.ssl,drivers))
-  expect_true(is.null(ds.build.login.data.frame.o(server,url,table,user,password,option.ssl,drivers)))
+  expect_true(is.null(ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)))
 
 }
 
@@ -46,14 +46,14 @@
   drivers <- some.drivers
   
   expect_error(build.data.frame(server,url,table,user,password,option.ssl,drivers))
-  expect_true(is.null(ds.build.login.data.frame.o(server,url,table,user,password,option.ssl,drivers)))
+  expect_true(is.null(ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)))
   
 }
 
 .test.empty<- function()
 {
   
-  expect_true(is.null(ds.build.login.data.frame.o(c(),c(),c(),c(),c(),c(),c())))
+  expect_true(is.null(ds.build.login.data.frame(c(),c(),c(),c(),c(),c(),c())))
   expect_error(build.data.frame(server,url,table,user,password,option.ssl,drivers))
 }
 
