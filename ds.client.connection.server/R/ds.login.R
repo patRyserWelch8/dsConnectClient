@@ -24,9 +24,9 @@
 #'password <- c("user1pwd", "datashield-private.pem")
 #'table <- c("TESTING.DATASET1", "TESTING.DATASET2")
 #'variables <-  list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
-'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
-'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
-'FACTOR_INTEGER')
+#'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
+#'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
+#'ßFACTOR_INTEGER')
 #'options <- c("","c(ssl.verifyhost=2,ssl.verifypeer=1)")
 #'driver <- c("","OpalDriver")
 #'login.data.frame <- ds.build.login.data.frame.o(server,url,table,user,password)
@@ -82,15 +82,14 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
 .warning <- function(message)
 {
 
-  messaget(paste("Warning : ",   message ))
+  messaget(paste("ds.client.connection.server::ds.login :",   message ))
  
 }
 
 .error <- function(error)
 {
   header <- 'ds.client.connection.server::ds.login'
-  print(header)
-  
+
   if (grepl("ERR:003",error))
   {
       message(paste(header, "::",  "ERR:003\n", " You have yet to provide some login details.")) 
