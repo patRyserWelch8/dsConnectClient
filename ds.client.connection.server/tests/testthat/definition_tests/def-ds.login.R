@@ -100,5 +100,4 @@
   connection <- ds.login(login,assign = FALSE,table)
   expect_error(.make.connection(ds.build.login.data.frame(server,url,table,user,password),assign = FALSE,table))
   expect_true(is.null(connection))
-  
 }

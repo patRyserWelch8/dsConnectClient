@@ -43,10 +43,12 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
 {
   connection <- NULL
   tryCatch(
-    {connection <- .make.connection(login.data.frame, assign, variables, symbol)},
-    warning = function(warning) {.warning(warning)},
-    error = function(error) {.error(error)},
-    finally = {return(connection)})
+  {
+      connection <- .make.connection(login.data.frame, assign, variables, symbol)},
+      warning = function(warning) {.warning(warning)},
+      error = function(error) {.error(error)},
+      finally = {return(connection)
+  })
 }
 
 .make.connection <- function(login.data.frame, assign, variables, symbol)
@@ -60,7 +62,7 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
     if(length(login.data.frame[,1]) > 0)
     {
       
-      connection <- return(DSI::datashield.login(login.data.frame, assign, variables, symbol))
+      connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
      
       if (is.null(connection))
       {
@@ -82,7 +84,7 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
 .warning <- function(message)
 {
 
-  messaget(paste("ds.client.connection.server::ds.login :",   message ))
+  message(paste("ds.client.connection.server::ds.login :",   message ))
  
 }
 
