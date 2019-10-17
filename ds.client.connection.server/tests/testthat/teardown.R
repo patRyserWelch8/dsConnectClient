@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 source("connection_to_datasets/init_all_datasets.R")
 
-
+warnings()
 log.out.data.server()
 options(show.error.messages = TRUE)
 

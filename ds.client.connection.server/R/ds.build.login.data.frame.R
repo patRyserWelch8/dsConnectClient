@@ -52,6 +52,7 @@ build.data.frame <- function(data.computers.name, data.computers.url,
                               driver.connection) 
 {
  
+  
   #assign the arguments to the data frame format.
   server <- as.character(data.computers.name)
   url <- as.character(data.computers.url)
@@ -60,15 +61,16 @@ build.data.frame <- function(data.computers.name, data.computers.url,
   table <- as.character(data.computers.table.name)
   options.ssl <- as.character(options.ssl)
   driver <- as.character(driver.connection)
+ 
   
   #Verify the length of each vector is the same
   NO_COLUMNS <- 7
   expected.elements <-length(server) * NO_COLUMNS
   total.elements <- length(server) + length(url) + length(user) + length(password) + length(table)  + length(options.ssl) + length(driver)
- 
-   if (expected.elements != total.elements)
+  
+  
+  if (expected.elements != total.elements)
   {
-   # message("The length of the vectors passed as arguments are not the same length.")
      stop("ERR:001")
   }
   else if (length(server) == 0 || length(url) == 0 ||  length(user) == 0 || length(password) == 0 || length(table) == 0 
@@ -78,6 +80,7 @@ build.data.frame <- function(data.computers.name, data.computers.url,
   }
   else if (all(startsWith(url,"https")))
   {
+     
      return(data.frame(server,url,user,password,table,options.ssl,driver))
   }
   else

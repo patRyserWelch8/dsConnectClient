@@ -12,14 +12,15 @@ library(DSI)
 library(DSOpal)
 library(httr)
 
+
 ds.logout <- function(connection, save = NULL)
 {
-  tryCatch
-  (
-    {.logout(connection,save)},
+  outcome <- TRUE
+  tryCatch(
+     {.logout(connection,save);},
       warning = function(warning) {.warning(warning)},
       error = function(error) {.error(error)},
-      finally = {}
+      finally = {return(outcome)}
     )
 }
 
@@ -45,7 +46,7 @@ ds.logout <- function(connection, save = NULL)
 {
   header <- 'ds.client.connection.server::ds.login'
   
-  if (grepl("ERR:003",error))
+  if (grepl("ERR:006",error))
   {
     message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
   }

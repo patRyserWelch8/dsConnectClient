@@ -4,6 +4,7 @@ library(testthat)
 library(httr)
 
 source("definition_tests/def-ds.login.R")
+source("connection_to_datasets/init_all_datasets.R")
 
 context('ds.login():incorrect format')
 test_that('incorrect format',
@@ -53,7 +54,8 @@ test_that('http connection single',
 context('ds.login():https_connection::multiple')
 test_that('https connection multiple',
 {
-  .test.http.connection.multiple()
+ 
+  .test.https.connection.multiple()
 })
 
 context('ds.login():https_connection::single')

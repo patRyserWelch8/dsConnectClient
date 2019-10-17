@@ -39,16 +39,16 @@ library(DSI)
 library(DSOpal)
 library(httr)
 
-ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, symbol = 'D')
+
+ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, symbol = 'D')
 {
   connection <- NULL
   tryCatch(
-  {
-      connection <- .make.connection(login.data.frame, assign, variables, symbol)},
+     {connection <- .make.connection(login.data.frame, assign, variables, symbol)},
       warning = function(warning) {.warning(warning)},
       error = function(error) {.error(error)},
-      finally = {return(connection)
-  })
+      finally = {return(connection)}
+  )
 }
 
 .make.connection <- function(login.data.frame, assign, variables, symbol)
@@ -59,10 +59,11 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
   }
   else
   {
+   
     if(length(login.data.frame[,1]) > 0)
     {
-      
       connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
+      print(connection)
      
       if (is.null(connection))
       {
@@ -72,7 +73,6 @@ ds.login <- function(login.data.frame = NULL, assign = FALSE, variables = NULL, 
       {
         return(connection)
       }
-    
     }
     else
     {

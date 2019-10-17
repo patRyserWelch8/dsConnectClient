@@ -16,11 +16,21 @@ init.all.datasets <- function()
     ds.test_env$user <- c(ds.test_env$user_1,ds.test_env$user_2,ds.test_env$user_3)
     ds.test_env$password <- c(ds.test_env$password_1,ds.test_env$password_2,ds.test_env$password_3)
     ds.test_env$table <- c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
+    ds.test_env$options.ssl <- c("c(ssl.verifyhost=0,ssl.verifypeer=0)",
+                                 "c(ssl.verifyhost=0,ssl.verifypeer=0)",
+                                 "c(ssl.verifyhost=0,ssl.verifypeer=0)")
+  
+    ds.test_env$driver <- c("OpalDriver","OpalDriver","OpalDriver")
     ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
                                                               ds.test_env$url,
                                                               ds.test_env$table,
                                                               ds.test_env$user,
-                                                              ds.test_env$password)
+                                                              ds.test_env$password,
+                                                              ds.test_env$options.ssl,
+                                                              ds.test_env$driver
+                                                        )
+    
+    print(ds.test_env$login.data)
 
     ds.test_env$stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
                                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
@@ -45,12 +55,16 @@ init.dataset.3 <- function()
     ds.test_env$user <- c(ds.test_env$user_3)
     ds.test_env$password <- c(ds.test_env$password_3)
     ds.test_env$table <- c("TESTING.DATASET3")
+    ds.test_env$options.ssl <- c("c(ssl.verifyhost=0,ssl.verifypeer=0)")
+    ds.test_env$driver <- c("OpalDriver")
     ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
-                                                                  ds.test_env$url,
-                                                                  ds.test_env$table,
-                                                                  ds.test_env$user,
-                                                                  ds.test_env$password)
-
+                                                        ds.test_env$url,
+                                                        ds.test_env$table,
+                                                        ds.test_env$user,
+                                                        ds.test_env$password,
+                                                        ds.test_env$options.ssl,
+                                                        ds.test_env$driver)
+   
     ds.test_env$stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
                                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
                                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
@@ -72,12 +86,16 @@ init.dataset.2 <- function()
     ds.test_env$user <- c(ds.test_env$user_2)
     ds.test_env$password <- c(ds.test_env$password_2)
     ds.test_env$table <- c("TESTING.DATASET2")
+    ds.test_env$options.ssl <- c("c(ssl.verifyhost=0,ssl.verifypeer=0)")
+    ds.test_env$driver <- c("OpalDriver")
     ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
-                                                                  ds.test_env$url,
-                                                                  ds.test_env$table,
-                                                                  ds.test_env$user,
-                                                                  ds.test_env$password)
-
+                                                        ds.test_env$url,
+                                                        ds.test_env$table,
+                                                        ds.test_env$user,
+                                                        ds.test_env$password,
+                                                        ds.test_env$options.ssl,
+                                                        ds.test_env$driver)
+    
     ds.test_env$stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
                                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
                                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
@@ -99,11 +117,16 @@ init.dataset.1 <- function()
     ds.test_env$user <- c(ds.test_env$user_1)
     ds.test_env$password <- c(ds.test_env$password_1)
     ds.test_env$table <- c("TESTING.DATASET1")
+    ds.test_env$options.ssl <- c("c(ssl.verifyhost=0,ssl.verifypeer=0)")
+    ds.test_env$driver <- c("OpalDriver")
     ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
-                                                                  ds.test_env$url,
-                                                                  ds.test_env$table,
-                                                                  ds.test_env$user,
-                                                                  ds.test_env$password)
+                                                        ds.test_env$url,
+                                                        ds.test_env$table,
+                                                        ds.test_env$user,
+                                                        ds.test_env$password,
+                                                        ds.test_env$options.ssl,
+                                                        ds.test_env$driver)
+    print(ds.test_env$login.data)
 
     ds.test_env$stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
                                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
@@ -136,6 +159,11 @@ connect.all.datasets <- function()
    source("connection_to_datasets/login_details.R")
    init.all.datasets()
    log.in.data.server()
+}
+
+disconnect.all.datasets <- function()
+{
+  log.out.data.server()
 }
 
 connect.dataset.1 <- function()
