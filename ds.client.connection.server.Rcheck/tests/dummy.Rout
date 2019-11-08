@@ -1,0 +1,131 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(DSI)
+Loading required package: progress
+Loading required package: R6
+> library(dsBase)
+> library(dsBaseClient)
+> library(RCurl)
+Loading required package: bitops
+> library(dsStatsClient)
+Loading required package: opal
+Loading required package: rjson
+Loading required package: mime
+
+Attaching package: 'opal'
+
+The following objects are masked from 'package:DSI':
+
+    datashield.aggregate, datashield.assign,
+    datashield.build.login.data.frame.o, datashield.login,
+    datashield.logout, datashield.method_status, datashield.methods,
+    datashield.pkg_status, datashield.rm, datashield.symbols,
+    datashield.table_status, datashield.workspace_rm,
+    datashield.workspace_save, datashield.workspaces
+
+
+Attaching package: 'dsStatsClient'
+
+The following objects are masked from 'package:dsBaseClient':
+
+    ds.cor, ds.corTest, ds.cov, ds.var
+
+> library(dsGraphicsClient)
+
+Attaching package: 'dsGraphicsClient'
+
+The following objects are masked from 'package:dsBaseClient':
+
+    ds.contourPlot, ds.densityGrid, ds.heatmapPlot, ds.histogram
+
+> library(dsModellingClient)
+
+Attaching package: 'dsModellingClient'
+
+The following objects are masked from 'package:dsBaseClient':
+
+    ds.gee, ds.glm, ds.lexis
+
+> 
+> source('~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/R/ds.login.R')
+Loading required package: opalr
+Loading required package: httr
+
+Attaching package: 'opalr'
+
+The following objects are masked from 'package:opal':
+
+    opal.as_md_table, opal.assign, opal.assign.data,
+    opal.assign.script, opal.assign.table, opal.assign.table.tibble,
+    opal.attribute_values, opal.command, opal.command_result,
+    opal.command_rm, opal.commands, opal.commands_rm, opal.datasource,
+    opal.datasources, opal.execute, opal.file, opal.file_cp,
+    opal.file_download, opal.file_ls, opal.file_mkdir, opal.file_mv,
+    opal.file_read, opal.file_rm, opal.file_upload, opal.file_write,
+    opal.login, opal.logout, opal.report, opal.rm, opal.symbol_import,
+    opal.symbol_rm, opal.symbol_save, opal.symbols, opal.table,
+    opal.tables, opal.task, opal.task_cancel, opal.task_wait,
+    opal.tasks, opal.valueset, opal.variable, opal.variables,
+    opal.version_compare, opal.workspace_rm, opal.workspace_save,
+    opal.workspaces
+
+> 
+> ip_address_1 <- paste("https://192.168.56.100:8443", sep="")
+> ip_address_2 <- paste("https://192.168.56.100:8443", sep="")
+> ip_address_3 <- paste("https://192.168.56.100:8443", sep="")
+> 
+> user_1 <- "administrator"
+> user_2 <- "administrator"
+> user_3 <- "administrator"
+> 
+> password_1 <- "datashield_test&"
+> password_2 <- "datashield_test&"
+> password_3 <- "datashield_test&"
+> 
+> server <- c("study1", "study2", "study3")
+> url <- c(ip_address_1,ip_address_2,ip_address_3)
+> user <- c(user_1,user_2,user_3)
+> password <- c(password_1,password_2,password_3)
+> table <- c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
+> login.data <- data.frame(server,url,user,password,table)
+> 
+> 
+> stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
++                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
++                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
++                   'FACTOR_INTEGER')
+> 
+> 
+> connection.DSI <- ds.login(login.data,assign=TRUE,variables=stats.var)
+
+Logging into the collaborating servers
+ds.client.connection.server::ds.login 
+ Error in curl::curl_fetch_memory(url, handle = handle): SSL certificate problem: self signed certificate
+
+> #connection.DSI <- datashield.login(logins=login.data, assign=TRUE,variables=stats.var)
+> print(connection.DSI)
+NULL
+> 
+> datashield.logout(connection.DSI)
+> 
+> 
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.898   0.112   1.670 
