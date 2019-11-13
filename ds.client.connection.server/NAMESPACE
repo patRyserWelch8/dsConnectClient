@@ -3,5 +3,6 @@
 export(ds.aggregate)
 export(ds.assign.value)
 export(ds.build.login.data.frame)
+export(ds.find.variable)
 export(ds.login)
 export(ds.logout)

@@ -3,6 +3,7 @@
 #'@description Some functions listed as aggregate or based on R can be executed in a DataShield server. Calls DSI::datashield.aggregate function.
 #'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
+#'@return the results of the servers executed on the server
 #'@author Patricia Ryser-Welch
 #'@export ds.aggregate
 #'

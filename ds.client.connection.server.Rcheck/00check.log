@@ -47,13 +47,13 @@ Standardizable: FALSE
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
-* checking Rd cross-references ... OK
-* checking for missing documentation entries ... WARNING
-Undocumented code objects:
-  ‘ds.aggregate’ ‘ds.assign.value’ ‘ds.login’ ‘ds.logout’
-All user-level objects in a package should have documentation entries.
-See chapter ‘Writing R documentation files’ in the ‘Writing R
-Extensions’ manual.
+* checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'ds.login.Rd':
+  ‘DSDriver-class’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
+* checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK

@@ -13,7 +13,6 @@
 
 library(DSI)
 library(DSOpal)
-
 library(dsBaseClient)
 library(RCurl)
 

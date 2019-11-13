@@ -1,23 +1,9 @@
 #'@name ds.aggregate
-#'@description Assign a table or an expression result to a R symbol in the Datashield R session.
+#'@title executes some code on some R server sessions. 
+#'@description Some functions listed as aggregate or based on R can be executed in a DataShield server. Calls DSI::datashield.aggregate function.
 #'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
-#'@example
-#'server <- c("study1", "study2")
-#'url <- c("https://some.opal.host:8443","https://another.opal.host")
-#'user <- c("user1", "datashield-certificate.pem")
-#'password <- c("user1pwd", "datashield-private.pem")
-#'table <- c("TESTING.DATASET1", "TESTING.DATASET2")
-#'variables <-  list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
-#'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
-#'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
-#'FACTOR_INTEGER')
-#'options <- c("c(ssl.verifyhost=2,ssl.verifypeer=1)","c(ssl.verifyhost=2,ssl.verifypeer=1)")
-#'driver <- c("OpalDriver","OpalDriver")
-#'login.data.frame <- ds.build.login.data.frame(server,url,table,user,password)
-#'connections <- ds.login(login.data.frame, assign = FALSE, variables, 'D') 
-#'return.value <- ds.aggregate(connections, "ls()",asynchronous = FALSE)
-#'ds.logout(connections)
+#'@return the results of the servers executed on the server
 #'@author Patricia Ryser-Welch
 #'@export ds.aggregate
 #'

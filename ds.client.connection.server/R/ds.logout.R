@@ -1,9 +1,8 @@
 #'@name ds.logout
+#'@title logout from some DataSHIELD servers 
 #'@description Clear the Datashield R sessions and logout from DataSHIELD data repositories.
 #'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
-#'@example
-#' ds.logout(connection, save <- FALSE)
 #'@author Patricia Ryser-Welch
 #'@export ds.logout
 #'

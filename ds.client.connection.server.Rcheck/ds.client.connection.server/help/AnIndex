@@ -1,1 +1,6 @@
+ds.aggregate	ds.aggregate
+ds.assign.value	ds.assign.value
 ds.build.login.data.frame	ds.build.login.data.frame
+ds.find.variable	ds.find.variable
+ds.login	ds.login
+ds.logout	ds.logout

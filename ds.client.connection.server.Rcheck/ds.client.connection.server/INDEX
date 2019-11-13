@@ -1,2 +1,8 @@
+ds.aggregate            executes some code on some R server sessions.
+ds.assign.value         assgin some values on some DataSHIELD servers
 ds.build.login.data.frame
                         Builds a dataframe to login to datashield
+ds.find.variable        indicates whether a variable exists on some
+                        DataSHIELD servers
+ds.login                attempts to log to some DataSHIELD servers.
+ds.logout               logout from some DataSHIELD servers

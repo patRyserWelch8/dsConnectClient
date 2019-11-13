@@ -18,20 +18,6 @@
 #'@param symbol A character, the name of the data frame to which the data repository's table will be
 #'   assigned after login into the server(s). It is set to "D' by default.
 #'@return object(s) of class DSConnection or NULL if some parameters are incorrect
-#'@example
-#'server <- c("study1", "study2")
-#'url <- c("https://some.opal.host:8443","https://another.opal.host")
-#'user <- c("user1", "datashield-certificate.pem")
-#'password <- c("user1pwd", "datashield-private.pem")
-#'table <- c("TESTING.DATASET1", "TESTING.DATASET2")
-#'variables <-  list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
-#'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
-#'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
-#'ßFACTOR_INTEGER')
-#'options <- c("c(ssl.verifyhost=2,ssl.verifypeer=1)","c(ssl.verifyhost=2,ssl.verifypeer=1)")
-#'driver <- c("OpalDriver","OpalDriver")
-#'login.data.frame <- ds.build.login.data.frame(server,url,table,user,password)
-#'connections <- ds.login(login.data.frame, assign = FALSE, variables, 'D') 
 #'@author Patricia Ryser-Welch
 #'@export ds.login
 

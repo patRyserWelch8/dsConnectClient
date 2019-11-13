@@ -1,9 +1,11 @@
 #'@name ds.assign.value
+#'@title assgin some values on some DataSHIELD servers
 #'@description Assign a table or an expression result to a R variable, within a DataShield R session on at least one server.
 #'@param  connection connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param  new.variable.name  name of a new variable created on a server
 #'@param  value It has twofold: (1) The name of a column in a data repositories or a R expression allowed to assign function calls
 #'@param  asynchronous When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.
+#'@return TRUE if the values have been created in all the servers. FALSE if the values have not been successfully created on all the servers
 #'@author Patricia Ryser-Welch
 #'@export ds.assign.value
 #'
@@ -50,8 +52,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
   else
   {
       DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
-      list.var.server <- unlist(ds.aggregate(connection, "ls()", TRUE))
-      return(sum(list.var.server ==  new.variable.name) == length(connection))
+      return(ds.find.variable(connection, new.variable.name))
   }
 }
 
