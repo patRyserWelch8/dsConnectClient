@@ -1,4 +1,5 @@
-#'@title logs to some dataSHIELD server using some login information
+#'@name ds.login 
+#'@title attempts to log to some DataSHIELD servers.
 #'@description This function uses the login details to log on to the DataSHIELD server(s) specified. The login details can be validated
 #'using the ds.build.login.data.frame function. 
 #'@param login.data.frame  A dataframe table that holds login details. This table holds five elements required

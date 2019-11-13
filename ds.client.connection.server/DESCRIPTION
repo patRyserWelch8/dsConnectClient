@@ -1,11 +1,10 @@
 Package: ds.client.connection.server
-Type: Package
-Title: ds.client.connection.server
-Version: 0.1.0
-Author: Patricia Ryser-Welch
-Maintainer: Patricia Ryser-Welch <patricia.ryser-welch@newcastle.ac.uk>
-Description: This package provides the tools the connect to the dataSHIELD server using DSI.
+Title: provides the tools to connect to some DataSHIELD servers
+Version: 0.1
+Authors@R: person("Patricia ", "Ryser-Welch", email = "patricia.ryser-welch@newcastle.ac.uk",
+                  role = c("aut", "cre"))
+Description: provides a set of functions too connect, execute code and assign values on some DataSHIELD 
+Depends: R (>= 3.1.0)
 License: What license is it under?
-Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

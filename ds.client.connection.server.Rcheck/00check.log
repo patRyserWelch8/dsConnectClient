@@ -4,9 +4,7 @@
 * using session charset: UTF-8
 * using options ‘--no-manual --as-cran’
 * checking for file ‘ds.client.connection.server/DESCRIPTION’ ... OK
-* checking extension type ... Package
-* this is package ‘ds.client.connection.server’ version ‘0.1.0’
-* package encoding: UTF-8
+* this is package ‘ds.client.connection.server’ version ‘0.1’
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -24,7 +22,8 @@ structure’ in the ‘Writing R Extensions’ manual.
 * checking installed package size ... OK
 * checking package directory ... OK
 * checking for future file timestamps ... OK
-* checking DESCRIPTION meta-information ... WARNING
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
 Non-standard license specification:
   What license is it under?
 Standardizable: FALSE
@@ -51,7 +50,7 @@ Standardizable: FALSE
 * checking Rd cross-references ... OK
 * checking for missing documentation entries ... WARNING
 Undocumented code objects:
-  ‘ds.login’
+  ‘ds.aggregate’ ‘ds.assign.value’ ‘ds.login’ ‘ds.logout’
 All user-level objects in a package should have documentation entries.
 See chapter ‘Writing R documentation files’ in the ‘Writing R
 Extensions’ manual.
@@ -60,11 +59,5 @@ Extensions’ manual.
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
 * checking examples ... NONE
-* checking for unstated dependencies in ‘tests’ ... WARNING
-'library' or 'require' calls not declared from:
-  ‘RCurl’ ‘httr’ ‘testthat’
-* checking tests ... OK
-  Running ‘dummy.R’
-  Running ‘testthat.R’
 * DONE
-Status: 4 WARNINGs, 1 NOTE
+Status: 2 WARNINGs, 2 NOTEs

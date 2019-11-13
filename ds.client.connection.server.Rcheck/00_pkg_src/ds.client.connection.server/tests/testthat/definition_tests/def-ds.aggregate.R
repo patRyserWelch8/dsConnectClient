@@ -21,7 +21,8 @@ source("connection_to_datasets/init_all_datasets.R")
 .test.no.expression <- function(connections)
 {
   expect_error(.aggregate(connections,NULL))
-  expect_true(is.null(ds.aggregate(connections,NULL)))
+  server.values <- ds.aggregate(connections, server.call)
+  expect_true(server.values == "NR")
 }
 
 .test.incorrect.expression <- function(connections)
@@ -29,6 +30,7 @@ source("connection_to_datasets/init_all_datasets.R")
   
   server.call <- paste("dimDSabdce('",'D',"')")
   expect_error(.aggregate(connections, server.call))
-  expect_true(is.null(ds.aggregate(connections, server.call)))
+  server.values <- ds.aggregate(connections, server.call)
+  expect_true(server.values == "NR")
   
 }

@@ -1,11 +1,10 @@
-#'@title ds.assign
-#'@description Assign a table or an expression result to a R symbol in the Datashield R session.
+#'@name ds.aggregate
+#'@title executes some code on some R server sessions. 
+#'@description Some functions listed as aggregate or based on R can be executed in a DataShield server. Calls DSI::datashield.aggregate function.
 #'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
-#'@example
-#' ds.logout(connection, save <- FALSE)
 #'@author Patricia Ryser-Welch
-#'@export
+#'@export ds.aggregate
 #'
 
 library(DSI)

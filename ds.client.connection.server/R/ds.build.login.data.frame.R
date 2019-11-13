@@ -1,3 +1,4 @@
+#'@name ds.build.login.data.frame
 #'@title Builds a dataframe to login to datashield
 #'@description This function generates a valid data frame, that can be used to login
 #'to some data computers (i.e. opal servers). The data frame models a double-entry table. The
