@@ -41,6 +41,7 @@ context('ds.assign.value():correct_parameters:single')
 test_that('more_incorrect_parameters',
 {
   .test.all.parameters.correct(ds.test_env$connection.DSI)
+  .test.twice.created.variable(ds.test_env$connection.DSI)
 })
 log.out.data.server()
 

@@ -51,6 +51,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
   }
   else
   {
+      ds.remove.variable(connection, new.variable.name)
       DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
       return(ds.find.variable(connection, new.variable.name))
   }

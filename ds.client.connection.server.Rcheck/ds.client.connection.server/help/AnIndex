@@ -4,3 +4,4 @@ ds.build.login.data.frame	ds.build.login.data.frame
 ds.find.variable	ds.find.variable
 ds.login	ds.login
 ds.logout	ds.logout
+ds.remove.variable	ds.remove.variable

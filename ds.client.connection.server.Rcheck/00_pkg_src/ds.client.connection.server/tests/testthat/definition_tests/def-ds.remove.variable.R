@@ -1,0 +1,35 @@
+
+source("connection_to_datasets/init_all_datasets.R")
+
+
+.test.all.parameters.correct <- function(connection, variable.name)
+{
+   DSI::datashield.assign(connection, variable.name, value = as.symbol("D$INTEGER"), async = FALSE)
+   expect_true(ds.find.variable(connection,variable.name))
+   .remove(connection, variable.name)
+   expect_false(ds.find.variable(connection,variable.name))
+   DSI::datashield.assign(connection, variable.name, value = as.symbol("D$INTEGER"), async = FALSE)
+   expect_true(ds.find.variable(connection,variable.name))
+   expect_true(ds.remove.variable(connection,variable.name))
+   expect_false(ds.find.variable(connection,variable.name))
+}
+
+.test.no.connection <- function()
+{
+  expect_error(.remove())
+  expect_error(.remove(NULL, "new.var"))
+  expect_false(ds.remove.variable())
+  expect_false(ds.remove.variable(NULL, "new.var"))
+}
+
+.test.no.variable.names <- function(connection)
+{
+  expect_error(.remove(connection))
+  expect_error(.remove(connection, NULL))
+  expect_error(.remove(connection, ""))
+  expect_false(ds.remove.variable(connection))
+  expect_false(ds.remove.variable(connection, NULL))
+  expect_false(ds.remove.variable(connection, ""))
+}
+
+

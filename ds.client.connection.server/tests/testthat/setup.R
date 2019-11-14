@@ -13,7 +13,7 @@
 
 library(DSI)
 library(DSOpal)
-library(dsBaseClient)
+#library(dsBaseClient)
 library(RCurl)
 
 source("connection_to_datasets/login_details.R")
