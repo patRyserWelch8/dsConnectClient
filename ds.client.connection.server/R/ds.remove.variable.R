@@ -44,6 +44,9 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL)
       variable.exist <- ds.find.variable(connection, variable.name)
       if (variable.exist)
       {
+         
+         a <- ds.aggregate(connection,"print('hi')", asynchronous = FALSE)
+         print(a)
          expression <- paste("rmDS('", variable.name, "')",sep="")
          ds.aggregate(connection,expression, asynchronous = FALSE)
          

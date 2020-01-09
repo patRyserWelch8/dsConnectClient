@@ -23,6 +23,8 @@
 /Users/redraven/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/libraries/load_libraries.R="D6452911"
 /Users/redraven/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/setup.R="6C19C30E"
 /Users/redraven/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/teardown.R="258AE30E"
+/Users/redraven/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/temp/test-ds_logout.R="CF852BD0"
+/Users/redraven/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-ds.assign.value.R="26E68A50"
 /Users/redraven/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-ds.remove.variable.R="5347EDCB"
 /Users/redraven/Documents/GitHub/ds.client.nonparametric/ds.client.nonparametric/R/testDummy.R="4E533FA6"
 /Users/redraven/Documents/GitHub/dsBetaTestClient/tests/testthat/Definition_tests/def-ds.var.r="3C8BA51F"
