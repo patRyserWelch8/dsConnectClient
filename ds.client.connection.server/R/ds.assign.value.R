@@ -17,7 +17,6 @@ library(httr)
 ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,asynchronous=FALSE)
 {
   
-  
   outcome <- FALSE
   tryCatch(
      {outcome <- .assign(connection, new.variable.name, value, asynchronous)},

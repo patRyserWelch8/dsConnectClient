@@ -15,6 +15,19 @@ library(httr)
 ds.share.param <- function(connection)
 {
   
+  no.connections <- length(connection)
+  for (i in 1:no.connections)
+  {
+    print("****")
+    server.call <- paste("rUnifDS(",100,",",14,",",50,",",10,")",sep="")
+    print(server.call)
+    a <- ds.assign.value(connection[i], new.variable.name = paste("var", i), value = server.call)
+    print(a)
+  }
+  print(ds.aggregate(connection, "ls()"))
+  
+  if (FALSE)
+  {
   for(j in 1:Nstudies){
     selected.opal <- datasources[j]
     mean.study.specific <- ss.mat[j,1]
@@ -22,6 +35,7 @@ ds.share.param <- function(connection)
     # SAVE VALIDITY MESSAGE
     opal::datashield.assign(selected.opal, "mean.study.specific", as.symbol(mean.study.specific))
     opal::datashield.assign(selected.opal, "Nvalid.study.specific", as.symbol(Nvalid.study.specific))
+  }
   }
 }
 

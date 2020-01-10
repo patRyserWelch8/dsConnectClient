@@ -25,6 +25,20 @@ source("connection_to_datasets/init_all_datasets.R")
                               value ="D$INTEGER", asynchronous = FALSE))
 }
 
+.test.values.from.assign.function <- function(connection)
+{
+  server.call <- paste("rUnifDS(",100,",",14,",",50,",",10,")",sep="")
+  expect_true(.assign(connection,new.variable.name = "test.var.1",value=server.call,asynchronous = FALSE))
+  expect_true(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,asynchronous = FALSE))
+}
+
+.test.values.from.assign.incorrect.function <- function(connection)
+{
+  expect_error(.assign(connection,new.variable.name = "test.var.1",value="",asynchronous = FALSE))
+  expect_false(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,asynchronous = FALSE))
+}
+
+
 .test.no.connection <- function()
 {
   expect_error(.assign())
