@@ -30,7 +30,7 @@ init.all.datasets <- function()
                                                               ds.test_env$driver
                                                         )
     
-    print(ds.test_env$login.data)
+   
 
     ds.test_env$stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
                                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',

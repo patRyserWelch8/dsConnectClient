@@ -1,10 +1,11 @@
 * using log directory ‘/Users/redraven/Documents/GitHub/ds.client.connection.server/ds.client.connection.server.Rcheck’
-* using R version 3.6.0 (2019-04-26)
+* using R version 3.6.1 (2019-07-05)
 * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --as-cran’
 * checking for file ‘ds.client.connection.server/DESCRIPTION’ ... OK
-* this is package ‘ds.client.connection.server’ version ‘0.1’
+* this is package ‘ds.client.connection.server’ version ‘0.5.0’
+* package encoding: UTF-8
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -17,16 +18,12 @@ These were most likely included in error. See section ‘Package
 structure’ in the ‘Writing R Extensions’ manual.
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking serialization versions ... OK
 * checking whether package ‘ds.client.connection.server’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
 * checking for future file timestamps ... OK
 * checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
-Non-standard license specification:
-  What license is it under?
-Standardizable: FALSE
 * checking top-level files ... OK
 * checking for left-over files ... OK
 * checking index information ... OK
@@ -39,7 +36,7 @@ Standardizable: FALSE
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking dependencies in R code ... WARNING
-'::' or ':::' import not declared from: ‘DSI’
+'::' or ':::' import not declared from: ‘opal’
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
@@ -47,12 +44,7 @@ Standardizable: FALSE
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
-* checking Rd cross-references ... WARNING
-Missing link or links in documentation object 'ds.login.Rd':
-  ‘DSDriver-class’
-
-See section 'Cross-references' in the 'Writing R Extensions' manual.
-
+* checking Rd cross-references ... OK
 * checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... OK
@@ -60,4 +52,4 @@ See section 'Cross-references' in the 'Writing R Extensions' manual.
 * checking for unstated dependencies in examples ... OK
 * checking examples ... NONE
 * DONE
-Status: 2 WARNINGs, 2 NOTEs
+Status: 1 WARNING, 2 NOTEs

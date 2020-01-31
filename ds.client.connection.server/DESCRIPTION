@@ -1,6 +1,6 @@
 Package: ds.client.connection.server
 Title: DataSHIELD Connection Server Tools for the client
-Version: 0.5.0
+Version: 0.6.0
 Authors@R: person("Patricia ", "Ryser-Welch", email = "patricia.ryser-welch@newcastle.ac.uk",
                   role = c("aut", "cre"))
 Description: provides a set of functions too connect, execute code and assign values on some DataSHIELD servers
@@ -12,5 +12,5 @@ Imports:
     DSOpal,
     RCurl,
     R6
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8

@@ -4,9 +4,15 @@
 \alias{ds.build.login.data.frame}
 \title{Builds a dataframe to login to datashield}
 \usage{
-ds.build.login.data.frame(data.computers.name, data.computers.url,
-  data.computers.table.name, users.id, users.password, options.ssl,
-  driver.connection)
+ds.build.login.data.frame(
+  data.computers.name,
+  data.computers.url,
+  data.computers.table.name,
+  users.id,
+  users.password,
+  options.ssl,
+  driver.connection
+)
 }
 \arguments{
 \item{data.computers.name}{A vector of characters listing all the names of the data computers}

@@ -7,3 +7,4 @@ ds.find.variable        indicates whether a variable exists on some
 ds.login                attempts to log to some DataSHIELD servers.
 ds.logout               logout from some DataSHIELD servers
 ds.remove.variable      remove a variable from some DataSHIELD servers.
+ds.share.param          client function TO DO

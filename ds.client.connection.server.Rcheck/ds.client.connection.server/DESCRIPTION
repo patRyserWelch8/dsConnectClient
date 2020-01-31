@@ -1,15 +1,17 @@
 Package: ds.client.connection.server
-Title: provides the tools to connect to some DataSHIELD servers
-Version: 0.1
+Title: DataSHIELD Connection Server Tools for the client
+Version: 0.5.0
 Authors@R: person("Patricia ", "Ryser-Welch", email = "patricia.ryser-welch@newcastle.ac.uk",
                   role = c("aut", "cre"))
-Description: provides a set of functions too connect, execute code and assign values on some DataSHIELD 
-Depends: R (>= 3.1.0)
-License: What license is it under?
+Description: provides a set of functions too connect, execute code and assign values on some DataSHIELD servers
+Depends: R (>= 3.5.0)
+License: GPL-3
 LazyData: true
-RoxygenNote: 6.1.1
+Imports: DSI, DSOpal, RCurl, R6
+RoxygenNote: 7.0.2
+Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2019-11-14 16:17:25 UTC; redraven
+Packaged: 2020-01-31 16:40:33 UTC; redraven
 Author: Patricia Ryser-Welch [aut, cre]
 Maintainer: Patricia  Ryser-Welch <patricia.ryser-welch@newcastle.ac.uk>
-Built: R 3.6.0; ; 2019-11-14 16:17:29 UTC; unix
+Built: R 3.6.1; ; 2020-01-31 16:40:41 UTC; unix
