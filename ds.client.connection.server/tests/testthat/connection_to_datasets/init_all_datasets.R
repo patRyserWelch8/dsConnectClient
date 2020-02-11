@@ -39,6 +39,7 @@ init.all.datasets <- function()
 
 
 
+    print(ds.test_env$login.data)
   }
 }
 
@@ -155,8 +156,6 @@ log.out.data.server <- function()
 
 connect.all.datasets <- function()
 {
-   log.out.data.server()
-   source("connection_to_datasets/login_details.R")
    init.all.datasets()
    log.in.data.server()
 }
