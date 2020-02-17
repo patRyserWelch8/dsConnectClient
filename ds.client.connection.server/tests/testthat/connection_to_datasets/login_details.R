@@ -8,7 +8,8 @@ source("connection_to_datasets/init_local_settings.R")
 set_config( config( ssl_verifypeer = 0L ) )
 set_config( config( ssl_verifyhost = 0L ) )
 init.ip.address()
-ds.test_env <- new.env()
+#ds.test_env <- new.env()
+#options(datashield.env=ds.test_env)
 
   ds.test_env$contexts <- c('opal','dsi','dslite','continuous','coverage')  
 
@@ -32,6 +33,7 @@ ds.test_env <- new.env()
   ds.test_env$password_1 <- "datashield_test&"
   ds.test_env$password_2 <- "datashield_test&"
   ds.test_env$password_3 <- "datashield_test&"
+  ds.test_env$driver <- "OpalDriver"
   ds.test_env$secure_login_details = TRUE
 
 

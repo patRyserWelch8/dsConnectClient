@@ -10,19 +10,25 @@
 #
 # Datashield test suite set up
 #
-
-source('libraries/load_libraries.R')
-load.libraries()
-
-
+ds.test_env <- new.env()
 source("connection_to_datasets/login_details.R")
 source("connection_to_datasets/init_all_datasets.R")
-#source("libraries/load_libraries.R")
-source("connection_to_datasets/login_details.R")
-options(show.error.messages = FALSE)
+
+library(DSOpal)
+library(DSI)
+
+#ds.test_env <- new.env()
+#options(datashield.env=ds.test_env)
+
+options(show.error.messages = TRUE)
 options()
 print("setup")
-source("connection_to_datasets/login_details.R")
-#connect.all.datasets ()
-
+print( ds.test_env$driver)
+connections <- connect.all.datasets()
+print("SETUP AFTER CONNECT ")
+print("ds.test_env$connections")
+print(ds.test_env$connections)
+print("connections")
+print(connections)
+print(exists("connections", envir = ds.test_env))
 print("setup finished")

@@ -8,7 +8,7 @@ context('ds.share_param():connection')
 connect.all.datasets ()
 test_that('',
 {
-  .test_param(ds.test_env$connection.DSI)
+  .test_param(ds.test_env$connections)
 }
 )
 
