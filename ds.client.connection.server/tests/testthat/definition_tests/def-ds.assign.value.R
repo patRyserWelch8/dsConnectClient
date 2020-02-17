@@ -5,11 +5,10 @@ source("connection_to_datasets/init_all_datasets.R")
 .test.all.parameters.correct <- function(connection)
 {
   
-   expect_true(.assign (connection, new.variable.name = "test.var.1", 
-             value ="D$INTEGER", asynchronous = FALSE))
+   expect_true(.assign (connection, new.variable.name = "test.var.1", value ="D$INTEGER", asynchronous = FALSE))
 
    expect_true(ds.assign.value(connection, new.variable.name = "test.var.1", 
-                       value ="D$INTEGER", asynchronous = FALSE))
+                        value ="D$INTEGER", asynchronous = FALSE))
 }
 
 .test.twice.created.variable <- function(connection)

@@ -37,9 +37,7 @@ init.all.datasets <- function()
                                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER',
                                   'FACTOR_INTEGER')
 
-
-
-    print(ds.test_env$login.data)
+  
   }
 }
 
@@ -127,7 +125,7 @@ init.dataset.1 <- function()
                                                         ds.test_env$password,
                                                         ds.test_env$options.ssl,
                                                         ds.test_env$driver)
-    print(ds.test_env$login.data)
+   
 
     ds.test_env$stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
                                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
@@ -139,6 +137,10 @@ init.dataset.1 <- function()
 log.in.data.server <- function()
 {
   ds.test_env$connection.DSI <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
+  print("----- inside log in data server -------")
+  print(ds.test_env$login.data)
+  ds.test_env$connection.DSI <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
+  print("----- inside log in data server -------")
 }
 
 
@@ -148,16 +150,23 @@ log.out.data.server <- function()
   test_index  <- length(objs[objs %in% c("ds.test_env")])
   if (test_index >= 1)
   {
-    datashield.logout(ds.test_env$connection.DSI)
-    rm(list = ls())
-    gc()
+    DSI::datashield.logout(ds.test_env$connection.DSI)
+    #rm(list = ls())
+    #gc()
   }
 }
 
 connect.all.datasets <- function()
 {
+   source("connection_to_datasets/login_details.R")
    init.all.datasets()
    log.in.data.server()
+   print("---- inside connect all datasets ----")
+   print(ds.test_env$connection.DSI)
+   print(class(ds.test_env$connection.DSI))
+   print(is.list(ds.test_env$connection.DSI))
+   print("---- inside connect all datasets ----")
+   
 }
 
 disconnect.all.datasets <- function()

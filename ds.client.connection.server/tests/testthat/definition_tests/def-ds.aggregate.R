@@ -4,8 +4,12 @@ source("connection_to_datasets/init_all_datasets.R")
 .test.all.parameters.correct <- function(connections)
 {
   
-  server.call <- paste("dimDS(",'D',")")
+  server.call <- paste("dimDS('",'D',"')", sep="")
+  print(server.call)
+  print(connections)
+  print(.aggregate(connections, server.call))
   server.values <- ds.aggregate(connections, server.call)
+  print(server.values)
   expect_true(length(server.values) == length(connections))
 }
 

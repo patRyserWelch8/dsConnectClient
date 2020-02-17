@@ -11,10 +11,9 @@
 # Datashield test suite set up
 #
 
-library(DSI)
-library(DSOpal)
-#library(dsBaseClient)
-library(RCurl)
+source('libraries/load_libraries.R')
+load.libraries()
+
 
 source("connection_to_datasets/login_details.R")
 source("connection_to_datasets/init_all_datasets.R")

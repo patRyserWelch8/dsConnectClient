@@ -26,7 +26,9 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 .aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
  
-  if(!grepl("list",class(connection)))
+  
+  if(!is.list(connection))
+  #if(!grepl("list",class(connection)))
   {
     stop("ERR:006", call. = FALSE)
   }
