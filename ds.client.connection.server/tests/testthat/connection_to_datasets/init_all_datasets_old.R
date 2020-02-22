@@ -3,28 +3,23 @@
 
 # Connect to three servers and the three datasets. Four local variables named ds.test_env$local.values.1,
 # ds.test_env$local.values.2, ds.test_env$local.values.3 and ds.test_env$local.values are created.
-# version 2.1a - 17/02/2020 - Some issues with accessing the ds.test_env environment were experienced. Only inside certain 
-# functions the connections were able to be reached. For that reason, the connect functions have been altered to return a connection.
-
-
 init.all.datasets <- function()
 {
-  if (exists("login.details"))
+  #log.out.data.server()
+  if (ds.test_env$secure_login_details)
   {
     #reading data from local files 
     ds.test_env$local.values.1 <- read.csv("data_files/DATASET1.csv", header = TRUE)
     ds.test_env$local.values.2 <- read.csv("data_files/DATASET2.csv", header = TRUE)
     ds.test_env$local.values.3 <- read.csv("data_files/DATASET3.csv", header = TRUE)
     ds.test_env$local.values   <- rbind(ds.test_env$local.values.1,ds.test_env$local.values.2,ds.test_env$local.values.3)
-    
-    if (login.details$driver == "OpalDriver") 
+    if (ds.test_env$driver == "OpalDriver") 
     {
-     
       #connecting to the servers
       ds.test_env$server <- c("study1", "study2", "study3")
-      ds.test_env$url <- c(login.details$ip_address_1,login.details$ip_address_2,login.details$ip_address_3)
-      ds.test_env$user <- c(login.details$user_1,login.details$user_2,login.details$user_3)
-      ds.test_env$password <- c(login.details$password_1,login.details$password_2,login.details$password_3)
+      ds.test_env$url <- c(ds.test_env$ip_address_1,ds.test_env$ip_address_2,ds.test_env$ip_address_3)
+      ds.test_env$user <- c(ds.test_env$user_1,ds.test_env$user_2,ds.test_env$user_3)
+      ds.test_env$password <- c(ds.test_env$password_1,ds.test_env$password_2,ds.test_env$password_3)
       ds.test_env$table <- c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
       ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
                                                                     ds.test_env$url,
@@ -37,7 +32,6 @@ init.all.datasets <- function()
     {
       ds.test_env$login.data <- DSLite::setupDATASETTest("dsBase", env = ds.test_env)
     }
-    
     ds.test_env$stats.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
                                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
                                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER', 
@@ -48,15 +42,16 @@ init.all.datasets <- function()
 # Connect to one server and the three datasets. One local variables named ds.test_env$local.values.3 is created.
 init.dataset.3 <- function()
 {
-  if (exists("login.details"))
+  log.out.data.server()
+  if (ds.test_env$secure_login_details)
   {
     ds.test_env$local.values.3 <- read.csv("data_files/DATASET3.csv", header = TRUE)
-    if (login.details$driver == "OpalDriver")
+    if (ds.test_env$driver == "OpalDriver")
     {
       ds.test_env$server <- c("study3")
-      ds.test_env$url <- c(login.details$ip_address_3)
-      ds.test_env$user <- c(login.details$user_3)
-      ds.test_env$password <- c(login.details$password_3)
+      ds.test_env$url <- c(ds.test_env$ip_address_3)
+      ds.test_env$user <- c(ds.test_env$user_3)
+      ds.test_env$password <- c(ds.test_env$password_3)
       ds.test_env$table <- c("TESTING.DATASET3")
       ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
                                                                     ds.test_env$url,
@@ -80,16 +75,16 @@ init.dataset.3 <- function()
 # Connect to one server and the three datasets. One local variables named ds.test_env$local.values.2 is created.
 init.dataset.2 <- function()
 {
-  
-  if (exists("login.details"))
+  log.out.data.server()
+  if (ds.test_env$secure_login_details)
   {
     ds.test_env$local.values.2 <- read.csv("data_files/DATASET2.csv", header = TRUE)
-    if (login.details$driver == "OpalDriver")
+    if (ds.test_env$driver == "OpalDriver")
     {
       ds.test_env$server <- c("study2")
-      ds.test_env$url <- c(login.details$ip_address_2)
-      ds.test_env$user <- c(login.details$user_2)
-      ds.test_env$password <- c(login.details$password_2)
+      ds.test_env$url <- c(ds.test_env$ip_address_2)
+      ds.test_env$user <- c(ds.test_env$user_2)
+      ds.test_env$password <- c(ds.test_env$password_2)
       ds.test_env$table <- c("TESTING.DATASET2")
       ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
                                                                     ds.test_env$url,
@@ -113,15 +108,16 @@ init.dataset.2 <- function()
 # Connect to one server and the three datasets. One local variables named ds.test_env$local.values.2is created.
 init.dataset.1 <- function()
 {
-  if (exists("login.details"))
+  log.out.data.server()
+  if (ds.test_env$secure_login_details)
   {
     ds.test_env$local.values.1 <- read.csv("data_files/DATASET1.csv", header = TRUE)
-    if (login.details$driver == "OpalDriver")
+    if (ds.test_env$driver == "OpalDriver")
     {
       ds.test_env$server <- c("study1")
-      ds.test_env$url <- c(login.details$ip_address_1)
-      ds.test_env$user <- c(login.details$user_1)
-      ds.test_env$password <- c(login.details$password_1)
+      ds.test_env$url <- c(ds.test_env$ip_address_1)
+      ds.test_env$user <- c(ds.test_env$user_1)
+      ds.test_env$password <- c(ds.test_env$password_1)
       ds.test_env$table <- c("TESTING.DATASET1")
       ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
                                                                     ds.test_env$url,
@@ -144,15 +140,18 @@ init.dataset.1 <- function()
 
 log.in.data.server <- function()
 {
+  #print(ds.test_env$login.data)
   ds.test_env$connections <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
+  print("LOG IN ")
+  print(exists("connections", envir = ds.test_env))
 }
 
 
-log.out.data.server <- function(connections= NULL)
+log.out.data.server <- function()
 {
-  if (!is.null(connections))
+  if (!is.null(ds.test_env) && !is.null(ds.test_env$connections))
   {
-    datashield.logout(connections)
+    datashield.logout(ds.test_env$connections)
   }
   rm(list = ls())
   gc()
@@ -160,53 +159,60 @@ log.out.data.server <- function(connections= NULL)
 
 connect.all.datasets <- function()
 {
-  #source("connection_to_datasets/login_details.R")
+  print("1")
+  log.out.data.server()
+  print("2")
+  source("connection_to_datasets/login_details.R")
+  print("3")
   init.all.datasets()
+  print("4")
   log.in.data.server()
+  print("5")
+  print("CONNECT")
+  print(exists("connections", envir = ds.test_env))
   return(ds.test_env$connections)
 }
 
 connect.dataset.1 <- function()
 {
-  #source("connection_to_datasets/login_details.R")
+  log.out.data.server()
+  source("connection_to_datasets/login_details.R")
   init.dataset.1()
   log.in.data.server()
-  return(ds.test_env$connections)
 }
 
 connect.dataset.2 <- function()
 {
-  #source("connection_to_datasets/login_details.R")
+  log.out.data.server()
+  source("connection_to_datasets/login_details.R")
   init.dataset.2()
   log.in.data.server()
-  return(ds.test_env$connections)
 }
 
 connect.dataset.3 <- function()
 {
-  #source("connection_to_datasets/login_details.R")
+  log.out.data.server()
+  source("connection_to_datasets/login_details.R")
   init.dataset.3()
   log.in.data.server()
-
-  return(ds.test_env$connections)
 }
 
-disconnect.all.datasets <- function(connections)
+disconnect.all.datasets <- function()
 {
-  log.out.data.server(connections)
+  log.out.data.server()
 }
 
-disconnect.dataset.1 <- function(connections)
+disconnect.dataset.1 <- function()
 {
-  log.out.data.server(connections)
+  log.out.data.server()
 }
 
-disconnect.dataset.2 <- function(connections)
+disconnect.dataset.2 <- function()
 {
-  log.out.data.server(connections)
+  log.out.data.server()
 }
 
-disconnect.dataset.3 <- function(connections)
+disconnect.dataset.3 <- function()
 {
-  log.out.data.server(connections)
+  log.out.data.server()
 }

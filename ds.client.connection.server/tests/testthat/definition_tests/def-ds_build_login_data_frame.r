@@ -9,7 +9,8 @@
   drivers <- some.drivers
   
   login.info <- ds.build.login.data.frame(server,url,table,user,password,options.ssl, drivers)
-  
+  print("after execution")
+  print(login.info)
   expect_true(length(login.info) == 7)
   expect_that(login.info,is_a('data.frame'))
   expect_that(colnames(login.info)[1], equals('server'))
@@ -55,6 +56,18 @@
   
   expect_true(is.null(ds.build.login.data.frame(c(),c(),c(),c(),c(),c(),c())))
   expect_error(build.data.frame(server,url,table,user,password,option.ssl,drivers))
+}
+
+
+
+build.all.datasets <- function()
+{
+  return(c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3"))
+}
+
+build.all.ssl <- function()
+{
+  return(c("c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)"))
 }
 
 

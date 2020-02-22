@@ -22,7 +22,7 @@
 #'Expectation no 4: the number of row is 0, if any of the urls does not start with http
 #'@author Patricia Ryser-Welch
 #'@export
-ds.build.login.data.frame <- function (data.computers.name, 
+ds.build.login.data.frame <- function (  data.computers.name, 
                                          data.computers.url, 
                                          data.computers.table.name,
                                          users.id, 
@@ -53,7 +53,6 @@ build.data.frame <- function(data.computers.name, data.computers.url,
                               driver.connection) 
 {
  
-  
   #assign the arguments to the data frame format.
   server <- as.character(data.computers.name)
   url <- as.character(data.computers.url)
@@ -63,12 +62,15 @@ build.data.frame <- function(data.computers.name, data.computers.url,
   options.ssl <- as.character(options.ssl)
   driver <- as.character(driver.connection)
  
-  
+ 
   #Verify the length of each vector is the same
   NO_COLUMNS <- 7
   expected.elements <-length(server) * NO_COLUMNS
-  total.elements <- length(server) + length(url) + length(user) + length(password) + length(table)  + length(options.ssl) + length(driver)
-  
+  print(expected.elements)
+  total.elements <- length(server) + length(url) + 
+                    length(user) + length(password) + length(table)  + 
+                    length(options.ssl) + length(driver)
+ 
   
   if (expected.elements != total.elements)
   {
