@@ -1,3 +1,79 @@
+#user_1 = "administrator",
+#user_2 = "administrator",
+#user_3 = "administrator",
+#password_1 = "datashield_test&",
+#password_2 = "datashield_test&",
+#password_3 = "datashield_test&",
+#driver = "OpalDriver",
+#secure_login_details = TRUE
+)
+LoginDetails <- R6Class("LoginDetails",
+public = list(
+driver = "OpalDriver",
+contexts = c('opal','dsi','dslite','continuous','coverage'),
+context = 'dsi',
+server_ip_address = '',
+ip_address_1 = '',
+ip_address_2 = '',
+ip_address_3 = '',
+ping_address = ''
+#user_1 = "administrator",
+#user_2 = "administrator",
+#user_3 = "administrator",
+#password_1 = "datashield_test&",
+#password_2 = "datashield_test&",
+#password_3 = "datashield_test&",
+#driver = "OpalDriver",
+#secure_login_details = TRUE
+)
+LoginDetails <- R6Class("LoginDetails",
+public = list(
+driver = "OpalDriver",
+contexts = c('opal','dsi','dslite','continuous','coverage'),
+context = 'dsi',
+server_ip_address = '',
+ip_address_1 = '',
+ip_address_2 = '',
+ip_address_3 = '',
+ping_address = '',
+user_1 = "administrator"
+#user_2 = "administrator",
+#user_3 = "administrator",
+#password_1 = "datashield_test&",
+#password_2 = "datashield_test&",
+#password_3 = "datashield_test&",
+#driver = "OpalDriver",
+#secure_login_details = TRUE
+)
+LoginDetails <- R6Class("LoginDetails",
+public = list(
+driver = "OpalDriver",
+contexts = c('opal','dsi','dslite','continuous','coverage'),
+context = 'dsi',
+server_ip_address = '',
+ip_address_1 = '',
+ip_address_2 = '',
+ip_address_3 = '',
+ping_address = '',
+user_1 = "administrator",
+user_2 = "administrator"
+#user_3 = "administrator",
+#password_1 = "datashield_test&",
+#password_2 = "datashield_test&",
+#password_3 = "datashield_test&",
+#driver = "OpalDriver",
+#secure_login_details = TRUE
+)
+LoginDetails <- R6Class("LoginDetails",
+public = list(
+driver = "OpalDriver",
+contexts = c('opal','dsi','dslite','continuous','coverage'),
+context = 'dsi',
+server_ip_address = '',
+ip_address_1 = '',
+ip_address_2 = '',
+ip_address_3 = '',
+ping_address = '',
 user_1 = "administrator",
 user_2 = "administrator",
 user_3 = "administrator"
@@ -434,79 +510,3 @@ return(c(rep(self$driver,no_servers)))
 )
 a
 a[c(1:1)]
-a <- c("a","b", "c")
-mean(a)
-mean
-installed.packages("devtools")
-installed.packages("devtools")
-install.packages("devtools")
-install.packages(c("opalr", "RCurl"))
-source('~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/libraries/load_libraries.R')
-load.libraries <- function()
-{
-print('Loading packages....')
-package.loaded = require('opalr')
-if (!package.loaded)
-{
-install.packages('opalr',repos='http://cran.obiba.org')
-library('opalr')
-}
-package.loaded = require('DSOpal')
-if (!package.loaded)
-{
-devtools::install_github('datashield/DSOpal', force=TRUE)
-library('DSOpal')
-}
-package.loaded = require('DSI')
-if (!package.loaded)
-{
-devtools::install_github('datashield/DSI', force=TRUE)
-library('DSI')
-}
-package.loaded = require('RCurl')
-if (!package.loaded)
-{
-install.packages('RCurl')
-library('RCurl')
-}
-#package.loaded = require('dsBase')
-#if (!package.loaded)
-#{
-#  install.packages('dsBase',repos='http://cran.obiba.org')
-#  library('dsBase')
-#}
-#print('dsModelling')
-#package.loaded = require('dsModelling')
-#if (!package.loaded)
-#{
-#  install.packages('dsModelling',repos='http://cran.obiba.org')
-#  library('dsModelling')
-#}
-#package.loaded = require('dsGraphics')
-#if (!package.loaded)
-#{
-#  install.packages('dsGraphics',repos='http://cran.obiba.org')
-#  library('dsGraphics')
-#}
-#package.loaded = require('dsStats')
-#if (!package.loaded)
-#{
-#  install.packages('dsStats',repos='http://cran.obiba.org')
-#  library('dsStats')
-#}
-}
-load.libraries()
-source('~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/libraries/load_libraries.R')
-devtools::install_github('datashield/DSOpal', force=TRUE)
-devtools::install_github('datashield/DSI', force=TRUE)
-devtools::install_github('datashield/DSOpal', force=TRUE)
-source('~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/libraries/load_libraries.R')
-install.packages('opalr',repos='http://cran.obiba.org')
-install.packages("opalr", repos = "http://cran.obiba.org")
-devttools::install_github('opalr',repos='http://cran.obiba.org')
-devttools::install_github('opalr')
-install.packages('opalr',repos='http://cran.obiba.org')
-devtools::install_github("obiba/opalr", ref = "resources", dependencies = TRUE)
-devtools::install_github("datashield/DSI", ref = "resources", dependencies = TRUE)
-devtools::install_github("datashield/DSOpal", ref = "resources", dependencies = TRUE)
-devtools::install_github("datashield/dsBaseClient", ref = "DSI", dependencies = TRUE)

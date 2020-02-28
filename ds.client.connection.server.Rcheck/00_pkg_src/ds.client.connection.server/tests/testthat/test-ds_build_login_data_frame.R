@@ -3,40 +3,32 @@ library(DSOpal)
 library(testthat)
 
 source("definition_tests/def-ds_build_login_data_frame.r")
+#source("connection_to_datasets/login_details.R")
+
+
+datasets <- build.all.datasets()
+studies  <- c('study1', 'study2', 'study3')
+ssl      <- build.all.ssl()
 
 context('ds.build.login.data.frame()::correct format::multiple')
 test_that ('The login information is correct ',
 {
-  .test.correct.data(c('study1', 'study2', 'study3'),
-          c(ds.test_env$ip_address_1,ds.test_env$ip_address_2,ds.test_env$ip_address_3),
-          c(ds.test_env$user_1,ds.test_env$user_2,ds.test_env$user_3),
-          c(ds.test_env$password_1,ds.test_env$password_2,ds.test_env$password_3),
-          c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3"),
-          c("c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)"),
-          c("OpalDriver","OpalDriver","OpalDriver"))
-  .test.correct.data(c('study1', 'study2'),
-          c(ds.test_env$ip_address_1,ds.test_env$ip_address_2),
-          c(ds.test_env$user_1,ds.test_env$user_2),
-          c(ds.test_env$password_1,ds.test_env$password_2),
-          c("TESTING.DATASET1", "TESTING.DATASET2"),
-          c("c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)"),
-          c("OpalDriver","OpalDriver"))
+ 
+  .test.correct.data(studies[c(1,2,3)],
+                     login.details$get_ip_addresses(3),
+                     login.details$get_users(3),
+                     login.details$get_passwords(3),
+                     datasets[c(1,2,3)],
+                     ssl[c(1,2,3)],
+                     login.details$get_drivers(3))
   
-  .test.correct.data(c('study2', 'study3'),
-          c(ds.test_env$ip_address_2,ds.test_env$ip_address_3),
-          c(ds.test_env$user_2,ds.test_env$user_3),
-          c(ds.test_env$password_2,ds.test_env$password_3),
-          c("TESTING.DATASET2", "TESTING.DATASET3"),
-          c("c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)"),
-          c("OpalDriver","OpalDriver"))
-  
-  .test.correct.data(c('study1', 'study3'),
-          c(ds.test_env$ip_address_1,ds.test_env$ip_address_3),
-          c(ds.test_env$user_1,ds.test_env$user_3),
-          c(ds.test_env$password_1,ds.test_env$password_3),
-          c("TESTING.DATASET1", "TESTING.DATASET3"),
-          c("c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)"),
-          c("OpalDriver","OpalDriver"))
+  .test.correct.data(studies[c(1,2)],
+                     login.details$get_ip_addresses(2),
+                     login.details$get_users(2),
+                     login.details$get_passwords(2),
+                     datasets[c(1,2)],
+                     ssl[c(1,2)],
+                     login.details$get_drivers(2))
   
 })
 
@@ -45,29 +37,15 @@ test_that ('The login information is correct ',
 context('ds.build.login.data.frame()::correct format::single')
 test_that ('The login information is correct ',
 {
-  .test.correct.data(c('study1'),
-          c(ds.test_env$ip_address_1),
-          c(ds.test_env$user_1),
-          c(ds.test_env$password_1),
-          c("TESTING.DATASET1"),
-          c("c(ssl.verifyhost=0,ssl.verifypeer=0)"),
-          c("OpalDriver"))
+  .test.correct.data(studies[c(1)],
+                     login.details$get_ip_addresses(1),
+                     login.details$get_users(1),
+                     login.details$get_passwords(1),
+                     datasets[c(1)],
+                     ssl[c(1)],
+                     login.details$get_drivers(1))
   
-  .test.correct.data(c('study2'),
-          c(ds.test_env$ip_address_2),
-          c(ds.test_env$user_2),
-          c(ds.test_env$password_2),
-          c("TESTING.DATASET2"),
-          c("c(ssl.verifyhost=0,ssl.verifypeer=0)"),
-          c("OpalDriver"))
   
-  .test.correct.data(c('study3'),
-          c(ds.test_env$ip_address_3),
-          c(ds.test_env$user_3),
-          c(ds.test_env$password_3),
-          c("TESTING.DATASET3"),
-          c("c(ssl.verifyhost=0,ssl.verifypeer=0)"),
-          c("OpalDriver"))
 })
 
 context('ds.build.login.data.frame()::incorrect url::multiple')
@@ -225,4 +203,6 @@ test_that ('The login information is an incorrect format',
           c(),
           c())
 })
+
+
 

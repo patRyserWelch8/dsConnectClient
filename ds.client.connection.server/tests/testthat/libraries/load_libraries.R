@@ -10,7 +10,12 @@ load.libraries <- function()
      library('opalr')
   }
   
-  
+  package.loaded = require('DSI')
+  if (!package.loaded)
+  {
+    devtools::install_github('datashield/DSI', force=TRUE)
+    library('DSI')
+  }
   
   package.loaded = require('DSOpal')
   if (!package.loaded)
@@ -20,12 +25,7 @@ load.libraries <- function()
   }
   
   
-  package.loaded = require('DSI')
-  if (!package.loaded)
-  {
-    devtools::install_github('datashield/DSI', force=TRUE)
-    library('DSI')
-  }
+ 
   
   package.loaded = require('RCurl')
   if (!package.loaded)

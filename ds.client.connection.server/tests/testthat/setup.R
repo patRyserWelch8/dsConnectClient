@@ -27,6 +27,7 @@ options(show.error.messages = FALSE)
 options()
 print("setup")
 
+
 connections <- connect.all.datasets()
 disconnect.all.datasets(connections)
 

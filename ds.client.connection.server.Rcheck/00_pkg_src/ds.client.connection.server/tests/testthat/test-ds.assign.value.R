@@ -12,20 +12,20 @@ test_that('no_connection',
   .test.no.connection()
 })
 
-connect.all.datasets()
+connections <- connect.all.datasets()
 context('ds.assign.value():more_incorrect_parameters:multiple')
 test_that('more_incorrect_parameters',
 {
-  .test.no.variable.names(ds.test_env$connection.DSI)
-  .test.no.value(ds.test_env$connection.DSI)
-  .test.values.from.assign.incorrect.function(ds.test_env$connection.DSI)
+  .test.no.variable.names(connections)
+  .test.no.value(connections)
+  .test.values.from.assign.incorrect.function(connections)
 })
 
 context('ds.assign.value():correct_parameters:multiple')
 test_that('correct_parameters',
 {
-  .test.all.parameters.correct(ds.test_env$connection.DSI)
-  .test.values.from.assign.function(ds.test_env$connection.DSI)
+  .test.all.parameters.correct(connections)
+  .test.values.from.assign.function(connections)
 })
 
 
@@ -35,17 +35,17 @@ connect.dataset.1()
 context('ds.assign.value():more_incorrect_parameters:single')
 test_that('correct_parameters',
 {
-  .test.no.variable.names(ds.test_env$connection.DSI)
-  .test.no.value(ds.test_env$connection.DSI)
-  .test.values.from.assign.function(ds.test_env$connection.DSI)
+  .test.no.variable.names(connections)
+  .test.no.value(connections)
+  .test.values.from.assign.function(connections)
 })
 
 context('ds.assign.value():correct_parameters:single')
 test_that('more_incorrect_parameters',
 {
-  .test.all.parameters.correct(ds.test_env$connection.DSI)
-  .test.twice.created.variable(ds.test_env$connection.DSI)
-  .test.values.from.assign.incorrect.function(ds.test_env$connection.DSI)
+  .test.all.parameters.correct(connections)
+  .test.twice.created.variable(connections)
+  .test.values.from.assign.incorrect.function(connections)
 })
 log.out.data.server()
 

@@ -1,4 +1,4 @@
-#'@name ds.build.login.data.frame
+#'@name ds.build.login.data.resources [ TO DO DOCUMENTATION]
 #'@title Builds a dataframe to login to datashield
 #'@description This function generates a valid data frame, that can be used to login
 #'to some data computers (i.e. opal servers). The data frame models a double-entry table. The
@@ -22,69 +22,52 @@
 #'Expectation no 4: the number of row is 0, if any of the urls does not start with http
 #'@author Patricia Ryser-Welch
 #'@export
-ds.build.login.data.frame <- function (  data.computers.name, 
-                                         data.computers.url, 
-                                         data.computers.table.name,
-                                         users.id, 
-                                         users.password, 
-                                         options.ssl, 
-                                         driver.connection)
+ds.build.login.data.resources <- function (servers, urls, users, passwords, resources, options.ssl, drivers)
 {
-  return.data.frame <- NULL
-  
-  
+  return.data.object <- NULL
+  print("GGGGG")
   tryCatch(
-    {return.data.frame <- .build.data.frame(data.computers.name,
-                                           data.computers.url,
-                                           data.computers.table.name,
-                                           users.id,
-                                           users.password,
-                                           options.ssl,
-                                           driver.connection) },
+    {return.data.object <- .build.data.object(servers, urls, users, passwords,  resources, options.ssl,  drivers) },
     warning = function(warning) {.warning(warning)},
     error = function(error) {.error(error)},
-    finally = {return(return.data.frame)})
+    finally = {return(return.data.object)})
 }
 
 
-.build.data.frame <- function(data.computers.name, data.computers.url, 
-                              data.computers.table.name,users.id, users.password, 
-                              options.ssl, 
-                              driver.connection) 
+.build.data.object <- function(servers, urls, users, passwords, resources, options.ssl, drivers) 
 {
  
+  print("UUUUUUU")
   #assign the arguments to the data frame format.
-  server <- as.character(data.computers.name)
-  url <- as.character(data.computers.url)
-  user <- as.character(users.id)
-  password <- as.character(users.password)
-  table <- as.character(data.computers.table.name)
+  servers <- as.character(servers)
+  urls <- as.character(urls)
+  users <- as.character(users)
+  passwords <- as.character(passwords)
+  resources <- as.character(resources)
   options.ssl <- as.character(options.ssl)
-  driver <- as.character(driver.connection)
+  drivers <- as.character(drivers)
  
- 
+ print("1")
   #Verify the length of each vector is the same
   NO_COLUMNS <- 7
-  expected.elements <-length(server) * NO_COLUMNS
-  print(expected.elements)
-  total.elements <- length(server) + length(url) + 
-                    length(user) + length(password) + length(table)  + 
-                    length(options.ssl) + length(driver)
- 
+  expected.elements <-length(servers) * NO_COLUMNS
+  total.elements <- length(servers) + length(urls) + 
+                    length(users) + length(passwords) + length(tables)  + 
+                    length(options.ssl) + length(drivers)
+ print("2")
   
   if (expected.elements != total.elements)
   {
-     stop("ERR:001")
+      stop("ERR:001")
   }
   else if (length(server) == 0 || length(url) == 0 ||  length(user) == 0 || length(password) == 0 || length(table) == 0 
            || length(options) == 0 || length(driver) == 0)
   {
-    stop("ERR:004")
+      stop("ERR:004")
   }
   else if (all(startsWith(url,"https")))
   {
-     
-     return(data.frame(server,url,user,password,table,options.ssl,driver))
+      return(.build.object(servers, urls, users, passwords,  resources, drivers))
   }
   else
   {
@@ -92,6 +75,26 @@ ds.build.login.data.frame <- function (  data.computers.name,
   }
 }
 
+.build.object <- function(servers, urls, users, passwords,  resources, drivers)
+{
+  builder <- DSI::newDSLoginBuilder()
+  for(i in 1:length(servers))
+  {
+    print(servers[i])
+    builder$append(server = servers[i],url = urls[i], user = users[i], password = passwords[i], resource = resources[i], driver = drivers[i] )
+  }
+  login.data <- builder$build()
+  print("a")
+  print(login.data)
+  return( login.data)
+  
+ # builder <- DSI::newDSLoginBuilder()
+#  builder$append(server = "study1", url = "https://opal-test.obiba.org", user = "dsuser", password = "password", resource = "test.CNSIM1", driver = "OpalDriver")
+#  builder$append(server = "study2", url = "https://opal-test.obiba.org", user = "dsuser", password = "password", resource = "test.CNSIM2", driver = "OpalDriver")
+#  builder$append(server = "study3", url = "https://opal-test.obiba.org", user = "dsuser", password = "password", resource = "test.CNSIM3", driver = "OpalDriver")
+#  logindata <- builder$build()
+  
+}
 .warning <- function(message)
 {
   if(!is.null(message))
