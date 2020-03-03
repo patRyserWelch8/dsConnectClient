@@ -6,53 +6,34 @@ source("definition_tests/def-ds_build_login_data_resources.r")
 
 
 datasets <- build.all.datasets()
-studies  <- c('study1', 'study2', 'study3')
+studies  <- c('testdata1', 'testdata2', 'testdata3')
 ssl      <- build.all.ssl()
 
+print(ssl[1])
 
-context('ds.build.login.data.frame()::correct format::single')
+context('ds.build.login.data.resouces()::correct format::single')
 test_that ('The login information is correct ',
 {
-  .test.correct.data(studies[c(1)],
-          login.details$get_ip_addresses(1),
-          login.details$get_users(1),
-          login.details$get_passwords(1),
-          datasets[c(1)],
-          ssl[c(1)],
-          login.details$get_drivers(1))
-  
-  
+  .test.correct.data(studies[1], login.details$get_ip_addresses(1), login.details$get_users(1), login.details$get_passwords(1), datasets[1], ssl[1], login.details$get_drivers(1))
 })
 
-if (FALSE)
-{
-context('ds.build.login.data.frame()::correct format::multiple')
+context('ds.build.login.data.resouces()::correct format::multiple')
 test_that ('The login information is correct ',
 {
- 
-  .test.correct.data(studies[c(1,2,3)],
-          login.details$get_ip_addresses(3),
-          login.details$get_users(3),
-          login.details$get_passwords(3),
-          datasets[c(1,2,3)],
-          ssl[c(1,2,3)],
-          login.details$get_drivers(3))
-  
-  .test.correct.data(studies[c(1,2)],
-          login.details$get_ip_addresses(2),
-          login.details$get_users(2),
-          login.details$get_passwords(2),
-          datasets[c(1,2)],
-          ssl[c(1,2)],
-          login.details$get_drivers(2))
-  
+  indices <- c(1,2)
+  .test.correct.data(studies[indices], login.details$get_ip_addresses(2), login.details$get_users(2), login.details$get_passwords(2), datasets[indices], ssl[indices], login.details$get_drivers(2))
+  indices <- c(1,2,3)
+  .test.correct.data(studies[indices], login.details$get_ip_addresses(3), login.details$get_users(3), login.details$get_passwords(3), datasets[indices], ssl[indices], login.details$get_drivers(3))
 })
 
 
 
 
 
-context('ds.build.login.data.frame()::incorrect url::multiple')
+
+
+
+context('ds.build.login.data.resource()::incorrect url::multiple')
 test_that ('At least one url is incorrect ',
 {
   .test.incorrrect.url (c('study1', 'study2', 'study3'),
@@ -104,7 +85,9 @@ test_that ('At least one url is incorrect ',
   c("OpalDriver","OpalDriver","OpalDriver"))
 })
 
-context('ds.build.login.data.frame()::incorrect url::single')
+
+
+context('ds.build.login.data.resources()::incorrect url::single')
 test_that ('At least one url is incorrect ',
 {
   .test.incorrrect.url (c('study1'),
@@ -116,7 +99,8 @@ test_that ('At least one url is incorrect ',
   c("OpalDriver"))
 })
 
-context('ds.build.login.data.frame()::incorrect correct format::multiple')
+
+context('ds.build.login.data.resources()::incorrect correct format::multiple')
 test_that ('The login information is in an incorrect format ',
 {
   .test.incorrect.format(c('study2', 'study3'),
@@ -208,5 +192,5 @@ test_that ('The login information is an incorrect format',
           c())
 })
 
-}
+
 

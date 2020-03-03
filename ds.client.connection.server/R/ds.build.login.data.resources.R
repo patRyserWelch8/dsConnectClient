@@ -25,7 +25,6 @@
 ds.build.login.data.resources <- function (servers, urls, users, passwords, resources, options.ssl, drivers)
 {
   return.data.object <- NULL
-  print("GGGGG")
   tryCatch(
     {return.data.object <- .build.data.object(servers, urls, users, passwords,  resources, options.ssl,  drivers) },
     warning = function(warning) {.warning(warning)},
@@ -34,40 +33,37 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
 }
 
 
-.build.data.object <- function(servers, urls, users, passwords, resources, options.ssl, drivers) 
+.build.data.object <- function(some.servers, some.urls, some.users, some.passwords, some.resources, some.options.ssl, some.drivers) 
 {
- 
-  print("UUUUUUU")
+
   #assign the arguments to the data frame format.
-  servers <- as.character(servers)
-  urls <- as.character(urls)
-  users <- as.character(users)
-  passwords <- as.character(passwords)
-  resources <- as.character(resources)
-  options.ssl <- as.character(options.ssl)
-  drivers <- as.character(drivers)
+  servers <- as.character(some.servers)
+  urls <- as.character(some.urls)
+  users <- as.character(some.users)
+  passwords <- as.character(some.passwords)
+  resources <- as.character(some.resources)
+  options.ssl <- as.character(some.options.ssl)
+  drivers <- as.character(some.drivers)
  
- print("1")
   #Verify the length of each vector is the same
   NO_COLUMNS <- 7
   expected.elements <-length(servers) * NO_COLUMNS
   total.elements <- length(servers) + length(urls) + 
-                    length(users) + length(passwords) + length(tables)  + 
+                    length(users) + length(passwords) + length(resources)  + 
                     length(options.ssl) + length(drivers)
- print("2")
   
   if (expected.elements != total.elements)
   {
       stop("ERR:001")
   }
-  else if (length(server) == 0 || length(url) == 0 ||  length(user) == 0 || length(password) == 0 || length(table) == 0 
-           || length(options) == 0 || length(driver) == 0)
+  else if (length(servers) == 0 || length(urls) == 0 ||  length(users) == 0 || length(passwords) == 0 || length(resources) == 0 
+           || length(options) == 0 || length(drivers) == 0)
   {
       stop("ERR:004")
   }
-  else if (all(startsWith(url,"https")))
+  else if (all(startsWith(urls,"https")))
   {
-      return(.build.object(servers, urls, users, passwords,  resources, drivers))
+      return(.build.object(servers, urls, users, passwords, resources, drivers))
   }
   else
   {
@@ -87,14 +83,8 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
   print("a")
   print(login.data)
   return( login.data)
-  
- # builder <- DSI::newDSLoginBuilder()
-#  builder$append(server = "study1", url = "https://opal-test.obiba.org", user = "dsuser", password = "password", resource = "test.CNSIM1", driver = "OpalDriver")
-#  builder$append(server = "study2", url = "https://opal-test.obiba.org", user = "dsuser", password = "password", resource = "test.CNSIM2", driver = "OpalDriver")
-#  builder$append(server = "study3", url = "https://opal-test.obiba.org", user = "dsuser", password = "password", resource = "test.CNSIM3", driver = "OpalDriver")
-#  logindata <- builder$build()
-  
 }
+
 .warning <- function(message)
 {
   if(!is.null(message))
