@@ -5,10 +5,10 @@ library(httr)
 source("definition_tests/def-ds.share_param.R")
 
 context('ds.share_param():connection')
-connect.all.datasets ()
+connections <- connect.dataset.1()
 test_that('',
 {
-  .test_param(ds.test_env$connections)
+  .test_param(connections)
 }
 )
 

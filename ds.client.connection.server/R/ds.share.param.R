@@ -14,31 +14,14 @@ library(httr)
 
 ds.share.param <- function(connection)
 {
-  print("1")
   print(ds.aggregate(connection, "ls()"))
-  server.call <- "create.matrix.runif.DS.1(11,13,2,500)"
+  server.call <- "create.matrix.runif.DS.1()"
   print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "matrix.1", value = server.call)
+  DSI::datashield.assign(conns = connection, symbol = "matrix", value = as.symbol(server.call), async = FALSE)
+ # a <- .assign(connection, new.variable.name = "matrix", value = server.call)
+  print(ds.aggregate(connection, "ls()"))
   print(a)
-  print("2")
-  server.call <- "create.matrix.runif.DS.2(11,13,2,500)"
-  print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "matrix.2", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
-  print("3")
-  server.call <- "create.matrix.runif.DS.1(11,13,2,500)"
-  print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "matrix.3", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
-  print("4")
-  server.call <- "create.matrix.runif.DS.1('A',13,2,500)"
-  a <- ds.assign.value(connection, new.variable.name = "matrix.4", value = server.call)
-  print(server.call)
-  print("5")
-  print(ds.aggregate(connection, "ls()"))
-  server.call <- "create.matrix.runif.DS.3('A',13,2,500)"
-  a <- ds.assign.value(connection, new.variable.name = "matrix.5", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
+  
   
   #no.studies <- 1:(length(connection)-1)
  # for (study in no.studies)
