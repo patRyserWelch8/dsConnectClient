@@ -9,6 +9,7 @@
 .test.on.login.data <- function(login.data)
 {
   expect_true(length(login.data) == 9)
+  
   expect_that(login.data,is_a('data.frame'))
   expect_that(colnames(login.data)[1], equals('server'))
   expect_that(colnames(login.data)[2], equals("url"))

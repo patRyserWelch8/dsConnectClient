@@ -5,14 +5,14 @@
 #'columns are defined as server, url, user, password and table name. Each row holds the information
 #'in relation to one data computer. The values for each column are passed  to the function as arguments.
 #'
-#'@param data.computers.name A vector of characters listing all the names of the data computers
-#'@param data.computers.url A vector of characters listing each data computer HTTP address. The format is https://[TCPIP address or host name][:port]
-#'@param data.computers.table.name A vector of characters listing the name of the table stored in a data computer
-#'@param users.id A vector of characters listing a valid user name to log on on each server.
-#'@param users.password A vector of characters listing the password for each user to log in to a data computer.
+#'@param servers A vector of characters listing all the names of the data computers
+#'@param urls A vector of characters listing each data computer HTTP address. The format is https://[TCPIP address or host name][:port]
+#'@param users   A vector of characters listing a valid user name to log on on each server.
+#'@param passwords A vector of characters listing the password for each user to log in to a data computer.
+#'@param resources A vectors listing the resources name. 
 #'@param options.ssl A vector used to set the options of the connection. Set by defaults the SSL values.
-#'@param driver.connection A vector used to set the name of the driver. It is set by default to OpalDriver.
-#'@return a data frame formatter in this manner: (server,url,user,password,table). If the arguments are not correct. Then a data.frame with no rows is created.
+#'@param drivers  A vector used to set the name of the driver. It is set by default to OpalDriver.
+#'@return a data frame. If the arguments are not correct. Then a data.frame with no rows is created.
 #'
 #'The expactactions are as follow:
 #'Expectation no 0: the return value is a data.frame
@@ -24,7 +24,7 @@
 #'@export
 ds.build.login.data.resources <- function (servers, urls, users, passwords, resources, options.ssl, drivers)
 {
-  return.data.object <- NULL
+  return.data.object <- data.frame()
   tryCatch(
     {return.data.object <- .build.data.object(servers, urls, users, passwords,  resources, options.ssl,  drivers) },
     warning = function(warning) {.warning(warning)},
@@ -63,7 +63,7 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
   }
   else if (all(startsWith(urls,"https")))
   {
-      return(.build.object(servers, urls, users, passwords, resources, drivers))
+      return(.build.object(servers, urls, users, passwords,resources, drivers))
   }
   else
   {
@@ -71,18 +71,17 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
   }
 }
 
-.build.object <- function(servers, urls, users, passwords,  resources, drivers)
+.build.object <- function(servers, urls, users, passwords,resources, drivers)
 {
   builder <- DSI::newDSLoginBuilder()
   for(i in 1:length(servers))
   {
-    print(servers[i])
-    builder$append(server = servers[i],url = urls[i], user = users[i], password = passwords[i], resource = resources[i], driver = drivers[i] )
+    builder$append(server = servers[i],url = urls[i], user = users[i], password = passwords[i], resource = resources[i], driver = drivers[i])
   }
   login.data <- builder$build()
   print("a")
   print(login.data)
-  return( login.data)
+  return(login.data)
 }
 
 .warning <- function(message)

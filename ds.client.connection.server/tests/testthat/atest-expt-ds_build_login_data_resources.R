@@ -10,6 +10,7 @@ studies  <- c('testdata1', 'testdata2', 'testdata3')
 ssl      <- build.all.ssl()
 
 print(ssl[1])
+print(login.details)
 
 context('ds.build.login.data.resouces()::correct format::single')
 test_that ('The login information is correct ',
@@ -21,8 +22,10 @@ context('ds.build.login.data.resouces()::correct format::multiple')
 test_that ('The login information is correct ',
 {
   indices <- c(1,2)
-  .test.correct.data(studies[indices], login.details$get_ip_addresses(2), login.details$get_users(2), login.details$get_passwords(2), datasets[indices], ssl[indices], login.details$get_drivers(2))
-  indices <- c(1,2,3)
+  .test.correct.data(studies[indices], login.details$get_ip_addresses(2), login.details$get_users(2), 
+                     login.details$get_passwords(2), datasets[indices], ssl[indices], login.details$get_drivers(2))
+
+   indices <- c(1,2,3)
   .test.correct.data(studies[indices], login.details$get_ip_addresses(3), login.details$get_users(3), login.details$get_passwords(3), datasets[indices], ssl[indices], login.details$get_drivers(3))
 })
 
