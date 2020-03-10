@@ -3,27 +3,14 @@ library(DSOpal)
 library(testthat)
 library(httr)
 source("definition_tests/def-ds.share_param.R")
-source("connection_to_datasets/init_all_datasets.R")
 
-connection <- connect.dataset.1()
-context('ds.share_param()::smk::single')
-test_that('single connections',
+
+context('ds.share_param():connection')
+connections <- connect.dataset.1()
+test_that('',
 {
-  .test_single_connection(connection)
+  .test_param(connections)
 }
 )
 
-
-log.out.data.server()
-
-
-connections <- connect.all.datasets()
-context('ds.share_param()::smk::multiple')
-test_that('single connections',
-{
-  .test_multiple_connections(connections)
-}
-)
-
-
-log.out.data.server()
+disconnect.dataset.1()
