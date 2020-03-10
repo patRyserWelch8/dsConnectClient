@@ -14,21 +14,17 @@ library(httr)
 
 ds.share.param <- function(connection)
 {
-  print("1")
+ 
+  print(class(connection))
+  print("3")
   print(ds.aggregate(connection, "ls()"))
-  server.call <- "createMatrixRUnifDS()"
+  server.call <- "initiateExchangeDS()"
   print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "concealing.matrix", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
+  print(ds.aggregate(connection,server.call))
+  print(.aggregate(connection, "ls()"))
   
-  print("2")
-  print(ds.aggregate(connection, "ls()"))
-  server.call <- "occultVectroMatrixDS"
-  print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "matrix.1", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
   
-  print(a)
+  
 }
 
 
