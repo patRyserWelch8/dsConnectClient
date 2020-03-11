@@ -16,12 +16,14 @@ ds.share.param <- function(connection)
 {
  
   print(class(connection))
+  print("2")
+  print(ds.assign.value(connection, "sharing", "setSharingEnvDS()"))
   print("3")
   print(ds.aggregate(connection, "ls()"))
-  server.call <- "initiateExchangeDS()"
+  server.call <- "setVariableDS()"
   print(server.call)
   print(ds.aggregate(connection,server.call))
-  print(.aggregate(connection, "ls()"))
+  print(.aggregate(connection, "ls(sharing)"))
   
   
   
