@@ -1,15 +1,15 @@
 #'@name ds.create_environment
-#'@title creates a specific environment on some DataShield servers.
+#'@title creates an environment on some DataShield servers.
 #'@description 
 #'TO DO 
 #'
 #'@author Patricia Ryser-Welch
-#'@export ds.login
+#'@export ds.create_environment
 
 
 library(DSI)
 library(DSOpal)
-library(httr)
+library(httr) 
 
 
 ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asynchronous=FALSE)
@@ -34,9 +34,13 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
   {
     stop("ERR:008", call. = FALSE)
   }
+  else if(nchar(new.environment.name) == 0)
+  {
+    stop("ERR:009", call. = FALSE)
+  }
   else
   {
-    outcome <- ds.assign.value(connection, "sharing_parameter", "createVariableEnvironmentDS()")
+    outcome <- ds.assign.value(connection, new.environment.name, "createVariableEnvironmentDS()")
     return(outcome)
   }
 }
@@ -58,7 +62,11 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
   }
   else if (grepl("ERR:008",error))
   {
-    message(paste(header, "::",  "ERR:008\n", " You have yet to provide name for the new variable. It has to be a variable character.")) 
+    message(paste(header, "::",  "ERR:008\n", " You have yet to provide a name for the new environment. It has to be a variable character.")) 
+  }
+  else if (grepl("ERR:009",error))
+  {
+    message(paste(header, "::",  "ERR:009\n", " The name of the environment needs to be longer than one character.")) 
   }
   else
   {
