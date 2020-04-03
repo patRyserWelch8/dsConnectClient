@@ -12,28 +12,34 @@ library(DSOpal)
 library(httr)
 
 
-ds.share.param <- function(connection)
+ds.share.param <- function(connections)
 {
  
-  print(class(connection))
-  print("2")
-  
- # print(ds.aggregate(connection, "ls()"))
-  #outcome <- ds.create_environment(connection,"sharing")
-  #print(outcome)
-  #print(ds.aggregate(connection, "ls()"))
-  #server.call <- "setVariableDS()"
-  #print(server.call)
-  #print(ds.aggregate(connection,server.call))
-  print(.aggregate(connection, "initiateExchangeDS()"))
-  
-  
-  
-  
+  success <- FALSE
+  tryCatch(
+    {success <- .share.parameter(connections)},
+    warning = function(warning) {.warning(warning)},
+    error = function(error) {.error(error)},
+    finally = {return(success)})
+ 
 }
 
 
-
+.share.parameter <- function(connections)
+{
+ 
+  if(length(connections) > 1)
+  {
+   
+    outcome <- ds.create_environment(connections,"sharing")
+    ds.aggregate(connections, "initiateExchangeDS()")
+      return(TRUE)
+  }
+  else
+  {
+    return(FALSE)
+  }
+}
 
 .warning <- function(message)
 {

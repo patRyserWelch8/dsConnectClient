@@ -6,8 +6,8 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test_single_connection <- function(connection)
 {
-  expect_equal(length(connection)==1, TRUE)
-  expect_error(.share.parameter(connection))
+  expect_equal(length(connection), 1)
+  expect_equal(.share.parameter(connection), FALSE)
   expect_equal(ds.share.param(connection),FALSE)
 }
 

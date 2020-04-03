@@ -9,7 +9,7 @@ connection <- connect.dataset.1()
 context('ds.share_param()::expt::single')
 test_that('single connections',
 {
-  .test_param(connection)
+  .test_single_connection(connection)
 }
 )
 log.out.data.server()
@@ -19,7 +19,7 @@ connections <- connect.all.datasets()
 context('ds.share_param()::expt::multiple')
 test_that('multiple connections',
 {
-  .test_param(connections)
+  .test_multiple_connections(connections)
 }
 )
 
