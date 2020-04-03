@@ -1,0 +1,40 @@
+
+source("connection_to_datasets/init_all_datasets.R")
+
+.test.all.parameters.correct <- function(connections)
+{
+  
+  server.call <- paste("dimDS('",'D',"')", sep="")
+  print(server.call)
+  print(connections)
+  print(.aggregate(connections, server.call))
+  server.values <- ds.aggregate(connections, server.call)
+  print(server.values)
+  expect_true(length(server.values) == length(connections))
+}
+
+.test.no.connection <- function(connections)
+{
+  server.call <- paste("dimDS(",'D',")")
+  expect_error(.aggregate(connections,server.call))
+  server.values <- ds.aggregate(connections, server.call)
+  expect_true(server.values == "NR")
+  
+}
+
+.test.no.expression <- function(connections)
+{
+  expect_error(.aggregate(connections,NULL))
+  server.values <- ds.aggregate(connections, server.call)
+  expect_true(server.values == "NR")
+}
+
+.test.incorrect.expression <- function(connections)
+{
+  
+  server.call <- paste("dimDSabdce('",'D',"')")
+  expect_error(.aggregate(connections, server.call))
+  server.values <- ds.aggregate(connections, server.call)
+  expect_true(server.values == "NR")
+  
+}

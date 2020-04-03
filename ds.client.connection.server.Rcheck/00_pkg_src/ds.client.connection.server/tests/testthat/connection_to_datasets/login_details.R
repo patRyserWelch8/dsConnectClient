@@ -54,7 +54,7 @@ LoginDetails <- R6Class("LoginDetails",
     },
     get_users = function(no_servers)
     {
-      users <- c(self$user_1,self$user_2,self$user_3)
+      users <- c(self$user_1, self$user_2, self$user_3)
       if (no_servers > length(users))
       {
         max_index = length(users)
@@ -84,12 +84,11 @@ LoginDetails <- R6Class("LoginDetails",
     {
       return(c(rep(self$driver,no_servers)))
     }
-    
   )
 )
                 
 login.details <- LoginDetails$new(init.ip.address())
-print(login.details$ip_address_1)
+
 
 #ds.test_env <- new.env()
 #options(datashield.env=ds.test_env)

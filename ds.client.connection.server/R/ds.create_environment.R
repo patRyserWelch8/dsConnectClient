@@ -40,7 +40,7 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
   }
   else
   {
-    outcome <- ds.assign.value(connection, new.environment.name, "createEnvironmentDS()")
+    outcome <- ds.assign.value(connection, new.environment.name, "createEnvironmentDS()","environment")
     return(outcome)
   }
 }

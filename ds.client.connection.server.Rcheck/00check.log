@@ -43,16 +43,25 @@ Malformed Description field: should contain one or more complete sentences.
 * checking whether the package can be unloaded cleanly ... OK
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
-* checking loading without being on the library search path ... OK
 * checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... OK
+* checking R code for possible problems ... NOTE
+.assign: no visible global function definition for ‘ds.find.variable’
+.create_environment: no visible binding for global variable ‘FALS’
+.remove: no visible global function definition for ‘ds.find.variable’
+Undefined global functions or variables:
+  FALS ds.find.variable
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
-* checking Rd cross-references ... OK
+* checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'ds.exists.Rd':
+  ‘externalptr’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
 * checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... OK
@@ -61,4 +70,4 @@ Malformed Description field: should contain one or more complete sentences.
 * checking examples ... NONE
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 WARNING, 2 NOTEs
+Status: 2 WARNINGs, 3 NOTEs

@@ -11,7 +11,7 @@ Imports: DSI, DSOpal, RCurl, R6, opalr
 RoxygenNote: 7.0.2
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2020-02-28 13:21:56 UTC; patricia
+Packaged: 2020-04-03 11:55:49 UTC; patricia
 Author: Patricia Ryser-Welch [aut, cre]
 Maintainer: Patricia  Ryser-Welch <patricia.ryser-welch@newcastle.ac.uk>
-Built: R 3.6.2; ; 2020-02-28 13:22:04 UTC; unix
+Built: R 3.6.2; ; 2020-04-03 11:55:55 UTC; unix

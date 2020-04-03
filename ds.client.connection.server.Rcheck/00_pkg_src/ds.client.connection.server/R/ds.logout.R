@@ -27,7 +27,7 @@ ds.logout <- function(connection, save = NULL)
 {
   if(is.null(connection))
   {
-    stop("ERR:006", call. = FALSE)
+    stop("ERR:001", call. = FALSE)
   }
   else
   {
@@ -45,7 +45,7 @@ ds.logout <- function(connection, save = NULL)
 {
   header <- 'ds.client.connection.server::ds.logout'
   
-  if (grepl("ERR:006",error))
+  if (grepl("ERR:001",error))
   {
     message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
   }

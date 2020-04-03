@@ -12,49 +12,34 @@ library(DSOpal)
 library(httr)
 
 
-ds.share.param <- function(connection)
+ds.share.param <- function(connections)
 {
-  print("1")
-  print(ds.aggregate(connection, "ls()"))
-  server.call <- "create.matrix.runif.DS.1(11,13,2,500)"
-  print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "matrix.1", value = server.call)
-  print(a)
-  print("2")
-  server.call <- "create.matrix.runif.DS.2(11,13,2,500)"
-  print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "matrix.2", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
-  print("3")
-  server.call <- "create.matrix.runif.DS.1(11,13,2,500)"
-  print(server.call)
-  a <- ds.assign.value(connection, new.variable.name = "matrix.3", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
-  print("4")
-  server.call <- "create.matrix.runif.DS.1('A',13,2,500)"
-  a <- ds.assign.value(connection, new.variable.name = "matrix.4", value = server.call)
-  print(server.call)
-  print("5")
-  print(ds.aggregate(connection, "ls()"))
-  server.call <- "create.matrix.runif.DS.3('A',13,2,500)"
-  a <- ds.assign.value(connection, new.variable.name = "matrix.5", value = server.call)
-  print(ds.aggregate(connection, "ls()"))
-  
-  #no.studies <- 1:(length(connection)-1)
- # for (study in no.studies)
-  #{
-  #  server.call <- "create.matrix.runif.DS.1(11,13,2,500)"
-  #  print(server.call)
-  #  a <- ds.assign.value(connection, new.variable.name = "matrix.1", value = server.call)
-    #DSI::datashield.assign(conns = connection, symbol = "matrix.1", value = as.symbol(server.call), async = FALSE)
-   
- # }
-  
-
+ 
+  success <- FALSE
+  tryCatch(
+    {success <- .share.parameter(connections)},
+    warning = function(warning) {.warning(warning)},
+    error = function(error) {.error(error)},
+    finally = {return(success)})
+ 
 }
 
 
-
+.share.parameter <- function(connections)
+{
+ 
+  if(length(connections) > 1)
+  {
+   
+    outcome <- ds.create_environment(connections,"sharing")
+    ds.aggregate(connections, "initiateExchangeDS()")
+      return(TRUE)
+  }
+  else
+  {
+    return(FALSE)
+  }
+}
 
 .warning <- function(message)
 {

@@ -12,9 +12,11 @@
 #
 
 
-
-library(DSOpal)
 library(DSI)
+library(DSOpal)
+library(testthat)
+library(httr)
+
 ds.test_env <- new.env()
 source("connection_to_datasets/login_details.R")
 source("connection_to_datasets/init_all_datasets.R")

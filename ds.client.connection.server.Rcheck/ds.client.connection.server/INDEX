@@ -2,8 +2,12 @@ ds.aggregate            executes some code on some R server sessions.
 ds.assign.value         assgin some values on some DataSHIELD servers
 ds.build.login.data.frame
                         Builds a dataframe to login to datashield
-ds.find.variable        indicates whether a variable exists on some
-                        DataSHIELD servers
+ds.build.login.data.resources [ TO DO DOCUMENTATION]
+                        Builds a dataframe to login to datashield
+ds.create_environment   creates an environment on some DataShield
+                        servers.
+ds.exists               Is an Object defined with a specific class on
+                        the server(s)?
 ds.login                attempts to log to some DataSHIELD servers.
 ds.logout               logout from some DataSHIELD servers
 ds.remove.variable      remove a variable from some DataSHIELD servers.

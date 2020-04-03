@@ -16,6 +16,7 @@ library(DSI)
 library(DSOpal)
 library(testthat)
 library(httr)
+library(dsBaseClient)
 
 ds.test_env <- new.env()
 source("connection_to_datasets/login_details.R")

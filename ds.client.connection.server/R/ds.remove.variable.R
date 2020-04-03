@@ -12,19 +12,19 @@ library(DSI)
 library(DSOpal)
 library(httr)
 
-ds.remove.variable <- function(connection=NULL, variable.name=NULL)
+ds.remove.variable <- function(connection=NULL, variable.name=NULL,class.type=NULL)
 {
 
   outcome <- FALSE
   tryCatch(
-     {outcome <- .remove(connection, variable.name)},
+     {outcome <- .remove(connection, variable.name,class.type)},
       warning = function(warning) {.warning(warning)},
       error = function(error) {.error(error)},
       finally = {return(outcome)}
        )
 }
 
-.remove <- function(connection=NULL, variable.name=NULL)
+.remove <- function(connection=NULL, variable.name=NULL,class.type)
 {
   if(!grepl("list",class(connection)))
   {
@@ -41,17 +41,16 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL)
   else
   {
       
-      variable.exist <- ds.find.variable(connection, variable.name)
+      variable.exist <- ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type)
       if (variable.exist)
       {
          
-         a <- ds.aggregate(connection,"print('hi')", asynchronous = FALSE)
          expression <- paste("rmDS('", variable.name, "')",sep="")
          ds.aggregate(connection,expression, asynchronous = FALSE)
          
          #variable should be deleted. so ds.find.variable should return false. However, the function 
          #should return true to indicate successful deletion
-         return(!ds.find.variable(connection, variable.name))
+         return(!ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type))
       }
   }
 }

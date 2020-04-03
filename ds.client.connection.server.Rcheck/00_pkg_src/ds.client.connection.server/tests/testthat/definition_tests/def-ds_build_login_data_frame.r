@@ -9,8 +9,7 @@
   drivers <- some.drivers
   
   login.info <- ds.build.login.data.frame(server,url,table,user,password,options.ssl, drivers)
-  print("after execution")
-  print(login.info)
+
   expect_true(length(login.info) == 7)
   expect_that(login.info,is_a('data.frame'))
   expect_that(colnames(login.info)[1], equals('server'))
