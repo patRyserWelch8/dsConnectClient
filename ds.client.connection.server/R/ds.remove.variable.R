@@ -26,7 +26,9 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL,class.type=NU
 
 .remove <- function(connection=NULL, variable.name=NULL,class.type)
 {
-  if(!grepl("list",class(connection)))
+  list.type <- c("list","OpalConnection")
+  type      <- class(connection)
+  if(!(type %in% list.type))
   {
     stop("ERR:006", call. = FALSE)
   }
@@ -40,11 +42,9 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL,class.type=NU
   }
   else
   {
-      
       variable.exist <- ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type)
       if (variable.exist)
       {
-         
          expression <- paste("rmDS('", variable.name, "')",sep="")
          ds.aggregate(connection,expression, asynchronous = FALSE)
          

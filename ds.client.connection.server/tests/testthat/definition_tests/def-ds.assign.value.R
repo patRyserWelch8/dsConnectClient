@@ -6,7 +6,6 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   
    expect_true(.assign (connection, new.variable.name = "test.var.1", value ="D$INTEGER", "integer", asynchronous = FALSE))
-
    expect_true(ds.assign.value(connection, new.variable.name = "test.var.1", 
                         value ="D$INTEGER", "integer", asynchronous = FALSE))
 }

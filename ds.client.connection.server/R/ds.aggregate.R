@@ -26,9 +26,9 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 .aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
  
-  
-  if(!is.list(connection))
-  #if(!grepl("list",class(connection)))
+  list.type <- c("list","OpalConnection")
+  type      <- class(connection)
+  if(!(type %in% list.type))
   {
     stop("ERR:006", call. = FALSE)
   }

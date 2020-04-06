@@ -47,7 +47,10 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
 {
   valid.types <- c("character","complex","factor","double","expression","integer","list","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
   
-  if(!grepl("list",class(connection)))
+  list.type <- c("list","OpalConnection")
+  type      <- class(connection)
+  
+  if(!(type %in% list.type))
   {
     stop("ERR:006", call. = FALSE)
   }

@@ -26,7 +26,9 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
 
 .create_environment <- function(connection=NULL, new.environment.name=NULL,asynchronous=FALS)
 {
-  if(!grepl("list",class(connection)))
+  list.type <- c("list","OpalConnection")
+  type      <- class(connection)
+  if(!(type %in% list.type))
   {
     stop("ERR:006")
   }
