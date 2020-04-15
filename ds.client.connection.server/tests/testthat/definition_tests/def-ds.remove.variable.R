@@ -5,12 +5,18 @@ source("connection_to_datasets/init_all_datasets.R")
 .test.all.parameters.correct <- function(connection, variable.name)
 {
    DSI::datashield.assign(connection, variable.name, value = as.symbol("D$INTEGER"), async = FALSE)
-   expect_true(ds.exists.on.server(connection,variable.name,".GlobalEnv","integer"))
-   .remove(connection, variable.name, "integer")
-   expect_false(ds.exists.on.server(connection,variable.name,".GlobalEnv","integer"))
+   print(ds.aggregate(connection,"environmentInfoDS()", asynchronous = FALSE))
+   variable.exist <- ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type="integer")
+   print("Results of exists ....")
+   print(variable.exist)
+   expect_equal(variable.exist,TRUE)
+   a <- .remove(connection, variable.name,"", "integer")
+   print(a)
+   print(ds.aggregate(connection,"ls()", asynchronous = FALSE))
+  
    DSI::datashield.assign(connection, variable.name, value = as.symbol("D$INTEGER"), async = FALSE)
    expect_true(ds.exists.on.server(connection,variable.name,".GlobalEnv","integer"))
-   expect_true(ds.remove.variable(connection,variable.name,"integer"))
+   expect_true(ds.remove.variable(connection,variable.name,"","integer"))
    expect_false(ds.exists.on.server(connection,variable.name,".GlobalEnv","integer"))
 }
 

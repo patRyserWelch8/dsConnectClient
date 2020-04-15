@@ -13,6 +13,7 @@
 #'\item "\code{\link{expression}}"
 #'\item "\code{\link{integer}}"
 #'\item "\code{\link{list}}"
+#'\item "\code{\link{matrix}}"
 #'\item "\code{\link{logical}}"
 #'\item "\code{\link{numeric}}"
 #'\item "\code{\link{single}}"
@@ -45,7 +46,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
 
 .assign <- function(connection=NULL, new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE)
 {
-  valid.types <- c("character","complex","factor","double","expression","integer","list","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
+  valid.types <- c("character","complex","factor","double","expression","integer","list","mabrix","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
   
   list.type <- c("list","OpalConnection")
   type      <- class(connection)

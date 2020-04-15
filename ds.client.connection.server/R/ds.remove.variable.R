@@ -12,19 +12,19 @@ library(DSI)
 library(DSOpal)
 library(httr)
 
-ds.remove.variable <- function(connection=NULL, variable.name=NULL,class.type=NULL)
+ds.remove.variable <- function(connection=NULL, variable.name=NULL, environment.name = "",class.type=NULL)
 {
 
   outcome <- FALSE
   tryCatch(
-     {outcome <- .remove(connection, variable.name,class.type)},
+     {outcome <- .remove(connection, variable.name, environment.name, class.type)},
       warning = function(warning) {.warning(warning)},
       error = function(error) {.error(error)},
       finally = {return(outcome)}
        )
 }
 
-.remove <- function(connection=NULL, variable.name=NULL,class.type)
+.remove <- function(connection=NULL, variable.name=NULL, environment.name, class.type)
 {
   list.type <- c("list","OpalConnection")
   type      <- class(connection)
@@ -42,16 +42,28 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL,class.type=NU
   }
   else
   {
-      variable.exist <- ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type)
-      if (variable.exist)
-      {
-         expression <- paste("rmDS('", variable.name, "')",sep="")
-         ds.aggregate(connection,expression, asynchronous = FALSE)
+    print(1)
+    if (length(environment.name) == 1)
+    {
+      expression <- paste("removeDS(variable.name='", variable.name, "', environment.name = '',  class.type='", class.type,"')" ,sep="")
+    }
+    else
+    {
+      expression <- paste("removeDS(variable.name='", variable.name, "', environment.name = '", environment.name, "', class.type='", class.type,"')" ,sep="")
+    }
+    print(expression)
+    outcome <- ds.aggregate(connection,expression, asynchronous = FALSE)
+    return(outcome != "NR")
+     #variable.exist <- ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type)
+      #if (variable.exist)
+      #{
+       #  expression <- paste("rmDS('", variable.name, "')",sep="")
+      #   ds.aggregate(connection,expression, asynchronous = FALSE)
          
-         #variable should be deleted. so ds.find.variable should return false. However, the function 
+      #   #variable should be deleted. so ds.find.variable should return false. However, the function 
          #should return true to indicate successful deletion
-         return(!ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type))
-      }
+      #   return(!ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type))
+      #}
   }
 }
 
