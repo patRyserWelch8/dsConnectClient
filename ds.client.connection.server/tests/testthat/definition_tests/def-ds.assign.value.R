@@ -2,12 +2,14 @@
 source("connection_to_datasets/init_all_datasets.R")
 
 
-.test.all.parameters.correct <- function(connection)
+.test.all.parameters.correct <- function(connection,variable.name,value,class.type)
 {
   
-   expect_true(.assign (connection, new.variable.name = "test.var.1", value ="D$INTEGER", "integer", asynchronous = FALSE))
-   expect_true(ds.assign.value(connection, new.variable.name = "test.var.1", 
-                        value ="D$INTEGER", "integer", asynchronous = FALSE))
+  expect_true(.assign(connection, new.variable.name = variable.name, 
+                     value = value, class.type, asynchronous = FALSE))
+  expect_true(ds.assign.value(connection, new.variable.name = variable.name, 
+                      value = value, class.type, asynchronous = FALSE))
+ 
 }
 
 .test.twice.created.variable <- function(connection)
@@ -34,6 +36,9 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   expect_error(.assign(connection,new.variable.name = "test.var.1",value="", "integer",asynchronous = FALSE))
   expect_false(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"integer",asynchronous = FALSE))
+  expect_false(.assign(connection,new.variable.name = "test.var.1",value="D$INTEGE", "integer",asynchronous = FALSE))
+  expect_false(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"integer",asynchronous = FALSE))
+  
 }
 
 

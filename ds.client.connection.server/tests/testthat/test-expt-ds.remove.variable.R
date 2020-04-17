@@ -18,15 +18,9 @@ test_that('correct_parameters',
 context('ds.remove.variable():correct_parameters:single')
 test_that('correct_parameters',
 {
-  .test.all.parameters.correct(connections, "new.var")
+  .test.all.parameters.correct(connections, "new_var", "integer", "D$INTEGER")
 })
 log.out.data.server()
-
-
-
-
-
-
 
 
 connections <- connect.all.datasets()
@@ -41,7 +35,7 @@ test_that('more_incorrect_parameters',
 context('ds.remove.variable():correct_parameters:multiple')
 test_that('correct_parameters',
 {
-  .test.all.parameters.correct(connections, "new.var")
+  .test.all.parameters.correct(connections, "new_var_2", "integer", "D$INTEGER")
 })
 
 log.out.data.server()

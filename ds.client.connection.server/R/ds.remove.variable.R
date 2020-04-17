@@ -42,28 +42,20 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL, environment.
   }
   else
   {
-    print(1)
+   
     if (length(environment.name) == 1)
     {
-      expression <- paste("removeDS(variable.name='", variable.name, "', environment.name = '',  class.type='", class.type,"')" ,sep="")
+      expression <- paste("removeDS(variable.name='", variable.name, "',  class.type='", class.type,"')" ,sep="")
     }
     else
     {
-      expression <- paste("removeDS(variable.name='", variable.name, "', environment.name = '", environment.name, "', class.type='", class.type,"')" ,sep="")
+      expression <- paste("removeDS(variable.name='", variable.name, "', environment.name = '.GlobalEnv", environment.name, "', class.type='", class.type,"')" ,sep="")
     }
-    print(expression)
-    outcome <- ds.aggregate(connection,expression, asynchronous = FALSE)
-    return(outcome != "NR")
-     #variable.exist <- ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type)
-      #if (variable.exist)
-      #{
-       #  expression <- paste("rmDS('", variable.name, "')",sep="")
-      #   ds.aggregate(connection,expression, asynchronous = FALSE)
-         
-      #   #variable should be deleted. so ds.find.variable should return false. However, the function 
-         #should return true to indicate successful deletion
-      #   return(!ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type))
-      #}
+    
+    ds.aggregate(connection,expression, asynchronous = FALSE)
+    variable.exists <- ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type)
+    return(as.logical(variable.exists == FALSE))
+    
   }
 }
 
@@ -88,6 +80,10 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL, environment.
   else if (grepl("ERR:009",error))
   {
     message(paste(header, "::",  "ERR:009\n", " The new variable name must be longer than one character.")) 
+  }
+   else if (grepl("ERR:010",error))
+  {
+    message(paste(header, "::",  "ERR:010\n", " An error has occured on the server.")) 
   }
   else
   {

@@ -22,7 +22,6 @@
 #'\item "\code{\link{environment}}"
 #'}
 #'@param  asynchronous When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.
-
 #'@return TRUE if the values have been created in all the servers. FALSE if the values have not been successfully created on all the servers
 #'@author Patricia Ryser-Welch
 #'@export ds.assign.value
@@ -34,14 +33,13 @@ library(httr)
 
 ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL, class.type = NULL,asynchronous=FALSE)
 {
-  
   outcome <- FALSE
   tryCatch(
-     {outcome <- .assign(connection, new.variable.name, value, class.type, asynchronous)},
-      warning = function(warning) {.warning(warning)},
-      error = function(error) {.error(error)},
-      finally = {return(outcome)}
-       )
+     {
+       outcome <- .assign(connection, new.variable.name, value, class.type, asynchronous)},
+       warning = function(warning) {.warning(warning)},
+       error = function(error) {.error(error)},
+       finally = {return(outcome)})
 }
 
 .assign <- function(connection=NULL, new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE)
@@ -63,7 +61,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
   {
       stop("ERR:009", call. = FALSE)
   }
-  else if (!grepl("character",class(value)))
+  else if (class(value) != "character")
   {
     stop("ERR:010", call. = FALSE)
   }
@@ -71,7 +69,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
   {
     stop("ERR:011", call. = FALSE)
   }
-  else if (!grepl("character",class(class.type)))
+  else if (!grep("character",class(class.type)))
   {
     stop("ERR:012", call. = FALSE)
   }
@@ -81,10 +79,19 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
   }
   else
   {
-      ds.remove.variable(connection, new.variable.name)
-      DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
-      return(ds.exists.on.server(connection, new.variable.name, ".GlobalEnv", class.type))
+    .create.variable(connection, new.variable.name,value, class.type, asynchronous)
+    return(ds.exists.on.server(connection, new.variable.name, ".GlobalEnv", class.type))
   }
+}
+
+.create.variable <- function(connection, new.variable.name, value, class.type, asynchronous)
+{
+    #delete variable from the server if it exists already
+    ds.remove.variable(connection, new.variable.name, ".GlobalEnv", class.type)
+    #create variable on the server(s)
+    DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
+    #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
+    ds.remove.variable(connection, new.variable.name, "", "NULL")
 }
 
 

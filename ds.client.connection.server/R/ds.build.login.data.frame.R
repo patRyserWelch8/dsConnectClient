@@ -66,7 +66,7 @@ ds.build.login.data.frame <- function (  data.computers.name,
   #Verify the length of each vector is the same
   NO_COLUMNS <- 7
   expected.elements <-length(server) * NO_COLUMNS
-  print(expected.elements)
+ 
   total.elements <- length(server) + length(url) + 
                     length(user) + length(password) + length(table)  + 
                     length(options.ssl) + length(driver)
@@ -77,14 +77,26 @@ ds.build.login.data.frame <- function (  data.computers.name,
      stop("ERR:001")
   }
   else if (length(server) == 0 || length(url) == 0 ||  length(user) == 0 || length(password) == 0 || length(table) == 0 
-           || length(options) == 0 || length(driver) == 0)
+           || length(options.ssl) == 0 || length(driver) == 0)
   {
     stop("ERR:004")
   }
   else if (all(startsWith(url,"https")))
   {
      
-     return(data.frame(server,url,user,password,table,options.ssl,driver))
+     builder <- newDSLoginBuilder()
+     for (i in 1:length(server))
+     {
+        builder$append(server=server[i],
+                       url=url[i],
+                       table = table[i],
+                       driver = driver[i],
+                       user = user[i],
+                       password = password[i],
+                       options = options.ssl[i])
+     }
+     
+     return(builder$build())
   }
   else
   {

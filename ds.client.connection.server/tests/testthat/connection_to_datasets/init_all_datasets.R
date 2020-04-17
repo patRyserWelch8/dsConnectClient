@@ -21,17 +21,18 @@ init.all.datasets <- function()
     {
      
       #connecting to the servers
-      ds.test_env$server <- c("study1", "study2", "study3")
-      ds.test_env$url <- c(login.details$ip_address_1,login.details$ip_address_2,login.details$ip_address_3)
-      ds.test_env$user <- c(login.details$user_1,login.details$user_2,login.details$user_3)
-      ds.test_env$password <- c(login.details$password_1,login.details$password_2,login.details$password_3)
-      ds.test_env$table <- c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
-      ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
-                                                                    ds.test_env$url,
-                                                                    ds.test_env$table,
-                                                                    ds.test_env$user,
-                                                                    ds.test_env$password,
-                                                                    .silent = TRUE)
+      ds.test_env$server   <- c("study1", "study2", "study3")
+      ds.test_env$table    <- c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
+      ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
+                                                         login.details$get_ip_addresses(3),
+                                                         ds.test_env$table,
+                                                         login.details$get_users(3),
+                                                         login.details$get_passwords(3),
+                                                         login.details$get_ssl_options(3),
+                                                         login.details$get_drivers(3))
+      
+       
+      
     }
     else 
     {
@@ -53,17 +54,17 @@ init.dataset.3 <- function()
     ds.test_env$local.values.3 <- read.csv("data_files/DATASET3.csv", header = TRUE)
     if (login.details$driver == "OpalDriver")
     {
-      ds.test_env$server <- c("study3")
-      ds.test_env$url <- c(login.details$ip_address_3)
-      ds.test_env$user <- c(login.details$user_3)
-      ds.test_env$password <- c(login.details$password_3)
-      ds.test_env$table <- c("TESTING.DATASET3")
-      ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
-                                                                    ds.test_env$url,
-                                                                    ds.test_env$table,
-                                                                    ds.test_env$user,
-                                                                    ds.test_env$password,
-                                                                    .silent = TRUE)
+      #connecting to the servers
+      ds.test_env$server   <- c("study3")
+      ds.test_env$table    <- c("TESTING.DATASET3")
+      ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
+                                                          login.details$get_ip_addresses(1),
+                                                          ds.test_env$table,
+                                                          login.details$get_users(1),
+                                                          login.details$get_passwords(1),
+                                                          login.details$get_ssl_options(1),
+                                                          login.details$get_drivers(1))
+      
     }
     else
     {
@@ -86,17 +87,17 @@ init.dataset.2 <- function()
     ds.test_env$local.values.2 <- read.csv("data_files/DATASET2.csv", header = TRUE)
     if (login.details$driver == "OpalDriver")
     {
-      ds.test_env$server <- c("study2")
-      ds.test_env$url <- c(login.details$ip_address_2)
-      ds.test_env$user <- c(login.details$user_2)
-      ds.test_env$password <- c(login.details$password_2)
-      ds.test_env$table <- c("TESTING.DATASET2")
-      ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
-                                                                    ds.test_env$url,
-                                                                    ds.test_env$table,
-                                                                    ds.test_env$user,
-                                                                    ds.test_env$password,
-                                                                    .silent = TRUE)
+      #connecting to the servers
+      ds.test_env$server   <- c("study2")
+      ds.test_env$table    <- c("TESTING.DATASET2")
+      ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
+                                                          login.details$get_ip_addresses(1),
+                                                          ds.test_env$table,
+                                                          login.details$get_users(1),
+                                                          login.details$get_passwords(1),
+                                                          login.details$get_ssl_options(1),
+                                                          login.details$get_drivers(1))
+      
     }
     else
     {
@@ -118,17 +119,16 @@ init.dataset.1 <- function()
     ds.test_env$local.values.1 <- read.csv("data_files/DATASET1.csv", header = TRUE)
     if (login.details$driver == "OpalDriver")
     {
-      ds.test_env$server <- c("study1")
-      ds.test_env$url <- c(login.details$ip_address_1)
-      ds.test_env$user <- c(login.details$user_1)
-      ds.test_env$password <- c(login.details$password_1)
-      ds.test_env$table <- c("TESTING.DATASET1")
-      ds.test_env$login.data <- datashield.build.login.data.frame.o(ds.test_env$server,
-                                                                    ds.test_env$url,
-                                                                    ds.test_env$table,
-                                                                    ds.test_env$user,
-                                                                    ds.test_env$password,
-                                                                    .silent = TRUE)
+      #connecting to the servers
+      ds.test_env$server   <- c("study1")
+      ds.test_env$table    <- c("TESTING.DATASET1")
+      ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
+                                                          login.details$get_ip_addresses(1),
+                                                          ds.test_env$table,
+                                                          login.details$get_users(1),
+                                                          login.details$get_passwords(1),
+                                                          login.details$get_ssl_options(1),
+                                                          login.details$get_drivers(1))
     }
     else
     {
@@ -144,7 +144,10 @@ init.dataset.1 <- function()
 
 log.in.data.server <- function()
 {
-  ds.test_env$connections <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
+  ds.test_env$connections <- datashield.login(logins=ds.test_env$login.data, 
+                                              assign=TRUE,
+                                              variables=ds.test_env$stats.var)
+  
 }
 
 

@@ -103,7 +103,6 @@ ds.exists.on.server <- function(connections=NULL, variable.name=NULL, environmen
     no.exist.variables <- as.integer(sum(outcome == TRUE))
     no.connections <- as.integer(length(connections))
     results <- no.exist.variables == no.connections
-    
     return(results)
   }
 }
