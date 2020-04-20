@@ -1,13 +1,15 @@
-#'@name ds.exists
+#'@name ds.exists.on.server
 #'@title Is an Object defined with a specific class on the server(s)?
 #'@description verifies a given varible exists on some DataSHIELD servers, during a session
-#'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
-#'@param variable.name name of a variable 
-#'@param environment.name A character value stating the name of an environment created on the server.
+#'@param connections a valid connection to some data repositories. The later needs to be a valid DSConnection-class (OpalConnection)
+#'@param variable.name name of a variable represented as character. Its length should be greater than 0.
+#'@param environment.name A character value stating the name of an environment created on the server. By default, it should be set to "\code{\link{.GlobalEnv}}"
 #'@param class.type  A character value stating the R internal type. Correct values:
 #'\itemize{
+#'\item  "\code{\link{NULL}}"
 #'\item "\code{\link{character}}"
 #'\item "\code{\link{complex}}"
+#'\item  "\code{\link{factor}}"
 #'\item "\code{\link{double}}"
 #'\item "\code{\link{expression}}"
 #'\item "\code{\link{integer}}"
@@ -17,40 +19,57 @@
 #'\item "\code{\link{single}}"
 #'\item "\code{\link{raw}}"
 #'\item "\code{\link{vector}}"
-#'\item  "\code{\link{S4}}"
+#'\item "\code{\link{S4}}"
 #'\item "\code{\link{NULL}}"
 #'\item "\code{\link{function}}"
 #'\item "\code{\link{externalptr}}"
 #'\item "\code{\link{environment}}"
 #'}
-#'@return TRUE if the variable exists on every server. FALSE otherwise.
+#'@return 
+#'\itemize{
+#'\item TRUE - if the variable exists on every server with the class type specified. 
+#'\item FALSE - if no variable exists on every server with a gvien class type.
+#'}
+#'@details
+#'The following functions should help developing client functions with some compact and meaningful code. They both provide the tools to 
+#'indicate whether a variable of a specific type exists on all the servers connected. For that reason, it becomes easier to validate and complete 
+#'some server calls that are more accurate. Also, the class type valid for some operations can be communicated more effectively through the code.
+#'
+#'\itemize{
+#'\item \code{ds.exists.on.server} captures any errors and warnings thrown by the function \code{.find_variable}. 
+#'\item \code{.find.variables} verifies all the arguments meets some constraints stated above.
+#'}
+#'
+#' Both functions can be used interchangeably. \code{.find.variables} allows more efficient debugging of some server and client code. \code{ds.exists.on.server} can be used 
+#' once the code is efficiently working.
 #'#'@seealso
+#'server function used: \code{existsDS} (Aggregate function)
 #'\code{\link{typeof}}, \code{\link{class}}, \code{\link{search}}, \url{https://stat.ethz.ch/R-manual/R-devel/library/methods/html/BasicClasses.html}
 #'@author Patricia Ryser-Welch
-#'@export ds.exists
+#'@export ds.exists.on.server
 #'
 
 library(DSI)
 library(DSOpal)
 library(httr)
 
-ds.exists <- function(connection=NULL, variable.name=NULL, environment.name = ".GlobalEnv", class.type = NULL)
+ds.exists.on.server <- function(connections=NULL, variable.name=NULL, environment.name = ".GlobalEnv", class.type = NULL)
 {
   outcome <- FALSE
   tryCatch(
-  {outcome <- .find.variable(connection, variable.name, environment.name, class.type)},
+  {outcome <- .find.variable(connections, variable.name, environment.name, class.type)},
    warning = function(warning) {.warning(warning)},
    error = function(error) {.error(error)},
    finally = {return(outcome)}
   )
 }
 
-.find.variable <- function(connection=NULL, variable.name=NULL, environment.name = ".GlobalEnv", class.type = NULL, asynchronous=TRUE)
+.find.variable <- function(connections=NULL, variable.name=NULL, environment.name = ".GlobalEnv", class.type = NULL, asynchronous=TRUE)
 {
   
-  valid.types <- c("character","complex","double","expression","integer","list","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
+  valid.types <- c("character","NULL","complex","factor","double","expression","integer","list","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
  
-  if(!grepl("list",class(connection)))
+  if(!grepl("list",class(connections)))
   {
     stop("ERR:006", call. = FALSE)
   }
@@ -80,10 +99,30 @@ ds.exists <- function(connection=NULL, variable.name=NULL, environment.name = ".
   }
   else
   {
-      list.var.server <- unlist(ds.aggregate(connection, "ls()", TRUE))
-      return(sum(list.var.server ==  variable.name) == length(connection))
+    outcome <- .call_existsDS(connections, variable.name, environment.name, class.type)
+    return(outcome)
   }
   
+}
+
+.call_existsDS <- function(connections, variable.name, environment.name, class.type)
+{
+  server.call <- paste0("existsDS('",variable.name,"','", environment.name,"','", class.type, "')")
+  outcome <- ds.aggregate(connections, server.call, TRUE)
+ 
+  if (!(class(outcome) == "list"))
+  {
+    return(FALSE)
+  }
+  else
+  {
+    #verifies that every server has the expected variable.
+    outcome <- unlist(outcome)
+    no.exist.variables <- as.integer(sum(outcome == TRUE))
+    no.connections <- as.integer(length(connections))
+    results <- no.exist.variables == no.connections
+    return(results)
+  }
 }
 
 

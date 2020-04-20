@@ -1,9 +1,23 @@
 #'@name ds.aggregate
-#'@title executes some code on some R server sessions. 
-#'@description Some functions listed as aggregate or based on R can be executed in a DataShield server. Calls DSI::datashield.aggregate function.
+#'@title executes a function on some R server sessions and returns the outcome to the client
+#'@description This function executes some functions listed as aggregate on a Opal Server. Those can be executed in a DataShield server and 
+#'returns some non-disclosive value back to the client. 
+#'@details 
+#' \itemize{
+#' \item \code{ds.aggregate} captures any errors and warnings thrown by the function \code{.aggregate}. No error or warning is displayed. If an error or a warning is caught, then
+#' "NR" is returned.
+#' \item \code{.aggregate} wraps the funcriont \code{DSI::datashield.aggregate function}. A valid OpalConnection and a valid expression '(character) is checked. When these two conditions are both met, then a server call is made. 
+#' }
+#' Both functions can be used interchangeably. \code{.aggregate} allows more efficient debugging of some server and client code. \code{ds.aggregate} can be used 
+#' once the code is efficiently working.
+#'@seealso  DSI::datashield.aggregate function.
 #'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
-#'@return the results of the servers executed on the server
+#'@return 
+#'\itemize{
+#'\item The value returned by a server function
+#'\item "NR" indicates no function has been executed on the server
+#'}
 #'@author Patricia Ryser-Welch
 #'@export ds.aggregate
 #'
@@ -26,15 +40,14 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 .aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
  
-  
-  if(!is.list(connection))
-  #if(!grepl("list",class(connection)))
+  list.type <- c("list","OpalConnection")
+  type      <- class(connection)
+  if(!(type %in% list.type))
   {
     stop("ERR:006", call. = FALSE)
   }
   else 
   {
-   
     if (!grepl("character",class(expression)))
     {
        stop("ERR:007", call. = FALSE)
@@ -46,7 +59,6 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
   }
 }
 
-
 .warning <- function(message)
 {
   message(paste("ds.client.connection.server::ds.aggregate :",   message ))
@@ -56,7 +68,6 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
   header <- 'ds.client.connection.server::ds.aggregate'
 
-  
   if (grepl("ERR:006",error))
   {
     message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 

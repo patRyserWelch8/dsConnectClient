@@ -1,11 +1,37 @@
 #'@name ds.create_environment
 #'@title creates an environment on some DataShield servers.
 #'@description 
-#'TO DO 
-#'
+#'An environment is created on each DataShield server i the global environment 
+#'of a given R session.
+#'@details 
+#'This function is a special case of \code{ds.assign.value}. The R object is an R environment.
+#'\itemize{
+#'\item \code{\link{ds.create_environment}} captures any errors and warnings thrown by the function \code{.create_environment}. No error or warning is displayed. If an error or a warning is caught, then the function returns FALSE.
+#'\item \code{.create_environment} uses the client function \code{\link{ds.assign.value}} and the server function \code{createEnvironmentDS} to 
+#'create an environment on each server. Some errors are thrown if the connection to the DataSHIELD servers is not valid. Some errors 
+#'are thrown if the name of the environemnt is not a character.
+#'}
+#'@param  connection connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
+#'@param  new.environment.name  name of a new environment created on a server
+#'@param  asynchronous When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.
+#'@return   This function has two outcomes;   
+#'\itemize{
+#'\item TRUE - if the environment has been created in all the servers.
+#'\item FALSE - if the environment has yet to  not been successfully created on all the servers.
+#'}
+#'@seealso  
+#''server function used: \code{createEnvironmentDS} (Assign function)
+#'\code{\link{ds.assign.value}}, \code{\link{ds.exists.on.server}}
 #'@author Patricia Ryser-Welch
 #'@export ds.create_environment
 
+
+
+
+#
+# 
+#  }
+# Both functions can be used interchangeably. \code{.create_environment} allows more efficient debugging of some server and client code. \code{ds.assign.value} can be usedonce the code is efficiently working.
 
 library(DSI)
 library(DSOpal)
@@ -26,11 +52,13 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
 
 .create_environment <- function(connection=NULL, new.environment.name=NULL,asynchronous=FALS)
 {
-  if(!grepl("list",class(connection)))
+  list.type <- c("list","OpalConnection")
+  type      <- class(connection)
+  if(!(type %in% list.type))
   {
     stop("ERR:006")
   }
-  else if(!grepl("character",class(new.environment.name)))
+  else if(!is.character(new.environment.name))
   {
     stop("ERR:008", call. = FALSE)
   }
@@ -40,7 +68,7 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
   }
   else
   {
-    outcome <- ds.assign.value(connection, new.environment.name, "createEnvironmentDS()")
+    outcome <- ds.assign.value(connection, new.environment.name, "createEnvironmentDS()","environment")
     return(outcome)
   }
 }

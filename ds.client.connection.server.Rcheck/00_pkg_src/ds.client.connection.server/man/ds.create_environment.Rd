@@ -3,8 +3,36 @@
 \name{ds.create_environment}
 \alias{ds.create_environment}
 \title{creates an environment on some DataShield servers.}
+\arguments{
+\item{connection}{connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
+
+\item{new.environment.name}{name of a new environment created on a server}
+
+\item{asynchronous}{When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.}
+}
+\value{
+This function has two outcomes;   
+\itemize{
+\item TRUE - if the environment has been created in all the servers.
+\item FALSE - if the environment has yet to  not been successfully created on all the servers.
+}
+}
 \description{
-TO DO
+An environment is created on each DataShield server i the global environment 
+of a given R session.
+}
+\details{
+This function is a special case of \code{ds.assign.value}. The R object is an R environment.
+\itemize{
+\item \code{\link{ds.create_environment}} captures any errors and warnings thrown by the function \code{.create_environment}. No error or warning is displayed. If an error or a warning is caught, then the function returns FALSE.
+\item \code{.create_environment} uses the client function \code{\link{ds.assign.value}} and the server function \code{createEnvironmentDS} to 
+create an environment on each server. Some errors are thrown if the connection to the DataSHIELD servers is not valid. Some errors 
+are thrown if the name of the environemnt is not a character.
+}
+}
+\seealso{
+'server function used: \code{createEnvironmentDS} (Assign function)
+\code{\link{ds.assign.value}}, \code{\link{ds.exists.on.server}}
 }
 \author{
 Patricia Ryser-Welch

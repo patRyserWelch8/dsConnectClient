@@ -6,9 +6,10 @@
 #'@param  value It has twofold: (1) The name of a column in a data repositories or a R expression allowed to assign function calls
 #'@param class.type  A character value stating the R internal type. Correct values:
 #'\itemize{
+#'\item "\code{\link{NULL}}"
 #'\item "\code{\link{character}}"
 #'\item "\code{\link{complex}}"
-#'\iem  "\code{\link{factor}}"
+#'\item  "\code{\link{factor}}"
 #'\item "\code{\link{double}}"
 #'\item "\code{\link{expression}}"
 #'\item "\code{\link{integer}}"
@@ -22,10 +23,23 @@
 #'\item "\code{\link{environment}}"
 #'}
 #'@param  asynchronous When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.
-#'@return TRUE if the values have been created in all the servers. FALSE if the values have not been successfully created on all the servers
+#'@return 
+#'\itemize{
+#'\item TRUE if the values have been created in all the servers. 
+#'\item FALSE if the values have not been successfully created on all the servers
+#'}
+#'
+#'@details 
+#' \itemize{
+#' \item \code{ds.assign.value} captures any errors and warnings thrown by the function \code{.assign}. No error or warning is displayed. If an error or a warning is caught, then the function returns FALSE.
+#' \item \code{.assign} wraps the funcriont \code{DSI::datashield.assign function}. A valid OpalConnection, a valid server variable name and value is checked. When  all these conditions are met, then a server call is made. 
+#' }
+#' Both functions can be used interchangeably. \code{.assign} allows more efficient debugging of some server and client code. \code{ds.assign.value} can be used 
+#' once the code is efficiently working.
+#'@seealso  \code{DSI::datashield.assign}, \code{ds.exists.on.server}
 #'@author Patricia Ryser-Welch
 #'@export ds.assign.value
-#'
+
 
 library(DSI)
 library(DSOpal)
@@ -44,7 +58,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
 
 .assign <- function(connection=NULL, new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE)
 {
-  valid.types <- c("character","complex","factor","double","expression","integer","list","mabrix","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
+  valid.types <- c("NULL","character","complex","factor","double","expression","integer","list","mabrix","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
   
   list.type <- c("list","OpalConnection")
   type      <- class(connection)
@@ -53,7 +67,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
   {
     stop("ERR:006", call. = FALSE)
   }
-  else if (!grepl("character",class(new.variable.name)))
+  else if (class(new.variable.name) != "character")
   {
       stop("ERR:008", call. = FALSE)
   }

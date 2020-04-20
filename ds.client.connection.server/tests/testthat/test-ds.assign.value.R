@@ -6,9 +6,8 @@ library(httr)
 source("definition_tests/def-ds.assign.value.R")
 source("connection_to_datasets/init_all_datasets.R")
 
+
 connections <- connect.all.datasets()
-
-
 context('ds.assign.value():correct_parameters:multiple')
 test_that('correct_parameters',
 {
@@ -64,4 +63,5 @@ test_that('no_connection',
 {
   .test.no.connection()
 })
+
 

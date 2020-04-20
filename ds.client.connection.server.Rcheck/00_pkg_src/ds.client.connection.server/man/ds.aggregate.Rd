@@ -2,17 +2,33 @@
 % Please edit documentation in R/ds.aggregate.R
 \name{ds.aggregate}
 \alias{ds.aggregate}
-\title{executes some code on some R server sessions.}
+\title{executes a function on some R server sessions and returns the outcome to the client}
 \arguments{
 \item{connection}{a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
 
 \item{Save}{datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).}
 }
 \value{
-the results of the servers executed on the server
+\itemize{
+\item The value returned by a server function
+\item "NR" indicates no function has been executed on the server
+}
 }
 \description{
-Some functions listed as aggregate or based on R can be executed in a DataShield server. Calls DSI::datashield.aggregate function.
+This function executes some functions listed as aggregate on a Opal Server. Those can be executed in a DataShield server and 
+returns some non-disclosive value back to the client.
+}
+\details{
+\itemize{
+\item \code{ds.aggregate} captures any errors and warnings thrown by the function \code{.aggregate}. No error or warning is displayed. If an error or a warning is caught, then
+"NR" is returned.
+\item \code{.aggregate} wraps the funcriont \code{DSI::datashield.aggregate function}. A valid OpalConnection and a valid expression '(character) is checked. When these two conditions are both met, then a server call is made. 
+}
+Both functions can be used interchangeably. \code{.aggregate} allows more efficient debugging of some server and client code. \code{ds.aggregate} can be used 
+once the code is efficiently working.
+}
+\seealso{
+DSI::datashield.aggregate function.
 }
 \author{
 Patricia Ryser-Welch

@@ -16,6 +16,7 @@ library(DSI)
 library(DSOpal)
 library(testthat)
 library(httr)
+library(dsBaseClient)
 
 ds.test_env <- new.env()
 source("connection_to_datasets/login_details.R")
@@ -30,7 +31,11 @@ options()
 print("setup")
 
 
+
 connections <- connect.all.datasets()
+print("after connection")
+
 disconnect.all.datasets(connections)
+
 
 print("setup finished")

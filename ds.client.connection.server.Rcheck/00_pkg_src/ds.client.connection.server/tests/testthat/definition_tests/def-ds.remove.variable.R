@@ -1,17 +1,17 @@
-
 source("connection_to_datasets/init_all_datasets.R")
 
-
-.test.all.parameters.correct <- function(connection, variable.name)
+.test.all.parameters.correct <- function(connection, variable.name, class.type, server.variable)
 {
-   DSI::datashield.assign(connection, variable.name, value = as.symbol("D$INTEGER"), async = FALSE)
-   expect_true(ds.find.variable(connection,variable.name))
-   .remove(connection, variable.name)
-   expect_false(ds.find.variable(connection,variable.name))
-   DSI::datashield.assign(connection, variable.name, value = as.symbol("D$INTEGER"), async = FALSE)
-   expect_true(ds.find.variable(connection,variable.name))
-   expect_true(ds.remove.variable(connection,variable.name))
-   expect_false(ds.find.variable(connection,variable.name))
+  
+   DSI::datashield.assign(connection, variable.name, value = as.symbol(server.variable), async = FALSE)
+   expect_true(ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type=class.type))
+   expect_true(.remove(connection, variable.name,".GlobalEnv", class.type))
+   expect_false(ds.exists.on.server(connection,variable.name,".GlobalEnv",class.type))
+   
+   DSI::datashield.assign(connection, variable.name, value = as.symbol(server.variable), async = FALSE)
+   expect_true(ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type=class.type))
+   expect_true(ds.remove.variable(connection, variable.name,".GlobalEnv", class.type))
+   expect_false(ds.exists.on.server(connection,variable.name,".GlobalEnv",class.type))
 }
 
 .test.no.connection <- function()

@@ -10,13 +10,46 @@
 
 \item{value}{It has twofold: (1) The name of a column in a data repositories or a R expression allowed to assign function calls}
 
+\item{class.type}{A character value stating the R internal type. Correct values:
+\itemize{
+\item "\code{\link{NULL}}"
+\item "\code{\link{character}}"
+\item "\code{\link{complex}}"
+\item  "\code{\link{factor}}"
+\item "\code{\link{double}}"
+\item "\code{\link{expression}}"
+\item "\code{\link{integer}}"
+\item "\code{\link{list}}"
+\item "\code{\link{matrix}}"
+\item "\code{\link{logical}}"
+\item "\code{\link{numeric}}"
+\item "\code{\link{single}}"
+\item "\code{\link{vector}}"
+\item  "\code{\link{S4}}"
+\item "\code{\link{environment}}"
+}}
+
 \item{asynchronous}{When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.}
 }
 \value{
-TRUE if the values have been created in all the servers. FALSE if the values have not been successfully created on all the servers
+\itemize{
+\item TRUE if the values have been created in all the servers. 
+\item FALSE if the values have not been successfully created on all the servers
+}
 }
 \description{
 Assign a table or an expression result to a R variable, within a DataShield R session on at least one server.
+}
+\details{
+\itemize{
+\item \code{ds.assign.value} captures any errors and warnings thrown by the function \code{.assign}. No error or warning is displayed. If an error or a warning is caught, then the function returns FALSE.
+\item \code{.assign} wraps the funcriont \code{DSI::datashield.assign function}. A valid OpalConnection, a valid server variable name and value is checked. When  all these conditions are met, then a server call is made. 
+}
+Both functions can be used interchangeably. \code{.assign} allows more efficient debugging of some server and client code. \code{ds.assign.value} can be used 
+once the code is efficiently working.
+}
+\seealso{
+\code{DSI::datashield.assign}, \code{ds.exists.on.server}
 }
 \author{
 Patricia Ryser-Welch

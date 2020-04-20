@@ -1,9 +1,48 @@
 #'@name ds.remove.variable
-#'@title remove a variable from some DataSHIELD servers. 
-#'@description The function calls the server function "rmDS" to delete an existing variable from the server. If the function does not exist, then no deletion occurs.
+#'@title delete a variable of a specific given type from some DataSHIELD servers. 
+#'@description A variable of a specific given type is deleted from each DataSHIELD server. This client function verifies the variable exists on each server, before 
+#'removing them from the session.
+#'@param connections a valid connection to some data repositories. The later needs to be a valid DSConnection-class (OpalConnection)
+#'@param variable.name name of a variable represented as character. Its length should be greater than 0.
+#'@param environment.name A character value stating the name of an environment created on the server. By default, it should be set to "\code{\link{.GlobalEnv}}"
+#'@param class.type  A character value stating the R internal type. Correct values:
+#'\itemize{
+#'\item  "\code{\link{NULL}}"
+#'\item "\code{\link{character}}"
+#'\item "\code{\link{complex}}"
+#'\item  "\code{\link{factor}}"
+#'\item "\code{\link{double}}"
+#'\item "\code{\link{expression}}"
+#'\item "\code{\link{integer}}"
+#'\item "\code{\link{list}}"
+#'\item "\code{\link{logical}}"
+#'\item "\code{\link{numeric}}"
+#'\item "\code{\link{single}}"
+#'\item "\code{\link{raw}}"
+#'\item "\code{\link{vector}}"
+#'\item "\code{\link{S4}}"
+#'\item "\code{\link{NULL}}"
+#'\item "\code{\link{function}}"
+#'\item "\code{\link{externalptr}}"
+#'\item "\code{\link{environment}}"
+#'}
+
+#'@details
+#'
+#''\itemize{
+#'\item \code{ds.remove.variable } captures any errors and warnings thrown by the function \code{.remove}. 
+#'\item \code{.remove} verifies all the arguments meets some constraints stated above. The server function \code{\link{removeDS}} only deletes
+#'an R object with a specific name and data type. \code{.remove} verifies the variable has been deleted successfully on each server, using   \code{\link{ds.exists.on.server}}.
+#'}
+#'
+#' Both functions can be used interchangeably. \code{.remove} allows more efficient debugging of some server and client code. \code{ds.remove.variable} can be used 
+#' once the code is efficiently working.
 #'@param  connection connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param  new.variable.name  name of a new variable created on a server
 #'@return TRUE if the variables have been deleted. FALSE if the values have not been deleted and exists on the servers.
+#'@seealso
+#'server function used: \code{removeS} (Aggregate function)
+#'\code{\link{ds.aggregate}}, \code{\link{ds.exists.on.server}}
 #'@author Patricia Ryser-Welch on behalf of DataSHIELD team
 #'@export ds.remove.variable
 #'

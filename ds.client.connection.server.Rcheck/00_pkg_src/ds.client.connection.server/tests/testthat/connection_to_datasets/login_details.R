@@ -29,6 +29,9 @@ LoginDetails <- R6Class("LoginDetails",
     password_1 = "datashield_test&",
     password_2 = "datashield_test&",
     password_3 = "datashield_test&",
+    ssl_options_1 = "list(ssl_verifyhost=0,ssl_verifypeer=0)",
+    ssl_options_2 = "list(ssl_verifyhost=0,ssl_verifypeer=0)",
+    ssl_options_3 = "list(ssl_verifyhost=0,ssl_verifypeer=0)",
     secure_login_details = TRUE,
     initialize = function(an_ip_address = "NULL")
     {
@@ -83,6 +86,20 @@ LoginDetails <- R6Class("LoginDetails",
     get_drivers = function(no_servers)
     {
       return(c(rep(self$driver,no_servers)))
+    },
+    get_ssl_options = function(no_servers)
+    {
+      ssl_options <- c(self$ssl_options_1, self$ssl_options_2, self$ssl_options_3)
+      if (no_servers > length(ssl_options))
+      {
+        max_index = length(ssl_options)
+      }
+      else 
+      {
+        max_index = no_servers
+      }
+      indices <- c(1:no_servers)
+      return(ssl_options[indices])
     }
   )
 )
@@ -111,12 +128,9 @@ login.details <- LoginDetails$new(init.ip.address())
 #ds.test_env$driver <- "OpalDriver"
 #ds.test_env$secure_login_details = TRUE
 
-if (FALSE)
-{
 
 
 
 
 
 
-}

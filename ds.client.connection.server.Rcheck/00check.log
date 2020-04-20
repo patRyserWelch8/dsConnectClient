@@ -1,5 +1,5 @@
 * using log directory ‘/Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server.Rcheck’
-* using R version 3.6.2 (2019-12-12)
+* using R version 3.6.3 (2020-02-29)
 * using platform: x86_64-apple-darwin15.6.0 (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --as-cran’
@@ -48,17 +48,20 @@ Malformed Description field: should contain one or more complete sentences.
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
-.assign: no visible global function definition for ‘ds.find.variable’
+.build.data.frame: no visible global function definition for
+  ‘newDSLoginBuilder’
 .create_environment: no visible binding for global variable ‘FALS’
-.remove: no visible global function definition for ‘ds.find.variable’
 Undefined global functions or variables:
-  FALS ds.find.variable
+  FALS newDSLoginBuilder
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
 * checking Rd cross-references ... WARNING
-Missing link or links in documentation object 'ds.exists.Rd':
+Missing link or links in documentation object 'ds.exists.on.server.Rd':
   ‘externalptr’
+
+Missing link or links in documentation object 'ds.remove.variable.Rd':
+  ‘externalptr’ ‘removeDS’
 
 See section 'Cross-references' in the 'Writing R Extensions' manual.
 

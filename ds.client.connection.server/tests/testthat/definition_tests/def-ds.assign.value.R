@@ -1,6 +1,4 @@
-
 source("connection_to_datasets/init_all_datasets.R")
-
 
 .test.all.parameters.correct <- function(connection,variable.name,value,class.type)
 {
@@ -23,7 +21,7 @@ source("connection_to_datasets/init_all_datasets.R")
                               value ="D$INTEGER", "integer",asynchronous = FALSE))
   expect_true(ds.assign.value(connection, new.variable.name = "test.var.1", 
                               value ="D$INTEGER", "integer", asynchronous = FALSE))
-}
+} 
 
 .test.values.from.assign.function <- function(connection)
 {
@@ -36,9 +34,14 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   expect_error(.assign(connection,new.variable.name = "test.var.1",value="", "integer",asynchronous = FALSE))
   expect_false(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"integer",asynchronous = FALSE))
-  expect_false(.assign(connection,new.variable.name = "test.var.1",value="D$INTEGE", "integer",asynchronous = FALSE))
+  expect_false(.assign(connection,new.variable.name = "test.var.1",value="D$RUBBISH", "integer",asynchronous = FALSE))
+  expect_false(.assign(connection,new.variable.name = "test.var.1",value="D$RUBBISH", "integer",asynchronous = FALSE))
+  expect_false(.assign(connection,new.variable.name = "test.var.1",value="D$RUBBISH", "NULL",asynchronous = FALSE))
+ 
+  expect_false(ds.assign.value(connection,new.variable.name = "test.var.1",value="D$RUBBISH", "integer",asynchronous = FALSE))
+  expect_false(ds.assign.value(connection,new.variable.name = "test.var.1",value="D$RUBBISH", "integer",asynchronous = FALSE))
+  expect_false(ds.assign.value(connection,new.variable.name = "test.var.1",value="D$RUBBISH", "NULL",asynchronous = FALSE))
   expect_false(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"integer",asynchronous = FALSE))
-  
 }
 
 
