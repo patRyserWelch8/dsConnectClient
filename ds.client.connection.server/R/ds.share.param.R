@@ -29,26 +29,18 @@ ds.share.param <- function(connections)
   if(length(connections) > 1)
   {
     last <- length(connections)-1
+    print(last)
     for(current in 1:last)
     {
       master <- connections[[current]]
       outcome <- ds.create_environment(master,"sharing")
-      outcome <- ds.aggregate(master, "initiateExchangeDS()")
-      print("*********")
+      outcome <- .aggregate(master, "initiateExchangeDS()")
+      print("*******master **")
       print(current)
-      print(class(connections))
-      print(class(master))
-      print(ds.aggregate(master, "ls()"))
-      print(ds.aggregate(master, "ls(sharing)"))
+      print(print(outcome))
       print("*********")
-      outcome <- ds.remove.variable(master,"sharing")
-      print("*********")
-      print(current)
-      print(class(connections))
-      print(class(master))
-      print(ds.aggregate(master, "ls()"))
-      print(ds.aggregate(master, "ls(sharing)"))
-      print("*********")
+      #outcome <- ds.remove.variable(master,"sharing")
+  
       
     }
     

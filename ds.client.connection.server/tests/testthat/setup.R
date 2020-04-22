@@ -33,9 +33,11 @@ print("setup")
 
 
 connections <- connect.all.datasets()
-print("after connection")
+
+
+
 
 disconnect.all.datasets(connections)
 
-
+print("after connection")
 print("setup finished")
