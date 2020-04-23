@@ -14,7 +14,6 @@ library(httr)
 
 ds.share.param <- function(connections)
 {
- 
   success <- FALSE
   tryCatch(
     {success <- .share.parameter(connections)},
@@ -25,36 +24,45 @@ ds.share.param <- function(connections)
 
 .share.parameter <- function(connections)
 {
- 
+  
   if(length(connections) > 1)
   {
+    
     last <- length(connections)-1
     print(last)
     for(current in 1:last)
     {
-      master <- connections[[current]]
-      outcome <- ds.create_environment(master,"sharing")
-      outcome <- .aggregate(master, "initiateExchangeDS()")
-      print("*******master **")
       print(current)
-      print(print(outcome))
-      print("*********")
-      #outcome <- ds.remove.variable(master,"sharing")
-  
+      master <- connections[[current]]
+      #outcome <- ds.create_environment(master,"sharing")
+      outcome <- ds.aggregate(master, "initiateExchangeDS()")
+      print(outcome)
+      outcome <- ds.aggregate(master, "environmentInfoDS()")
       
+      print(class(outcome))
+      print(outcome)
+      
+      #outcome <- ds.remove.variable(master,"sharing")
     }
     
     return(TRUE)
   }
   else
   {
-    stop("ERR:001")
+    warning("WAR:001")
   }
+  
+ 
 }
 
 .warning <- function(message)
 {
+  
   message(paste("ds.client.connection.server::ds.share.param:",   message ))
+  if (grepl("WAR:001",error))
+  {
+    message(paste(header, "::",  "WAR:001\n", "More than one connection is required for sharing parameters.")) 
+  }
 }
 
 .error <- function(error)
@@ -64,10 +72,6 @@ ds.share.param <- function(connections)
   if (grepl("ERR:006",error))
   {
     message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
-  }
-  else if (grepl("ERR:001",error))
-  {
-    message(paste(header, "::",  "ERR:001\n", "More than one connection is required for sharing parameters.")) 
   }
   else
   {

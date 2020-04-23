@@ -5,7 +5,7 @@ library(httr)
 source("definition_tests/def-ds.share_param.R")
 source("connection_to_datasets/init_all_datasets.R")
 
-connections <- connect.dataset.1()
+connections <- connect.all.datasets()
 context('ds.share_param():connection')
 test_that('',
 {
@@ -13,4 +13,4 @@ test_that('',
 }
 )
 
-disconnect.dataset.1(connections)
+disconnect.all.datasets(connections)
