@@ -109,7 +109,7 @@ ds.exists.on.server <- function(connections=NULL, variable.name=NULL, environmen
 {
   server.call <- paste0("existsDS('",variable.name,"','", environment.name,"','", class.type, "')")
   outcome <- ds.aggregate(connections, server.call, TRUE)
- 
+
   if (!(class(outcome) == "list"))
   {
     return(FALSE)

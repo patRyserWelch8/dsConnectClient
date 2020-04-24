@@ -32,15 +32,14 @@ ds.share.param <- function(connections)
     print(last)
     for(current in 1:last)
     {
-      print(current)
+     
       master <- connections[[current]]
-      #outcome <- ds.create_environment(master,"sharing")
-      outcome <- ds.aggregate(master, "initiateExchangeDS()")
-      print(outcome)
+      .initiateExchange(master)
+      .transfer.encoded.matrix(master, NULL)
+
       outcome <- ds.aggregate(master, "environmentInfoDS()")
-      
-      print(class(outcome))
       print(outcome)
+     
       
       #outcome <- ds.remove.variable(master,"sharing")
     }
@@ -51,8 +50,22 @@ ds.share.param <- function(connections)
   {
     warning("WAR:001")
   }
+}
+
+.initiateExchange <- function(connection)
+{
+  successful <- ds.aggregate(connection, "initiateExchangeDS()")
+  if (!successful)
+  {
+    stop("ERR:002")
+  }
+}
   
- 
+.transfer.encoded.matrix <- function(sender, receiver)
+{
+  received.matrix <- ds.aggregate(sender, "getEncodedMatrixDS()")
+  print("=========hehehehe=============")
+  print(received.matrix)
 }
 
 .warning <- function(message)
@@ -68,8 +81,11 @@ ds.share.param <- function(connections)
 .error <- function(error)
 {
   header <- 'ds.client.connection.server::ds.share.param'
-  
-  if (grepl("ERR:006",error))
+  if(grepl("ERR:002",error))
+  {
+    message(paste(header, "::",  "ERR:002\n", " The exchange of parameter could not be initiated. The process on the server could not be completed.")) 
+  }
+  else if (grepl("ERR:006",error))
   {
     message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
   }

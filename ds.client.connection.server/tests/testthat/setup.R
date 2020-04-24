@@ -34,7 +34,9 @@ print("setup")
 
 connections <- connect.all.datasets()
 
-
+a <- 2,2
+DSI::datashield.assign(connections,"test",value = "matrix(c(1,2,3,4),2,2)", async=FALSE)
+print(ds.aggregate(master, "environmentInfoDS()"))
 
 
 disconnect.all.datasets(connections)

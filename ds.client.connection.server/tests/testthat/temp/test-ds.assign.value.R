@@ -12,14 +12,9 @@ context('ds.assign.value():correct_parameters:multiple')
 test_that('correct_parameters',
 {
   .test.all.parameters.correct(connections, "new_var_1", "D$INTEGER",'integer')
-  .test.all.parameters.correct(connections, "new_var_1", "D$CHARACTER",'character')
-  .test.all.parameters.correct(connections, "new_var_1", "D$NUMERIC",'numeric')
+  .test.all.parameters.correct(connections, "new_var_2", "D$CHARACTER",'character')
+  .test.all.parameters.correct(connections, "new_var_3", "D$NUMERIC",'numeric')
 })
-
-
-
-
-
 
 context('ds.assign.value():more_incorrect_parameters:multiple')
 test_that('more_incorrect_parameters',
@@ -30,6 +25,8 @@ test_that('more_incorrect_parameters',
 })
 
 log.out.data.server()
+
+
 
 connect.dataset.1()
 
