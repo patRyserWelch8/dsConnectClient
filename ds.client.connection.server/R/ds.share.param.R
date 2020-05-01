@@ -33,11 +33,15 @@ ds.share.param <- function(connections)
     for(current in 1:last)
     {
      
-      master <- connections[[current]]
+      master   <- connections[[current]]
+      receiver <- connections[[current+1]]
       .initiateExchange(master)
-      .transfer.encoded.matrix(master, NULL)
-
       outcome <- ds.aggregate(master, "environmentInfoDS()")
+      print(outcome)
+      .transfer.encoded.matrix(master, receiver)
+
+      outcome <- ds.aggregate(receiver, "environmentInfoDS()")
+      print("RECEIVER AFTER SHARING")
       print(outcome)
      
       
@@ -61,11 +65,18 @@ ds.share.param <- function(connections)
   }
 }
   
-.transfer.encoded.matrix <- function(sender, receiver)
+.transfer.encoded.matrix <- function(sender = NULL, receiver = NULL)
 {
-  received.matrix <- ds.aggregate(sender, "getEncodedMatrixDS()")
+  
+  received.data <- ds.aggregate(sender, "getEncodedMatrixDS()")
   print("=========hehehehe=============")
-  print(received.matrix)
+ 
+  expression <- paste0("setReceivedMatrixDS(data='",received.data[[1]],"', no.column=",received.data[[2]],")")
+  print(expression)
+ 
+  outcome <- .aggregate(receiver, expression)
+  print("AFTER EXPRESSION")
+  print(outcome)
 }
 
 .warning <- function(message)
