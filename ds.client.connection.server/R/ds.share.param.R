@@ -68,10 +68,23 @@ ds.share.param <- function(connections)
 .transfer.encoded.matrix <- function(sender = NULL, receiver = NULL)
 {
   
-  received.data <- ds.aggregate(sender, "getEncodedMatrixDS()")
-  print("=========hehehehe=============")
+  received.data    <- ds.aggregate(sender, "getEncodedDataDS()")
+  header.param     <- paste0("'", received.data$header,"'") 
+  payload.param    <- paste0("'", received.data$payload, "'")
+  property.a.param <- paste0(received.data$property.a)
+  property.b.param <- paste0(received.data$property.b)
+  property.c.param <- paste0(received.data$property.c)
+  property.d.param <- paste0(received.data$property.d)
+  
  
-  expression <- paste0("setReceivedMatrixDS(data='",received.data[[1]],"', no.column=",received.data[[2]],")")
+  print(property.a.param)
+  print(property.b.param)
+  print(property.c.param)
+  print(property.d.param)
+  
+  expression <- paste0("sendEncodedDataDS(", header.param, ",", payload.param, ",", property.a.param , ",", 
+                       property.b.param , ",", property.c.param , ",", property.d.param , ")")
+  
   print(expression)
  
   outcome <- .aggregate(receiver, expression)
