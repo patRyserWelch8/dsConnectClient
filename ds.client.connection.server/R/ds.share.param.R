@@ -32,19 +32,32 @@ ds.share.param <- function(connections)
     print(last)
     for(current in 1:last)
     {
-     
+      print("step 1")
       master   <- connections[[current]]
       receiver <- connections[[current+1]]
-      .initiateExchange(master)
       outcome <- ds.aggregate(master, "environmentInfoDS()")
       print(outcome)
-      .transfer.encoded.matrix(master, receiver)
-
       outcome <- ds.aggregate(receiver, "environmentInfoDS()")
-      print("RECEIVER AFTER SHARING")
       print(outcome)
-     
       
+      print("step 2")
+      .initiateExchange(master, master=TRUE)
+      outcome <- ds.aggregate(master, "environmentInfoDS()")
+      print(outcome)
+      print("step 3")
+      .transfer.encoded.matrix(master, receiver)
+       outcome <- ds.aggregate(receiver, "environmentInfoDS()")
+       
+       print("step 4")
+      .initiateExchange(receiver,master=FALSE)
+      print("RECEIVER AFTER SHARING AND init ")
+      print(outcome)
+      outcome <- ds.aggregate(receiver, "ls(sharing)")
+      print(outcome)
+      .transfer.encoded.matrix(receiver, master)
+      print("end of phase III")
+      outcome <- ds.aggregate(master, "ls(sharing)")
+      print(outcome)
       #outcome <- ds.remove.variable(master,"sharing")
     }
     
@@ -56,9 +69,10 @@ ds.share.param <- function(connections)
   }
 }
 
-.initiateExchange <- function(connection)
+.initiateExchange <- function(connection, master=TRUE)
 {
-  successful <- ds.aggregate(connection, "initiateExchangeDS()")
+  expression <- paste0("initiateExchangeDS(master=",master,")")
+  successful <- ds.aggregate(connection, expression)
   if (!successful)
   {
     stop("ERR:002")
@@ -75,20 +89,12 @@ ds.share.param <- function(connections)
   property.b.param <- paste0(received.data$property.b)
   property.c.param <- paste0(received.data$property.c)
   property.d.param <- paste0(received.data$property.d)
-  
- 
-  print(property.a.param)
-  print(property.b.param)
-  print(property.c.param)
-  print(property.d.param)
+
   
   expression <- paste0("sendEncodedDataDS(", header.param, ",", payload.param, ",", property.a.param , ",", 
                        property.b.param , ",", property.c.param , ",", property.d.param , ")")
-  
-  print(expression)
  
   outcome <- .aggregate(receiver, expression)
-  print("AFTER EXPRESSION")
   print(outcome)
 }
 
