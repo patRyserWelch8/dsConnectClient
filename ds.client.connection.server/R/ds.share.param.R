@@ -12,56 +12,70 @@ library(DSOpal)
 library(httr)
 
 
-ds.share.param <- function(connections)
+ds.share.param <- function(connections,param.name = NULL)
 {
   success <- FALSE
   tryCatch(
-    {success <- .share.parameter(connections)},
+    {success <- .share.parameter(connections, param.name)},
     warning = function(warning) {.warning(warning)},
     error = function(error) {.error(error)},
     finally = {return(success)})
 }
 
-.share.parameter <- function(connections)
+.share.parameter <- function(connections,expression)
 {
   
-  if(length(connections) > 1)
+  if(length(connections) > 1 & is.character(expression))
   {
-    
-    last <- length(connections)-1
-    print(last)
-    for(current in 1:last)
+    outcome <- FALSE
+  
+    if (nchar(expression) > 0)
     {
-      print("step 1")
-      master   <- connections[[current]]
-      receiver <- connections[[current+1]]
-      outcome <- ds.aggregate(master, "environmentInfoDS()")
-      print(outcome)
-      outcome <- ds.aggregate(receiver, "environmentInfoDS()")
-      print(outcome)
-      
-      print("step 2")
-      .initiateExchange(master, master=TRUE)
-      outcome <- ds.aggregate(master, "environmentInfoDS()")
-      print(outcome)
-      print("step 3")
-      .transfer.encoded.matrix(master, receiver)
-       outcome <- ds.aggregate(receiver, "environmentInfoDS()")
+        last <- length(connections)-1
+        master   <- connections[[1]]
        
-       print("step 4")
-      .initiateExchange(receiver,master=FALSE)
-      print("RECEIVER AFTER SHARING AND init ")
-      print(outcome)
-      outcome <- ds.aggregate(receiver, "ls(sharing)")
-      print(outcome)
-      .transfer.encoded.matrix(receiver, master)
-      print("end of phase III")
-      outcome <- ds.aggregate(master, "ls(sharing)")
-      print(outcome)
-      #outcome <- ds.remove.variable(master,"sharing")
+        print("step 0")
+        
+        param.name <- .aggregate(master, expression)
+        outcome <- ds.aggregate(master, "environmentInfoDS()")
+        print(outcome)
+        for(current in 1:last)
+        {
+          print("step 1")
+          master   <- connections[[current]]
+          receiver <- connections[[current+1]]
+          outcome <- ds.aggregate(master, "environmentInfoDS()")
+          print(outcome)
+          outcome <- ds.aggregate(receiver, "environmentInfoDS()")
+          print(outcome)
+          
+          print("step 2")
+          .initiateExchange(master, master=TRUE)
+          outcome <- ds.aggregate(master, "environmentInfoDS()")
+          print(outcome)
+          print("step 3")
+          .transfer.encoded.matrix(master, receiver)
+           outcome <- ds.aggregate(receiver, "environmentInfoDS()")
+           
+           print("step 4")
+          .initiateExchange(receiver,master=FALSE)
+          print("RECEIVER AFTER SHARING AND init ")
+          print(outcome)
+          outcome <- ds.aggregate(receiver, "ls(sharing)")
+          print(outcome)
+          .transfer.encoded.matrix(receiver, master)
+          print("end of phase III")
+          outcome <- ds.aggregate(master, "ls(sharing)")
+          print(outcome)
+          #outcome <- ds.remove.variable(master,"sharing")
+        }
+        
+        outcome <- TRUE
     }
-    
-    return(TRUE)
+    else
+    {
+      stop("ERR:003")
+    }
   }
   else
   {
@@ -118,6 +132,10 @@ ds.share.param <- function(connections)
   else if (grepl("ERR:006",error))
   {
     message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
+  }
+  else if (grepl("ERR:003",error))
+  {
+    message(paste(header, "::",  "ERR:003\n", " You have yet to provide a valid aggregate function.")) 
   }
   else
   {

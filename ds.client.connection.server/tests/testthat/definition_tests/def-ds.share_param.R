@@ -1,7 +1,8 @@
 source("connection_to_datasets/init_all_datasets.R")
 .test_param <- function(connection)
 {
-  .share.parameter(connection)
+  function.name <- "setLengthDS()"
+  .share.parameter(connection,function.name)
 }
 
 .test_single_connection <- function(connection)
