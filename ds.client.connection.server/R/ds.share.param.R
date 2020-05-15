@@ -24,7 +24,7 @@ ds.share.param <- function(connections,param.name = NULL)
 
 .share.parameter <- function(connections,expression)
 {
-  
+ 
   if(length(connections) > 1 & is.character(expression))
   {
     outcome <- FALSE
@@ -33,6 +33,7 @@ ds.share.param <- function(connections,param.name = NULL)
     {
         last <- length(connections)-1
         master   <- connections[[1]]
+        
        
         print("step 0")
         
