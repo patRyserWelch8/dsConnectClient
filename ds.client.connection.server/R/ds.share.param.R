@@ -34,10 +34,8 @@ ds.share.param <- function(connections,param.name = NULL)
         last <- length(connections)-1
         master   <- connections[[1]]
         
-       
         print("step 0")
-        
-        param.name <- .aggregate(master, expression)
+        param.name <- ds.aggregate(master, expression)
         outcome <- ds.aggregate(master, "environmentInfoDS()")
         print(outcome)
         for(current in 1:last)
@@ -68,6 +66,12 @@ ds.share.param <- function(connections,param.name = NULL)
           print("end of phase III")
           outcome <- ds.aggregate(master, "ls(sharing)")
           print(outcome)
+          
+          print("step 5")
+          .encodeParam(master,param.name)
+          outcome <- ds.aggregate(receiver, "ls(sharing)")
+          print(outcome)
+         
           #outcome <- ds.remove.variable(master,"sharing")
         }
         
@@ -110,6 +114,15 @@ ds.share.param <- function(connections,param.name = NULL)
                        property.b.param , ",", property.c.param , ",", property.d.param , ")")
  
   outcome <- .aggregate(receiver, expression)
+  print(outcome)
+}
+
+.encodeParam <- function(connection,param.name)
+{
+  expression <- paste0("encodeParamDS('",param.name, "')")
+  print(expression)
+  
+  outcome   <- .aggregate(connection,expression)
   print(outcome)
 }
 
