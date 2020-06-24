@@ -27,14 +27,15 @@ source("connection_to_datasets/init_all_datasets.R")
 #options(datashield.env=ds.test_env)
 
 options(show.error.messages = FALSE)
-options()
+
 print("setup - Check connections and server functions")
 
 connections <- connect.all.datasets()
-aggregate.functions <- datashield.methods(conns,type="aggregate")
-print(aggreate.functions)
-
-disconnect.all.datasets(connections)
-
-print("after connection")
+server.functions <- c("existsDS","removeDS")
+aggregate.functions <- datashield.methods(connections,type="aggregate")
+if(all(server.functions %in% aggregate.functions[,"name"]))
+{ 
+  print("All the functions have been uploaded on the server")
+}
+ 
 print("setup finished")
