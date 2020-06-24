@@ -28,13 +28,11 @@ source("connection_to_datasets/init_all_datasets.R")
 
 options(show.error.messages = FALSE)
 options()
-print("setup")
-
-
+print("setup - Check connections and server functions")
 
 connections <- connect.all.datasets()
-
-
+aggregate.functions <- datashield.methods(conns,type="aggregate")
+print(aggreate.functions)
 
 disconnect.all.datasets(connections)
 

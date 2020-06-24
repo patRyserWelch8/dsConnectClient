@@ -11,16 +11,17 @@
   login.info <- ds.build.login.data.frame(server,url,table,user,password,options.ssl, drivers)
 
 
-  expect_true(length(login.info) == 8)
+  expect_true(length(login.info) == 9)
   expect_that(login.info,is_a('data.frame'))
   expect_that(colnames(login.info)[1], equals('server'))
   expect_that(colnames(login.info)[2], equals('url'))
   expect_that(colnames(login.info)[3], equals('table'))
-  expect_that(colnames(login.info)[4], equals('driver'))
-  expect_that(colnames(login.info)[5], equals('user'))
-  expect_that(colnames(login.info)[6], equals('password'))
-  expect_that(colnames(login.info)[7], equals('token'))
-  expect_that(colnames(login.info)[8], equals('options'))
+  expect_that(colnames(login.info)[4], equals('resource'))
+  expect_that(colnames(login.info)[5], equals('driver'))
+  expect_that(colnames(login.info)[6], equals('user'))
+  expect_that(colnames(login.info)[7], equals('password'))
+  expect_that(colnames(login.info)[8], equals('token'))
+  expect_that(colnames(login.info)[9], equals('options'))
 }
 
 .test.incorrect.format <- function(some.server,some.urls,some.users,some.passwords,some.tables,some.options,some.drivers)
