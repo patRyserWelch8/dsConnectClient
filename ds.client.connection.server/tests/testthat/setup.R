@@ -11,7 +11,6 @@
 # Datashield test suite set up
 #
 
-
 library(DSI)
 library(DSOpal)
 library(testthat)
