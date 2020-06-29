@@ -26,7 +26,7 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_equal(length(connections)>1,TRUE)
   expect_warning(.share.parameter(connections))
   expect_equal(ds.share.param(connections),FALSE)
-  
+   
   function.name <- "setLengthDS()"
   expect_equal(.share.parameter(connections,function.name),TRUE)
   result <- ds.aggregate(connections, 'DANGERgetparam()')
