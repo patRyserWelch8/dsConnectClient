@@ -56,7 +56,6 @@ test_that('more_correct_parameters',
   .test.variables.exists(connections,"number.int.positive_3","D$POSITIVE_INTEGER","integer")
   .test.variables.exists(connections,"number.num.positive_4","D$POSITIVE_NUMERIC","numeric")
   .test.variables.exists(connections,"number.num.negative_1","D$NEGATIVE_NUMERIC","numeric")
-  .test.variables.exists(connections,"number.factor_2","D$FACTOR_INTEGER","integer")
   
   .test.variables.exists(connections,"var.char","D$CHARACTER","character")
   .test.variables.exists(connections,"var.logical","D$LOGICAL","logical")

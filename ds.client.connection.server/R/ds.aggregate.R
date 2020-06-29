@@ -54,7 +54,7 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
     }
     else
     {
-      return(DSI::datashield.aggregate(connection,expression,asynchronous))
+        return(DSI::datashield.aggregate(connection,expression,asynchronous))
     }
   }
 }
@@ -75,6 +75,10 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
   else if (grepl("ERR:007",error))
   {
     message(paste(header, "::",  "ERR:007\n", " You have yet to provide a valid expression.")) 
+  }
+  else if (grepl("ERR:008",error))
+  {
+    message(paste(header, "::",  "ERR:008\n", " You have yet to function valid server function.")) 
   }
   else
   {

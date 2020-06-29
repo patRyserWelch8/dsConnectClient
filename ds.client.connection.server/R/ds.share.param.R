@@ -12,7 +12,7 @@ library(DSOpal)
 library(httr)
 
 
-ds.share.param <- function(connections,param.name = NULL)
+ds.share.param <- function(connections=NULL,param.name = NULL)
 {
   success <- FALSE
   tryCatch(
@@ -22,60 +22,18 @@ ds.share.param <- function(connections,param.name = NULL)
     finally = {return(success)})
 }
 
-.share.parameter <- function(connections,expression)
+.share.parameter <- function(connections=NULL,expression=NULL)
 {
- 
   if(length(connections) > 1 & is.character(expression))
   {
     outcome <- FALSE
-  
     if (nchar(expression) > 0)
     {
-        last <- length(connections)-1
-        master   <- connections[[1]]
-        
-        print("step 0")
-        param.name <- ds.aggregate(master, expression)
-        outcome <- ds.aggregate(master, "environmentInfoDS()")
-        print(outcome)
-        for(current in 1:last)
+        success <- .assignSettings(connections)
+        if (success)
         {
-          print("step 1")
-          master   <- connections[[current]]
-          receiver <- connections[[current+1]]
-          outcome <- ds.aggregate(master, "environmentInfoDS()")
-          print(outcome)
-          outcome <- ds.aggregate(receiver, "environmentInfoDS()")
-          print(outcome)
-          
-          print("step 2")
-          .initiateExchange(master, master=TRUE)
-          outcome <- ds.aggregate(master, "environmentInfoDS()")
-          print(outcome)
-          print("step 3")
-          .transfer.encoded.matrix(master, receiver)
-           outcome <- ds.aggregate(receiver, "environmentInfoDS()")
-           
-           print("step 4")
-          .initiateExchange(receiver,master=FALSE)
-          print("RECEIVER AFTER SHARING AND init ")
-          print(outcome)
-          outcome <- ds.aggregate(receiver, "ls(sharing)")
-          print(outcome)
-          .transfer.encoded.matrix(receiver, master)
-          print("end of phase III")
-          outcome <- ds.aggregate(master, "ls(sharing)")
-          print(outcome)
-          
-          print("step 5")
-          .encodeParam(master,param.name)
-          outcome <- ds.aggregate(receiver, "ls(sharing)")
-          print(outcome)
-         
-          #outcome <- ds.remove.variable(master,"sharing")
+          outcome <- .complete.exchange(connections,expression)
         }
-        
-        outcome <- TRUE
     }
     else
     {
@@ -88,42 +46,158 @@ ds.share.param <- function(connections,param.name = NULL)
   }
 }
 
-.initiateExchange <- function(connection, master=TRUE)
+.assignSettings <- function(connections)
 {
-  expression <- paste0("initiateExchangeDS(master=",master,")")
-  successful <- ds.aggregate(connection, expression)
+  successful <- FALSE
+  outcome    <- ds.aggregate(connections, "assignSharingSettingsDS()")
+  if(is.list(outcome))
+  {
+    outcome.vector <- unlist(outcome)
+    successful     <- all(outcome.vector == TRUE)
+  }
+  else
+  {
+    successful     <- outcome
+  }
+
   if (!successful)
   {
     stop("ERR:002")
   }
+  
+  return(successful)
 }
-  
-.transfer.encoded.matrix <- function(sender = NULL, receiver = NULL)
-{
-  
-  received.data    <- ds.aggregate(sender, "getEncodedDataDS()")
-  header.param     <- paste0("'", received.data$header,"'") 
-  payload.param    <- paste0("'", received.data$payload, "'")
-  property.a.param <- paste0(received.data$property.a)
-  property.b.param <- paste0(received.data$property.b)
-  property.c.param <- paste0(received.data$property.c)
-  property.d.param <- paste0(received.data$property.d)
 
+.complete.exchange <- function(connections, expression)
+{
+  outcome <- FALSE
+  last <- length(connections)-1
+  for(current in 1:last)
+  {
+    master     <- connections[[current]]
+    receiver   <- connections[[current+1]]
+    param.name <- .save.param(master,expression)
+    outcome    <- .exchange(master, receiver, param.name)
+  }
+  return(outcome)
+}
+
+
+.save.param        <- function(connection, expression)
+{
+  param.name <- ""
+  param.name <- ds.aggregate(connection, expression)
+  return(param.name)
   
-  expression <- paste0("sendEncodedDataDS(", header.param, ",", payload.param, ",", property.a.param , ",", 
-                       property.b.param , ",", property.c.param , ",", property.d.param , ")")
- 
-  outcome <- .aggregate(receiver, expression)
-  print(outcome)
+}
+
+.exchange <- function(master, receiver, param.name)
+{
+  outcome    <- FALSE
+  step       <-  1
+  max.steps  <-  14
+  while(step <= max.steps)
+  {
+    success <- switch(          
+      step,
+      .encrypt_data(master,master_mode = TRUE, preserve_mode = FALSE), #1
+      .transfer.encrypted.matrix(master,receiver,master_mode = TRUE), #2
+      .encrypt_data(receiver,master_mode = FALSE, preserve_mode = FALSE), #3
+      .transfer.encrypted.matrix(receiver,master,master_mode = FALSE), #4
+      .decrypt_data(master), #5
+      .encrypt_param(master,param.name), #6
+      .removeEncryptionData(master), #7
+      .removeEncryptionData(receiver), #8
+      .encrypt_data(receiver,master_mode = TRUE, preserve_mode = TRUE), #9
+      .transfer.encrypted.matrix(receiver,master), #10
+      .encrypt_data(master,master_mode = FALSE, preserve_mode = TRUE), #11
+      .transfer.encrypted.matrix(master,receiver), #12
+      .decrypt_data(receiver), #13
+      .decrypt_param(receiver, param.name) #14
+    )
+   
+    if (success)
+    {
+      step <- step + 1
+    }
+    else
+    {
+      step <- step * 1000
+    }
+  }
+  
+  if(step == max.steps + 1)
+  {
+    outcome <- TRUE
+  }
+  return(outcome)
+}
+
+
+.encrypt_data <- function(connection, master_mode=TRUE, preserve_mode = FALSE)
+{
+   expression <- paste0("encryptDataDS(master_mode=",master_mode,", preserve_mode=", preserve_mode,")")
+   outcome    <- ds.aggregate(connection, expression)
+   return(outcome)
+}
+
+.encrypt_param <- function(connection,param.name)
+{
+  expression <- paste0("encryptParamDS(param_name='",param.name, "')")
+  outcome    <- .aggregate(connection, expression)
+  return(outcome)
+}
+
+.decrypt_data <- function(connection)
+{
+  expression <- paste0("decryptDataDS()")
+  outcome    <- .aggregate(connection, expression)
+  return(outcome)
+}
+
+.decrypt_param <- function(connection, param.name)
+{
+  expression <- paste0("decryptParamDS('",param.name,"')")
+  outcome    <- .aggregate(connection, expression)
+  return(outcome)
+}
+
+.transfer.encrypted.matrix <- function(sender = NULL, receiver = NULL, master_mode = TRUE)
+{
+  outcome <- FALSE
+  # retrieve from master server the encoded data
+  received.data    <- ds.aggregate(sender, "getDataDS()")
+  if(grepl(received.data$header,"FM1"))
+  {
+      # assign on the server the encoded data
+      master.param     <- paste0("master_mode=", master_mode)
+      header.param     <- paste0("header='", received.data$header,"'") 
+      payload.param    <- paste0("payload='", received.data$payload, "'")
+      property.a.param <- paste0("property.a=",received.data$property.a)
+      property.b.param <- paste0("property.b=",received.data$property.b)
+      property.c.param <- paste0("property.c=",received.data$property.c)
+      property.d.param <- paste0("property.d=",received.data$property.d)
+    
+      expression <- paste0("assignDataDS(", master.param, "," ,header.param, ",", 
+                           payload.param, ",", property.a.param , ",", 
+                           property.b.param , ",", property.c.param , ",", property.d.param , ")")
+      outcome <- ds.aggregate(receiver, expression)
+  }
+  return(outcome)
 }
 
 .encodeParam <- function(connection,param.name)
 {
   expression <- paste0("encodeParamDS('",param.name, "')")
-  print(expression)
-  
-  outcome   <- .aggregate(connection,expression)
-  print(outcome)
+  outcome   <- ds.aggregate(connection,expression)
+}
+
+.removeEncryptionData <- function(connection)
+{
+  expression <- paste0("removeEncryptingDataDS()")
+ 
+  outcome    <- ds.aggregate(connection,expression)
+ 
 }
 
 .warning <- function(message)
