@@ -9,11 +9,8 @@ connections <- connect.all.datasets()
 connection <- connect.dataset.1()
 
 
-context('ds.share_param()::expt::.assignSettings::single')
-test_that('single connections',
-{
-  .test_assign_testing(connections)
-})
+
+
 
 context('ds.share_param()::smk::single')
 test_that('single connections',
@@ -22,8 +19,14 @@ test_that('single connections',
 }
 )
 
+context('ds.share_param()::expt::.assignSettings::single')
+test_that('single connections',
+{
+  .test_assign_testing(connections)
+})
 
 log.out.data.server()
+
 
 
 connections <- connect.all.datasets()
@@ -37,3 +40,7 @@ test_that('multiple connections',
 
 log.out.data.server()
 
+
+if(FALSE)
+{
+}
