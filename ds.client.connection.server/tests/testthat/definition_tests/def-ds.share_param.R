@@ -24,13 +24,14 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test_multiple_connections <- function(connections)
 {
-  outcome <- ds.aggregate(connections[[1]], "setPiDS('pi_value')")
+  outcome <- ds.aggregate(connections[[1]], "setPiDS('pi_value_1')")
+  outcome <- ds.aggregate(connections[[1]], "setPiDS('pi_value_2')")
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
   expect_equal(length(connections)>1,TRUE)
   #expect_warning(.share.parameter(connections))
   #expect_equal(ds.share.param(connections),FALSE)
    
-  expect_equal(.share.parameter(connections,param.names = c("pi_value")),TRUE)
+  expect_equal(.share.parameter(connections,param.names = c("pi_value_1", "pi_value_2")),TRUE)
   result <- ds.aggregate(connections, 'DANGERgetparam()')
   #expect_equal(ds.share.param(connections),FALSE)
   result <- ds.aggregate(connections, 'DANGERgetparam()')
