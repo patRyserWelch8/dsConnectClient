@@ -5,42 +5,48 @@ library(httr)
 source("definition_tests/def-ds.share_param.R")
 source("connection_to_datasets/init_all_datasets.R")
 
-connections <- connect.all.datasets()
-connection <- connect.dataset.1()
 
-
-
-
-
-context('ds.share_param()::smk::single')
-test_that('single connections',
+context('ds.share_param()::expt::no_connections')
+test_that("no_connection_all_function",
 {
-  .test_single_connection(connection)
-}
-)
-
-context('ds.share_param()::expt::.assignSettings::single')
-test_that('single connections',
-{
-  .test_assign_testing(connections)
+  .test_no_connection() 
 })
 
-log.out.data.server()
 
-
-
-connections <- connect.all.datasets()
-context('ds.share_param()::smk::multiple')
-test_that('multiple connections',
-{
-  .test_multiple_connections(connections)
-}
-)
-
-
-log.out.data.server()
 
 
 if(FALSE)
 {
+  
+  connections <- connect.all.datasets()
+  
+  context('ds.share_param()::smk::multiple')
+  test_that('multiple connections',
+            {
+              .test_multiple_connections(connections)
+            }
+  )
+  
+  
+  log.out.data.server()
+  
+  
+  
+  
+  connection <- connect.dataset.1()
+  
+  context('ds.share_param()::smk::single')
+  test_that('single connections',
+            {
+              .test_single_connection(connection)
+            }
+  )
+  
+  context('ds.share_param()::expt::.assignSettings::single')
+  test_that('single connections',
+            {
+              .test_assign_testing(connections)
+            })
+  
+  log.out.data.server()
 }

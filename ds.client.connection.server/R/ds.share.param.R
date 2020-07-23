@@ -24,17 +24,15 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
 
 .share.parameter <- function(connections=NULL,param.names = NULL)
 {
-  print(param.names)
   if(length(connections) >= 1 & is.character(param.names))
   {
     outcome <- FALSE
-    print("JJJJJ")
+   
     if (length(param.names) > 0)
     {
-        print("UUUUU")
+       
         success <- .assignSettings(connections)
-        print(success)
-        print(param.names)
+       
         if (success)
         {
           outcome <- .complete.exchange(connections,param.names)
@@ -78,10 +76,9 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   outcome     <- FALSE
   last        <- length(connections)-1
   master      <- connections[[1]]
-  #param.names <- .save.param(master,expression) #to review
   continue    <- TRUE
   current     <- 1
-  print(param.names)
+  
   while(continue)
   {
     
@@ -104,23 +101,14 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
 }
 
 
-.save.param        <- function(connection, expression)
-{
-  param.name <- ""
-  param.name <- ds.aggregate(connection, expression)
-  return(param.name)
-  
-}
-
 .exchange <- function(master, receiver, param.names = NULL)
 {
   outcome    <- FALSE
   step       <-  1
   max.steps  <-  16
-  print(param.names)
   while(step <= max.steps)
   {
-    print(step)
+   
     success <- switch(          
        step,
       .encrypt_data(master,master_mode = TRUE, preserve_mode = FALSE), #1
@@ -131,14 +119,15 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
       .assignParamSettings(master, param.names), #6
       .transfer.coordinates(master, receiver), #7 
       .encrypt_param(master), #8
-      .removeEncryptionData(master, master.mode = TRUE), #9
-      .removeEncryptionData(receiver, master.mode = FALSE),  #10 
+      .remove.encryption.data(master, master.mode = TRUE), #9
+      .remove.encryption.data(receiver, master.mode = FALSE),  #10 
       .encrypt_data(receiver,master_mode = TRUE, preserve_mode = TRUE),  #11
       .transfer.encrypted.matrix(receiver,master), #12
       .encrypt_data(master,master_mode = FALSE, preserve_mode = TRUE), #13
       .transfer.encrypted.matrix(master,receiver), #14
       .decrypt_data(receiver), #15
       .decrypt_param(receiver, param.names) #16
+      
     )
    
     if (success)
@@ -161,26 +150,12 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
 .assignParamSettings <- function(connection, param.names = NULL)
 {
   outcome <- FALSE
-  print("AS")
-  print(param.names)
-  print(is.character(param.names))
-  print(is.vector(param.names))
   if(is.character(param.names) & is.vector(param.names))
   {
-    print("AS")
-    #names.var.on.server <-  paste(param.names, collapse="','")
-    #names.var.on.server <-  paste0("c('",names.var.on.server,"')")
     names.var.on.server <-  paste(param.names, collapse=";")
     names.var.on.server <-  paste0("'",names.var.on.server,"'")
-    
-  
-  
-    print("AS")
     expression <- paste0("assignParamSettingsDS(param_names = ", names.var.on.server,")")
-    print(expression)
     outcome    <- .aggregate(connection, expression)
-    print(DSI::datashield.errors())
-    print(outcome)
   }
   return(outcome)
 }
@@ -206,9 +181,11 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   return(outcome)
 }
 
-.decrypt_param <- function(connection, param.name)
+.decrypt_param <- function(connection, param.names)
 {
-  expression <- paste0("decryptParamDS('",param.name,"')")
+  names.var.on.server <-  paste(param.names, collapse=";")
+  names.var.on.server <-  paste0("'",names.var.on.server,"'")
+  expression <- paste0("decryptParamDS(",names.var.on.server,")")
   outcome    <- .aggregate(connection, expression)
   return(outcome)
 }
@@ -262,16 +239,15 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   return(outcome)
 }
 
-.encodeParam <- function(connection,param.name)
-{
-  expression <- paste0("encodeParamDS('",param.name, "')")
-  outcome   <- ds.aggregate(connection,expression)
-}
+#.encodeParam <- function(connection,param.name)
+#{
+#  expression <- paste0("encodeParamDS('",param.name, "')")
+#  outcome   <- ds.aggregate(connection,expression)
+#}
 
-.removeEncryptionData <- function(connection, master.mode)
+.remove.encryption.data <- function(connection, master.mode)
 {
   expression <- paste0("removeEncryptingDataDS(master_mode = ", master.mode, ")")
- 
   outcome    <- ds.aggregate(connection,expression)
  
 }
