@@ -168,16 +168,19 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   if(is.character(param.names) & is.vector(param.names))
   {
     print("AS")
-    names.on.server <- dput(param.names)
-    if(length(param.names) == 1)
-    {
-      print("AS")
-      names.on.server <- paste0("'",names.on.server,"'")
-    }
+    #names.var.on.server <-  paste(param.names, collapse="','")
+    #names.var.on.server <-  paste0("c('",names.var.on.server,"')")
+    names.var.on.server <-  paste(param.names, collapse=";")
+    names.var.on.server <-  paste0("'",names.var.on.server,"'")
+    
+  
+  
     print("AS")
-    expression <- paste0("assignParamSettingsDS(", names.on.server,")")
+    expression <- paste0("assignParamSettingsDS(param_names = ", names.var.on.server,")")
     print(expression)
-    outcome    <- ds.aggregate(connection, expression)
+    outcome    <- .aggregate(connection, expression)
+    print(DSI::datashield.errors())
+    print(outcome)
   }
   return(outcome)
 }
