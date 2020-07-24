@@ -24,7 +24,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
 
 .share.parameter <- function(connections=NULL,param.names = NULL)
 {
-  if(length(connections) >= 1 & is.character(param.names))
+  if(length(connections) > 1 & is.character(param.names))
   {
     outcome <- FALSE
    
@@ -32,7 +32,6 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
     {
        
         success <- .assignSettings(connections)
-       
         if (success)
         {
           outcome <- .complete.exchange(connections,param.names)
@@ -52,51 +51,57 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
 .assignSettings <- function(connections)
 {
   successful <- FALSE
-  outcome    <- ds.aggregate(connections, "assignSharingSettingsDS()")
-  if(is.list(outcome))
+  if (!is.null(connections))
   {
-    outcome.vector <- unlist(outcome)
-    successful     <- all(outcome.vector == TRUE)
-  }
-  else
-  {
-    successful     <- outcome
-  }
-
-  if (!successful)
-  {
-    stop("ERR:002")
-  }
+    outcome    <- ds.aggregate(connections, "assignSharingSettingsDS()")
+    if(is.list(outcome))
+    {
+      outcome.vector <- unlist(outcome)
+      successful     <- all(outcome.vector == TRUE)
+    }
+    else
+    {
+      successful     <- outcome
+    }
   
+    if (!successful)
+    {
+      stop("ERR:002")
+    }
+  }
   return(successful)
 }
 
 .complete.exchange <- function(connections, param.names = NULL)
 {
-  outcome     <- FALSE
-  last        <- length(connections)-1
-  master      <- connections[[1]]
-  continue    <- TRUE
-  current     <- 1
-  
-  while(continue)
+  outcome        <- FALSE
+  no.connections <- length(connections)
+  if(no.connections > 1)
   {
+    last        <- no.connections-1
+    master      <- connections[[1]]
+    continue    <- TRUE
+    current     <- 1
     
-    master     <- connections[[current]]
-    receiver   <- connections[[current+1]]
-    success    <- .exchange(master, receiver, param.names)
-    continue   <- success 
-    
-    if(current < last)
+    while(continue)
     {
-       current  <- current + 1 
+      
+      master     <- connections[[current]]
+      receiver   <- connections[[current+1]]
+      success    <- .exchange(master, receiver, param.names)
+      continue   <- success 
+      
+      if(current < last)
+      {
+         current  <- current + 1 
+      }
+      else
+      {
+         continue <- FALSE
+      }
     }
-    else
-    {
-       continue <- FALSE
-    }
+    outcome <- success
   }
-  outcome <- success
   return(outcome)
 }
 
@@ -106,9 +111,10 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   outcome    <- FALSE
   step       <-  1
   max.steps  <-  16
+ 
   while(step <= max.steps)
   {
-   
+  
     success <- switch(          
        step,
       .encrypt_data(master,master_mode = TRUE, preserve_mode = FALSE), #1
@@ -147,6 +153,24 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   return(outcome)
 }
 
+.transform.outcome.to.logical <- function(value)
+{
+  outcome <- FALSE
+  if(is.logical(value))
+  {
+    outcome <- value
+  }
+  else 
+  {
+    if(is.list(value))
+    {
+      outcome.vector <- unlist(value)
+      outcome        <- all(TRUE %in% outcome.vector)
+    }
+  }
+  return(outcome)
+}
+
 .assignParamSettings <- function(connection, param.names = NULL)
 {
   outcome <- FALSE
@@ -155,30 +179,30 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
     names.var.on.server <-  paste(param.names, collapse=";")
     names.var.on.server <-  paste0("'",names.var.on.server,"'")
     expression <- paste0("assignParamSettingsDS(param_names = ", names.var.on.server,")")
-    outcome    <- .aggregate(connection, expression)
+    outcome    <- ds.aggregate(connection, expression)
   }
-  return(outcome)
+  return(.transform.outcome.to.logical(outcome))
 }
 
 .encrypt_data <- function(connection, master_mode=TRUE, preserve_mode = FALSE)
 {
    expression <- paste0("encryptDataDS(master_mode=",master_mode,", preserve_mode=", preserve_mode,")")
    outcome    <- ds.aggregate(connection, expression)
-   return(outcome)
+   return(.transform.outcome.to.logical(outcome))
 }
 
 .encrypt_param <- function(connection)
 {
   expression <- paste0("encryptParamDS()")
   outcome    <- ds.aggregate(connection, expression)
-  return(outcome)
+  return(.transform.outcome.to.logical(outcome))
 }
 
 .decrypt_data <- function(connection)
 {
   expression <- paste0("decryptDataDS()")
-  outcome    <- .aggregate(connection, expression)
-  return(outcome)
+  outcome    <- ds.aggregate(connection, expression)
+  return(.transform.outcome.to.logical(outcome))
 }
 
 .decrypt_param <- function(connection, param.names)
@@ -186,57 +210,77 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   names.var.on.server <-  paste(param.names, collapse=";")
   names.var.on.server <-  paste0("'",names.var.on.server,"'")
   expression <- paste0("decryptParamDS(",names.var.on.server,")")
-  outcome    <- .aggregate(connection, expression)
-  return(outcome)
+  outcome    <- ds.aggregate(connection, expression)
+  return(.transform.outcome.to.logical(outcome))
 }
 
 .transfer.coordinates <- function(sender = NULL, receiver = NULL)
 {
   outcome <- FALSE
-  received.coordinates    <- ds.aggregate(sender, "getCoordinatesDS()")
   
-  if(grepl(received.coordinates$header,"FM1"))
+  if(!is.null(sender) & !is.null(receiver))
   {
-    header.param     <- paste0("header='", received.coordinates$header,"'") 
-    payload.param    <- paste0("payload='", received.coordinates$payload, "'")
-    property.a.param <- paste0("property.a=",received.coordinates$property.a)
-    property.b.param <- paste0("property.b=",received.coordinates$property.b)
-    property.c.param <- paste0("property.c=",received.coordinates$property.c)
-    property.d.param <- paste0("property.d=",received.coordinates$property.d)
-    expression <- paste0("assignCoordinatesDS(", header.param, ",", 
-                                                payload.param, ",", 
-                                                property.a.param , ",", 
-                                                property.b.param , ",", 
-                                                property.c.param , ",", 
-                                                property.d.param , ")")
-    outcome <- ds.aggregate(receiver, expression)
-   
+     received.coordinates <- ds.aggregate(sender, "getCoordinatesDS()")
+     field.names          <- names(received.coordinates)
+     expected.field.names <- c("header","payload","property.a","property.b","property.c","property.d")
+     has.correct.field    <- all(expected.field.names %in% field.names)
+     if (has.correct.field)
+     {
+       if(grepl(received.coordinates$header,"FM1"))
+       {
+           header.param     <- paste0("header='", received.coordinates$header,"'") 
+           payload.param    <- paste0("payload='", received.coordinates$payload, "'")
+           property.a.param <- paste0("property.a=",received.coordinates$property.a)
+           property.b.param <- paste0("property.b=",received.coordinates$property.b)
+           property.c.param <- paste0("property.c=",received.coordinates$property.c)
+           property.d.param <- paste0("property.d=",received.coordinates$property.d)
+           expression       <- paste0("assignCoordinatesDS(", header.param, ",", 
+                                                              payload.param, ",", 
+                                                              property.a.param , ",", 
+                                                              property.b.param , ",", 
+                                                              property.c.param , ",", 
+                                                              property.d.param , ")")
+           outcome <- ds.aggregate(receiver, expression)
+           outcome <- .transform.outcome.to.logical(outcome)
+       }
+     }
   }
+  
   return(outcome)
 }
 
 .transfer.encrypted.matrix <- function(sender = NULL, receiver = NULL, master_mode = TRUE)
 {
   outcome <- FALSE
-  # retrieve from master server the encoded data
-  received.data    <- ds.aggregate(sender, "getDataDS()")
-  if(grepl(received.data$header,"FM1"))
+  
+  if(!is.null(sender) & !is.null(receiver))
   {
-      # assign on the server the encoded data
-      master.param     <- paste0("master_mode=", master_mode)
-      header.param     <- paste0("header='", received.data$header,"'") 
-      payload.param    <- paste0("payload='", received.data$payload, "'")
-      property.a.param <- paste0("property.a=",received.data$property.a)
-      property.b.param <- paste0("property.b=",received.data$property.b)
-      property.c.param <- paste0("property.c=",received.data$property.c)
-      property.d.param <- paste0("property.d=",received.data$property.d)
-    
-      expression <- paste0("assignDataDS(", master.param, "," ,header.param, ",", 
-                           payload.param, ",", property.a.param , ",", 
-                           property.b.param , ",", property.c.param , ",", property.d.param , ")")
-      outcome <- ds.aggregate(receiver, expression)
-  }
-  return(outcome)
+      # retrieve from master server the encoded data
+      received.data        <- .aggregate(sender, "getDataDS()")
+      field.names          <- names(received.data)
+      expected.field.names <- c("header","payload","property.a","property.b","property.c","property.d")
+      has.correct.field    <- all(expected.field.names %in% field.names)
+      if (has.correct.field)
+      {
+        if(grepl(received.data$header,"FM1"))
+        {
+            # assign on the server the encoded data
+            master.param     <- paste0("master_mode=", master_mode)
+            header.param     <- paste0("header='", received.data$header,"'") 
+            payload.param    <- paste0("payload='", received.data$payload, "'")
+            property.a.param <- paste0("property.a=",received.data$property.a)
+            property.b.param <- paste0("property.b=",received.data$property.b)
+            property.c.param <- paste0("property.c=",received.data$property.c)
+            property.d.param <- paste0("property.d=",received.data$property.d)
+          
+            expression <- paste0("assignDataDS(", master.param, "," ,header.param, ",", 
+                                 payload.param, ",", property.a.param , ",", 
+                                 property.b.param , ",", property.c.param , ",", property.d.param , ")")
+            outcome <- ds.aggregate(receiver, expression)
+        }
+      }
+   }
+   return(.transform.outcome.to.logical(outcome))
 }
 
 #.encodeParam <- function(connection,param.name)
@@ -249,7 +293,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
 {
   expression <- paste0("removeEncryptingDataDS(master_mode = ", master.mode, ")")
   outcome    <- ds.aggregate(connection,expression)
- 
+  return(.transform.outcome.to.logical(outcome))
 }
 
 .warning <- function(message)
