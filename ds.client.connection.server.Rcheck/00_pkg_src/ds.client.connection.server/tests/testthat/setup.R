@@ -11,7 +11,6 @@
 # Datashield test suite set up
 #
 
-
 library(DSI)
 library(DSOpal)
 library(testthat)
@@ -27,15 +26,20 @@ source("connection_to_datasets/init_all_datasets.R")
 #options(datashield.env=ds.test_env)
 
 options(show.error.messages = FALSE)
-options()
-print("setup")
 
-
+print("setup - Check connections and server functions")
 
 connections <- connect.all.datasets()
-print("after connection")
-
-disconnect.all.datasets(connections)
-
-
+server.functions <- c("existsDS","removeDS","assignCoordinatesDS",
+                      "assignDataDS", "assignParamSettingsDS",
+                      "getDataDS", "getCoordinatesDS",
+                      "assignSharingSettingsDS", "decryptDataDS",
+                      "encryptDataDS", "decryptParamDS",
+                      "encryptParamDS", "removeEncryptingDataDS")
+aggregate.functions <- datashield.methods(connections,type="aggregate")
+if(all(server.functions %in% aggregate.functions[,"name"]))
+{ 
+  print("All the functions have been uploaded on the server")
+}
+ 
 print("setup finished")

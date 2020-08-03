@@ -8,10 +8,10 @@ Depends: R (>= 3.5.0)
 License: GPL-3
 LazyData: true
 Imports: DSI, DSOpal, RCurl, R6, opalr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2020-04-20 16:17:37 UTC; patricia
+Packaged: 2020-07-31 12:31:06 UTC; patricia
 Author: Patricia Ryser-Welch [aut, cre]
 Maintainer: Patricia  Ryser-Welch <patricia.ryser-welch@newcastle.ac.uk>
-Built: R 3.6.3; ; 2020-04-20 16:17:42 UTC; unix
+Built: R 4.0.1; ; 2020-07-31 12:31:12 UTC; unix

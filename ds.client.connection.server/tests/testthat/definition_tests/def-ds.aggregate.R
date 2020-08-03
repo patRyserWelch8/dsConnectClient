@@ -5,13 +5,30 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   
   server.call <- paste("dimDS('",'D',"')", sep="")
-  print(server.call)
-  print(connections)
-  print(.aggregate(connections, server.call))
-  server.values <- ds.aggregate(connections, server.call)
-  print(server.values)
+  server.values <- .aggregate(connections, server.call)
   expect_true(length(server.values) == length(connections))
+  server.values <- ds.aggregate(connections, server.call)
+  expect_true(length(server.values) == length(connections))
+  
+  server.call <- call('dimDS','D')
+  server.values <- .aggregate(connections, server.call)
+  expect_true(length(server.values) == length(connections))
+  
+  server.values <- ds.aggregate(connections, server.call)
+  expect_true(length(server.values) == length(connections))
+  
+  server.call <- 1
+  expect_error(server.values <- .aggregate(connections, server.call))
+  server.values <- ds.aggregate(connections, server.call)
+  expect_equal(server.values, "NR")
+  
+  #server.call <- call('DANGER_Error')
+  #DSI::datashield.aggregate(connections,server.call)
+  #print(DSI::datashield.errors())
+  #server.values <- ds.aggregate(connections, server.call)
+  
 }
+
 
 .test.no.connection <- function(connections)
 {
@@ -38,3 +55,5 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_true(server.values == "NR")
   
 }
+
+

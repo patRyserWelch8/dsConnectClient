@@ -12,7 +12,7 @@ library(DSOpal)
 library(httr)
 
 
-ds.share.param <- function(connections=NULL,param.names = NULL)
+ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
 {
   success <- FALSE
   tryCatch(
@@ -22,12 +22,11 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
     finally = {return(success)})
 }
 
-.share.parameter <- function(connections=NULL,param.names = NULL)
+.share.parameter <- function(connections=NULL,param.names = NULL, tolerance = 0)
 {
+  outcome <- FALSE
   if(length(connections) > 1 & is.character(param.names))
   {
-    outcome <- FALSE
-   
     if (length(param.names) > 0)
     {
        
@@ -36,6 +35,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
         {
           outcome <- .complete.exchange(connections,param.names)
         }
+        .remove.exchange.data(connections)
     }
     else
     {
@@ -46,6 +46,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
   {
     warning("WAR:001")
   }
+  return(outcome)
 }
 
 .assignSettings <- function(connections)
@@ -70,6 +71,15 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
     }
   }
   return(successful)
+}
+
+.remove.exchange.data <- function(connections)
+{
+  successful <- FALSE
+  if (!is.null(connections))
+  {
+    outcome <- .aggregate(connections, "removeExchangeDataDS()")
+  }
 }
 
 .complete.exchange <- function(connections, param.names = NULL)
@@ -133,7 +143,6 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
       .transfer.encrypted.matrix(master,receiver), #14
       .decrypt_data(receiver), #15
       .decrypt_param(receiver, param.names) #16
-      
     )
    
     if (success)
@@ -283,11 +292,6 @@ ds.share.param <- function(connections=NULL,param.names = NULL)
    return(.transform.outcome.to.logical(outcome))
 }
 
-#.encodeParam <- function(connection,param.name)
-#{
-#  expression <- paste0("encodeParamDS('",param.name, "')")
-#  outcome   <- ds.aggregate(connection,expression)
-#}
 
 .remove.encryption.data <- function(connection, master.mode)
 {

@@ -8,9 +8,9 @@ Depends: R (>= 3.5.0)
 License: GPL-3
 LazyData: true
 Imports: DSI, DSOpal, RCurl, R6, opalr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2020-04-20 15:53:47 UTC; patricia
+Packaged: 2020-07-31 12:31:06 UTC; patricia
 Author: Patricia Ryser-Welch [aut, cre]
 Maintainer: Patricia  Ryser-Welch <patricia.ryser-welch@newcastle.ac.uk>

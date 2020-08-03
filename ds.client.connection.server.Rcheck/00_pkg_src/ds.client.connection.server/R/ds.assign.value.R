@@ -94,7 +94,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
   else
   {
     .create.variable(connection, new.variable.name,value, class.type, asynchronous)
-    return(ds.exists.on.server(connection, new.variable.name, ".GlobalEnv", class.type))
+    return(ds.exists.on.server(connection, new.variable.name, class.type = class.type))
   }
 }
 

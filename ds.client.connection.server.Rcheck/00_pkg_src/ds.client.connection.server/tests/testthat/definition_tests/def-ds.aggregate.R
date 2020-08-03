@@ -11,8 +11,19 @@ source("connection_to_datasets/init_all_datasets.R")
   server.values <- ds.aggregate(connections, server.call)
   print(server.values)
   expect_true(length(server.values) == length(connections))
+  
+  server.call <- call("dimDS",'D')
+  print(server.call)
+  print(connections)
+  print(.aggregate(connections, server.call))
+  server.values <- ds.aggregate(connections, server.call)
+  print(server.values)
+  expect_true(length(server.values) == length(connections))
+  
 }
 
+if(FALSE)
+{
 .test.no.connection <- function(connections)
 {
   server.call <- paste("dimDS(",'D',")")
@@ -37,4 +48,6 @@ source("connection_to_datasets/init_all_datasets.R")
   server.values <- ds.aggregate(connections, server.call)
   expect_true(server.values == "NR")
   
+}
+
 }
