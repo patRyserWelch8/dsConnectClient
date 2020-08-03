@@ -32,7 +32,7 @@
 #'@details 
 #' \itemize{
 #' \item \code{ds.assign.value} captures any errors and warnings thrown by the function \code{.assign}. No error or warning is displayed. If an error or a warning is caught, then the function returns FALSE.
-#' \item \code{.assign} wraps the funcriont \code{DSI::datashield.assign function}. A valid OpalConnection, a valid server variable name and value is checked. When  all these conditions are met, then a server call is made. 
+#' \item \code{.assign} wraps the function \code{DSI::datashield.assign function}. A valid OpalConnection, a valid server variable name and value is checked. When  all these conditions are met, then a server call is made. 
 #' }
 #' Both functions can be used interchangeably. \code{.assign} allows more efficient debugging of some server and client code. \code{ds.assign.value} can be used 
 #' once the code is efficiently working.
@@ -52,58 +52,55 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
      {
        outcome <- .assign(connection, new.variable.name, value, class.type, asynchronous)},
        warning = function(warning) {.warning(warning)},
-       error = function(error) {.error(error)},
+       error = function(error) {ds.error(error)},
        finally = {return(outcome)})
 }
 
 .assign <- function(connection=NULL, new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE)
 {
-  valid.types <- c("NULL","character","complex","factor","double","expression","integer","list","mabrix","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
+ 
+  if(!is.list(connection))
+  {
+    stop("::ds.assign.value::ERR:006")
+  }
   
-  list.type <- c("list","OpalConnection")
-  type      <- class(connection)
+  if (!is.character.argument.correct(new.variable.name))
+  {
+    stop("::ds.assign.value::ERR:008")
+  }
   
-  if(!(type %in% list.type))
+  if (!is.value.for.assignment.correct(value))
   {
-    stop("ERR:006", call. = FALSE)
+    stop("::ds.assign.value::ERR:009", call. = FALSE)
   }
-  else if (class(new.variable.name) != "character")
+  
+  if (!is.class.type.correct(class.type))
   {
-      stop("ERR:008", call. = FALSE)
+    stop("::ds.assign.value::ERR:012", call. = FALSE)
   }
-  else if (nchar(new.variable.name) == 0)
-  {
-      stop("ERR:009", call. = FALSE)
-  }
-  else if (class(value) != "character")
-  {
-    stop("ERR:010", call. = FALSE)
-  }
-  else if (nchar(value) == 0)
-  {
-    stop("ERR:011", call. = FALSE)
-  }
-  else if (!grep("character",class(class.type)))
-  {
-    stop("ERR:012", call. = FALSE)
-  }
-  else if (!(class.type %in% valid.types))
-  {
-    stop("ERR:013", call. = FALSE)
-  }
-  else
-  {
-    .create.variable(connection, new.variable.name,value, class.type, asynchronous)
-    return(ds.exists.on.server(connection, new.variable.name, class.type = class.type))
-  }
+  
+  .create.variable(connection, new.variable.name,value, class.type, asynchronous)
+  return(ds.exists.on.server(connection, new.variable.name, class.type = class.type))
 }
 
-.create.variable <- function(connection, new.variable.name, value, class.type, asynchronous)
+
+.create.variable <- function(connection = NULL, new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL)
 {
     #delete variable from the server if it exists already
     ds.remove.variable(connection, new.variable.name, ".GlobalEnv", class.type)
     #create variable on the server(s)
-    DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
+    if (is.character(value))
+    {
+      DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
+    }
+    else if (is.symbol(value))
+    {
+      DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = value, async = asynchronous)
+    }
+    else if (is.call(value))
+    {
+      DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = value, async = asynchronous)
+    }
     #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
     ds.remove.variable(connection, new.variable.name, "", "NULL")
 }

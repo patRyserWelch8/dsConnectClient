@@ -43,7 +43,7 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
 }
 
 
-.create_environment <- function(connection=NULL, new.environment.name=NULL,asynchronous=FALS)
+.create_environment <- function(connection=NULL, new.environment.name=NULL,asynchronous=FALSE)
 {
   list.type <- c("list","OpalConnection")
   type      <- class(connection)

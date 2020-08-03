@@ -32,31 +32,28 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
   tryCatch(
   {outcome <- .aggregate(connection,expression, asynchronous)},
    warning = function(warning) {.warning(warning)},
-   error = function(error) {.error(error)},
+   error = function(error) {ds.error(error)},
    finally = {return(outcome)}
   )
 }
 
 .aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
- 
-  list.type <- c("list","OpalConnection")
-  type      <- class(connection)
-  if(!(type %in% list.type))
+  if(!is.list(connection))
   {
-    stop("ERR:006", call. = FALSE)
+    stop("::ds.aggregate::ERR:006")
   }
-  else 
+
+  if(is.character(expression) || is.call(expression))
   {
-    if (!grepl("character",class(expression)))
-    {
-       stop("ERR:007", call. = FALSE)
-    }
-    else
-    {
-        return(DSI::datashield.aggregate(connection,expression,asynchronous))
-    }
+    outcome <- DSI::datashield.aggregate(connection,expression,asynchronous)
+    return(outcome)
   }
+  else
+  {
+    stop("::ds.aggregate::ERR:007")
+  }
+  
 }
 
 .warning <- function(message)
@@ -64,25 +61,4 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
   message(paste("ds.client.connection.server::ds.aggregate :",   message ))
 }
 
-.error <- function(error)
-{
-  header <- 'ds.client.connection.server::ds.aggregate'
-
-  if (grepl("ERR:006",error))
-  {
-    message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
-  }
-  else if (grepl("ERR:007",error))
-  {
-    message(paste(header, "::",  "ERR:007\n", " You have yet to provide a valid expression.")) 
-  }
-  else if (grepl("ERR:008",error))
-  {
-    message(paste(header, "::",  "ERR:008\n", " You have yet to function valid server function.")) 
-  }
-  else
-  {
-    message(paste(header,"\n", error))
-  }
-}
 

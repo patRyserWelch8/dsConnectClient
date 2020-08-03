@@ -13,6 +13,7 @@ test_that('correct parameters',
   .test.all.parameters.correct(connections)
 })
 
+
 context('ds.aggregate():correct parameters:multiple')
 test_that('incorrect parameters',
 {
