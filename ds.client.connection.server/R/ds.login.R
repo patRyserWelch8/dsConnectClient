@@ -11,7 +11,7 @@
 #'   can be specified for identifiers mapping (if supported by data repository). See also the documentation
 #'   of the examplar input table \code{logindata} for details of the login elements.
 #'@param assign A boolean which tells whether or not data should be assigned from the data repository
-#'   table to R after login into the server(s). It is set to FALSE by default.
+#'   table to R after login into the server(s). It is set to TRUE by default.
 #'@param variables Specific variables to assign. If \code{assign} is set to FALSE this argument is ignored
 #'   otherwise the specified variables are assigned to R. If no variables are specified (default) the whole
 #'   data repository's table is assigned.
@@ -41,30 +41,22 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
 {
   if (is.null(login.data.frame))
   {
-    stop("ERR:003", call. = FALSE)
+    stop("::ds.login::ERR:010", call. = FALSE)
   }
-  else
-  {
+  
+  if (length(login.data.frame[,1]) == 0)
+  { 
+    stop("::ds.login::ERR:011", call. = FALSE)
+  }
+  
+  connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
    
-    if(length(login.data.frame[,1]) > 0)
-    {
-      connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
-      print(connection)
-     
-      if (is.null(connection))
-      {
-        stop("ERR:005", call. = FALSE)
-      }
-      else
-      {
-        return(connection)
-      }
-    }
-    else
-    {
-      stop("ERR:004", call. = FALSE)
-    }
+  if (is.null(connection))
+  {
+     stop("::ds.login::ERR:017", call. = FALSE)
   }
+  
+  return(connection)
 }
 
 .warning <- function(message)

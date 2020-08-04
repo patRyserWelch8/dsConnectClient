@@ -43,6 +43,14 @@ ds.error <- function(error)
   {
     print("You have yet to provide a valid value. It can be a valid 'assign server-side function' or a value.") 
   }
+  else if (grepl("ERR:010",client.error))
+  {
+    print("You have yet to provide some login details. Have you build your login data frame?") 
+  }
+  else if (grepl("ERR:011",client.error))
+  {
+    print("The login data frame is too short. No server is specified. It needs to be greater of equal 1. Have you build your login data frame? ") 
+  }
   else if (grepl("ERR:012",client.error))
   {
     print("You have yet to provide a valid class type. It should a valid R type.") 
@@ -62,6 +70,10 @@ ds.error <- function(error)
   else if (grepl("ERR:016",client.error))
   {
     print("You have yet to provide some drivers for connecting to the servers; one for each server.") 
+  }
+  else if (grepl("ERR:017",client.error))
+  {
+    print("The connection data frame returned was set to null. Something must have gone wrong with the connection to the server(s). Check they are running or restart them.") 
   }
   else
   {
