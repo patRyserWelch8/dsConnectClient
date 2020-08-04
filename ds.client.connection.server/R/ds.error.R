@@ -2,7 +2,7 @@ ds.error <- function(error)
 {
   client.error <- error
   function.name <- .get.function.name(client.error)
-  print(error)
+  print(length(error))
   print(paste0("The function ", function.name, " is not working has expected.", "\n"))
   
   if (grepl("ERR:001",client.error))

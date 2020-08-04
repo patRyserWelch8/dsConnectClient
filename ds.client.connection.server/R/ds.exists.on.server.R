@@ -53,76 +53,60 @@ library(DSI)
 library(DSOpal)
 library(httr)
 
-ds.exists.on.server <- function(connections=NULL, variable.name=NULL, environment.name = ".GlobalEnv", class.type = NULL)
+ds.exists.on.server <- function(connections=NULL, variable.name=NULL, class.type = NULL)
 {
   outcome <- FALSE
   tryCatch(
-  {outcome <- .find.variable(connections, variable.name, environment.name, class.type)},
+  {outcome <- .find.variable(connections, variable.name, class.type)},
    warning = function(warning) {.warning(warning)},
-   error = function(error) {.error(error)},
+   error = function(error) {ds.error(error)},
    finally = {return(outcome)}
   )
 }
 
-.find.variable <- function(connections=NULL, variable.name=NULL, environment.name = ".GlobalEnv", class.type = NULL, asynchronous=TRUE)
+.find.variable <- function(connections=NULL, variable.name=NULL, class.type = NULL, asynchronous=TRUE)
 {
-  
-  valid.types <- c("character","NULL","complex","factor","double","expression","integer","list","logical","numeric","single","raw","vector","S4","NULL","function","externalptr","environment")
- 
-  if(!grepl("list",class(connections)))
+  if(!is.list(connections))
   {
-    stop("ERR:006", call. = FALSE)
-  }
-  else if (!grepl("character",class(variable.name)))
-  {
-     stop("ERR:007", call. = FALSE)
-  }
-  else if(nchar(variable.name) == 0)
-  {
-      stop("ERR:008", call. = FALSE)
-  }
-  else if (!grepl("character",class(environment.name)))
-  {
-    stop("ERR:009", call. = FALSE)
-  }
-  else if(nchar(environment.name) == 0)
-  {
-    stop("ERR:010", call. = FALSE)
-  }
-  else if (!grepl("character",class(class.type)))
-  {
-    stop("ERR:011", call. = FALSE)
-  }
-  else if (!(class.type %in% valid.types))
-  {
-    stop("ERR:012", call. = FALSE)
-  }
-  else
-  {
-    outcome <- .call_existsDS(connections, variable.name, environment.name, class.type)
-    return(outcome)
+    stop("::ds.exists.on.server::ERR:006")
   }
   
+  if (!is.character.argument.correct(variable.name))
+  {
+    stop("::ds.exists.on.server::ERR:008")
+  }
+  
+  if (!is.class.type.correct(class.type))
+  {
+    stop("::ds.exists.on.server::ERR:012", call. = FALSE)
+  }
+  
+  return(.call_existsDS(connections, variable.name, class.type))
 }
 
-.call_existsDS <- function(connections, variable.name, environment.name, class.type)
+.call_existsDS <- function(connections, variable.name, class.type)
 {
-  server.call <- paste0("existsDS('",variable.name,"','", environment.name,"','", class.type, "')")
-  outcome <- ds.aggregate(connections, server.call, TRUE)
-
-  if (!(class(outcome) == "list"))
+  outcome <- FALSE
+  #verify variable exists in server
+  server.call      <- call("lsDS", env.to.search=".GlobalEnv")
+  list.variables   <- ds.aggregate(connections, server.call, TRUE)
+  unlist.variables <- unlist(list.variables)
+  no.occurences    <- sum(unlist.variables == variable.name)
+ 
+  
+  #verify the classes of variables
+  if(no.occurences == length(connections))
   {
-    return(FALSE)
+    server.call      <- call("classDS", variable.name)
+    classes          <- .aggregate(connections, server.call, TRUE)
+    unlist.classes   <- unlist(classes)
+    outcome          <- all(unlist.classes == class.type)
   }
-  else
-  {
-    #verifies that every server has the expected variable.
-    outcome <- unlist(outcome)
-    no.exist.variables <- as.integer(sum(outcome == TRUE))
-    no.connections <- as.integer(length(connections))
-    results <- no.exist.variables == no.connections
-    return(results)
-  }
+  #preferred method
+  #server.call <- paste0("existsDS(variable.name='",variable.name,"',environment.name = '.GlobalEnv', class.type='", class.type, "')")
+  #outcome <- ds.aggregate(connections, server.call, TRUE)
+  
+  return(outcome)
 }
 
 
@@ -131,41 +115,4 @@ ds.exists.on.server <- function(connections=NULL, variable.name=NULL, environmen
   message(paste("ds.client.connection.server::ds.find.variable :",   message ))
 }
 
-.error <- function(error)
-{
-  header <- 'ds.client.connection.server::ds.find.variable'
-
-  if (grepl("ERR:006",error))
-  {
-    message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
-  }
-  else if (grepl("ERR:007",error))
-  {
-    message(paste(header, "::",  "ERR:007\n", " You have yet to provide a valid variable. It is set not yet a character value.")) 
-  }
-  else if (grepl("ERR:008",error))
-  {
-    message(paste(header, "::",  "ERR:008\n", " You have yet to provide a valid variable. It should have more than 1 character")) 
-  }
-  else if (grepl("ERR:009",error))
-  {
-    message(paste(header, "::",  "ERR:009\n", " You have yet to provide a valid environment name. It is set not yet a character value.")) 
-  }
-  else if (grepl("ERR:010",error))
-  {
-    message(paste(header, "::",  "ERR:010\n", " You have yet to provide a valid environment name. It should have more than 1 character")) 
-  }
-  else if (grepl("ERR:011",error))
-  {
-    message(paste(header, "::",  "ERR:011\n", " You have yet to provide a valid class type. It should be a valid R internal type. Refer to help.")) 
-  }
-  else if (grepl("ERR:012",error))
-  {
-    message(paste(header, "::",  "ERR:012\n", " You have yet to provide a valid class type. Refer to help.")) 
-  }
-  else
-  {
-    message(paste(header,"\n", error))
-  }
-}
 

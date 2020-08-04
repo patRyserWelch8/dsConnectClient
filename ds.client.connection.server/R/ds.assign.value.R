@@ -87,7 +87,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
 .create.variable <- function(connection = NULL, new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL)
 {
     #delete variable from the server if it exists already
-    ds.remove.variable(connection, new.variable.name, ".GlobalEnv", class.type)
+    ds.remove.variable(connection, new.variable.name,  class.type)
     #create variable on the server(s)
     if (is.character(value))
     {
@@ -102,7 +102,7 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
       DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = value, async = asynchronous)
     }
     #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
-    ds.remove.variable(connection, new.variable.name, "", "NULL")
+    ds.remove.variable(connection, new.variable.name, "NULL")
 }
 
 

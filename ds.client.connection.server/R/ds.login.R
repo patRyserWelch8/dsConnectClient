@@ -32,7 +32,7 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   tryCatch(
      {connection <- .make.connection(login.data.frame, assign, variables, symbol)},
       warning = function(warning) {.warning(warning)},
-      error = function(error) {.error(error)},
+      error = function(error) {ds.error(error)},
       finally = {return(connection)}
   )
 }
@@ -65,27 +65,4 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   message(paste("ds.client.connection.server::ds.login :",   message ))
  
 }
-
-.error <- function(error)
-{
-  header <- 'ds.client.connection.server::ds.login'
-
-  if (grepl("ERR:003",error))
-  {
-      message(paste(header, "::",  "ERR:003\n", " You have yet to provide some login details.")) 
-  }
-  else if (grepl("ERR:004",error))
-  {
-     message(paste(header, "::",   "ERR:004\n", " The length of the vectors passed as arguments must be greater than 1."))
-  }
-  else if (grepl("ERR:005",error))
-  {
-    message(paste(header, "::",   "ERR:004\n", " The connection data frame is null. Something must have gone wrong with the connection to the server. Check it is running or restart it."))
-  }
-  else
-  {
-    message(paste(header,"\n", error))
-  }
-}
-
 
