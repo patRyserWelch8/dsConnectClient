@@ -9,6 +9,10 @@ ds.error <- function(error)
   {
     print("Some elements are missing. Check you have passed as arguments the expected information ")
   }
+  else if (grepl("ERR:002",client.error))
+  {
+    print("All URLs should starts with `https'. It is more secure.")
+  }
   else if (grepl("ERR:003",client.error))
   {
     print("You have yet to specify some data computers name.")

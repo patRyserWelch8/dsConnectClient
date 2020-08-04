@@ -65,6 +65,11 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
   {
     stop("::ds.build.login.data.frame::ERR:004")
   }
+  
+  if(!all(startsWith(data.computers.url,"https")))
+  {
+    stop("::ds.build.login.data.frame::ERR:002")
+  }
 
   if(!is.vector.argument.correct(data.computers.table.name))
   {

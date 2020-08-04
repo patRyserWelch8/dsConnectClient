@@ -10,20 +10,12 @@ datasets <- build.all.datasets()
 studies  <- c('study1', 'study2', 'study3')
 ssl      <- build.all.ssl()
 
-print(datasets)
-
 
 context('ds.build.login.data.frame()::incorrect parameters::multiple')
 test_that("incorrect server names",
 {
  
-  #studies[c(1,2,3)],
-  #login.details$get_ip_addresses(3),
-  #login.details$get_users(3),
-  #login.details$get_passwords(3),
-  #datasets[c(1,2,3)],
-  #ssl[c(1,2,3)],
-  #login.details$get_drivers(3))
+
  
   .test.incorrrect.url()
   .test.incorrrect.url(studies)
@@ -38,8 +30,7 @@ test_that("incorrect server names",
   
 })
 
-if(FALSE)
-{
+
 
 context('ds.build.login.data.frame()::incorrect url::multiple')
 test_that ('At least one url is incorrect ',
@@ -231,5 +222,5 @@ test_that ('The login information is correct ',
           login.details$get_drivers(1))
   
 })
-}
+
 
