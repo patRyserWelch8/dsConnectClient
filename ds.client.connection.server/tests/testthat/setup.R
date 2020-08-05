@@ -22,21 +22,26 @@ source("connection_to_datasets/login_details.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 
+
 #ds.test_env <- new.env()
 #options(datashield.env=ds.test_env)
 
-options(show.error.messages = FALSE)
+options(show.error.messages = TRUE)
 
 print("setup - Check connections and server functions")
 
 connections <- connect.all.datasets()
+
 server.functions <- c("existsDS","removeDS","assignCoordinatesDS",
                       "assignDataDS", "assignParamSettingsDS",
                       "getDataDS", "getCoordinatesDS",
                       "assignSharingSettingsDS", "decryptDataDS",
                       "encryptDataDS", "decryptParamDS",
                       "encryptParamDS", "removeEncryptingDataDS")
+
 aggregate.functions <- datashield.methods(connections,type="aggregate")
+
+
 if(all(server.functions %in% aggregate.functions[,"name"]))
 { 
   print("All the functions have been uploaded on the server")

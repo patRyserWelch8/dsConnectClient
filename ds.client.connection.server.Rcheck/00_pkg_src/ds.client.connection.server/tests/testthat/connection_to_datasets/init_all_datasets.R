@@ -23,6 +23,7 @@ init.all.datasets <- function()
       #connecting to the servers
       ds.test_env$server   <- c("study1", "study2", "study3")
       ds.test_env$table    <- c("TESTING.DATASET1", "TESTING.DATASET2", "TESTING.DATASET3")
+      
       ds.test_env$login.data <- ds.build.login.data.frame(ds.test_env$server,
                                                          login.details$get_ip_addresses(3),
                                                          ds.test_env$table,

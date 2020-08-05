@@ -6,8 +6,25 @@ library(httr)
 source("definition_tests/def-ds.assign.value.R")
 source("connection_to_datasets/init_all_datasets.R")
 
-
 connections <- connect.all.datasets()
+
+context('ds.assign.value():no_connection')
+test_that('no_connection',
+{
+  .test.no.connection.assign()
+})
+
+
+
+context('ds.assign.value():more_incorrect_parameters:multiple')
+test_that('more_incorrect_parameters',
+{
+  .test.no.connection.assign()
+  .test.no.variable.names(connections)
+  .test.no.value(connections)
+  .test.values.from.assign.incorrect.function(connections)
+})
+
 context('ds.assign.value():correct_parameters:multiple')
 test_that('correct_parameters',
 {
@@ -16,22 +33,9 @@ test_that('correct_parameters',
   .test.all.parameters.correct(connections, "new_var_3", "D$NUMERIC",'numeric')
 })
 
-
-
-context('ds.assign.value():more_incorrect_parameters:multiple')
-test_that('more_incorrect_parameters',
-{
-  .test.no.variable.names(connections)
-  .test.no.value(connections)
-  .test.values.from.assign.incorrect.function(connections)
-})
-
 log.out.data.server()
 
-
-
 connect.dataset.1()
-
 context('ds.assign.value():correct_parameters:single')
 test_that('correct_parameters',
 {
@@ -41,28 +45,27 @@ test_that('correct_parameters',
 })
 
 
-context('ds.assign.value():more_incorrect_parameters:single')
-test_that('correct_parameters',
+
+
+
+
+
+context('ds.assign.value():incorrect_parameters:single')
+test_that('incorrect_parameters',
 {
   .test.no.variable.names(connections)
   .test.no.value(connections)
-  .test.values.from.assign.function(connections)
+  .test.values.from.assign.incorrect.function(connections)
 })
 
 context('ds.assign.value():correct_parameters:single')
-test_that('more_incorrect_parameters',
+test_that('correct_parameters',
 {
   .test.all.parameters.correct(connections, "new.var.1", "D$INTEGER",'integer')
   .test.twice.created.variable(connections)
-  .test.values.from.assign.incorrect.function(connections)
+  .test.values.from.assign.function(connections)
 })
 log.out.data.server()
 
-
-context('ds.assign.value():no_connection')
-test_that('no_connection',
-{
-  .test.no.connection()
-})
 
 

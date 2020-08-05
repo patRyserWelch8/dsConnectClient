@@ -9,8 +9,7 @@ datasets <- build.all.datasets()
 studies  <- c('testdata1', 'testdata2', 'testdata3')
 ssl      <- build.all.ssl()
 
-print(ssl[1])
-print(login.details)
+
 
 context('ds.build.login.data.resouces()::correct format::single')
 test_that ('The login information is correct ',

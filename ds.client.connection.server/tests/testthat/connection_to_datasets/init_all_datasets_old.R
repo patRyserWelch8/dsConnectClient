@@ -140,10 +140,8 @@ init.dataset.1 <- function()
 
 log.in.data.server <- function()
 {
-  #print(ds.test_env$login.data)
+ 
   ds.test_env$connections <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
-  print("LOG IN ")
-  print(exists("connections", envir = ds.test_env))
 }
 
 
@@ -159,17 +157,14 @@ log.out.data.server <- function()
 
 connect.all.datasets <- function()
 {
-  print("1")
+ 
   log.out.data.server()
-  print("2")
+  
   source("connection_to_datasets/login_details.R")
-  print("3")
+  
   init.all.datasets()
-  print("4")
+ 
   log.in.data.server()
-  print("5")
-  print("CONNECT")
-  print(exists("connections", envir = ds.test_env))
   return(ds.test_env$connections)
 }
 

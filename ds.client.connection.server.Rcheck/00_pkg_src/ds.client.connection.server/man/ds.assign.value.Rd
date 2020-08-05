@@ -43,7 +43,7 @@ Assign a table or an expression result to a R variable, within a DataShield R se
 \details{
 \itemize{
 \item \code{ds.assign.value} captures any errors and warnings thrown by the function \code{.assign}. No error or warning is displayed. If an error or a warning is caught, then the function returns FALSE.
-\item \code{.assign} wraps the funcriont \code{DSI::datashield.assign function}. A valid OpalConnection, a valid server variable name and value is checked. When  all these conditions are met, then a server call is made. 
+\item \code{.assign} wraps the function \code{DSI::datashield.assign function}. A valid OpalConnection, a valid server variable name and value is checked. When  all these conditions are met, then a server call is made. 
 }
 Both functions can be used interchangeably. \code{.assign} allows more efficient debugging of some server and client code. \code{ds.assign.value} can be used 
 once the code is efficiently working.

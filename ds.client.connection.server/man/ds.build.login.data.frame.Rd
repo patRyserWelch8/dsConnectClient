@@ -32,7 +32,7 @@ ds.build.login.data.frame(
 \value{
 a data frame formatter in this manner: (server,url,user,password,table). If the arguments are not correct. Then a data.frame with no rows is created.
 
-The expactactions are as follow:
+The expectactions are as follow:
 Expectation no 0: the return value is a data.frame
 Expectation no 1: the number of columns is equal 7.
 Expectation no 2: the number of rows is equal to the number of servers

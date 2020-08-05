@@ -26,13 +26,6 @@
 #'@export ds.create_environment
 
 
-
-
-#
-# 
-#  }
-# Both functions can be used interchangeably. \code{.create_environment} allows more efficient debugging of some server and client code. \code{ds.assign.value} can be usedonce the code is efficiently working.
-
 library(DSI)
 library(DSOpal)
 library(httr) 
@@ -50,7 +43,7 @@ ds.create_environment <- function(connection=NULL, new.environment.name=NULL,asy
 }
 
 
-.create_environment <- function(connection=NULL, new.environment.name=NULL,asynchronous=FALS)
+.create_environment <- function(connection=NULL, new.environment.name=NULL,asynchronous=FALSE)
 {
   list.type <- c("list","OpalConnection")
   type      <- class(connection)

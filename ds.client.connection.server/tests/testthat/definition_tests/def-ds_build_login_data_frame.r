@@ -1,3 +1,4 @@
+
 .test.correct.data <- function(some.server,some.urls,some.users,some.passwords,some.tables,some.options,some.drivers)
 {
   server <-  some.server
@@ -24,8 +25,15 @@
   expect_that(colnames(login.info)[9], equals('options'))
 }
 
-.test.incorrect.format <- function(some.server,some.urls,some.users,some.passwords,some.tables,some.options,some.drivers)
+.test.incorrect.format <- function(some.server,
+                                   some.urls,
+                                   some.tables,
+                                   some.users,
+                                   some.passwords,
+                                   some.options,
+                                   some.drivers)
 {
+  
   server <-  some.server
   url <- some.urls
   user <- some.users
@@ -33,12 +41,19 @@
   table <- some.tables
   options.ssl <- some.options
   drivers <- some.drivers
-  expect_error(build.data.frame(server,url,table,user,password,option.ssl,drivers))
-  expect_true(is.null(ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)))
+  expect_error(.build.data.frame(server,url,table,user,password,option.ssl,drivers))
+  #expect_true(is.null(ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)))
+  ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)
 
 }
 
-.test.incorrrect.url <- function(some.server,some.urls,some.users,some.passwords,some.tables,some.options,some.drivers)
+.test.incorrrect.url <- function(some.server = NULL,
+                                 some.urls = NULL, 
+                                 some.tables = NULL, 
+                                 some.users = NULL,
+                                 some.passwords = NULL,
+                                 some.options = NULL,
+                                 some.drivers = NULL)
 {
   server <-  some.server
   url <- some.urls
@@ -48,8 +63,8 @@
   options.ssl <- some.options
   drivers <- some.drivers
   
-  expect_error(build.data.frame(server,url,table,user,password,option.ssl,drivers))
-  expect_true(is.null(ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)))
+  expect_error(.build.data.frame(server,url,table,user,password,option.ssl,drivers))
+  expect_equal(ds.build.login.data.frame(server,url,table,user,password,options.ssl,drivers), NULL)
   
 }
 

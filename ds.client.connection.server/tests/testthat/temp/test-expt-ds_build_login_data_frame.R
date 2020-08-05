@@ -3,7 +3,7 @@ library(DSOpal)
 library(testthat)
 
 source("definition_tests/def-ds_build_login_data_frame.r")
-#source("connection_to_datasets/login_details.R")
+#source("connection_to_datasets/init_all_datasets.R")
 
 
 datasets <- build.all.datasets()
@@ -11,39 +11,24 @@ studies  <- c('study1', 'study2', 'study3')
 ssl      <- build.all.ssl()
 
 
-context('ds.build.login.data.frame()::correct format::multiple_and_single')
-test_that ('The login information is correct ',
+context('ds.build.login.data.frame()::incorrect parameters::multiple')
+test_that("incorrect server names",
 {
  
-  .test.correct.data(studies[c(1,2,3)],
-                     login.details$get_ip_addresses(3),
-                     login.details$get_users(3),
-                     login.details$get_passwords(3),
-                     datasets[c(1,2,3)],
-                     ssl[c(1,2,3)],
-                     login.details$get_drivers(3))
-  
- .test.correct.data(studies[c(1,2)],
-                     login.details$get_ip_addresses(2),
-                    login.details$get_users(2),
-                    login.details$get_passwords(2),
-                     datasets[c(1,2)],
-                     ssl[c(1,2)],
-                      login.details$get_drivers(2))
+
  
- .test.correct.data(studies[c(1)],
-                    login.details$get_ip_addresses(1),
-                    login.details$get_users(1),
-                    login.details$get_passwords(1),
-                    datasets[c(1)],
-                    ssl[c(1)],
-                    login.details$get_drivers(1))
+  .test.incorrrect.url()
+  .test.incorrrect.url(studies)
+  .test.incorrrect.url(studies,login.details$get_ip_addresses(3))
+  .test.incorrrect.url(studies,login.details$get_ip_addresses(3),datasets)
+  .test.incorrrect.url(studies,login.details$get_ip_addresses(3),datasets,login.details$get_users(3))
+  .test.incorrrect.url(studies,login.details$get_ip_addresses(3),datasets,login.details$get_users(3), 
+                       login.details$get_passwords(3))
+  .test.incorrrect.url(studies,login.details$get_ip_addresses(3),datasets,login.details$get_users(3), 
+                       login.details$get_passwords(3),ssl[c(1,2,3)])
+  
   
 })
-
-
-
-
 
 
 
@@ -206,5 +191,36 @@ test_that ('The login information is an incorrect format',
           c())
 })
 
+
+
+context('ds.build.login.data.frame()::correct format::multiple_and_single')
+test_that ('The login information is correct ',
+{
+  
+  .test.correct.data(studies[c(1,2,3)],
+          login.details$get_ip_addresses(3),
+          login.details$get_users(3),
+          login.details$get_passwords(3),
+          datasets[c(1,2,3)],
+          ssl[c(1,2,3)],
+          login.details$get_drivers(3))
+  
+  .test.correct.data(studies[c(1,2)],
+          login.details$get_ip_addresses(2),
+          login.details$get_users(2),
+          login.details$get_passwords(2),
+          datasets[c(1,2)],
+          ssl[c(1,2)],
+          login.details$get_drivers(2))
+  
+  .test.correct.data(studies[c(1)],
+          login.details$get_ip_addresses(1),
+          login.details$get_users(1),
+          login.details$get_passwords(1),
+          datasets[c(1)],
+          ssl[c(1)],
+          login.details$get_drivers(1))
+  
+})
 
 
