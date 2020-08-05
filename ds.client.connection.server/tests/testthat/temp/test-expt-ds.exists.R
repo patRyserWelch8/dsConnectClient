@@ -35,7 +35,6 @@ disconnect.all.datasets(connections)
 
 
 connections <- connect.dataset.1()
-print(ds.test_env$connections)
 context('ds.exists():more_incorrect_parameters:single')
 test_that('correct_parameters',
 {

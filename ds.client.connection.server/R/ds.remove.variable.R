@@ -103,10 +103,8 @@ ds.remove.variable <- function(connection=NULL, variable.name=NULL, class.type=N
 .delete.var <- function(connection, variable.name, class.type)
 {  
   expression <- paste0("removeDS(variable.name='", variable.name, "',environment.name='.GlobalEnv',class.type='", class.type,"')")
-  print(expression)
   ds.aggregate(connection,expression, asynchronous = FALSE)
   variable.exists <- ds.exists.on.server(connection, variable.name, class.type)
-  print(all(variable.exists == FALSE))
   return(as.logical(variable.exists == FALSE))
 }
 

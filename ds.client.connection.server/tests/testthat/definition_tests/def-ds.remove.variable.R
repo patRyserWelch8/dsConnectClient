@@ -4,14 +4,14 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   
    DSI::datashield.assign(connection, variable.name, value = as.symbol(server.variable), async = FALSE)
-   expect_true(ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type=class.type))
+   expect_true(ds.exists.on.server(connection, variable.name,class.type=class.type))
    expect_true(.remove(connection, variable.name, class.type))
-   expect_false(ds.exists.on.server(connection,variable.name,".GlobalEnv",class.type))
+   expect_false(ds.exists.on.server(connection,variable.name,class.type))
    
    DSI::datashield.assign(connection, variable.name, value = as.symbol(server.variable), async = FALSE)
-   expect_true(ds.exists.on.server(connection, variable.name,".GlobalEnv",class.type=class.type))
+   expect_true(ds.exists.on.server(connection, variable.name,class.type=class.type))
    expect_true(ds.remove.variable(connection, variable.name, class.type))
-   expect_false(ds.exists.on.server(connection,variable.name,".GlobalEnv",class.type))
+   expect_false(ds.exists.on.server(connection,variable.name,class.type))
 }
 
 .test.no.connection <- function()

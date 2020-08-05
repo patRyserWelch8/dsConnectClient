@@ -1,5 +1,5 @@
 #'@name ds.share.param  
-#'@title client function TO DO 
+#'@title sharing parameter between 
 #'@description  TODO
 #'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
 #'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
@@ -18,7 +18,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   tryCatch(
     {success <- .share.parameter(connections, param.names)},
     warning = function(warning) {.warning(warning)},
-    error = function(error) {.error(error)},
+    error = function(error) {ds.error(error)},
     finally = {return(success)})
 }
 
@@ -29,7 +29,6 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   {
     if (length(param.names) > 0)
     {
-       
         success <- .assignSettings(connections)
         if (success)
         {
@@ -39,7 +38,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
     }
     else
     {
-      stop("ERR:003")
+      stop("::ds.share.param::ERR:019")
     }
   }
   else
@@ -54,7 +53,8 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   successful <- FALSE
   if (!is.null(connections))
   {
-    outcome    <- ds.aggregate(connections, "assignSharingSettingsDS()")
+    outcome    <- ds.aggregate(connections, call("assignSharingSettingsDS"))
+  
     if(is.list(outcome))
     {
       outcome.vector <- unlist(outcome)
@@ -67,7 +67,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   
     if (!successful)
     {
-      stop("ERR:002")
+      stop("::ds.share.param::ERR:018")
     }
   }
   return(successful)
@@ -75,10 +75,17 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
 
 .remove.exchange.data <- function(connections)
 {
-  successful <- FALSE
   if (!is.null(connections))
   {
-    outcome <- .aggregate(connections, "removeExchangeDataDS()")
+    outcome <- ds.aggregate(connections, "removeExchangeDataDS()")
+  }
+}
+
+.remove.existing.parameters <- function(connections, param.names = NULL)
+{
+  for (param.name in param.names)
+  {
+    ds.remove.variable(connectios,param.name,"numeric")
   }
 }
 
@@ -124,7 +131,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
  
   while(step <= max.steps)
   {
-  
+    
     success <- switch(          
        step,
       .encrypt_data(master,master_mode = TRUE, preserve_mode = FALSE), #1
@@ -144,7 +151,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
       .decrypt_data(receiver), #15
       .decrypt_param(receiver, param.names) #16
     )
-   
+    
     if (success)
     {
       step <- step + 1
@@ -220,6 +227,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   names.var.on.server <-  paste0("'",names.var.on.server,"'")
   expression <- paste0("decryptParamDS(",names.var.on.server,")")
   outcome    <- ds.aggregate(connection, expression)
+  
   return(.transform.outcome.to.logical(outcome))
 }
 
@@ -310,23 +318,3 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   }
 }
 
-.error <- function(error)
-{
-  header <- 'ds.client.connection.server::ds.share.param'
-  if(grepl("ERR:002",error))
-  {
-    message(paste(header, "::",  "ERR:002\n", " The exchange of parameter could not be initiated. The process on the server could not be completed.")) 
-  }
-  else if (grepl("ERR:006",error))
-  {
-    message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
-  }
-  else if (grepl("ERR:003",error))
-  {
-    message(paste(header, "::",  "ERR:003\n", " You have yet to provide a valid aggregate function.")) 
-  }
-  else
-  {
-    message(paste(header,"\n", error))
-  }
-}

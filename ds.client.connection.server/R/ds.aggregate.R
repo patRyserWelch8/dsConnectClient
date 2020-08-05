@@ -40,7 +40,8 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 
 .aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
-  if(!is.list(connection))
+  correct.class <- any(class(connection) %in%  c("list","OpalConnection"))
+  if(!correct.class)
   {
     stop("::ds.aggregate::ERR:006")
   }
