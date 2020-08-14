@@ -16,20 +16,31 @@ knitr::opts_chunk$set(
 )
 ```
 
+# ds.client.connection.server
+The purpose of this package is support DataSHIELD analysts and programmers to connect to some Opal servers in more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD. The latter includes:
 
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+1. Building some login data frames
+2. Loging in and loging out of some DataSHIELD servers
+3. Assigning values to some server variables
+4. Executing some aggregates server-side functions 
+5. Deleting some server-side variables
+6. Checking some server-side variables
 
-## Vignette Info
+This package has been written to be used along the side the [dsBaseClient package](https://github.com/datashield/dsBaseClient).
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+# Installed packages
+During the installation, this package will import the following packages: 
 
-## Styles
+* DSI
+* DSOpal
+* RCurl
+* httr
+* R6
+* opalr
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+These packages are required to connect to an Opal Server, so that some server-side variables can be manipulated and server-side functions can be executed. 
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+
 
 ## Figures
 
