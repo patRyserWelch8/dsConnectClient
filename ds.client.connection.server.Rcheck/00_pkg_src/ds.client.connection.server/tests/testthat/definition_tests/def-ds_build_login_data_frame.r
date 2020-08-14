@@ -33,7 +33,7 @@
                                    some.options,
                                    some.drivers)
 {
-  print(some.users)
+  
   server <-  some.server
   url <- some.urls
   user <- some.users
@@ -47,8 +47,12 @@
 
 }
 
-.test.incorrrect.url <- function(some.server = NULL ,some.urls = NULL,some.users = NULL,
-                                 some.passwords = NULL,some.tables = NULL,some.options = NULL,
+.test.incorrrect.url <- function(some.server = NULL,
+                                 some.urls = NULL, 
+                                 some.tables = NULL, 
+                                 some.users = NULL,
+                                 some.passwords = NULL,
+                                 some.options = NULL,
                                  some.drivers = NULL)
 {
   server <-  some.server
@@ -60,7 +64,7 @@
   drivers <- some.drivers
   
   expect_error(.build.data.frame(server,url,table,user,password,option.ssl,drivers))
-  ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)
+  expect_equal(ds.build.login.data.frame(server,url,table,user,password,options.ssl,drivers), NULL)
   
 }
 

@@ -79,8 +79,6 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
     builder$append(server = servers[i],url = urls[i], user = users[i], password = passwords[i], resource = resources[i], driver = drivers[i])
   }
   login.data <- builder$build()
-  print("a")
-  print(login.data)
   return(login.data)
 }
 

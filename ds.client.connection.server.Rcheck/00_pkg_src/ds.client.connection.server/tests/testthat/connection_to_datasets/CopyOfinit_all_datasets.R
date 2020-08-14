@@ -137,10 +137,7 @@ init.dataset.1 <- function()
 log.in.data.server <- function()
 {
   ds.test_env$connection.DSI <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
-  print("----- inside log in data server -------")
-  print(ds.test_env$login.data)
   ds.test_env$connection.DSI <- datashield.login(logins=ds.test_env$login.data, assign=TRUE,variables=ds.test_env$stats.var)
-  print("----- inside log in data server -------")
 }
 
 

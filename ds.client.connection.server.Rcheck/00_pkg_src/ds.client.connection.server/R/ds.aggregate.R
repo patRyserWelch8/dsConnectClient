@@ -12,7 +12,8 @@
 #' once the code is efficiently working.
 #'@seealso  DSI::datashield.aggregate function.
 #'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
-#'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
+#'@param expression a call or character expression with a server-side function and its arguments. 
+#'@param asynchronous When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.
 #'@return 
 #'\itemize{
 #'\item The value returned by a server function
@@ -39,7 +40,8 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 
 .aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
-  if(!is.list(connection))
+  correct.class <- any(class(connection) %in%  c("list","OpalConnection"))
+  if(!correct.class)
   {
     stop("::ds.aggregate::ERR:006")
   }

@@ -14,7 +14,7 @@ can be specified for identifiers mapping (if supported by data repository). See 
 of the examplar input table \code{logindata} for details of the login elements.}
 
 \item{assign}{A boolean which tells whether or not data should be assigned from the data repository
-table to R after login into the server(s). It is set to FALSE by default.}
+table to R after login into the server(s). It is set to TRUE by default.}
 
 \item{variables}{Specific variables to assign. If \code{assign} is set to FALSE this argument is ignored
 otherwise the specified variables are assigned to R. If no variables are specified (default) the whole

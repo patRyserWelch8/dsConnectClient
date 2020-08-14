@@ -2,7 +2,7 @@
 % Please edit documentation in R/ds.share.param.R
 \name{ds.share.param}
 \alias{ds.share.param}
-\title{client function TO DO}
+\title{sharing parameter between}
 \arguments{
 \item{connection}{a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
 

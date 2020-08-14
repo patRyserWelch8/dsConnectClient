@@ -3,7 +3,6 @@ ds.assign.value	ds.assign.value
 ds.build.login.data.frame	ds.build.login.data.frame
 ds.build.login.data.resources	ds.build.login.data.resources-sub-TO-DO-DOCUMENTATION-close-brace
 ds.build.login.data.resources [ TO DO DOCUMENTATION]	ds.build.login.data.resources-sub-TO-DO-DOCUMENTATION-close-brace
-ds.create_environment	ds.create_environment
 ds.exists.on.server	ds.exists.on.server
 ds.login	ds.login
 ds.logout	ds.logout

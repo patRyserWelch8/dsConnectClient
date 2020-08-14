@@ -5,13 +5,13 @@
 \title{Builds a dataframe to login to datashield}
 \usage{
 ds.build.login.data.frame(
-  data.computers.name,
-  data.computers.url,
-  data.computers.table.name,
-  users.id,
-  users.password,
-  options.ssl,
-  driver.connection
+  data.computers.name = NULL,
+  data.computers.url = NULL,
+  data.computers.table.name = NULL,
+  users.id = NULL,
+  users.password = NULL,
+  options.ssl = NULL,
+  driver.connection = NULL
 )
 }
 \arguments{

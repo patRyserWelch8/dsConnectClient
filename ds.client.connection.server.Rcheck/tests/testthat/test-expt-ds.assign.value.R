@@ -35,9 +35,7 @@ test_that('correct_parameters',
 
 log.out.data.server()
 
-
 connect.dataset.1()
-
 context('ds.assign.value():correct_parameters:single')
 test_that('correct_parameters',
 {
@@ -47,20 +45,25 @@ test_that('correct_parameters',
 })
 
 
-context('ds.assign.value():more_incorrect_parameters:single')
-test_that('correct_parameters',
+
+
+
+
+
+context('ds.assign.value():incorrect_parameters:single')
+test_that('incorrect_parameters',
 {
   .test.no.variable.names(connections)
   .test.no.value(connections)
-  .test.values.from.assign.function(connections)
+  .test.values.from.assign.incorrect.function(connections)
 })
 
 context('ds.assign.value():correct_parameters:single')
-test_that('more_incorrect_parameters',
+test_that('correct_parameters',
 {
   .test.all.parameters.correct(connections, "new.var.1", "D$INTEGER",'integer')
   .test.twice.created.variable(connections)
-  .test.values.from.assign.incorrect.function(connections)
+  .test.values.from.assign.function(connections)
 })
 log.out.data.server()
 
