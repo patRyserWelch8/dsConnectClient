@@ -12,6 +12,7 @@ test_that("no_connection_all_function",
   .test_no_connection() 
 })
 
+
 connection <- connect.dataset.1()
 
 context('ds.share_param()::smk::single')
@@ -20,16 +21,15 @@ test_that('single connections',
   .test_single_connection(connection)
 })
 
-.create.server.var(connections)
+
 context('ds.share_param()::expt::assignSettings::single')
 test_that('.assignSettings',
 {
-  .test_assign_settings(connections)
+  .create.server.var(connection)
+  .test_assign_settings(connection)
 })
 
-
 log.out.data.server()
-
 
 connections <- connect.all.datasets()
 

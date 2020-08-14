@@ -29,18 +29,18 @@ source("connection_to_datasets/init_all_datasets.R")
 options(show.error.messages = TRUE)
 
 print("setup - Check connections and server functions")
-print(1)
+
 connections <- connect.all.datasets()
-print(2)
+
 server.functions <- c("existsDS","removeDS","assignCoordinatesDS",
                       "assignDataDS", "assignParamSettingsDS",
                       "getDataDS", "getCoordinatesDS",
                       "assignSharingSettingsDS", "decryptDataDS",
                       "encryptDataDS", "decryptParamDS",
                       "encryptParamDS", "removeEncryptingDataDS")
-print(3)
+
 aggregate.functions <- datashield.methods(connections,type="aggregate")
-print(4)
+
 
 if(all(server.functions %in% aggregate.functions[,"name"]))
 { 

@@ -22,13 +22,13 @@
 #'Expectation no 4: the number of row is 0, if any of the urls does not start with http
 #'@author Patricia Ryser-Welch
 #'@export
-ds.build.login.data.frame <- function (  data.computers.name, 
-                                         data.computers.url, 
-                                         data.computers.table.name,
-                                         users.id, 
-                                         users.password, 
-                                         options.ssl, 
-                                         driver.connection)
+ds.build.login.data.frame <- function (  data.computers.name = NULL, 
+                                         data.computers.url = NULL, 
+                                         data.computers.table.name = NULL,
+                                         users.id = NULL, 
+                                         users.password = NULL, 
+                                         options.ssl = NULL, 
+                                         driver.connection = NULL)
 {
   return.data.frame <- NULL
   
@@ -65,13 +65,17 @@ ds.build.login.data.frame <- function (  data.computers.name,
   {
     stop("::ds.build.login.data.frame::ERR:004")
   }
-  print("********")
-  print(data.computers.table.name)
+  
+  if(!all(startsWith(data.computers.url,"https")))
+  {
+    stop("::ds.build.login.data.frame::ERR:002")
+  }
+
   if(!is.vector.argument.correct(data.computers.table.name))
   {
     stop("::ds.build.login.data.frame::ERR:005")
   }
-  print(users.id)
+  
   if(!is.vector.argument.correct(users.id))
   {
     stop("::ds.build.login.data.frame::ERR:013")
@@ -80,6 +84,16 @@ ds.build.login.data.frame <- function (  data.computers.name,
   if(!is.vector.argument.correct(users.password))
   {
     stop("::ds.build.login.data.frame::ERR:014")
+  }
+  
+  if(!is.vector.argument.correct(options.ssl))
+  {
+    stop("::ds.build.login.data.frame::ERR:015")
+  }
+  
+  if(!is.vector.argument.correct(driver.connection))
+  {
+    stop("::ds.build.login.data.frame::ERR:016")
   }
   
   return(.use.builder(data.computers.name, data.computers.url, 

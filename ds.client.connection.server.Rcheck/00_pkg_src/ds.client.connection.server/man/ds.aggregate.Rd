@@ -6,7 +6,9 @@
 \arguments{
 \item{connection}{a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
 
-\item{Save}{datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).}
+\item{expression}{a call or character expression with a server-side function and its arguments.}
+
+\item{asynchronous}{When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.}
 }
 \value{
 \itemize{

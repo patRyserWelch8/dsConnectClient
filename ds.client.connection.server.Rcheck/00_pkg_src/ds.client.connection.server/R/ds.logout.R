@@ -18,7 +18,7 @@ ds.logout <- function(connection, save = NULL)
   tryCatch(
      {.logout(connection,save);},
       warning = function(warning) {.warning(warning)},
-      error = function(error) {.error(error)},
+      error = function(error) {ds.error(error)},
       finally = {return(outcome)}
     )
 }
@@ -27,12 +27,11 @@ ds.logout <- function(connection, save = NULL)
 {
   if(is.null(connection))
   {
-    stop("ERR:001", call. = FALSE)
+    stop("::ds.logout::ERR:006", call. = FALSE)
   }
-  else
-  {
-    DSI::datashield.logout(connection,save)
-  }
+  
+  DSI::datashield.logout(connection,save)
+  
 }
 
 
@@ -41,16 +40,3 @@ ds.logout <- function(connection, save = NULL)
   message(paste("ds.client.connection.server::ds.logout :",   message ))
 }
 
-.error <- function(error)
-{
-  header <- 'ds.client.connection.server::ds.logout'
-  
-  if (grepl("ERR:001",error))
-  {
-    message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
-  }
-  else
-  {
-    message(paste(header,"\n", error))
-  }
-}
