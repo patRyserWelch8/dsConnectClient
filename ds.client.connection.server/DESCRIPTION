@@ -11,7 +11,10 @@ Imports:
     DSI,
     DSOpal,
     RCurl,
+    httr,
     R6,
     opalr
 RoxygenNote: 7.1.0
 Encoding: UTF-8
+VignetteBuilder: knitr
+Suggests: knitr, rmarkdown
