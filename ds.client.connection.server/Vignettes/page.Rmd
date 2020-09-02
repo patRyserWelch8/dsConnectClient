@@ -146,34 +146,90 @@ login.data <- ds.build.login.data.frame(server.names,
 print(login.data)
 ```
 
+# Logging in DataSHIELD servers
+Before DataSHIELD analysts can complete some calculations, it is required to log in to each DataSHIELD server. The function _ds.login_ uses again the login data and the statistical variables made available through the datasets.  
 
+The example below uses again the login data obtained in the previous section. Then, the connections object is passed as an argument to obtain all the object listed in the each DataSHIELD server.  
 
+The connection does not need to be shown. However, some DataSHIELD analysts may like to verify they have successfully connected to each server.
 
+```{R}
+server.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
+                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
+                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC',
+                   'FACTOR_CHARACTER','FACTOR_INTEGER','IDENTIFIER','CATEGORY','IDENTIFIER',
+                   'CATEGORY')
+connections <- ds.login(login.data, variables = server.var)
+print(connections)
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+# Assigning values to some server variables
+The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created on the server. The function also returns an indication whether the assignment process has been achieved on all servers. 
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+In the example below, the _server-side function rUnifDs_ generates a uniform distributions and returns a vector _numeric_ values matching the arguments. The returned distribution is saved on the server against a variable named _rUnifDist_. A data type  must match the server-side function outcome. In this case,  it is set to _numeric_, then the outcome is true. Otherwise, no variable is created.
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+```{R}
 
-## More Examples
+server.function.call <- call("rUnifDS",100,14,50,10)
+var.created <- ds.assign.value(connection = connections, 
+                               new.variable.name= "rUnifDist",
+                               value = server.function.call,
+                               class.type = "numeric",
+                               asynchronous = FALSE)
+print(var.created)
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+var.created <- ds.assign.value(connection = connections, 
+                               new.variable.name ="rUnifDistB",
+                               value = server.function.call,
+                               class.type = "character",
+                               asynchronous = FALSE)
+print(var.created)
 ```
 
-Also a quote using `>`:
+# Checking some server side variables exists
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{R}
+rUnif.exists <- ds.exists.on.server(connections,
+                                    variable.name = "rUnifDist", 
+                                    class.type = "numeric")
+print(rUnif.exists)
+
+rUnif.exists <- ds.exists.on.server(connections,
+                                    variable.name = "rUnifDistB", 
+                                    class.type = "character")
+print(rUnif.exists)
+```
+
+# Executing some aggregate DataSHIELD functions
+```{R}
+server.call <- call("varDS","rUnifDist")
+print(server.call)
+server.var <- ds.aggregate(connections,expression = server.call, asynchronous = FALSE)
+
+server.call <- call("meanDS","rUnifDist")
+print(server.call)
+server.mean <- ds.aggregate(connections,expression = server.call, asynchronous = FALSE)
+print(paste0("mean     :", server.mean))
+print(paste0("variance :", server.var))
+
+```
+
+# Deleting some server-side variables
+```{R}
+
+outcome <- ds.remove.variable(connections,variable.name = "rUnifDist", class.type = "numeric")
+print(outcome)
+
+outcome <- ds.remove.variable(connections,variable.name = "rUnifDistB", class.type = "character")
+print(outcome)
+
+```
+
+# Logging out of DataSHIELD servers
+At the end of each DataSHIELD script, the connections between the client and the DataSHIELD servers must be closed. Otherwise, the performance of each server is negatively affected. So, once a DataSHIELD user does not require any more the computing resources of any DataSHIELD server, they log out.
+
+```{R}
+outcome <- ds.logout(connections)
+print(outcome)
+```
