@@ -32,7 +32,8 @@ Found the following significant warnings:
 See ‘/Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server.Rcheck/00install.out’ for details.
 * checking installed package size ... OK
 * checking package directory ... OK
-* checking for future file timestamps ... OK
+* checking for future file timestamps ... NOTE
+unable to verify current time
 * checking ‘build’ directory ... OK
 * checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
@@ -76,12 +77,15 @@ See section 'Cross-references' in the 'Writing R Extensions' manual.
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
-* checking for unstated dependencies in examples ... OK
+* checking for unstated dependencies in examples ... WARNING
+'library' or 'require' calls not declared from:
+  ‘dsBaseClient’ ‘httr’
 * checking installed files from ‘inst/doc’ ... OK
 * checking files in ‘vignettes’ ... OK
-* checking examples ... NONE
+* checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... WARNING
-'library' or 'require' call not declared from: ‘testthat’
+'library' or 'require' calls not declared from:
+  ‘httr’ ‘testthat’
 * checking tests ... ERROR
   Running ‘test-expt-ds.aggregate.R’
 Running the tests in ‘tests/test-expt-ds.aggregate.R’ failed.
@@ -101,10 +105,12 @@ Last 13 lines of output:
   In file(filename, "r", encoding = encoding) :
     cannot open file 'definition_tests/def-ds.aggregate.R': No such file or directory
   Execution halted
-* checking for unstated dependencies in vignettes ... OK
+* checking for unstated dependencies in vignettes ... NOTE
+'library' or 'require' calls not declared from:
+  ‘dsBaseClient’ ‘httr’
 * checking package vignettes in ‘inst/doc’ ... OK
 * checking re-building of vignette outputs ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR, 4 WARNINGs, 4 NOTEs
+Status: 1 ERROR, 5 WARNINGs, 6 NOTEs
