@@ -1,6 +1,5 @@
 
 source("connection_to_datasets/init_all_datasets.R")
-print(ds.test_env)
 
 .test.no.login.info <- function()
 {

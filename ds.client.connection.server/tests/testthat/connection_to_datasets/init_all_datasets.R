@@ -7,8 +7,9 @@
 # functions the connections were able to be reached. For that reason, the connect functions have been altered to return a connection.
 
 
-init.all.datasets <- function()
+init.all.datasets <- function(ds.test_env = NULL)
 {
+ 
   if (exists("login.details"))
   {
     #reading data from local files 
@@ -48,7 +49,7 @@ init.all.datasets <- function()
 }
 
 # Connect to one server and the three datasets. One local variables named ds.test_env$local.values.3 is created.
-init.dataset.3 <- function()
+init.dataset.3 <- function(ds.test_env = NULL)
 {
   if (exists("login.details"))
   {
@@ -80,7 +81,7 @@ init.dataset.3 <- function()
 }
 
 # Connect to one server and the three datasets. One local variables named ds.test_env$local.values.2 is created.
-init.dataset.2 <- function()
+init.dataset.2 <- function(ds.test_env = NULL)
 {
   
   if (exists("login.details"))
@@ -113,7 +114,7 @@ init.dataset.2 <- function()
 }
 
 # Connect to one server and the three datasets. One local variables named ds.test_env$local.values.2is created.
-init.dataset.1 <- function()
+init.dataset.1 <- function(ds.test_env = NULL)
 {
   if (exists("login.details"))
   {
@@ -143,11 +144,12 @@ init.dataset.1 <- function()
   }
 }
 
-log.in.data.server <- function()
+log.in.data.server <- function(ds.test_env = NULL)
 {
   ds.test_env$connections <- datashield.login(logins=ds.test_env$login.data, 
                                               assign=TRUE,
                                               variables=ds.test_env$stats.var)
+  return(ds.test_env)
   
 }
 
@@ -162,35 +164,35 @@ log.out.data.server <- function(connections= NULL)
   gc()
 }
 
-connect.all.datasets <- function()
+connect.all.datasets <- function(ds.test_env = NULL)
 {
-  #source("connection_to_datasets/login_details.R")
-  init.all.datasets()
-  log.in.data.server()
+  
+  init.all.datasets(ds.test_env)
+  ds.test_env <- log.in.data.server(ds.test_env)
   return(ds.test_env$connections)
 }
 
-connect.dataset.1 <- function()
+connect.dataset.1 <- function(ds.test_env = NULL)
 {
-  #source("connection_to_datasets/login_details.R")
-  init.dataset.1()
-  log.in.data.server()
+  
+  init.dataset.1(ds.test_env)
+  ds.test_env <- log.in.data.server(ds.test_env)
   return(ds.test_env$connections)
 }
 
-connect.dataset.2 <- function()
+connect.dataset.2 <- function(ds.test_env = NULL)
 {
-  #source("connection_to_datasets/login_details.R")
-  init.dataset.2()
-  log.in.data.server()
+  
+  init.dataset.2(ds.test_env)
+  ds.test_env <- log.in.data.server(ds.test_env)
   return(ds.test_env$connections)
 }
 
-connect.dataset.3 <- function()
+connect.dataset.3 <- function(ds.test_env = NULL)
 {
   #source("connection_to_datasets/login_details.R")
-  init.dataset.3()
-  log.in.data.server()
+  init.dataset.3(ds.test_env)
+  ds.test_env <- log.in.data.server(ds.test_env)
 
   return(ds.test_env$connections)
 }

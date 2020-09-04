@@ -12,7 +12,7 @@ library(DSOpal)
 library(httr)
 
 
-ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
+ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
 {
   success <- FALSE
   tryCatch(
@@ -22,7 +22,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
     finally = {return(success)})
 }
 
-.share.parameter <- function(connections=NULL,param.names = NULL, tolerance = 0)
+.share.parameter <- function(connections=NULL,param.names = NULL, tolerance = 15)
 {
   outcome <- FALSE
   if(length(connections) > 1 & is.character(param.names))
@@ -32,7 +32,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
         success <- .assignSettings(connections)
         if (success)
         {
-          outcome <- .complete.exchange(connections,param.names)
+          outcome <- .complete.exchange(connections,param.names, tolerance)
         }
         .remove.exchange.data(connections)
     }
@@ -89,7 +89,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   }
 }
 
-.complete.exchange <- function(connections, param.names = NULL)
+.complete.exchange <- function(connections, param.names = NULL, tolerance = 15)
 {
   outcome        <- FALSE
   no.connections <- length(connections)
@@ -105,7 +105,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
       
       master     <- connections[[current]]
       receiver   <- connections[[current+1]]
-      success    <- .exchange(master, receiver, param.names)
+      success    <- .exchange(master, receiver, param.names, tolerance)
       continue   <- success 
       
       if(current < last)
@@ -123,7 +123,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
 }
 
 
-.exchange <- function(master, receiver, param.names = NULL)
+.exchange <- function(master, receiver, param.names = NULL, tolerance = 15)
 {
   outcome    <- FALSE
   step       <-  1
@@ -149,7 +149,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
       .encrypt_data(master,master_mode = FALSE, preserve_mode = TRUE), #13
       .transfer.encrypted.matrix(master,receiver), #14
       .decrypt_data(receiver), #15
-      .decrypt_param(receiver, param.names) #16
+      .decrypt_param(receiver, param.names, tolerance) #16
     )
     
     if (success)
@@ -221,13 +221,14 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 0)
   return(.transform.outcome.to.logical(outcome))
 }
 
-.decrypt_param <- function(connection, param.names)
+.decrypt_param <- function(connection, param.names, tolerance = 15)
 {
   names.var.on.server <-  paste(param.names, collapse=";")
   names.var.on.server <-  paste0("'",names.var.on.server,"'")
-  expression <- paste0("decryptParamDS(",names.var.on.server,")")
+  expression <- paste0("decryptParamDS(",names.var.on.server,",", tolerance, ")")
   outcome    <- ds.aggregate(connection, expression)
-  
+  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
+  print(result)
   return(.transform.outcome.to.logical(outcome))
 }
 

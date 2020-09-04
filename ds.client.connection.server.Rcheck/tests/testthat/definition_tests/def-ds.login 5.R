@@ -1,6 +1,5 @@
 
 source("connection_to_datasets/init_all_datasets.R")
-print(ds.test_env)
 
 .test.no.login.info <- function()
 {
@@ -24,7 +23,7 @@ print(ds.test_env)
 {
   
   expect_error(.make.connection(ds.build.login.data.frame(c(),c(),c(),c(),c()),assign = FALSE,table))
-  expect_true(is.null(suppressMessages(ds.login(ds.build.login.data.frame(c(),c(),c(),c(),c()),assign = FALSE,table))))
+  #expect_true(is.null(suppressMessages(ds.login(ds.build.login.data.frame(c(),c(),c(),c(),c()),assign = FALSE,table))))
 }
 
 .test.http.connection.multiple <- function()

@@ -6,7 +6,7 @@ library(httr)
 source("definition_tests/def-ds.assign.value.R")
 source("connection_to_datasets/init_all_datasets.R")
 
-connections <- connect.all.datasets()
+connections <- connect.all.datasets(ds.test_env)
 
 context('ds.assign.value():no_connection')
 test_that('no_connection',
@@ -35,7 +35,7 @@ test_that('correct_parameters',
 
 log.out.data.server()
 
-connect.dataset.1()
+connect.dataset.1(ds.test_env)
 context('ds.assign.value():correct_parameters:single')
 test_that('correct_parameters',
 {

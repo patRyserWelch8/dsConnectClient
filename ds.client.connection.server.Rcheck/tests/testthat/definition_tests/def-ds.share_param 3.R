@@ -111,6 +111,10 @@ source("connection_to_datasets/init_all_datasets.R")
 
   # correct parameters
   expect_true(ds.share.param(connections, c('pi_value', 'pi_value_B')))
+  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
+  expect_equal(length(result), length(connections))
+  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
+  expect_equal(length(result), length(connections))
 }
 
 .test_assign_testing <- function(connections)

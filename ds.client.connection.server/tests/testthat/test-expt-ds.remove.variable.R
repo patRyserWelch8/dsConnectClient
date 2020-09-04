@@ -7,7 +7,7 @@ source("definition_tests/def-ds.remove.variable.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 
-connections <- connect.dataset.1()
+connections <- connect.dataset.1(ds.test_env)
 
 context('ds.remove.variable():more_incorrect_parameters:single')
 test_that('correct_parameters',
@@ -23,7 +23,7 @@ test_that('correct_parameters',
 log.out.data.server()
 
 
-connections <- connect.all.datasets()
+connections <- connect.all.datasets(ds.test_env)
 
 context('ds.remove.variable():more_incorrect_parameters:multiple')
 test_that('more_incorrect_parameters',
