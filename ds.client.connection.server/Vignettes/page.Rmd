@@ -32,7 +32,14 @@ This package has been written to be used along the side the [dsBaseClient packag
 
 We would recommed any new DataSHIELD users to install DataSHIELD and complete the training available on the DataSHIELD wiki; [Installation and training](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943395/Installation+Training).
 
-# Installed packages
+# Installing client-side and server-side packages
+
+## Server-side DataSHIELD server
+In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package:
+
+* [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+
+## Client-side analysis computer
 During the installation, this package will import the following packages: 
 
 * DSI
@@ -44,8 +51,8 @@ During the installation, this package will import the following packages:
 
 These packages are required to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. The latter can be found in this repository: [dsBase](https://github.com/datashield/dsBase). It is worth noting, this package has been installed in an Opal Server. New server-side functions needs to be added or installed in an Opal server; instructions can be found [here](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
 
-## Libraries in DataSHIELD scripts
-At the start of each DataSHIELD client script, DataSHIELD analysts need to load and attach these packages. 
+## Client-side analysusis scripts
+At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages. 
 
 ```{r}
 #Libraries 
@@ -133,7 +140,7 @@ server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
 
 _building the login data frame_
 
-The function _ds.build.login.data.frame_ generates a valid data frame. This type of data 
+The function _ds.build.login.data.frame_ generates a valid data frame. Any errors with the entries are pointed out, with a possible solution. In this example, we have printed the login data. It is a method of validating the information are correct, before logging in.
 
 ```{R}
 login.data <- ds.build.login.data.frame(server.names,
@@ -163,6 +170,15 @@ connections <- ds.login(login.data, variables = server.var)
 print(connections)
 
 ```
+
+# Basic server-level analysis
+The following code shows the names of the columns of the data.
+```{R}
+outcome <- ds.dim(x = 'D')
+print(outcome)
+
+```
+
 
 # Assigning values to some server variables
 The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created on the server. The function also returns an indication whether the assignment process has been achieved on all servers. 
@@ -201,19 +217,7 @@ rUnif.exists <- ds.exists.on.server(connections,
 print(rUnif.exists)
 ```
 
-# Executing some aggregate DataSHIELD functions
-```{R}
-server.call <- call("varDS","rUnifDist")
-print(server.call)
-server.var <- ds.aggregate(connections,expression = server.call, asynchronous = FALSE)
 
-server.call <- call("meanDS","rUnifDist")
-print(server.call)
-server.mean <- ds.aggregate(connections,expression = server.call, asynchronous = FALSE)
-print(paste0("mean     :", server.mean))
-print(paste0("variance :", server.var))
-
-```
 
 # Deleting some server-side variables
 ```{R}

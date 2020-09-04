@@ -12,7 +12,7 @@
 
 <meta name="author" content="Patricia Ryser-Welch on Behalf of the DataSHIELD Team" />
 
-<meta name="date" content="2020-09-02" />
+<meta name="date" content="2020-09-04" />
 
 <title>ds.client.connection.server Packages users documentation</title>
 
@@ -301,7 +301,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">ds.client.connection.server Packages users documentation</h1>
 <h4 class="author">Patricia Ryser-Welch on Behalf of the DataSHIELD Team</h4>
-<h4 class="date">2020-09-02</h4>
+<h4 class="date">2020-09-04</h4>
 
 
 
@@ -320,8 +320,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>This package has been written to be used along the side the <a href="https://github.com/datashield/dsBaseClient">dsBaseClient package</a>.</p>
 <p>We would recommed any new DataSHIELD users to install DataSHIELD and complete the training available on the DataSHIELD wiki; <a href="https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943395/Installation+Training">Installation and training</a>.</p>
 </div>
-<div id="installed-packages" class="section level1">
-<h1>Installed packages</h1>
+<div id="installing-client-side-and-server-side-packages" class="section level1">
+<h1>Installing client-side and server-side packages</h1>
+<div id="server-side-datashield-server" class="section level2">
+<h2>Server-side DataSHIELD server</h2>
+<p>In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package:</p>
+<ul>
+<li><a href="https://github.com/patRyserWelch8/dsServerParameter">dsParameterServer</a></li>
+</ul>
+</div>
+<div id="client-side-analysis-computer" class="section level2">
+<h2>Client-side analysis computer</h2>
 <p>During the installation, this package will import the following packages:</p>
 <ul>
 <li>DSI</li>
@@ -332,20 +341,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li>opalr</li>
 </ul>
 <p>These packages are required to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. The latter can be found in this repository: <a href="https://github.com/datashield/dsBase">dsBase</a>. It is worth noting, this package has been installed in an Opal Server. New server-side functions needs to be added or installed in an Opal server; instructions can be found <a href="https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function">here</a>.</p>
-<div id="libraries-in-datashield-scripts" class="section level2">
-<h2>Libraries in DataSHIELD scripts</h2>
-<p>At the start of each DataSHIELD client script, DataSHIELD analysts need to load and attach these packages.</p>
+</div>
+<div id="client-side-analysusis-scripts" class="section level2">
+<h2>Client-side analysusis scripts</h2>
+<p>At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#Libraries </span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(DSI)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Warning: package 'DSI' was built under R version 4.0.2</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; Loading required package: progress</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Loading required package: R6</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(DSOpal)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; Loading required package: opalr</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; Loading required package: httr</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(httr)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">library</span>(ds.client.connection.server)</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw">library</span>(dsBaseClient)</a></code></pre></div>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; Loading required package: progress</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; Loading required package: R6</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(DSOpal)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; Loading required package: opalr</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; Loading required package: httr</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(httr)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(ds.client.connection.server)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">library</span>(dsBaseClient)</a></code></pre></div>
 </div>
 </div>
 <div id="building-a-login-data-frame" class="section level1">
@@ -434,7 +443,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt; name: Paris </span></a>
 <a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt; version: 3.0.0 </span></a>
 <a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt; username: administrator </span></a>
-<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; rid: 088e7509-0ec2-4bbb-97de-04e473be5117 </span></a>
+<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; rid: 9de8807d-0dbc-42d5-a091-10ef3d42a219 </span></a>
 <a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt; $Newcastle</span></a>
@@ -447,7 +456,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb10-32" data-line-number="32"><span class="co">#&gt; name: Newcastle </span></a>
 <a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt; version: 3.0.0 </span></a>
 <a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt; username: administrator </span></a>
-<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt; rid: 59797f59-8124-411a-8738-6c0b81f2b02d </span></a>
+<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt; rid: d99bc88f-0c5b-4257-b662-a397327c5fb9 </span></a>
 <a class="sourceLine" id="cb10-36" data-line-number="36"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-38" data-line-number="38"><span class="co">#&gt; $`New York`</span></a>
@@ -460,7 +469,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb10-45" data-line-number="45"><span class="co">#&gt; name: New York </span></a>
 <a class="sourceLine" id="cb10-46" data-line-number="46"><span class="co">#&gt; version: 3.0.0 </span></a>
 <a class="sourceLine" id="cb10-47" data-line-number="47"><span class="co">#&gt; username: administrator </span></a>
-<a class="sourceLine" id="cb10-48" data-line-number="48"><span class="co">#&gt; rid: cbdc5cf2-556d-4ad0-b669-30b79ab13ff4</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-48" data-line-number="48"><span class="co">#&gt; rid: dbd7530f-f91a-4fa6-9e4b-bf84fc24c28f</span></a></code></pre></div>
 </div>
 <div id="assigning-values-to-some-server-variables" class="section level1">
 <h1>Assigning values to some server variables</h1>
@@ -498,23 +507,61 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb12-10" data-line-number="10"><span class="kw">print</span>(rUnif.exists)</a>
 <a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
 </div>
-<div id="executing-some-aggregate-datashield-functions" class="section level1">
-<h1>Executing some aggregate DataSHIELD functions</h1>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">outcome &lt;-<span class="st"> </span><span class="kw">ds.remove.variable</span>(connections,<span class="dt">variable.name =</span> <span class="st">&quot;rUnifDist&quot;</span>, <span class="dt">class.type =</span> <span class="st">&quot;numeric&quot;</span>)</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw">print</span>(outcome)</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; [1] TRUE</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">outcome &lt;-<span class="st"> </span><span class="kw">ds.remove.variable</span>(connections,<span class="dt">variable.name =</span> <span class="st">&quot;rUnifDistB&quot;</span>, <span class="dt">class.type =</span> <span class="st">&quot;character&quot;</span>)</a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="kw">print</span>(outcome)</a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div id="basic-server-level-analysis" class="section level1">
+<h1>Basic server-level analysis</h1>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">print</span>(<span class="st">&quot;mean&quot;</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; [1] &quot;mean&quot;</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">ds.mean</span>(<span class="dt">x =</span> <span class="st">&quot;rUnifDist&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;split&quot;</span>))</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; $Mean.by.Study</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt;           EstimatedMean Nmissing Nvalid Ntotal</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; Paris          32.74334        0    100    100</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; Newcastle      34.73273        0    100    100</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; New York       32.07806        0    100    100</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; $Nstudies</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; $ValidityMessage</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt;           ValidityMessage </span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">#&gt; Paris     &quot;VALID ANALYSIS&quot;</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; Newcastle &quot;VALID ANALYSIS&quot;</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; New York  &quot;VALID ANALYSIS&quot;</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="kw">print</span>(<span class="st">&quot;variance&quot;</span>)</a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; [1] &quot;variance&quot;</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="kw">print</span>(<span class="kw">ds.var</span>(<span class="dt">x =</span> <span class="st">&quot;rUnifDist&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;split&quot;</span>))</a>
+<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt; $Variance.by.Study</span></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt;           EstimatedVar Nmissing Nvalid Ntotal</span></a>
+<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="co">#&gt; Paris        105.93140        0    100    100</span></a>
+<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="co">#&gt; Newcastle     99.06907        0    100    100</span></a>
+<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="co">#&gt; New York      92.29545        0    100    100</span></a>
+<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-28" data-line-number="28"><span class="co">#&gt; $Nstudies</span></a>
+<a class="sourceLine" id="cb13-29" data-line-number="29"><span class="co">#&gt; [1] 3</span></a>
+<a class="sourceLine" id="cb13-30" data-line-number="30"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-31" data-line-number="31"><span class="co">#&gt; $ValidityMessage</span></a>
+<a class="sourceLine" id="cb13-32" data-line-number="32"><span class="co">#&gt;           ValidityMessage </span></a>
+<a class="sourceLine" id="cb13-33" data-line-number="33"><span class="co">#&gt; Paris     &quot;VALID ANALYSIS&quot;</span></a>
+<a class="sourceLine" id="cb13-34" data-line-number="34"><span class="co">#&gt; Newcastle &quot;VALID ANALYSIS&quot;</span></a>
+<a class="sourceLine" id="cb13-35" data-line-number="35"><span class="co">#&gt; New York  &quot;VALID ANALYSIS&quot;</span></a></code></pre></div>
+</div>
+<div id="deleting-some-server-side-variables" class="section level1">
+<h1>Deleting some server-side variables</h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">outcome &lt;-<span class="st"> </span><span class="kw">ds.remove.variable</span>(connections,<span class="dt">variable.name =</span> <span class="st">&quot;rUnifDist&quot;</span>, <span class="dt">class.type =</span> <span class="st">&quot;numeric&quot;</span>)</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">print</span>(outcome)</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; [1] TRUE</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">outcome &lt;-<span class="st"> </span><span class="kw">ds.remove.variable</span>(connections,<span class="dt">variable.name =</span> <span class="st">&quot;rUnifDistB&quot;</span>, <span class="dt">class.type =</span> <span class="st">&quot;character&quot;</span>)</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="kw">print</span>(outcome)</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 <div id="logging-out-of-datashield-servers" class="section level1">
 <h1>Logging out of DataSHIELD servers</h1>
 <p>At the end of each DataSHIELD script, the connections between the client and the DataSHIELD servers must be closed. Otherwise, the performance of each server is negatively affected. So, once a DataSHIELD user does not require any more the computing resources of any DataSHIELD server, they log out.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">outcome &lt;-<span class="st"> </span><span class="kw">ds.logout</span>(connections)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">print</span>(outcome)</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">outcome &lt;-<span class="st"> </span><span class="kw">ds.logout</span>(connections)</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">print</span>(outcome)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 
 
