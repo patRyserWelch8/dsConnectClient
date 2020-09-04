@@ -92,10 +92,8 @@ source("connection_to_datasets/init_all_datasets.R")
   #check actual exchange of parameters
   expect_true(.share.parameter(connections,param.names = c('pi_value', 'pi_value_B')))
   result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
-  print(result)
   expect_equal(length(result), length(connections))
   result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
-  print(result)
   expect_equal(length(result), length(connections))
   
   #check ds.share.param
@@ -112,13 +110,7 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_equal(ds.share.param(connections),FALSE)
 
   # correct parameters
-  print(ds.share.param(connections, c('pi_value', 'pi_value_B')))
-  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
-  print(result)
-  expect_equal(length(result), length(connections))
-  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
-  print(result)
-  expect_equal(length(result), length(connections))
+  expect_true(ds.share.param(connections, c('pi_value', 'pi_value_B')))
 }
 
 .test_assign_testing <- function(connections)
