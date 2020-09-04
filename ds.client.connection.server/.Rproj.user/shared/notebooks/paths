@@ -9,6 +9,7 @@
 /Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-expt-ds.aggregate.R="AAD9C375"
 /Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-expt-ds.assign.value.R="AA817491"
 /Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-expt-ds.exists.R="602B8013"
+/Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-expt-ds.remove.variable.R="1FDD57B7"
 /Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-expt-ds_create_environment.R="C4E3E471"
 /Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-expt-ds_login.R="C3F4952D"
 /Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/tests/testthat/test-expt-ds_logout.R="26814F3F"
