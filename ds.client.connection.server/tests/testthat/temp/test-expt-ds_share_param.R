@@ -13,7 +13,7 @@ test_that("no_connection_all_function",
 })
 
 
-connection <- connect.dataset.1()
+connection <- connect.dataset.1(ds.test_env)
 
 context('ds.share_param()::smk::single')
 test_that('single connections',
@@ -31,7 +31,7 @@ test_that('.assignSettings',
 
 log.out.data.server()
 
-connections <- connect.all.datasets()
+connections <- connect.all.datasets(ds.test_env)
 
 context('ds.share_param()::smk::multiple')
 test_that('multiple connections',
