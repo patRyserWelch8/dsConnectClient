@@ -7,6 +7,14 @@ source("definition_tests/def-ds.aggregate.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 connections <- connect.all.datasets(ds.test_env)
+
+context('ds.aggregate():server_error:multiple')
+test_that('server_errors',
+{
+  .test.server.error(connections)
+})
+
+
 context('ds.aggregate():correct parameters:multiple')
 test_that('correct parameters',
 {
@@ -19,6 +27,8 @@ test_that('incorrect parameters',
   .test.no.expression(connections)
   .test.incorrect.expression(connections)
 })
+
+
 
 disconnect.all.datasets(connections)
 
@@ -85,3 +95,5 @@ test_that('incorrect parameters',
   .test.no.connection(connection <- NULL)
   
 })
+
+
