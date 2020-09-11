@@ -1,5 +1,7 @@
 ds.error <- function(error, client = TRUE)
 {
+  
+  
   if(client)
   {
     .show.client.error(error)
@@ -63,20 +65,32 @@ ds.error <- function(error, client = TRUE)
   # displaying the errors
   error.message <- paste0("The function ", client.function.name, 
                           " is not working has expected. An error has occurred on the server. ", 
-                          "The function ", server.function.name, " has not been able to either assign or return an aggregation. ",
-                          "\n")
+                          "The function ", server.function.name, " has not been able to either assign or return an aggregation. ")
+  
+ 
   if (length(unique(errors)))
   {
     error <- as.character(errors[1])
   }
   
+
+  
   if(any(grepl("SERVER-ERR-000",error)))
   {
-    error.message <- paste0(error.message, "Some error thrown by stop function on the server.")
+    error.message <- paste0(error.message, "Some error thrown by stop function on the server in an aggregate function.")
+  }
+  else if(any(grepl("SERVER-ERR-001",error)))
+  {
+    error.message <- paste0(error.message, "Some error thrown by stop function on the server in an assign function.")
+  }
+  else if(is.na(error))
+  {
+    error.message <- paste0(error.message, "A function or R object may not exists on the server(s).",
+                            "ds.ls() and the tools made available on the Opal server can help you resolving this issue.")
   }
   else
   {
-    error.message <- paste0(error.message, "R has thrown the foolowing error: \n", error)
+    error.message <- paste0(error.message, "R has thrown the following error: \n", error)
   }
  
   message(error.message)
