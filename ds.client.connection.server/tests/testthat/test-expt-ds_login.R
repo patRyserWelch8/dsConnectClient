@@ -9,6 +9,8 @@ source("connection_to_datasets/init_all_datasets.R")
 context('ds.login():incorrect format')
 test_that('incorrect format',
 {
+  
+  #testing for errors
   .test.no.login.info()
   .test.incorrect.format(c('study2', 'study3'),
      c(ds.test_env$ip_address_1,ds.test_env$ip_address_2,ds.test_env$ip_address_3),
