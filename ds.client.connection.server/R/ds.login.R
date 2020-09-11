@@ -18,7 +18,7 @@
 #'@param symbol A character, the name of the data frame to which the data repository's table will be
 #'   assigned after login into the server(s). It is set to "D' by default.
 #'@return object(s) of class DSConnection or NULL if some parameters are incorrect
-#'@author Patricia Ryser-Welch
+#'@author Patricia Ryser-Welch 
 #'@export ds.login
 
 library(DSI)
