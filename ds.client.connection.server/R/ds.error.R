@@ -1,33 +1,86 @@
-ds.error <- function(error)
+ds.error <- function(error, client = TRUE)
 {
-  
+  if(client)
+  {
+    .show.client.error(error)
+  }
+  else
+  {
+    .show.server.error(error)
+  }
+}
+
+
+.show.client.error <- function(error)
+{
   function.name <- .get.function.name(error)
   if(!identical(function.name, "NF"))
   {
     .message.client.side.error(function.name, error)
   }
-  
-  #else
-  #{
-  #  server.errors <- DSI::datashield.errors()
-  #  print(server.errors)
-  #}
+}
+
+.show.server.error <- function(error)
+{
+  client.function.name <- error[[1]][1]
+  server.function.name  <- .get.function.name(error[[2]][1])
+  .message.server.side.error(client.function.name, server.function.name, error[[3]])
+
 }
 
 .get.function.name <- function(error)
 {
   outcome    <- "NF"
   error.char <- as.character(error)
-  error.list <- strsplit(error.char, "::")
  
-  if (length(error.list[[1]]) >= 2)
+  if (grepl(pattern = "::", x = error.char))
+  { 
+    error.list <- strsplit(error.char, "::")
+    outcome    <- error.list[[1]][2]
+  }
+  else if (grepl(pattern = "\\(", x = error.char))
   {
-     outcome    <- error.list[[1]][2]
+    error.list <- strsplit(error.char, "\\(")
+    outcome    <- error.list[[1]][1]
+  }
+  else
+  {
+    outcome    <- error
   }
   
   return(outcome)
 }
 
+
+.message.server.side.error <- function(client.function.name, server.function.name, server.error)
+{
+  #finding the error
+  error.split <- lapply(X = server.error, function(x) strsplit(x = x, "->"))
+  error.split <- lapply(X = error.split, function(x) unlist(x))
+  errors      <- lapply(X = error.split, function(x) return(x[2]))
+  
+  
+  # displaying the errors
+  error.message <- paste0("The function ", client.function.name, 
+                          " is not working has expected. An error has occurred on the server. ", 
+                          "The function ", server.function.name, " has not been able to either assign or return an aggregation. ",
+                          "\n")
+  if (length(unique(errors)))
+  {
+    error <- as.character(errors[1])
+  }
+  
+  if(any(grepl("SERVER-ERR-000",error)))
+  {
+    error.message <- paste0(error.message, "Some error thrown by stop function on the server.")
+  }
+  else
+  {
+    error.message <- paste0(error.message, "R has thrown the foolowing error: \n", error)
+  }
+ 
+  message(error.message)
+}
 
 .message.client.side.error <- function(function.name, client.error)
 {
