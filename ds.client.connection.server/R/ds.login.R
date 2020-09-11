@@ -48,8 +48,9 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   { 
     stop("::ds.login::ERR:011", call. = FALSE)
   }
-  
-  connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
+  connection <- NULL
+  tryCatch(connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol),
+           error = function(error) {ds.error(DSI::datashield.errors())})
    
   if (is.null(connection))
   {
