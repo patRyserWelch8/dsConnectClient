@@ -2,61 +2,114 @@
 % Please edit documentation in R/ds.remove.variable.R
 \name{ds.remove.variable}
 \alias{ds.remove.variable}
-\title{delete a variable of a specific given type from some DataSHIELD servers.}
+\title{Delete a variable of a specific given type on the server-side}
+\usage{
+ds.remove.variable(variable.name = NULL, class.type = NULL, datasources = NULL)
+}
 \arguments{
-\item{connections}{a valid connection to some data repositories. The later needs to be a valid DSConnection-class (OpalConnection)}
+\item{variable.name}{a character string specifying the name of the variable.}
 
-\item{variable.name}{name of a variable represented as character. Its length should be greater than 0.}
-
-\item{environment.name}{A character value stating the name of an environment created on the server. By default, it should be set to "\code{\link{.GlobalEnv}}"}
-
-\item{class.type}{A character value stating the R internal type. Correct values:
+\item{class.type}{a character string specifying the R internal type of the variable.\cr
+Correct values:
 \itemize{
-\item  "\code{\link{NULL}}"
-\item "\code{\link{character}}"
-\item "\code{\link{complex}}"
-\item  "\code{\link{factor}}"
-\item "\code{\link{double}}"
-\item "\code{\link{expression}}"
-\item "\code{\link{integer}}"
-\item "\code{\link{list}}"
-\item "\code{\link{logical}}"
-\item "\code{\link{numeric}}"
-\item "\code{\link{single}}"
-\item "\code{\link{raw}}"
-\item "\code{\link{vector}}"
-\item "\code{\link{S4}}"
-\item "\code{\link{NULL}}"
-\item "\code{\link{function}}"
-\item "\code{\link{externalptr}}"
-\item "\code{\link{environment}}"
+  \item  "\code{\link{NULL}}"
+  \item "\code{\link{character}}"
+  \item "\code{\link{complex}}"
+  \item  "\code{\link{factor}}"
+  \item "\code{\link{double}}"
+  \item "\code{\link{expression}}"
+  \item "\code{\link{integer}}"
+  \item "\code{\link{list}}"
+  \item "\code{\link{logical}}"
+  \item "\code{\link{numeric}}"
+  \item "\code{\link{single}}"
+  \item "\code{\link{raw}}"
+  \item "\code{\link{vector}}"
+  \item "\code{\link{S4}}"
+  \item "\code{\link{NULL}}"
+  \item "\code{\link{function}}"
+  \item "\code{\link{externalptr}}"
+  \item "\code{\link{environment}}"
 }}
 
-\item{connection}{connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
-
-\item{new.variable.name}{name of a new variable created on a server}
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login}
 }
 \value{
-TRUE if the variables have been deleted. FALSE if the values have not been deleted and exists on the servers.
+TRUE if the variables have been deleted.
+
+FALSE if the values have not been deleted and exist on the servers.
 }
 \description{
-A variable of a specific given type is deleted from each DataSHIELD server. This client function verifies the variable exists on each server, before 
-removing them from the session.
+A variable of a specific given type is deleted from each DataSHIELD server. 
+This client function verifies that the variable exists on each server, 
+before removing them from the session.
 }
 \details{
-'\itemize{
-\item \code{ds.remove.variable } captures any errors and warnings thrown by the function \code{.remove}. 
-\item \code{.remove} verifies all the arguments meets some constraints stated above. The server function \code{\link{removeDS}} only deletes
-an R object with a specific name and data type. \code{.remove} verifies the variable has been deleted successfully on each server, using   \code{\link{ds.exists.on.server}}.
-}
+\itemize{
+\item \code{ds.remove.variable} captures any errors and warnings 
+thrown by the function \code{.remove}. 
+\item \code{.remove} verifies all the arguments meet some constraints stated above. 
+The server function \code{\link{removeDS}} only deletes
+ an R object with a specific name and data type. 
+ \code{.remove} verifies the variable has been deleted successfully on each server, 
+ using \code{\link{ds.exists.on.server}}.
+ }
 
-Both functions can be used interchangeably. \code{.remove} allows more efficient debugging of some server and client code. \code{ds.remove.variable} can be used 
-once the code is efficiently working.
+Both functions can be used interchangeably: \cr
+\code{.remove} allows more efficient debugging of some server and client code.\cr
+\code{ds.remove.variable} can be used once the code is efficiently working.
+}
+\examples{
+\dontrun{
+
+  ## Version 6, for version 5 see the Wiki
+  # Connecting to the Opal servers
+
+  require('DSI')
+  require('DSOpal')
+  require('dsBaseClient')
+  require('ds.client.connection.server')
+
+  builder <- DSI::newDSLoginBuilder()
+  builder$append(server = "study1", 
+                 url = "http://192.168.56.100:8080/", 
+                 user = "administrator", password = "datashield_test&", 
+                 table = "CNSIM.CNSIM1", driver = "OpalDriver")
+  builder$append(server = "study2", 
+                 url = "http://192.168.56.100:8080/", 
+                 user = "administrator", password = "datashield_test&", 
+                 table = "CNSIM.CNSIM2", driver = "OpalDriver")
+  builder$append(server = "study3",
+                 url = "http://192.168.56.100:8080/", 
+                 user = "administrator", password = "datashield_test&", 
+                 table = "CNSIM.CNSIM3", driver = "OpalDriver")
+  logindata <- builder$build()
+  
+  # Log onto the remote Opal training servers
+  connections <- DSI::datashield.login(logins = logindata, assign = TRUE, symbol = "D") 
+
+  # Assign some values in the server-side
+  
+  ds.assign.value(new.variable.name = "lab.tsc",
+                  value = "D$LAB_TSC", 
+                  class.type = "numeric", 
+                  datasources = connections)
+                  
+  #Remove from the server-side the assigned variable
+  
+  ds.remove.variable(variable.name = "lab.tsc",
+                     class.type = "numeric",
+                     datasources = connections)
+           
+  # Clear the Datashield R sessions and logout
+  datashield.logout(connections) 
+}
 }
 \seealso{
-server function used: \code{removeS} (Aggregate function)
-\code{\link{ds.aggregate}}, \code{\link{ds.exists.on.server}}
+server function used: \code{removeSD} (Aggregate function)\cr
+\code{\link{ds.aggregate}}\cr
+\code{\link{ds.exists.on.server}}
 }
 \author{
-Patricia Ryser-Welch on behalf of DataSHIELD team
+Patricia Ryser-Welch for DataSHIELD team
 }

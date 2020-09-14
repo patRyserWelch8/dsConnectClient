@@ -2,15 +2,25 @@
 % Please edit documentation in R/ds.assign.value.R
 \name{ds.assign.value}
 \alias{ds.assign.value}
-\title{assgin some values on some DataSHIELD servers}
+\title{Assign some values on some DataSHIELD servers}
+\usage{
+ds.assign.value(
+  new.variable.name = NULL,
+  value = NULL,
+  class.type = NULL,
+  asynchronous = FALSE,
+  datasources = NULL
+)
+}
 \arguments{
-\item{connection}{connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
+\item{new.variable.name}{a character string specifying 
+the name of a new variable created on a server}
 
-\item{new.variable.name}{name of a new variable created on a server}
+\item{value}{the name of a column in a data repositories or 
+an R expression allowed to assign function calls}
 
-\item{value}{It has twofold: (1) The name of a column in a data repositories or a R expression allowed to assign function calls}
-
-\item{class.type}{A character value stating the R internal type. Correct values:
+\item{class.type}{a character string stating the R internal type. \cr
+Correct values:
 \itemize{
 \item "\code{\link{NULL}}"
 \item "\code{\link{character}}"
@@ -29,7 +39,10 @@
 \item "\code{\link{environment}}"
 }}
 
-\item{asynchronous}{When set to TRUE, the calls are parallelized over the connections. When set to false. No parallisation occurs.}
+\item{asynchronous}{logical. If TRUE, the calls are parallelized over the connections. 
+If FALSE no parallelisation occurs. Default TRUE.}
+
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
 }
 \value{
 \itemize{
@@ -38,19 +51,68 @@
 }
 }
 \description{
-Assign a table or an expression result to a R variable, within a DataShield R session on at least one server.
+Assign a table or an expression result to an R variable, 
+within a DataSHIELD R session on at least one server.
 }
 \details{
 \itemize{
-\item \code{ds.assign.value} captures any errors and warnings thrown by the function \code{.assign}. No error or warning is displayed. If an error or a warning is caught, then the function returns FALSE.
-\item \code{.assign} wraps the function \code{DSI::datashield.assign function}. A valid OpalConnection, a valid server variable name and value is checked. When  all these conditions are met, then a server call is made. 
+\item \code{ds.assign.value} captures any errors and warnings 
+thrown by the function \code{.assign}. No error or warning is displayed. 
+If an error or a warning is caught, then the function returns FALSE.
+\item \code{.assign} wraps the function \code{\link{DSI::datashield.assign}}. 
+A valid OpalConnection, a valid server variable name and value is checked. 
+When  all these conditions are met, then a server call is made. 
 }
-Both functions can be used interchangeably. \code{.assign} allows more efficient debugging of some server and client code. \code{ds.assign.value} can be used 
+Both functions can be used interchangeably. 
+\code{.assign} allows more efficient debugging of some server and client code. 
+\code{ds.assign.value} can be used 
 once the code is efficiently working.
 }
+\examples{
+\dontrun{
+
+  ## Version 6, for version 5 see the Wiki
+  # Connecting to the Opal servers
+
+  require('DSI')
+  require('DSOpal')
+  require('dsBaseClient')
+  require('ds.client.connection.server')
+
+  builder <- DSI::newDSLoginBuilder()
+  builder$append(server = "study1", 
+                 url = "http://192.168.56.100:8080/", 
+                 user = "administrator", password = "datashield_test&", 
+                 table = "CNSIM.CNSIM1", driver = "OpalDriver")
+  builder$append(server = "study2", 
+                 url = "http://192.168.56.100:8080/", 
+                 user = "administrator", password = "datashield_test&", 
+                 table = "CNSIM.CNSIM2", driver = "OpalDriver")
+  builder$append(server = "study3",
+                 url = "http://192.168.56.100:8080/", 
+                 user = "administrator", password = "datashield_test&", 
+                 table = "CNSIM.CNSIM3", driver = "OpalDriver")
+  logindata <- builder$build()
+  
+  # Log onto the remote Opal training servers
+  connections <- DSI::datashield.login(logins = logindata, assign = TRUE, symbol = "D") 
+
+  # Assign some values in the server-side
+  
+  ds.assign.value(new.variable.name = "lab.tsc",
+                  value = "D$LAB_TSC", 
+                  class.type = "numeric", 
+                  datasources = connections)
+           
+  # Clear the Datashield R sessions and logout
+  datashield.logout(connections) 
+}
+}
 \seealso{
-\code{DSI::datashield.assign}, \code{ds.exists.on.server}
+\code{\link{DSI::datashield.assign}}
+
+\code{\link{ds.exists.on.server}}
 }
 \author{
-Patricia Ryser-Welch
+Patricia Ryser-Welch for DataSHIELD development team
 }
