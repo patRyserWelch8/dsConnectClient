@@ -1,5 +1,5 @@
 
-R version 4.0.1 (2020-06-06) -- "See Things Now"
+R version 4.0.2 (2020-06-22) -- "Taking Off Again"
 Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin17.0 (64-bit)
 
@@ -51,7 +51,6 @@ Type 'q()' to quit R.
 > 
 > #Libraries 
 > library(DSI)
-Warning: package ‘DSI’ was built under R version 4.0.2
 Loading required package: progress
 Loading required package: R6
 > library(DSOpal)
@@ -113,7 +112,7 @@ detaching ‘package:dsBaseClient’, ‘package:DSOpal’, ‘package:opalr’,
 
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.598 0.059 0.715 0 0 
+Time elapsed:  0.521 0.046 0.61 0 0 
 > grDevices::dev.off()
 null device 
           1 

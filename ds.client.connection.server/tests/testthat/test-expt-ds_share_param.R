@@ -6,14 +6,37 @@ source("definition_tests/def-ds.share_param.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 
-context('ds.share_param()::expt::no_connections')
-test_that("no_connection_all_function",
+
+
+
+connections <- connect.dataset.1(ds.test_env)
+.assignSettings(connections)
+context('ds.share_param()::expt::error_servers')
+test_that(".encrypt_data",
 {
-  .test_no_connection() 
+  master_mode = 'illogical'
+  preserve_mode = 'illogical'
+  expect_false(.encrypt_data(connections, master_mode = master_mode , preserve_mode =  preserve_mode))
+  results <- evaluate_promise(.encrypt_data(connections, master_mode = master_mode , preserve_mode =  preserve_mode), print = FALSE)
+  expect_true(length(results$messages) > 0)
+  master_mode = 124.9
+  preserve_mode = -1235
+  expect_false(.encrypt_data(connections, master_mode = master_mode , preserve_mode =  preserve_mode))
+  results <- evaluate_promise(.encrypt_data(connections, master_mode = master_mode , preserve_mode =  preserve_mode), print = FALSE)
+  expect_true(length(results$messages) > 0)
+  
+  #print(ds.aggregate(connections, call("lsDS", NULL ,".GlobalEnv")))
+  #master_mode = TRUE
+  #preserve_mode = FALSE
+  #results <- evaluate_promise(.encrypt_data(connections, master_mode = master_mode , preserve_mode =  preserve_mode), print = FALSE)
+  #expect_true(length(results$messages) > 0)
+  #print(results)
+  #print(ds.aggregate(connections, call("lsDS", NULL ,".GlobalEnv")))
 })
 
 
-connection <- connect.dataset.1(ds.test_env)
+if (FALSE)
+{
 
 context('ds.share_param()::smk::single')
 test_that('single connections',
@@ -28,7 +51,7 @@ test_that('.assignSettings',
   .create.server.var(connection)
   .test_assign_settings(connection)
 })
-
+}
 log.out.data.server()
 
 connections <- connect.all.datasets(ds.test_env)
@@ -49,5 +72,10 @@ test_that('.assignSettings',
 
 log.out.data.server()
 
+context('ds.share_param()::expt::no_connections')
+test_that("no_connection_all_function",
+          {
+            .test_no_connection() 
+          })
 
 

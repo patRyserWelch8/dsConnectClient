@@ -14,6 +14,10 @@ source("connection_to_datasets/init_all_datasets.R")
   server.values <- .aggregate(connections, server.call)
   expect_true(length(server.values) == length(connections))
   
+  server.call <- call('dimDS', x = 'D')
+  server.values <- .aggregate(connections, server.call)
+  expect_true(length(server.values) == length(connections))
+  
   server.values <- ds.aggregate(connections, server.call)
   expect_true(length(server.values) == length(connections))
   

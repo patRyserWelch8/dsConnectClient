@@ -32,8 +32,6 @@ source("connection_to_datasets/init_all_datasets.R")
   server.call <- call("rUnifDS",100,14,50,10)
   expect_true(.assign(connection,new.variable.name = "test.var.1",value=server.call, "numeric", asynchronous = FALSE))
   expect_true(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"numeric",asynchronous = FALSE))
-  
-  
 }
 
 .test.values.from.assign.incorrect.function <- function(connection)
@@ -48,10 +46,14 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_false(ds.assign.value(connection,new.variable.name = "test.var.1",value="D$RUBBISH", "NULL",asynchronous = FALSE))
   expect_false(ds.assign.value(connection, new.variable.name = "test.var.1",value="","integer",asynchronous = FALSE))
   
+  ds.assign.value(connection, new.variable.name = "test.var.1",value="D$RUBBISH","integer",asynchronous = FALSE)
+  
   server.call <- call("rUnifDS_do_not_exist",100,14,50,10)
-  .assign(connection,new.variable.name = "test.var.1",value=server.call, "numeric", asynchronous = FALSE)
-  expect_error(.assign(connection,new.variable.name = "test.var.1",value=server.call, "numeric", asynchronous = FALSE))
+  expect_false(.assign(connection,new.variable.name = "test.var.1",value=server.call, "numeric", asynchronous = FALSE))
   expect_false(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"numeric",asynchronous = FALSE))
+  results <- testthat::evaluate_promise(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"numeric",asynchronous = FALSE))
+  print(results)  
+  
 }
 
 
@@ -81,4 +83,11 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_false(ds.assign.value(connection, "test.var", ""))
 }
 
+
+.test.assign.server.error <- function(connection)
+{
+  server.call <- call("stopAssignDS")
+  results <- testthat::evaluate_promise(ds.assign.value(connection, new.variable.name = "test.var.1",value=server.call,"numeric",asynchronous = FALSE))
+  expect_true (nchar(results$messages) >0 )
+}
 

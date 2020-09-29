@@ -135,21 +135,21 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
     success <- switch(          
        step,
       .encrypt_data(master,master_mode = TRUE, preserve_mode = FALSE), #1
-      .transfer.encrypted.matrix(master,receiver,master_mode = TRUE), #2
-      .encrypt_data(receiver,master_mode = FALSE, preserve_mode = FALSE), #3
-      .transfer.encrypted.matrix(receiver,master,master_mode = FALSE), #4
-      .decrypt_data(master), #5
-      .assignParamSettings(master, param.names), #6
-      .transfer.coordinates(master, receiver), #7 
-      .encrypt_param(master), #8
-      .remove.encryption.data(master, master.mode = TRUE), #9
-      .remove.encryption.data(receiver, master.mode = FALSE),  #10 
-      .encrypt_data(receiver,master_mode = TRUE, preserve_mode = TRUE),  #11
-      .transfer.encrypted.matrix(receiver,master), #12
-      .encrypt_data(master,master_mode = FALSE, preserve_mode = TRUE), #13
-      .transfer.encrypted.matrix(master,receiver), #14
-      .decrypt_data(receiver), #15
-      .decrypt_param(receiver, param.names, tolerance) #16
+      #.transfer.encrypted.matrix(master,receiver,master_mode = TRUE), #2
+      #.encrypt_data(receiver,master_mode = FALSE, preserve_mode = FALSE), #3
+      #.transfer.encrypted.matrix(receiver,master,master_mode = FALSE), #4
+      #.decrypt_data(master), #5
+      #.assignParamSettings(master, param.names), #6
+      #.transfer.coordinates(master, receiver), #7 
+      #.encrypt_param(master), #8
+      #.remove.encryption.data(master, master.mode = TRUE), #9
+      #.remove.encryption.data(receiver, master.mode = FALSE),  #10 
+      #.encrypt_data(receiver,master_mode = TRUE, preserve_mode = TRUE),  #11
+      #.transfer.encrypted.matrix(receiver,master), #12
+      #.encrypt_data(master,master_mode = FALSE, preserve_mode = TRUE), #13
+      #.transfer.encrypted.matrix(master,receiver), #14
+      #.decrypt_data(receiver), #15
+      #.decrypt_param(receiver, param.names, tolerance) #16
     )
     
     if (success)
@@ -202,8 +202,9 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
 
 .encrypt_data <- function(connection, master_mode=TRUE, preserve_mode = FALSE)
 {
-   expression <- paste0("encryptDataDS(master_mode=",master_mode,", preserve_mode=", preserve_mode,")")
-   outcome    <- ds.aggregate(connection, expression)
+   #server function signature: encryptDataDS <- function(master_mode=TRUE, preserve_mode = FALSE)
+   expression <- call("encryptDataDS", master_mode, preserve_mode)
+   outcome    <- .aggregate(connection, expression)
    return(.transform.outcome.to.logical(outcome))
 }
 

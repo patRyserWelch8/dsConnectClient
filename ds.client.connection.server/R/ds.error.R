@@ -1,13 +1,13 @@
 ds.error <- function(error, client = TRUE)
 {
-  
-  
+ 
   if(client)
   {
     .show.client.error(error)
   }
   else
   {
+  
     .show.server.error(error)
   }
 }
@@ -57,6 +57,7 @@ ds.error <- function(error, client = TRUE)
 .message.server.side.error <- function(client.function.name, server.function.name, server.error)
 {
   #finding the error
+  error       <- ""
   error.split <- lapply(X = server.error, function(x) strsplit(x = x, "->"))
   error.split <- lapply(X = error.split, function(x) unlist(x))
   errors      <- lapply(X = error.split, function(x) return(x[2]))
@@ -67,15 +68,20 @@ ds.error <- function(error, client = TRUE)
                           " is not working has expected. An error has occurred on the server. ", 
                           "The function ", server.function.name, " has not been able to either assign or return an aggregation. ")
   
- 
-  if (length(unique(errors)))
+  if (length(unique(errors)) >= 1)
   {
     error <- as.character(errors[1])
   }
   
-
-  
-  if(any(grepl("SERVER-ERR-000",error)))
+  if (any(grepl("SERVER::ERR::PARAM::001",error)))
+  {
+    error.message <- paste0(error.message, "A server is not allowed to taking part in sharing parameters.") 
+  }
+  else if (any(grepl("SERVER::ERR::PARAM::002",error)))
+  {
+    error.message <- paste0(error.message, "A function on the server has not received the appropriate arguments.") 
+  }
+  else if(any(grepl("SERVER-ERR-000",error)))
   {
     error.message <- paste0(error.message, "Some error thrown by stop function on the server in an aggregate function.")
   }
