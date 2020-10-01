@@ -65,14 +65,14 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   
   expect_equal(length(connection), 1)
-  expect_warning(.share.parameter(connection))
+  expect_error(.share.parameter(connection))
   expect_equal(ds.share.param(connection),FALSE)
   expect_equal(length(connection), 1)
   
   #create variable and test their have been created
   .create.server.var(connection)
   
-  expect_warning(.share.parameter(connection, c("pi_value")))
+  expect_error(.share.parameter(connection, c("pi_value")))
   expect_equal(ds.share.param(connection, c("pi_value")),FALSE)
   
 }
@@ -84,38 +84,40 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_equal(length(connections)>1,TRUE)
   
   #check parameters 
-  expect_warning(.share.parameter(connections))
-  expect_equal(ds.share.param(connections),FALSE)
+  #expect_warning(.share.parameter(connections))
+  #expect_equal(ds.share.param(connections),FALSE)
   
   .create.server.var(connections)
   
   #check actual exchange of parameters
   #
   #print(evaluate_promise(.share.parameter(connections,param.names = c('pi_value', 'pi_value_B')),print=TRUE))
-  print(ds.share.param(connections,c('pi_value', 'pi_value_B'),15))
-  result <- ds.aggregate(connections, call("lsDS",NULL,".GlobalEnv"))
-  print("*****")
-  print(result)
-  print("*****")
+  result <- .share.parameter(connections,c('pi_value', 'pi_value_B'),15)
+  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
   expect_equal(length(result), length(connections))
-  #result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
-  #expect_equal(length(result), length(connections))
+  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
+  expect_equal(length(result), length(connections))
+  
+  #result <- ds.aggregate(connections, call("lsDS",NULL,".GlobalEnv"))
+  #print("*****")
+  #print(result)
+  #print("*****")
   
   #check ds.share.param
   #clear parameters
-  #outcome <- ds.remove.variable(connections,"pi_value","numeric")
-  #expect_equal(outcome, TRUE)
-  #outcome <- ds.remove.variable(connections,"pi_value_B","numeric")
-  #expect_equal(outcome, TRUE)
+  outcome <- ds.remove.variable(connections,"pi_value","numeric")
+  expect_equal(outcome, TRUE)
+  outcome <- ds.remove.variable(connections,"pi_value_B","numeric")
+  expect_equal(outcome, TRUE)
   
   #create variable and test their have been created
-  #.create.server.var(connections)
+  .create.server.var(connections)
   
   # incorrect parameters
-  #expect_equal(ds.share.param(connections),FALSE)
+  expect_equal(ds.share.param(connections),FALSE)
 
   # correct parameters
-  #expect_true(ds.share.param(connections, c('pi_value', 'pi_value_B')))
+  expect_true(ds.share.param(connections, c('pi_value', 'pi_value_B')))
 }
 
 .test_assign_testing <- function(connections)

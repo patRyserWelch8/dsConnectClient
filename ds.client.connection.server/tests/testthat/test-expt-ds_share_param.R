@@ -7,12 +7,30 @@ source("connection_to_datasets/init_all_datasets.R")
 
 
 
+context('ds.share_param()::expt::no_connections')
+test_that("no_connection_all_function",
+{
+  connections    <- NULL
+  param.names    <-  c('pi_value','pi_value_b')
+  expect_equal (ds.share.param(connections,param.names), FALSE)
+  expect_error(.share.parameter(connections))
+  expect_equal(.assign.settings(connections), FALSE)
+  expect_equal(.complete.exchange(connections, param.names), FALSE)
+  expect_equal(.exchange(connections, connections, param.names), FALSE)
+  expect_equal(.assign.param.settings(connections, param.names), FALSE)
+  expect_equal(.encrypt.data(connections,TRUE,FALSE), FALSE)
+  expect_equal(.encrypt.param(connections),FALSE)
+  expect_equal(.decrypt.data(connections), FALSE)
+  expect_equal(.transfer.coordinates(connections, connections), FALSE)
+  expect_equal(.transfer.encrypted.matrix(connections, connections, TRUE),FALSE)
+  expect_equal(.remove.encryption.data(connections,TRUE), FALSE)
+})
 
 
 connections <- connect.all.datasets(ds.test_env)
 #.assignSettings(connections)
-if (FALSE)
-{
+
+
 context('ds.share_param()::expt::error_servers')
 test_that(".encrypt_data",
 {
@@ -33,35 +51,35 @@ test_that(".transfer.encrypted.matrix",
 {
   expect_false(.transfer.encrypted.matrix())
   results <- evaluate_promise(.transfer.encrypted.matrix(sender = connections[[1]], receiver = connections[[2]], master_mode = TRUE), print = FALSE)
-  print(results)
+  expect_true(length(results$messages) > 0)
 })
 
 test_that(".decrypt.data",
 {
   expect_false(.decrypt.data(connections[[1]]))
   results <- evaluate_promise(.decrypt.data(connections[[1]]), print = FALSE)
-  print(results)
+  expect_true(length(results$messages) > 0)
 })
 
 test_that(".assign.param.settings",
 {
   expect_false(.assign.param.settings(connections[[1]],c("var_1","var_2")))
   results <- evaluate_promise(.assign.param.settings(connections[[1]],c("var_1","var_2")), print = FALSE)
-  print(results)
+  expect_true(length(results$messages) > 0)
 })
 
 test_that(".transfer.coordinates",
 {
   expect_false(.transfer.coordinates())
   results <- evaluate_promise(.transfer.coordinates(sender = connections[[1]], receiver = connections[[2]]), print = FALSE)
-  print(results)
+  expect_true(length(results$messages) > 0)
 })
 
 test_that(".encrypt.param",
 {
   expect_false(.encrypt.param())
   results <- evaluate_promise(.encrypt.param(), print = FALSE)
-  print(results)
+  expect_true(length(results$messages) > 0)
 })
 
 
@@ -69,14 +87,14 @@ test_that(".encrypt.param",
 {
   expect_false(.encrypt.param(connections[[1]]))
   results <- evaluate_promise(.encrypt.param(connections[[1]]), print = FALSE)
-  print(results)
+  expect_true(length(results$messages) > 0)
 })
 
 test_that(".decrypt.param",
 {
   expect_false(.decrypt.param(connections[[2]], c("var_1","var_2"), 15 ))
   results <- evaluate_promise(.decrypt.param(connections[[2]], c("var_1","var_2"), 15 ), print = FALSE)
-  print(results)
+  expect_true(length(results$messages) > 0)
 })
 
 log.out.data.server()
@@ -99,13 +117,38 @@ test_that('.assignSettings',
 })
 
 log.out.data.server()
-}
+
 connections <- connect.all.datasets(ds.test_env)
 
 context('ds.share_param()::smk::multiple')
 test_that('multiple connections',
 {
-  .test_multiple_connections(connections)
+  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value'))
+  expect_equal(as.logical(outcome[[1]][1]),TRUE)
+  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value_B'))
+  expect_equal(as.logical(outcome[[1]][1]),TRUE)
+  result <- .share.parameter(connections,'pi_value;pi_value_B',15)
+  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
+  expect_equal(length(result), length(connections))
+  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
+  expect_equal(length(result), length(connections))
+  
+  outcome <- ds.remove.variable(connections,"pi_value","numeric")
+  expect_equal(outcome, TRUE)
+  outcome <- ds.remove.variable(connections,"pi_value_B","numeric")
+  expect_equal(outcome, TRUE)
+  
+  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value'))
+  expect_equal(as.logical(outcome[[1]][1]),TRUE)
+  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value_B'))
+  expect_equal(as.logical(outcome[[1]][1]),TRUE)
+  
+  expect_equal(ds.share.param(connections),FALSE)
+  
+  # correct parameters
+  expect_true(ds.share.param(connections, c('pi_value', 'pi_value_B'),15))
+  
+  
 })
 
 .create.server.var(connections)
@@ -118,11 +161,6 @@ test_that('.assignSettings',
 
 log.out.data.server()
 
-context('ds.share_param()::expt::no_connections')
-test_that("no_connection_all_function",
-{
-  .test_no_connection() 
-})
 
 
 
@@ -141,5 +179,5 @@ test_that("no_connection_all_function",
 #master_mode = TRUE
 #preserve_mode = FALSE
 #results <- evaluate_promise(.encrypt_data(connections, master_mode = master_mode , preserve_mode =  preserve_mode), print = FALSE)
-#print(results)
+#expect_true(length(results$messages) > 0)
 #print(ds.aggregate(connections, call("lsDS", NULL ,".GlobalEnv")))

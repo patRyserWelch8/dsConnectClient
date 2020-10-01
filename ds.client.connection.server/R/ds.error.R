@@ -3,8 +3,6 @@ ds.error <- function(error, client = TRUE)
  
   if(client)
   {
-    print("client")
-    print(error)
     .show.client.error(error)
   }
   else
@@ -211,6 +209,10 @@ ds.error <- function(error, client = TRUE)
   else if (grepl("ERR:019",client.error))
   {
     error.message <- paste0(error.message,"The parameters could not be shared. Some errors occurred during the exchanged.") 
+  }
+  else if (grepl("ERR:020",client.error))
+  {
+    error.message <- paste0(error.message,"More than one DataSHIELD is required for sharing parameters. ") 
   }
   
   message(error.message)
