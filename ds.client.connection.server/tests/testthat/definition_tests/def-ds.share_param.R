@@ -90,9 +90,14 @@ source("connection_to_datasets/init_all_datasets.R")
   .create.server.var(connections)
   
   #check actual exchange of parameters
-  print(evaluate_promise(.share.parameter(connections,param.names = c('pi_value', 'pi_value_B')),print=TRUE))
-  #result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
-  #expect_equal(length(result), length(connections))
+  #
+  #print(evaluate_promise(.share.parameter(connections,param.names = c('pi_value', 'pi_value_B')),print=TRUE))
+  print(ds.share.param(connections,c('pi_value', 'pi_value_B'),15))
+  result <- ds.aggregate(connections, call("lsDS",NULL,".GlobalEnv"))
+  print("*****")
+  print(result)
+  print("*****")
+  expect_equal(length(result), length(connections))
   #result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
   #expect_equal(length(result), length(connections))
   

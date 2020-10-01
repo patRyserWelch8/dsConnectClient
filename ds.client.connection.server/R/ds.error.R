@@ -3,6 +3,8 @@ ds.error <- function(error, client = TRUE)
  
   if(client)
   {
+    print("client")
+    print(error)
     .show.client.error(error)
   }
   else
@@ -65,7 +67,7 @@ ds.error <- function(error, client = TRUE)
   
   # displaying the errors
   error.message <- paste0("The function ", client.function.name, 
-                          " is not working has expected. An error has occurred on the server. ", 
+                          " is not working has expected. An error has occurred on the server.", 
                           "The function ", server.function.name, " has not been able to either assign or return an aggregation. ")
   
   if (length(unique(errors)) >= 1)
@@ -73,7 +75,37 @@ ds.error <- function(error, client = TRUE)
     error <- as.character(errors[1])
   }
   
-  if (any(grepl("SERVER::ERR::PARAM::001",error)))
+  print(error)
+
+  if(any(grepl("SERVER::ERR::PARAM::003",error)))
+  {
+    error.message <- paste0(error.message, "Some data were not encoded at all.Have you encoded any data before calling this function?") 
+  } 
+  else if(any(grepl("SERVER::ERR::PARAM::004",error)))
+  {
+    error.message <- paste0(error.message, "Some data could be obtained securely. Start again the whole exchange.") 
+  } 
+  else if(any(grepl("SERVER::ERR::PARAM::009",error)))
+  {
+    error.message <- paste0(error.message, "Some parameters may not have been encoded on one server. Start again the whole exchange.") 
+  }
+  else if(any(grepl("SERVER::ERR::PARAM::007",error)))
+  {
+    error.message <- paste0(error.message, "Some data may not have been received on a server. Start again the whole exchange.") 
+  }
+  else if(any(grepl("SERVER::ERR::PARAM::008",error)))
+  {
+    error.message <- paste0(error.message, "The parameters may have not been created on the server yet. Please use ds.ls() function to check.") 
+  }
+  else if(any(grepl("SERVER::ERR::PARAM::006",error)))
+  {
+    error.message <- paste0(error.message, "The arguments passed to the servers are incorrect. Their length may indicate they have no character. Numerical values may be set to 0 or be negative. Check the server-side function call.") 
+  }
+  else if(any(grepl("SERVER::ERR::PARAM::005",error)))
+  {
+    error.message <- paste0(error.message, "The arguments passed to the servers are incorrect. The data type is either not numerical or character. Check the server-side function call.") 
+  }
+  else if (any(grepl("SERVER::ERR::PARAM::001",error)))
   {
     error.message <- paste0(error.message, "A server is not allowed to taking part in sharing parameters.") 
   }
@@ -85,16 +117,12 @@ ds.error <- function(error, client = TRUE)
   {
     error.message <- paste0(error.message, "Some error thrown by stop function on the server in an aggregate function.")
   }
-  else if(any(grepl("SERVER-ERR-001",error)))
-  {
-    error.message <- paste0(error.message, "Some error thrown by stop function on the server in an assign function.")
-  }
   else if(is.na(error))
   {
     error.message <- paste0(error.message, "A function or R object may not exists on the server(s).",
                             "ds.ls() and the tools made available on the Opal server can help you resolving this issue.")
   }
-  else
+  else if (length(error) > 1)
   {
     error.message <- paste0(error.message, "R has thrown the following error: \n", error)
   }

@@ -11,6 +11,8 @@ source("connection_to_datasets/init_all_datasets.R")
 
 connections <- connect.all.datasets(ds.test_env)
 #.assignSettings(connections)
+if (FALSE)
+{
 context('ds.share_param()::expt::error_servers')
 test_that(".encrypt_data",
 {
@@ -97,7 +99,7 @@ test_that('.assignSettings',
 })
 
 log.out.data.server()
-
+}
 connections <- connect.all.datasets(ds.test_env)
 
 context('ds.share_param()::smk::multiple')
