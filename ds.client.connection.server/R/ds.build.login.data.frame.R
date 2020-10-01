@@ -1,74 +1,85 @@
-#'@name ds.build.login.data.frame
-#'@title Builds a dataframe to login to datashield
-#'@description This function generates a valid data frame, that can be used to login
-#'to some data computers (i.e. opal servers). The data frame models a double-entry table. The
-#'columns are defined as server, url, user, password and table name. Each row holds the information
-#'in relation to one data computer. The values for each column are passed  to the function as arguments.
+#' @name ds.build.login.data.frame
+#' @title Builds a data frame on the server-side to login to DataSHIELD 
+#' @description This function generates a valid data frame, that can be used to login
+#' to some data computers (i.e. Opal servers). The data frame models a double-entry table. 
+#' The columns are defined as server, url, user, password and table name.
+#' Each row holds the information concerning one data computer.
+#' The values for each column are passed  to the function as arguments.
 #'
-#'@param data.computers.name A vector of characters listing all the names of the data computers
-#'@param data.computers.url A vector of characters listing each data computer HTTP address. The format is https://[TCPIP address or host name][:port]
-#'@param data.computers.table.name A vector of characters listing the name of the table stored in a data computer
-#'@param users.id A vector of characters listing a valid user name to log on on each server.
-#'@param users.password A vector of characters listing the password for each user to log in to a data computer.
-#'@param options.ssl A vector used to set the options of the connection. Set by defaults the SSL values.
-#'@param driver.connection A vector used to set the name of the driver. It is set by default to OpalDriver.
-#'@return a data frame formatter in this manner: (server,url,user,password,table). If the arguments are not correct. Then a data.frame with no rows is created.
+#' @param data.computers.name characters vector listing all the names of the data computers.
+#' @param data.computers.url  characters vector listing each data computer HTTP address. 
+#' The format is \code{https://[TCPIP address or host name][:port]}
+#' @param data.computers.table.name characters vector listing the name of 
+#' the table stored in a data computer.
+#' @param users.id characters vector listing a valid user name to log to each server.
+#' @param users.password characters vector listing the password for each 
+#' user to log in to a data computer.
+#' @param options.ssl the vector used to set the options of the connection. 
+#' Set by defaults the SSL values.
+#' @param driver.connection a vector used to set the name of the driver. 
+#' It is set by default to \code{OpalDriver}.
+#' @return \code{ds.build.login.data.frame} returns a data frame formatter in this manner:
+#'  \code{("server","url","user","password","table")}.
+#' If the arguments are not correct. Then a empty data frame will be created. 
 #'
-#'The expectactions are as follow:
-#'Expectation no 0: the return value is a data.frame
-#'Expectation no 1: the number of columns is equal 7.
-#'Expectation no 2: the number of rows is equal to the number of servers
-#'Expectation no 3: the number of rows is equal to 0, if the length of url, user, or table is smaller than the length of server
-#'Expectation no 4: the number of row is 0, if any of the urls does not start with http
-#'@author Patricia Ryser-Welch
+#' The expectations are as follow:\cr
+#' Expectation no 0: the return value is a data frame.\cr
+#' Expectation no 1: the number of columns is equal to 7.\cr
+#' Expectation no 2: the number of rows is equal to the number of servers.\cr
+#' Expectation no 3: the number of rows is equal to 0, if the length of url, user, or table 
+#' is smaller than the length of the server\cr
+#' Expectation no 4: the number of rows is 0, if any of the URLs do not start with \code{http}\cr
+#'@author Patricia Ryser-Welch for DataSHIELD development team
 #'
-#'@examples
-#'#Libraries 
-#'library(DSI)
-#'library(DSOpal)
-#'library(httr)
-#'library(ds.client.connection.server)
-#'library(dsBaseClient)
+#' @examples
 #'
-#'#data computers name
-#'server.names   <- c("Paris", "Newcastle", "New York")
-#'#data computers url
-#'url_Paris     <- 'https://192.168.56.100:8443'
-#'url_Newcastle <- 'https://192.168.56.100:8443'
-#'url_NewYork   <-  'https://192.168.56.100:8443'
-#'server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
-#'table_Paris     <- "TESTING.DATASET1"
-#'table_Newcastle <- "TESTING.DATASET2"
-#'table_NewYork   <- "TESTING.DATASET3"
-#'server.tables   <- c(table_Paris, table_Newcastle, table_NewYork)
+#' #Libraries 
 #'
-#'user_Paris      <-  "administrator"
-#'user_Newcastle  <-  "administrator"
-#'user_NewYork    <-  "administrator"
-#'server.users.id <- c(user_Paris, user_Newcastle, user_NewYork)
+#' library(DSI)
+#' library(DSOpal)
+#' library(httr)
+#' library(ds.client.connection.server)
+#' library(dsBaseClient)
 #'
-#'driver_Paris     <- "OpalDriver"
-#'driver_Newcastle <- "OpalDriver"
-#'driver_NewYork   <- "OpalDriver"
-#'server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
+#' #data computers name
+#' server.names   <- c("Paris", "Newcastle", "New York")
+#' #data computers url
+#' url_Paris     <- 'https://192.168.56.100:8443'
+#' url_Newcastle <- 'https://192.168.56.100:8443'
+#' url_NewYork   <-  'https://192.168.56.100:8443'
+#' server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
+#' table_Paris     <- "TESTING.DATASET1"
+#' table_Newcastle <- "TESTING.DATASET2"
+#' table_NewYork   <- "TESTING.DATASET3"
+#' server.tables   <- c(table_Paris, table_Newcastle, table_NewYork)
 #'
-#'password_Paris      <-  "datashield_test&"
-#'password_Newcastle  <-  "datashield_test&"
-#'password_NewYork    <-  "datashield_test&"
-#'server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
+#' user_Paris      <-  "administrator"
+#' user_Newcastle  <-  "administrator"
+#' user_NewYork    <-  "administrator"
+#' server.users.id <- c(user_Paris, user_Newcastle, user_NewYork)
 #'
-#'ssl_options_Paris     <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
-#'ssl_options_Newcastle <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
-#'ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
-#'server.ssl.options    <- c(ssl_options_Paris,ssl_options_Newcastle,ssl_options_NewYork)
+#' driver_Paris     <- "OpalDriver"
+#' driver_Newcastle <- "OpalDriver"
+#' driver_NewYork   <- "OpalDriver"
+#' server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
+#'
+#' password_Paris      <-  "datashield_test&"
+#' password_Newcastle  <-  "datashield_test&"
+#' password_NewYork    <-  "datashield_test&"
+#' server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
+#'
+#' ssl_options_Paris     <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+#' ssl_options_Newcastle <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+#' ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+#' server.ssl.options    <- c(ssl_options_Paris,ssl_options_Newcastle,ssl_options_NewYork)
 
-#'login.data <- ds.build.login.data.frame(server.names,
-#'                                        server.urls,
-#'                                        server.tables,
-#'                                        server.users.id,
-#'                                        server.users.pwd,
-#'                                        server.ssl.options,
-#'                                        server.drivers)
+#' login.data <- ds.build.login.data.frame(server.names,
+#'                                         server.urls,
+#'                                         server.tables,
+#'                                         server.users.id,
+#'                                         server.users.pwd,
+#'                                         server.ssl.options,
+#'                                         server.drivers)
 #'@export
 
 ds.build.login.data.frame <- function (  data.computers.name = NULL, 
