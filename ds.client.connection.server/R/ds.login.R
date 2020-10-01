@@ -32,13 +32,15 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   tryCatch(
      {connection <- .make.connection(login.data.frame, assign, variables, symbol)},
       warning = function(warning) {.warning(warning)},
-      error = function(error) {ds.error(error)},
+      error = function(error) {print(paste("eeeee", error))},
       finally = {return(connection)}
   )
 }
 
 .make.connection <- function(login.data.frame, assign, variables, symbol)
 {
+  connection <- NULL
+  
   if (is.null(login.data.frame))
   {
     stop("::ds.login::ERR:010", call. = FALSE)
@@ -48,16 +50,24 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   { 
     stop("::ds.login::ERR:011", call. = FALSE)
   }
-  connection <- NULL
-  tryCatch(connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol),
-           error = function(error) {ds.error(DSI::datashield.errors())})
+  
+  
+  connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
+
+  
+  
+  #tryCatch(connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol),
+  #         error      = function(error) {print(paste0("ddd", error))},
+  #         finally    = return(connection))
+  print(connection)
+  
    
   if (is.null(connection))
   {
      stop("::ds.login::ERR:017", call. = FALSE)
   }
   
-  return(connection)
+  
 }
 
 .warning <- function(message)

@@ -73,7 +73,7 @@ ds.error <- function(error, client = TRUE)
     error <- as.character(errors[1])
   }
   
-  print(error)
+  
 
   if(any(grepl("SERVER::ERR::PARAM::003",error)))
   {

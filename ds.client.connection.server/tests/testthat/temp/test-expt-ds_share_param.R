@@ -127,11 +127,8 @@ test_that('multiple connections',
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
   outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value_B'))
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
-  result <- .share.parameter(connections,'pi_value;pi_value_B',15)
-  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
-  expect_equal(length(result), length(connections))
-  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
-  expect_equal(length(result), length(connections))
+  expect_true(.share.parameter(connections,'pi_value;pi_value_B',15))
+ 
   
   outcome <- ds.remove.variable(connections,"pi_value","numeric")
   expect_equal(outcome, TRUE)

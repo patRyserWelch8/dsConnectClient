@@ -47,7 +47,7 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
   {
     stop("::ds.aggregate::ERR:006")
   }
-
+  
   if(is.character(expression) || is.call(expression))
   {
     outcome = "NR"
