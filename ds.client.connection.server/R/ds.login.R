@@ -15,13 +15,13 @@
 #' @param symbol a character specifying the name of the data frame to which the data repository's
 #'  table will be assigned after login into the server(s). Default \code{"D"}. 
 #' @details 
-#' In \code{login.data.frame} table five elements are required to login to the servers 
+#' In \code{login.data.frame} table five elements are required to log in to the servers 
 #' where the data to analyse is stored. 
 #' The expected column names are:\cr
 #' \itemize{
 #'   \item \code{driver}: the \code{\link{DSDriver-class}} name, default is \code{OpalDriver} 
 #'   \item \code{server}: the server name
-#'   \item \code{url}: the server url
+#'   \item \code{url}: the server URL
 #'   \item \code{user}: the user name or the certificate file path
 #'   \item \code{password}: the user password or the private key file path
 #'   \item \code{table}: the fully qualified name of the table in the data repository
@@ -30,9 +30,8 @@
 #'   (if supported by data repository)
 #' }
 #'  
-#'  
-#'  @seealso the documentation of the example input table \code{\link{logindata}} 
-#'  for details of the login elements.
+#'  To built the mentioned table go to \code{\link{ds.build.login.data.frame}} example. 
+#'  The input table \code{\link{logindata}} for details of the login elements.
 #'  
 #' @return \code{ds.login} returns object(s) of class \code{DSConnection} or NULL
 #' if some parameters are incorrect. 
