@@ -27,7 +27,6 @@ ds.error <- function(error, client = TRUE)
   client.function.name <- error[[1]][1]
   server.function.name  <- .get.function.name(error[[2]][1])
   .message.server.side.error(client.function.name, server.function.name, error[[3]])
-
 }
 
 .get.function.name <- function(error)
@@ -208,11 +207,11 @@ ds.error <- function(error, client = TRUE)
   }
   else if (grepl("ERR:019",client.error))
   {
-    error.message <- paste0(error.message,"The parameters could not be shared. Some errors occurred during the exchanged.") 
+    error.message <- paste0(error.message,"The parameters could not be shared. Some errors occurred during the exchange.") 
   }
   else if (grepl("ERR:020",client.error))
   {
-    error.message <- paste0(error.message,"More than one DataSHIELD is required for sharing parameters. ") 
+    error.message <- paste0(error.message,"More than one DataSHIELD server is required for sharing parameters. ") 
   }
   
   message(error.message)
