@@ -14,6 +14,10 @@ source("connection_to_datasets/init_all_datasets.R")
   server.values <- .aggregate(connections, server.call)
   expect_true(length(server.values) == length(connections))
   
+  server.call <- call('dimDS', x = 'D')
+  server.values <- .aggregate(connections, server.call)
+  expect_true(length(server.values) == length(connections))
+  
   server.values <- ds.aggregate(connections, server.call)
   expect_true(length(server.values) == length(connections))
   
@@ -50,10 +54,25 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   
   server.call <- paste("dimDSabdce('",'D',"')")
-  expect_error(.aggregate(connections, server.call))
+  expect_equal(.aggregate(connections, server.call), "NR")
   server.values <- ds.aggregate(connections, server.call)
   expect_true(server.values == "NR")
   
 }
 
+.test.server.error <- function (connections)
+{
+  server.call <- call("testObjectTypeErrorDS")
+  results <- testthat::evaluate_promise(ds.aggregate(connections, server.call))
+  expect_true(nchar(results$messages) > 0)
+  expect_equal(ds.aggregate(connections,server.call), "NR")
+  expect_equal(.aggregate(connections,server.call), "NR")
+  
+  server.call <- call("testStopDS")
+  results <- testthat::evaluate_promise(ds.aggregate(connections, server.call))
+  expect_equal(ds.aggregate(connections,server.call), "NR")
+  expect_equal(.aggregate(connections,server.call), "NR")
+  expect_true(nchar(results$messages) > 0)
+  
+}
 

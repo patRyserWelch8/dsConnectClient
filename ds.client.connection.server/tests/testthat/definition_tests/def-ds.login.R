@@ -1,4 +1,4 @@
-
+source("connection_to_datasets/init_local_settings.R")
 source("connection_to_datasets/init_all_datasets.R")
 print(ds.test_env)
 
@@ -29,6 +29,9 @@ print(ds.test_env)
 
 .test.http.connection.multiple <- function()
 {
+  print(3)
+  ds.test_env <- new.env()
+  connections <- connect.all.datasets(ds.test_env)
   server <-   c('study1','study2', 'study3')
   url <-  c(login.details$ping_address,login.details$ping_address,login.details$ping_address)
   user <-  c(login.details$user_1,login.details$user_2,login.details$user_3)

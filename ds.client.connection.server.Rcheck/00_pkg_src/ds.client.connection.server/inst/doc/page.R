@@ -61,10 +61,130 @@ login.data <- ds.build.login.data.frame(server.names,
                                         server.drivers)
 print(login.data)
 
-## ---- fig.show='hold'---------------------------------------------------------
-plot(1:10)
-plot(10:1)
+## -----------------------------------------------------------------------------
+server.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
+                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
+                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC',
+                   'FACTOR_CHARACTER','FACTOR_INTEGER','IDENTIFIER','CATEGORY','IDENTIFIER',
+                   'CATEGORY')
+connections <- ds.login(login.data, variables = server.var, symbol = 'D')
+print(connections)
 
-## ---- echo=FALSE, results='asis'----------------------------------------------
-knitr::kable(head(mtcars, 10))
+
+## -----------------------------------------------------------------------------
+tables.colnames <- ds.colnames(x = 'D', 
+                               datasources = connections)
+print("Columns names    : ")
+print(tables.colnames)
+tables.features  <- ds.dim(x = "D", 
+                           type = "split", 
+                           datasources = connections)
+print("Rows and columns : ")
+print(tables.features)
+
+## -----------------------------------------------------------------------------
+int.mean    <- ds.mean (x = 'D$POSITIVE_INTEGER', type = "split", datasources = connections)
+int.var     <- ds.var (x = 'D$POSITIVE_INTEGER', type = "split", datasources = connections)
+int.std     <- sqrt(int.var[[1]][,1])
+
+print("Mean")
+print(int.mean[[1]])
+
+print("Standard deviation")
+print(int.std)
+
+## -----------------------------------------------------------------------------
+tables.colnames <- ds.colnames(x = 'D', 
+                               datasources = connections)
+print("Columns names    : ")
+print(tables.colnames)
+tables.features  <- ds.dim(x = "D", 
+                           type = "combined", 
+                           datasources = connections)
+print("Rows and columns : ")
+print(tables.features)
+
+## -----------------------------------------------------------------------------
+int.mean    <- ds.mean (x = 'D$POSITIVE_INTEGER', type = "combined", datasources = connections)
+int.var     <- ds.var (x = 'D$POSITIVE_INTEGER', type = "combined", datasources = connections)
+int.std     <- sqrt(int.var[[1]][,1])
+
+print("Mean")
+print(int.mean[[1]])
+
+print("Standard deviation")
+print(int.std)
+
+
+## -----------------------------------------------------------------------------
+#server function header 
+server.function.call <- call("rUnifDS",100,14,50,10)
+var.created <- ds.assign.value(connection = connections, 
+                               new.variable.name= "rUnifDist",
+                               value = server.function.call,
+                               class.type = "numeric",
+                               asynchronous = FALSE)
+print(var.created)
+print(ds.class(x = "rUnifDist", datasources = connections))
+
+var.created <- ds.assign.value(connection = connections, 
+                               new.variable.name ="rUnifDistB",
+                               value = server.function.call,
+                               class.type = "character",
+                               asynchronous = FALSE)
+print(var.created)
+print(ds.class(x = "rUnifDistB", datasources = connections))
+
+runif.mean    <- ds.mean (x = 'rUnifDist', type = "split", datasources = connections)
+runif.var     <- ds.var (x = 'rUnifDist', type = "split", datasources = connections)
+runif.std     <- sqrt(runif.var[[1]][,1])
+
+print("server-level")
+print("Mean")
+print(runif.mean[[1]])
+
+print("Standard deviation")
+print(runif.std)
+
+print("virtually-joined")
+runif.mean    <- ds.mean (x = 'rUnifDist', type = "combined", datasources = connections)
+runif.var     <- ds.var (x = 'rUnifDist', type = "combined", datasources = connections)
+runif.std     <- sqrt(runif.var[[1]][,1])
+
+print("Mean")
+print(runif.mean[[1]])
+
+print("Standard deviation")
+print(runif.std)
+
+
+## -----------------------------------------------------------------------------
+rUnif.exists <- ds.exists.on.server(connection    = connections,
+                                    variable.name = "rUnifDist", 
+                                    class.type    = "numeric")
+print(rUnif.exists)
+
+rUnif.exists <- ds.exists.on.server(connection    = connections,
+                                    variable.name = "rUnifDistB", 
+                                    class.type    = "character")
+print(rUnif.exists)
+
+## -----------------------------------------------------------------------------
+
+outcome <- ds.remove.variable(connections,variable.name = "rUnifDist", class.type = "numeric")
+print(outcome)
+
+outcome <- ds.remove.variable(connections,variable.name = "rUnifDistB", class.type = "character")
+print(outcome)
+
+
+## -----------------------------------------------------------------------------
+server.function.call <- call("varDS","D$POSITIVE_INTEGER")
+print(server.function.call)
+outcome <- ds.aggregate(connection = connections, expression = server.function.call, asynchronous = FALSE)
+print(outcome)
+
+## -----------------------------------------------------------------------------
+outcome <- ds.logout(connections)
+print(outcome)
 

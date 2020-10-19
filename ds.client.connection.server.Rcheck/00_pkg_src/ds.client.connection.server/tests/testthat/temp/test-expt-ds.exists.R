@@ -7,7 +7,7 @@ source("definition_tests/def-ds.exists.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 
-connections <- connect.all.datasets()
+connections <- connect.all.datasets(ds.test_env)
 context('ds.exists()::multiple::correct_parameters')
 test_that('correct_parameters',
 {
@@ -34,7 +34,7 @@ test_that('more_incorrect_parameters',
 disconnect.all.datasets(connections)
 
 
-connections <- connect.dataset.1()
+connections <- connect.dataset.1(ds.test_env)
 context('ds.exists():more_incorrect_parameters:single')
 test_that('correct_parameters',
 {

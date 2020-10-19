@@ -18,7 +18,7 @@
 #'@param symbol A character, the name of the data frame to which the data repository's table will be
 #'   assigned after login into the server(s). It is set to "D' by default.
 #'@return object(s) of class DSConnection or NULL if some parameters are incorrect
-#'@author Patricia Ryser-Welch
+#'@author Patricia Ryser-Welch 
 #'@export ds.login
 
 library(DSI)
@@ -48,8 +48,9 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   { 
     stop("::ds.login::ERR:011", call. = FALSE)
   }
-  
-  connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
+  connection <- NULL
+  tryCatch(connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol),
+           error = function(error) {ds.error(DSI::datashield.errors())})
    
   if (is.null(connection))
   {

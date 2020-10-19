@@ -83,7 +83,9 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, datasources = N
 .aggregate <- function(expression=NULL, asynchronous=TRUE, datasources = NULL)
 {
   
-  correct.class <- any(class(datasources) %in%  c("list","OpalConnection"))
+
+  correct.class <- any(class(connection) %in%  c("list","OpalConnection", "DSOpal"))
+
   if(!correct.class)
   {
     stop("::ds.aggregate::ERR:006")

@@ -6,10 +6,46 @@ library(httr)
 source("definition_tests/def-ds.login.R")
 source("connection_to_datasets/init_all_datasets.R")
 
+print(1)
+context('ds.login():http_connection::multiple')
+test_that('http connection multiple',
+{
+  print(2)
+  test_equal(TRUE, TRUE)
+  .test.http.connection.multiple()
+})
+
+context('ds.login():http_connection::single')
+test_that('http connection single',
+{
+  .test.http.connection.single()
+})
+
+context('ds.login():https_connection::multiple')
+test_that('https connection multiple',
+{
+  
+  .test.https.connection.multiple()
+})
+
+context('ds.login():https_connection::single')
+test_that('https connection single',
+{
+  .test.https.connection.single()
+})
+
+context('ds.login()::incorrect_url::single')
+test_that('https connection single',
+{
+  .test.https.incorrect.URL()
+})
+
+
+
+
 context('ds.login():incorrect format')
 test_that('incorrect format',
 {
-  
   #testing for errors
   .test.no.login.info()
   .test.incorrect.format(c('study2', 'study3'),
@@ -39,36 +75,5 @@ test_that('incorrect format',
   
   .test.empty()
   
-})
-
-context('ds.login():http_connection::multiple')
-test_that('http connection multiple',
-{
-  .test.http.connection.multiple()
-})
-
-context('ds.login():http_connection::single')
-test_that('http connection single',
-{
-    .test.http.connection.single()
-})
-
-context('ds.login():https_connection::multiple')
-test_that('https connection multiple',
-{
- 
-  .test.https.connection.multiple()
-})
-
-context('ds.login():https_connection::single')
-test_that('https connection single',
-{
-  .test.https.connection.single()
-})
-
-context('ds.login()::incorrect_url::single')
-test_that('https connection single',
-{
-  .test.https.incorrect.URL()
 })
 

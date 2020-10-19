@@ -32,7 +32,14 @@ This package has been written to be used along the side the [dsBaseClient packag
 
 We would recommed any new DataSHIELD users to install DataSHIELD and complete the training available on the DataSHIELD wiki; [Installation and training](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943395/Installation+Training).
 
-# Installed packages
+# Installing client-side and server-side packages
+
+## Server-side DataSHIELD server
+In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package:
+
+* [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+
+## Client-side analysis computer
 During the installation, this package will import the following packages: 
 
 * DSI
@@ -44,8 +51,8 @@ During the installation, this package will import the following packages:
 
 These packages are required to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. The latter can be found in this repository: [dsBase](https://github.com/datashield/dsBase). It is worth noting, this package has been installed in an Opal Server. New server-side functions needs to be added or installed in an Opal server; instructions can be found [here](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
 
-## Libraries in DataSHIELD scripts
-At the start of each DataSHIELD client script, DataSHIELD analysts need to load and attach these packages. 
+## Client-side analysusis scripts
+At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages. 
 
 ```{r}
 #Libraries 
@@ -133,7 +140,7 @@ server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
 
 _building the login data frame_
 
-The function _ds.build.login.data.frame_ generates a valid data frame. This type of data 
+The function _ds.build.login.data.frame_ generates a valid data frame. Any errors with the entries are pointed out, with a possible solution. In this example, we have printed the login data. It is a method of validating the information are correct, before logging in.
 
 ```{R}
 login.data <- ds.build.login.data.frame(server.names,
@@ -146,34 +153,171 @@ login.data <- ds.build.login.data.frame(server.names,
 print(login.data)
 ```
 
+# Logging in DataSHIELD servers
+Before DataSHIELD analysts can complete some calculations, it is required to log in to each DataSHIELD server. The function _ds.login_ uses again the login data and the statistical variables made available through the datasets.  
 
+The example below uses again the login data obtained in the previous section. Then, the connections object is passed as an argument to obtain all the object listed in the each DataSHIELD server.  
 
+The connection does not need to be shown. However, some DataSHIELD analysts may like to verify they have successfully connected to each server.
 
+```{R}
+server.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
+                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
+                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC',
+                   'FACTOR_CHARACTER','FACTOR_INTEGER','IDENTIFIER','CATEGORY','IDENTIFIER',
+                   'CATEGORY')
+connections <- ds.login(login.data, variables = server.var, symbol = 'D')
+print(connections)
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+# Basic server-level analysis
+The following code shows the names of the columns of the data.
+```{R}
+tables.colnames <- ds.colnames(x = 'D', 
+                               datasources = connections)
+print("Columns names    : ")
+print(tables.colnames)
+tables.features  <- ds.dim(x = "D", 
+                           type = "split", 
+                           datasources = connections)
+print("Rows and columns : ")
+print(tables.features)
 ```
 
-Also a quote using `>`:
+The following code computes some basic statistical measures (i.e., centrality and spread).
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{r}
+int.mean    <- ds.mean (x = 'D$POSITIVE_INTEGER', type = "split", datasources = connections)
+int.var     <- ds.var (x = 'D$POSITIVE_INTEGER', type = "split", datasources = connections)
+int.std     <- sqrt(int.var[[1]][,1])
+
+print("Mean")
+print(int.mean[[1]])
+
+print("Standard deviation")
+print(int.std)
+```
+
+
+
+
+# Basic virtually-joined analysis
+The following code shows the names of the columns of the data.
+```{R}
+tables.colnames <- ds.colnames(x = 'D', 
+                               datasources = connections)
+print("Columns names    : ")
+print(tables.colnames)
+tables.features  <- ds.dim(x = "D", 
+                           type = "combined", 
+                           datasources = connections)
+print("Rows and columns : ")
+print(tables.features)
+```
+
+The following code computes some basic statistical measures (i.e., centrality and spread).
+
+```{r}
+int.mean    <- ds.mean (x = 'D$POSITIVE_INTEGER', type = "combined", datasources = connections)
+int.var     <- ds.var (x = 'D$POSITIVE_INTEGER', type = "combined", datasources = connections)
+int.std     <- sqrt(int.var[[1]][,1])
+
+print("Mean")
+print(int.mean[[1]])
+
+print("Standard deviation")
+print(int.std)
+
+```
+
+# Assigning values to some server variables
+The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created on the server. The function also returns an indication whether the assignment process has been achieved on all servers. It is a useful function to use in DataSHIELD scripts to create a variable and verify it has been created on the server.  When developing client-side functions, this function can assist with writing succinct code. The developer can verified the variable has been created with the correct data type.
+
+In the example below, the _server-side function rUnifDs_ generates a uniform distributions and returns a vector _numeric_ values matching the arguments. The returned distribution is saved on the server against a variable named _rUnifDist_. A data type  must match the server-side function outcome. In this case,  it is set to _numeric_, then the outcome is true. Otherwise, no variable is created.
+
+```{R}
+#server function header 
+server.function.call <- call("rUnifDS",100,14,50,10)
+var.created <- ds.assign.value(connection = connections, 
+                               new.variable.name= "rUnifDist",
+                               value = server.function.call,
+                               class.type = "numeric",
+                               asynchronous = FALSE)
+print(var.created)
+print(ds.class(x = "rUnifDist", datasources = connections))
+
+var.created <- ds.assign.value(connection = connections, 
+                               new.variable.name ="rUnifDistB",
+                               value = server.function.call,
+                               class.type = "character",
+                               asynchronous = FALSE)
+print(var.created)
+print(ds.class(x = "rUnifDistB", datasources = connections))
+
+runif.mean    <- ds.mean (x = 'rUnifDist', type = "split", datasources = connections)
+runif.var     <- ds.var (x = 'rUnifDist', type = "split", datasources = connections)
+runif.std     <- sqrt(runif.var[[1]][,1])
+
+print("server-level")
+print("Mean")
+print(runif.mean[[1]])
+
+print("Standard deviation")
+print(runif.std)
+
+print("virtually-joined")
+runif.mean    <- ds.mean (x = 'rUnifDist', type = "combined", datasources = connections)
+runif.var     <- ds.var (x = 'rUnifDist', type = "combined", datasources = connections)
+runif.std     <- sqrt(runif.var[[1]][,1])
+
+print("Mean")
+print(runif.mean[[1]])
+
+print("Standard deviation")
+print(runif.std)
+
+```
+
+# Checking some server side variables exists
+
+```{R}
+rUnif.exists <- ds.exists.on.server(connection    = connections,
+                                    variable.name = "rUnifDist", 
+                                    class.type    = "numeric")
+print(rUnif.exists)
+
+rUnif.exists <- ds.exists.on.server(connection    = connections,
+                                    variable.name = "rUnifDistB", 
+                                    class.type    = "character")
+print(rUnif.exists)
+```
+
+
+
+# Deleting some server-side variables
+```{R}
+
+outcome <- ds.remove.variable(connections,variable.name = "rUnifDist", class.type = "numeric")
+print(outcome)
+
+outcome <- ds.remove.variable(connections,variable.name = "rUnifDistB", class.type = "character")
+print(outcome)
+
+```
+
+# Calling an aggregate server-side function 
+```{r}
+server.function.call <- call("varDS","D$POSITIVE_INTEGER")
+print(server.function.call)
+outcome <- ds.aggregate(connection = connections, expression = server.function.call, asynchronous = FALSE)
+print(outcome)
+```
+
+# Logging out of DataSHIELD servers
+At the end of each DataSHIELD script, the connections between the client and the DataSHIELD servers must be closed. Otherwise, the performance of each server is negatively affected. So, once a DataSHIELD user does not require any more the computing resources of any DataSHIELD server, they log out.
+
+```{R}
+outcome <- ds.logout(connections)
+print(outcome)
+```

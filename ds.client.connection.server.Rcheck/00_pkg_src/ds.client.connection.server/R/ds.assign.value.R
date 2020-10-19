@@ -89,17 +89,21 @@ ds.assign.value <- function(connection=NULL, new.variable.name=NULL, value=NULL,
     #delete variable from the server if it exists already
     ds.remove.variable(connection, new.variable.name,  class.type)
     #create variable on the server(s)
+  
     if (is.character(value))
     {
-      DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
+      tryCatch(DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = as.symbol(value), async = asynchronous),
+               error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
     }
     else if (is.symbol(value))
     {
-      DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = value, async = asynchronous)
+      tryCatch(DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = value, async = asynchronous),
+               error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
     }
     else if (is.call(value))
     {
-      DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = value, async = asynchronous)
+      tryCatch(DSI::datashield.assign(conns = connection, symbol = new.variable.name, value = value, async = asynchronous),
+               error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
     }
     #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
     ds.remove.variable(connection, new.variable.name, "NULL")
