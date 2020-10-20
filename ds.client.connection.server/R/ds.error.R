@@ -1,3 +1,10 @@
+#' @name ds.error
+#' @title displays client-side and server-side error?
+#' @description Shows a error message for an error that originated on the server-side calculations or the client-side.
+#' @param error the error thrown by R
+#' @param client set to true by default, to indicate the error was thrown by the client-side code. Otherwise, it is set to false, 
+#' to indicate the error was thrown by a server-side code.
+
 ds.error <- function(error, client = TRUE)
 {
  
