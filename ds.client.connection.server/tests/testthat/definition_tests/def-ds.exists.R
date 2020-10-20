@@ -7,16 +7,16 @@ source("connection_to_datasets/init_all_datasets.R")
   # variable not created 
   
   name.var <- paste("variable.not.created",number, sep="")
-  expect_false(.find.variable(connection,name.var,"integer"))
-  expect_false(ds.exists.on.server(connection,name.var,"integer"))
+  expect_false(.find.variable(datasources = connection,name.var,"integer"))
+  expect_false(ds.exists.on.server(datasources = connection,name.var,"integer"))
 }
 
 .test.variables.exists<- function(connection,variable.name,value.to.copy,class.type)
 {
   
-  expect_true(ds.assign.value(connection, variable.name, value.to.copy,class.type))
-  expect_true(ds.exists.on.server(connection,variable.name,class.type))
-  expect_true(.find.variable(connection,variable.name,class.type))
+  expect_true(ds.assign.value(datasources = connection, variable.name, value.to.copy,class.type))
+  expect_true(ds.exists.on.server(datasources = connection,variable.name = variable.name,class.type = class.type))
+  expect_true(.find.variable(datasources = connection,variable.name = variable.name,class.type = class.type))
 }
 
 .test.no.connection <- function()
@@ -29,20 +29,20 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.incorrect.parameters <- function(connection)
 {
-  expect_error(.find.variable(connection))
-  expect_error(.find.variable(connection, NULL))
-  expect_error(.find.variable(connection, ""))
-  expect_error(.find.variable(connection, "myVar",""))
-  expect_error(.find.variable(connection, "myVar",1))
-  expect_error(.find.variable(connection, "myVar","not a type"))
+  expect_error(.find.variable(datasources = connection))
+  expect_error(.find.variable(datasources = connection, NULL))
+  expect_error(.find.variable(datasources = connection, ""))
+  expect_error(.find.variable(datasources = connection, "myVar",""))
+  expect_error(.find.variable(datasources = connection, "myVar",1))
+  expect_error(.find.variable(datasources = connection, "myVar","not a type"))
   
   
   expect_false( ds.exists.on.server(connection))
-  expect_false( ds.exists.on.server(connection, NULL))
-  expect_false( ds.exists.on.server(connection, ""))
-  expect_false( ds.exists.on.server(connection, "myVar",""))
-  expect_false( ds.exists.on.server(connection, "myVar",1))
-  expect_false( ds.exists.on.server(connection, "myVar","not a type")) 
+  expect_false( ds.exists.on.server(datasources = connection, NULL))
+  expect_false( ds.exists.on.server(datasources = connection, ""))
+  expect_false( ds.exists.on.server(datasources = connection, "myVar",""))
+  expect_false( ds.exists.on.server(datasources = connection, "myVar",1))
+  expect_false( ds.exists.on.server(datasources = connection, "myVar","not a type")) 
   
 }
 

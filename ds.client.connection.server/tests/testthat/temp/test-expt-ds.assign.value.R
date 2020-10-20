@@ -16,6 +16,18 @@ test_that('no_connection',
 
 
 connections <- connect.all.datasets(ds.test_env)
+print(class(connections))
+context('ds.assign.value():correct_parameters:multiple')
+test_that('correct_parameters',
+{
+  .test.all.parameters.correct(connection = connections, "new_var_1", "D$INTEGER",'integer')
+  .test.all.parameters.correct(connections, "new_var_2", "D$CHARACTER",'character')
+  .test.all.parameters.correct(connections, "new_var_3", "D$NUMERIC",'numeric')
+})
+
+if (FALSE)
+{
+
 context('ds.assign.value():server_error:multiple')
 test_that('server_error',
 {
@@ -32,15 +44,11 @@ test_that('more_incorrect_parameters',
   .test.values.from.assign.incorrect.function(connections)
 })
 
-context('ds.assign.value():correct_parameters:multiple')
-test_that('correct_parameters',
-{
-  .test.all.parameters.correct(connections, "new_var_1", "D$INTEGER",'integer')
-  .test.all.parameters.correct(connections, "new_var_2", "D$CHARACTER",'character')
-  .test.all.parameters.correct(connections, "new_var_3", "D$NUMERIC",'numeric')
-})
+}
+
 
 log.out.data.server()
+
 
 connect.dataset.1(ds.test_env)
 
@@ -49,13 +57,14 @@ test_that('no_connection',
 {
   .test.no.connection.assign()
 })
-
+if (FALSE)
+{
 context('ds.assign.value():correct_parameters:single')
 test_that('correct_parameters',
 {
   .test.all.parameters.correct(connections, "new_var_1", "D$INTEGER",'integer')
-  .test.all.parameters.correct(connections, "new_var_1", "D$CHARACTER",'character')
-  .test.all.parameters.correct(connections, "new_var_1", "D$NUMERIC",'numeric')
+  #.test.all.parameters.correct(connections, "new_var_1", "D$CHARACTER",'character')
+  #.test.all.parameters.correct(connections, "new_var_1", "D$NUMERIC",'numeric')
 })
 
 context('ds.assign.value():incorrect_parameters:single')
@@ -77,4 +86,4 @@ test_that('correct_parameters',
 log.out.data.server()
 
 
-
+}

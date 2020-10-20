@@ -3,8 +3,11 @@ source("connection_to_datasets/init_all_datasets.R")
 .test.all.parameters.correct <- function(connection,variable.name,value,class.type)
 {
   
-  expect_true(.assign(datasources = connection, new.variable.name = variable.name, 
+  print(.assign(datasources = connection, new.variable.name = variable.name, 
                      value = value, class.type, asynchronous = FALSE))
+  results <- testthat::evaluate_promise(.assign(datasources = connection, new.variable.name = variable.name, 
+                                                value = value, class.type, asynchronous = FALSE))
+  print(results)
   expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, 
                       value = value, class.type, asynchronous = FALSE))
  
@@ -52,7 +55,7 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_false(.assign(datasources = connection,new.variable.name = "test.var.1",value=server.call, "numeric", asynchronous = FALSE))
   expect_false(ds.assign.value(datasources = connection, new.variable.name = "test.var.1",value=server.call,"numeric",asynchronous = FALSE))
   results <- testthat::evaluate_promise(ds.assign.value(datasources = connection, new.variable.name = "test.var.1",value=server.call,"numeric",asynchronous = FALSE))
-  print(results)  
+  
   
 }
 
@@ -88,6 +91,7 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   server.call <- call("stopAssignDS")
   results <- testthat::evaluate_promise(ds.assign.value(datasources = connection, new.variable.name = "test.var.1",value=server.call,"numeric",asynchronous = FALSE))
-  expect_true (nchar(results$messages) >0 )
+  expect_equal(all(nchar(results$messages) > 0), TRUE)
+  
 }
 

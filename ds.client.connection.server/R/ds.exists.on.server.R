@@ -121,7 +121,8 @@ ds.exists.on.server <- function(variable.name=NULL, class.type = NULL, datasourc
 
 .find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, datasources = NULL)
 {
-  if(!is.list(datasources))
+  correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
+  if(!correct.class)
   {
     stop("::ds.exists.on.server::ERR:006")
   }
