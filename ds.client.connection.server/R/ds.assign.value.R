@@ -127,7 +127,7 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   }
   
   .create.variable(new.variable.name,value, class.type, asynchronous, datasources)
-  return(ds.exists.on.server(datasources, new.variable.name, class.type = class.type))
+  return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type, datasources = datasources))
 }
 
 
