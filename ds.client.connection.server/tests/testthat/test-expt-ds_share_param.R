@@ -47,12 +47,14 @@ test_that(".encrypt_data",
   expect_true(length(results$messages) > 0)
 })
 
+
 test_that(".transfer.encrypted.matrix",
 {
   expect_false(.transfer.encrypted.matrix())
   results <- evaluate_promise(.transfer.encrypted.matrix(sender = connections[[1]], receiver = connections[[2]], master_mode = TRUE), print = FALSE)
   expect_true(length(results$messages) > 0)
 })
+
 
 test_that(".decrypt.data",
 {
@@ -74,6 +76,7 @@ test_that(".transfer.coordinates",
   results <- evaluate_promise(.transfer.coordinates(sender = connections[[1]], receiver = connections[[2]]), print = FALSE)
   expect_true(length(results$messages) > 0)
 })
+
 
 test_that(".encrypt.param",
 {
@@ -100,7 +103,6 @@ test_that(".decrypt.param",
 log.out.data.server()
 
 
-
 connection <- connect.dataset.3(ds.test_env)
 context('ds.share_param()::smk::single')
 test_that('single connections',
@@ -118,42 +120,48 @@ test_that('.assignSettings',
 
 log.out.data.server()
 
+
 connections <- connect.all.datasets(ds.test_env)
+
+context('ds.share_param()::expt::assignSettings::multiple')
+test_that('.assignSettings',
+{
+  .create.server.var(connections)
+  .test_assign_settings(connections)
+})
 
 context('ds.share_param()::smk::multiple')
 test_that('multiple connections',
 {
-  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value'))
+  outcome <- ds.aggregate(datasources = connections[[1]], expression = call("setPiDS",'pi_value'))
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
-  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value_B'))
+  outcome <- ds.aggregate(datasources = connections[[1]], expression = call("setPiDS",'pi_value_B'))
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
-  expect_true(.share.parameter(connections,'pi_value;pi_value_B',15))
+  expect_true(.share.parameter(connections, param.names = 'pi_value;pi_value_B',tolerance = 15))
  
   
-  outcome <- ds.remove.variable(connections,"pi_value","numeric")
+  outcome <- ds.remove.variable(datasources = connections,variable.name = "pi_value", class.type = "numeric")
   expect_equal(outcome, TRUE)
-  outcome <- ds.remove.variable(connections,"pi_value_B","numeric")
+  outcome <- ds.remove.variable(datasources = connections, variable.name = "pi_value_B",class.type = "numeric")
   expect_equal(outcome, TRUE)
   
-  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value'))
+  outcome <- ds.aggregate(datasources = connections[[1]], expression = call("setPiDS",'pi_value'))
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
-  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value_B'))
+  outcome <- ds.aggregate(datasources = connections[[1]], expression =  call("setPiDS",'pi_value_B'))
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
   
-  expect_equal(ds.share.param(connections),FALSE)
+  expect_equal(ds.share.param(datasources = connections),FALSE)
   
   # correct parameters
-  expect_true(ds.share.param(connections, c('pi_value', 'pi_value_B'),15))
+  outcome <- ds.share.param(datasources = connections, param.name = c('pi_value', 'pi_value_B'),tolerance = 15)
+  print(outcome)
   
   
 })
 
-.create.server.var(connections)
-context('ds.share_param()::expt::assignSettings::multiple')
-test_that('.assignSettings',
-{
-  .test_assign_settings(connections)
-})
+
+
+
 
 
 log.out.data.server()
