@@ -21,6 +21,7 @@ The purpose of this package is support DataSHIELD analysts and programmers to co
 
 The latter includes:
 
+0. Prerequists
 1. Building some login data frames
 2. Loging in and out of some DataSHIELD servers
 3. Assigning values to some server variables
@@ -35,9 +36,13 @@ We would recommed any new DataSHIELD users to install DataSHIELD and complete th
 # Installing client-side and server-side packages
 
 ## Server-side DataSHIELD server
-In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package:
+In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package or functions:
 
 * [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+* The following servers functions are called and made available in version 6.2 of dsBase [ADD LINK]:
+  * existsDS
+  * removeDS
+  
 
 ## Client-side analysis computer
 During the installation, this package will import the following packages: 
@@ -51,7 +56,7 @@ During the installation, this package will import the following packages:
 
 These packages are required to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. The latter can be found in this repository: [dsBase](https://github.com/datashield/dsBase). It is worth noting, this package has been installed in an Opal Server. New server-side functions needs to be added or installed in an Opal server; instructions can be found [here](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
 
-## Client-side analysusis scripts
+## Client-side analysis scripts
 At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages. 
 
 ```{r}
