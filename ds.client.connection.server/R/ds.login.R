@@ -53,7 +53,6 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   
   
   connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
-  print(connection)
   
    
   if (is.null(connection))
@@ -61,7 +60,7 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
      stop("::ds.login::ERR:017", call. = FALSE)
   }
   
-  
+  return(connection)
 }
 
 .warning <- function(message)
