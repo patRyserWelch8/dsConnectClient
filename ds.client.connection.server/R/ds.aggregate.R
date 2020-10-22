@@ -84,7 +84,7 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, datasources = N
 {
   
 
-  correct.class <- any(class(connection) %in%  c("list","OpalConnection", "DSOpal"))
+  correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
 
   if(!correct.class)
   {

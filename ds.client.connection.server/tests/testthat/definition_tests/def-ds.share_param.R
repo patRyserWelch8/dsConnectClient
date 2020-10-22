@@ -2,11 +2,11 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test_assign_settings <- function(connections)
 {
-  outcome <- ds.remove.variable(connections,"settings","list")
+  outcome <- ds.remove.variable(datasources = connections,variable.name = "settings", class.type = "list")
   expect_equal(outcome, TRUE)
   outcome <- .assign.settings(connections)
   expect_equal(outcome,TRUE)
-  outcome <- ds.exists.on.server(connections,"settings","list")
+  outcome <- ds.exists.on.server(datasources = connections, variable.name = "settings",class.type = "list")
   expect_equal(outcome,TRUE)
 }
 
@@ -26,9 +26,9 @@ source("connection_to_datasets/init_all_datasets.R")
 {
  
   #create variable and test their have been created
-  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value'))
+  outcome <- ds.aggregate(datasources = connections[[1]], expression = call("setPiDS",'pi_value'))
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
-  outcome <- ds.aggregate(connections[[1]], call("setPiDS",'pi_value_B'))
+  outcome <- ds.aggregate(datasources = connections[[1]], expression = call("setPiDS",'pi_value_B'))
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
 }
 
@@ -63,10 +63,9 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test_single_connection <- function(connection)
 {
-  
   expect_equal(length(connection), 1)
   expect_error(.share.parameter(connection))
-  expect_equal(ds.share.param(connection),FALSE)
+  expect_equal(ds.share.param(datasources = connection),FALSE)
   expect_equal(length(connection), 1)
   
   #create variable and test their have been created
@@ -98,11 +97,6 @@ source("connection_to_datasets/init_all_datasets.R")
   result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
   expect_equal(length(result), length(connections))
   
-  #result <- ds.aggregate(connections, call("lsDS",NULL,".GlobalEnv"))
-  #print("*****")
-  #print(result)
-  #print("*****")
-  
   #check ds.share.param
   #clear parameters
   outcome <- ds.remove.variable(connections,"pi_value","numeric")
@@ -122,9 +116,10 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test_assign_testing <- function(connections)
 {
-  outcome <- ds.aggregate(connections, call("setPiDS","pi_value"))
-  expect_equal(as.logical(outcome[[1]][1]),TRUE)
-
+  outcome <- ds.aggregate(expression = call("setPiDS","pi_value"), datasources = connections)
+  #print(as.logical(outcome[[1]][1]))
+  print(outcome)
+  
   ds.remove.variable(connections,variable.name = "settings","list")
   expect_equal(ds.exists.on.server(connections, "settings", "list"), FALSE)
   outcome <- .assign.settings(connections)

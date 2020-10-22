@@ -104,8 +104,9 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
 
 .assign <- function(new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE, datasources = NULL)
 {
+  correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
-  if(!is.list(datasources))
+  if(!correct.class)
   {
     stop("::ds.assign.value::ERR:006")
   }
@@ -126,14 +127,14 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   }
   
   .create.variable(new.variable.name,value, class.type, asynchronous, datasources)
-  return(ds.exists.on.server(datasources, new.variable.name, class.type = class.type))
+  return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type, datasources = datasources))
 }
 
 
 .create.variable <- function(new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL, datasources = NULL)
 {
   #delete variable from the server if it exists already
-  ds.remove.variable(new.variable.name,  class.type, datasources)
+  ds.remove.variable(new.variable.name, class.type, datasources)
   #create variable on the server(s)
   
   if (is.character(value))

@@ -12,7 +12,7 @@ library(DSOpal)
 library(httr)
 
 
-ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
+ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NULL)
 {
   success <- FALSE
   tryCatch(
@@ -55,7 +55,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
   successful <- FALSE
   if (!is.null(connections))
   {
-    outcome    <- ds.aggregate(connections, call("assignSharingSettingsDS"))
+    outcome    <- ds.aggregate(expression = call("assignSharingSettingsDS"), datasources = connections )
   
     if(is.list(outcome))
     {
@@ -79,7 +79,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
 {
   if (!is.null(connections))
   {
-    outcome <- ds.aggregate(connections, "removeExchangeDataDS()")
+    outcome <- ds.aggregate(expression = call("removeExchangeDataDS"), datasources = connections)
   }
 }
 
@@ -117,6 +117,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
       {
          continue <- FALSE
       }
+      
     }
     outcome <- success
   }
@@ -164,10 +165,11 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
     }
   }
   
-  if(step == max.steps + 1)
+  if(step == (max.steps + 1))
   {
     outcome <- TRUE
   }
+ 
   return(outcome)
 }
 
@@ -196,7 +198,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
   {
     names.var.on.server <-  paste(param.names, collapse=";")
     expression <- call("assignParamSettingsDS",names.var.on.server)
-    outcome    <- ds.aggregate(connection, expression)
+    outcome    <- ds.aggregate(expression = expression, datasources = connection)
   }
   return(.transform.outcome.to.logical(outcome))
 }
@@ -204,21 +206,21 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
 .encrypt.data <- function(connection, master_mode=TRUE, preserve_mode = FALSE)
 {
    expression <- call("encryptDataDS", master_mode, preserve_mode)
-   outcome    <- ds.aggregate(connection, expression)
+   outcome    <- ds.aggregate(expression = expression, datasources = connection)
    return(.transform.outcome.to.logical(outcome))
 }
 
 .encrypt.param <- function(connection)
 {
   expression <- call("encryptParamDS")
-  outcome    <- ds.aggregate(connection, expression)
+  outcome    <- ds.aggregate(expression = expression, datasources = connection)
   return(.transform.outcome.to.logical(outcome))
 }
 
 .decrypt.data <- function(connection)
 {
   expression <- call("decryptDataDS")
-  outcome    <- ds.aggregate(connection, expression)
+  outcome    <- ds.aggregate(expression = expression, datasources = connection)
   return(.transform.outcome.to.logical(outcome))
 }
 
@@ -227,7 +229,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
   names.var.on.server <-  paste(param.names, collapse=";")
   expression          <- call("decryptParamDS",names.var.on.server, tolerance)
   
-  outcome             <- ds.aggregate(connection, expression)
+  outcome    <- ds.aggregate(expression = expression, datasources = connection)
   return(.transform.outcome.to.logical(outcome))
 }
 
@@ -238,7 +240,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
   if(!is.null(sender) & !is.null(receiver))
   {
     
-     received.coordinates <- ds.aggregate(sender, call("getCoordinatesDS"))
+     received.coordinates <- ds.aggregate(expression = call("getCoordinatesDS"), datasources = sender)
      field.names          <- names(received.coordinates)
      expected.field.names <- c("header","payload","property.a","property.b","property.c","property.d")
      has.correct.field    <- all(expected.field.names %in% field.names)
@@ -252,7 +254,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
                                received.coordinates$property.a, received.coordinates$property.b, received.coordinates$property.c,
                                received.coordinates$property.d)
           
-           outcome <- ds.aggregate(receiver, expression)
+           outcome <- ds.aggregate(expression = expression, datasources = receiver)
            outcome <- .transform.outcome.to.logical(outcome)
        }
      }
@@ -267,7 +269,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
   
   if(!is.null(sender) & !is.null(receiver))
   {
-      received.data        <- ds.aggregate(sender, call("getDataDS"))
+      received.data        <- ds.aggregate(expression = call("getDataDS"), datasources = sender )
       
       field.names          <- names(received.data)
       expected.field.names <- c("header","payload","property.a","property.b","property.c","property.d")
@@ -280,7 +282,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
                                received.data$property.a,
                                received.data$property.b, received.data$property.c, received.data$property.d)
             
-            outcome <-  ds.aggregate(receiver, expression)
+            outcome <-  ds.aggregate(expression = expression , datasources = receiver)
             
         }
       }
@@ -292,7 +294,7 @@ ds.share.param <- function(connections=NULL,param.names = NULL, tolerance = 15)
 .remove.encryption.data <- function(connection = NULL, master.mode = TRUE)
 {
   expression <- call("removeEncryptingDataDS", master.mode)
-  outcome    <- ds.aggregate(connection,expression)
+  outcome    <- ds.aggregate(expression = expression, datasources = connection)
   return(.transform.outcome.to.logical(outcome))
 }
 

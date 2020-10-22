@@ -112,8 +112,9 @@ ds.remove.variable <- function(variable.name = NULL, class.type= NULL, datasourc
 
 .remove <- function(variable.name=NULL, class.type= NULL, datasources = NULL)
 {
+  correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
-  if(!is.list(datasources))
+  if(!correct.class)
   {
     stop("::ds.remove.variable::ERR:006")
   }
