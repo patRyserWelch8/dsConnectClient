@@ -121,7 +121,9 @@ ds.exists.on.server <- function(variable.name=NULL, class.type = NULL, datasourc
 
 .find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, datasources = NULL)
 {
-  if(!is.list(datasources))
+  correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
+
+  if(!correct.class)
   {
     stop("::ds.exists.on.server::ERR:006")
   }
@@ -142,25 +144,10 @@ ds.exists.on.server <- function(variable.name=NULL, class.type = NULL, datasourc
 .call_existsDS <- function(variable.name, class.type, datasources)
 {
   outcome <- FALSE
-  #verify variable exists in server
-  server.call      <- call("lsDS", env.to.search=".GlobalEnv")
-  list.variables   <- ds.aggregate(server.call, TRUE,datasources)
-  unlist.variables <- unlist(list.variables)
-  no.occurences    <- sum(unlist.variables == variable.name)
- 
-  
-  #verify the classes of variables
-  if(no.occurences == length(datasources))
-  {
-    server.call      <- call("classDS", variable.name)
-    classes          <- .aggregate(server.call, TRUE, datasources)
-    unlist.classes   <- unlist(classes)
-    outcome          <- all(unlist.classes == class.type)
-  }
-  #preferred method
-  #server.call <- paste0("existsDS(variable.name='",variable.name,"',environment.name = '.GlobalEnv', class.type='", class.type, "')")
-  #outcome <- ds.aggregate(server.call, TRUE,datasources)
-  
+
+  server.call <- paste0("existsDS(variable.name='",variable.name,"',environment.name = '.GlobalEnv', class.type='", class.type, "')")
+  outcome <- ds.aggregate(server.call, TRUE,datasources)
+  outcome <- all(outcome == TRUE)
   return(outcome)
 }
 

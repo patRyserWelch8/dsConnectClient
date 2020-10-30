@@ -1,33 +1,106 @@
-ds.error <- function(error)
+ds.error <- function(error, client = TRUE)
 {
-  
+  print("in error")
+  print(error)
+  print(client)
+  if(client)
+  {
+    .show.client.error(error)
+  }
+  else
+  {
+    print(3)
+    .show.server.error(error)
+  }
+}
+
+
+.show.client.error <- function(error)
+{
   function.name <- .get.function.name(error)
   if(!identical(function.name, "NF"))
   {
     .message.client.side.error(function.name, error)
   }
-  
-  #else
-  #{
-  #  server.errors <- DSI::datashield.errors()
-  #  print(server.errors)
-  #}
+}
+
+.show.server.error <- function(error)
+{
+  client.function.name <- error[[1]][1]
+  server.function.name  <- .get.function.name(error[[2]][1])
+  print(client.function.name)
+  print(server.function.name)
+  .message.server.side.error(client.function.name, server.function.name, error[[3]])
+
 }
 
 .get.function.name <- function(error)
 {
   outcome    <- "NF"
   error.char <- as.character(error)
-  error.list <- strsplit(error.char, "::")
  
-  if (length(error.list[[1]]) >= 2)
+  if (grepl(pattern = "::", x = error.char))
+  { 
+    error.list <- strsplit(error.char, "::")
+    outcome    <- error.list[[1]][2]
+  }
+  else if (grepl(pattern = "\\(", x = error.char))
   {
-     outcome    <- error.list[[1]][2]
+    error.list <- strsplit(error.char, "\\(")
+    outcome    <- error.list[[1]][1]
+  }
+  else
+  {
+    outcome    <- error
   }
   
   return(outcome)
 }
 
+
+.message.server.side.error <- function(client.function.name, server.function.name, server.error)
+{
+  #finding the error
+  error.split <- lapply(X = server.error, function(x) strsplit(x = x, "->"))
+  error.split <- lapply(X = error.split, function(x) unlist(x))
+  errors      <- lapply(X = error.split, function(x) return(x[2]))
+  
+  
+  # displaying the errors
+  error.message <- paste0("The function ", client.function.name, 
+                          " is not working has expected. An error has occurred on the server. ", 
+                          "The function ", server.function.name, " has not been able to either assign or return an aggregation. ")
+  
+ 
+  if (length(unique(errors)) >= 1)
+  {
+    error <- as.character(errors[1])
+  }
+  
+  if (any(grepl("SERVER::ERR::PARAM::002",error)))
+  {
+    error.message <- paste0(error.message, "A function on the server has not received the appropriate arguments.") 
+  }
+  else if(any(grepl("SERVER-ERR-000",error)))
+  {
+    error.message <- paste0(error.message, "Some error thrown by stop function on the server in an aggregate function.")
+  }
+  else if(any(grepl("SERVER-ERR-001",error)))
+  {
+    error.message <- paste0(error.message, "Some error thrown by stop function on the server in an assign function.")
+  }
+  else if(is.na(error))
+  {
+    error.message <- paste0(error.message, "A function or R object may not exists on the server(s).",
+                            "ds.ls() and the tools made available on the Opal server can help you resolving this issue.")
+  }
+  else
+  {
+    error.message <- paste0(error.message, "R has thrown the following error: \n", error)
+  }
+  print(error.message)
+  message(error.message)
+}
 
 .message.client.side.error <- function(function.name, client.error)
 {

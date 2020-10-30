@@ -21,6 +21,7 @@ The purpose of this package is support DataSHIELD analysts and programmers to co
 
 The latter includes:
 
+0. Prerequists
 1. Building some login data frames
 2. Loging in and out of some DataSHIELD servers
 3. Assigning values to some server variables
@@ -35,9 +36,13 @@ We would recommed any new DataSHIELD users to install DataSHIELD and complete th
 # Installing client-side and server-side packages
 
 ## Server-side DataSHIELD server
-In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package:
+In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package or functions:
 
 * [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+* The following servers functions are called and made available in version 6.2 of dsBase [ADD LINK]:
+  * existsDS
+  * removeDS
+  
 
 ## Client-side analysis computer
 During the installation, this package will import the following packages: 
@@ -51,7 +56,7 @@ During the installation, this package will import the following packages:
 
 These packages are required to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. The latter can be found in this repository: [dsBase](https://github.com/datashield/dsBase). It is worth noting, this package has been installed in an Opal Server. New server-side functions needs to be added or installed in an Opal server; instructions can be found [here](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
 
-## Client-side analysusis scripts
+## Client-side analysis scripts
 At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages. 
 
 ```{r}
@@ -169,6 +174,7 @@ server.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUE
 connections <- ds.login(login.data, variables = server.var, symbol = 'D')
 print(connections)
 
+
 ```
 
 # Basic server-level analysis
@@ -239,19 +245,19 @@ In the example below, the _server-side function rUnifDs_ generates a uniform dis
 ```{R}
 #server function header 
 server.function.call <- call("rUnifDS",100,14,50,10)
-var.created <- ds.assign.value(connection = connections, 
-                               new.variable.name= "rUnifDist",
+var.created <- ds.assign.value(new.variable.name= "rUnifDist",
                                value = server.function.call,
                                class.type = "numeric",
-                               asynchronous = FALSE)
+                               asynchronous = FALSE,
+                               datasources = connections)
 print(var.created)
 print(ds.class(x = "rUnifDist", datasources = connections))
 
-var.created <- ds.assign.value(connection = connections, 
-                               new.variable.name ="rUnifDistB",
+var.created <- ds.assign.value(new.variable.name ="rUnifDistB",
                                value = server.function.call,
                                class.type = "character",
-                               asynchronous = FALSE)
+                               asynchronous = FALSE,
+                               datasources = connections)
 print(var.created)
 print(ds.class(x = "rUnifDistB", datasources = connections))
 
@@ -282,14 +288,16 @@ print(runif.std)
 # Checking some server side variables exists
 
 ```{R}
-rUnif.exists <- ds.exists.on.server(connection    = connections,
-                                    variable.name = "rUnifDist", 
-                                    class.type    = "numeric")
+print("the variable has been created and should exists on the server. A correct answer should be TRUE")
+rUnif.exists <- ds.exists.on.server(variable.name = "rUnifDist", 
+                                    class.type    = "numeric",
+                                    datasources   = connections)
 print(rUnif.exists)
 
-rUnif.exists <- ds.exists.on.server(connection    = connections,
-                                    variable.name = "rUnifDistB", 
-                                    class.type    = "character")
+print("the variable has not been created and should exists on the server. A correct answer should be FALSE")
+rUnif.exists <- ds.exists.on.server(variable.name = "rUnifDistB", 
+                                    class.type    = "character",
+                                    datasources   = connections)
 print(rUnif.exists)
 ```
 
@@ -298,10 +306,10 @@ print(rUnif.exists)
 # Deleting some server-side variables
 ```{R}
 
-outcome <- ds.remove.variable(connections,variable.name = "rUnifDist", class.type = "numeric")
+outcome <- ds.remove.variable(variable.name = "rUnifDist", class.type = "numeric", datasources = connections)
 print(outcome)
 
-outcome <- ds.remove.variable(connections,variable.name = "rUnifDistB", class.type = "character")
+outcome <- ds.remove.variable(variable.name = "rUnifDistB", class.type = "character", datasources = connections)
 print(outcome)
 
 ```
@@ -310,7 +318,7 @@ print(outcome)
 ```{r}
 server.function.call <- call("varDS","D$POSITIVE_INTEGER")
 print(server.function.call)
-outcome <- ds.aggregate(connection = connections, expression = server.function.call, asynchronous = FALSE)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
 print(outcome)
 ```
 

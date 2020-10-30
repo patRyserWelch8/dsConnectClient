@@ -7,12 +7,12 @@ Description: provides a set of functions too connect, execute code and assign va
 Depends: R (>= 3.5.0)
 License: GPL-3
 LazyData: true
-Imports: DSI, DSOpal, RCurl, R6, opalr
+Imports: DSI, DSOpal, RCurl, R6, opalr, httr
 RoxygenNote: 7.1.0
 Encoding: UTF-8
 VignetteBuilder: knitr
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2020-09-02 14:34:23 UTC; patricia
+Packaged: 2020-09-29 15:34:25 UTC; patricia
 Author: Patricia Ryser-Welch [aut, cre]
 Maintainer: Patricia  Ryser-Welch <patricia.ryser-welch@newcastle.ac.uk>

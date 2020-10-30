@@ -17,22 +17,20 @@ library(testthat)
 library(httr)
 library(dsBaseClient)
 
-
 ds.test_env <- new.env()
-
-
-
 source("connection_to_datasets/login_details.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 
-options(show.error.messages = TRUE)
 
+#ds.test_env <- new.env()
+#options(datashield.env=ds.test_env)
+
+options(show.error.messages = TRUE)
 
 print("setup - Check connections and server functions")
 
-
-connections <- connect.all.datasets(ds.test_env)
+connections <- connect.all.datasets()
 
 server.functions <- c("existsDS","removeDS","assignCoordinatesDS",
                       "assignDataDS", "assignParamSettingsDS",
@@ -43,10 +41,10 @@ server.functions <- c("existsDS","removeDS","assignCoordinatesDS",
 
 aggregate.functions <- datashield.methods(connections,type="aggregate")
 
-print(6)
+
 if(all(server.functions %in% aggregate.functions[,"name"]))
 { 
   print("All the functions have been uploaded on the server")
 }
-
+ 
 print("setup finished")

@@ -1,5 +1,5 @@
 * using log directory ‘/Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server.Rcheck’
-* using R version 4.0.1 (2020-06-06)
+* using R version 4.0.2 (2020-06-22)
 * using platform: x86_64-apple-darwin17.0 (64-bit)
 * using session charset: UTF-8
 * using options ‘--no-manual --as-cran’
@@ -26,10 +26,7 @@ Found the following files with non-portable file names:
 These are not fully portable file names.
 See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘ds.client.connection.server’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: package ‘DSI’ was built under R version 4.0.2
-See ‘/Users/patricia/Documents/GitHub/ds.client.connection.server/ds.client.connection.server.Rcheck/00install.out’ for details.
+* checking whether package ‘ds.client.connection.server’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
 * checking for future file timestamps ... NOTE
@@ -38,8 +35,8 @@ unable to verify current time
 * checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
 * checking top-level files ... NOTE
-Non-standard file/directory found at top level:
-  ‘Vignettes’
+Non-standard files/directories found at top level:
+  ‘Vignettes’ ‘tobeDeleted.R’
 * checking for left-over files ... OK
 * checking index information ... OK
 * checking package subdirectories ... OK
@@ -55,12 +52,13 @@ Non-standard file/directory found at top level:
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
+.decrypt_param: no visible binding for global variable ‘connections’
 .remove.existing.parameters: no visible binding for global variable
   ‘connectios’
 .warning: no visible binding for global variable ‘error’
 .warning: no visible binding for global variable ‘header’
 Undefined global functions or variables:
-  connectios error header
+  connections connectios error header
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -78,19 +76,17 @@ See section 'Cross-references' in the 'Writing R Extensions' manual.
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... WARNING
-'library' or 'require' calls not declared from:
-  ‘dsBaseClient’ ‘httr’
+'library' or 'require' call not declared from: ‘dsBaseClient’
 * checking installed files from ‘inst/doc’ ... OK
 * checking files in ‘vignettes’ ... OK
 * checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... WARNING
-'library' or 'require' calls not declared from:
-  ‘httr’ ‘testthat’
+'library' or 'require' call not declared from: ‘testthat’
 * checking tests ... ERROR
   Running ‘test-expt-ds.aggregate.R’
 Running the tests in ‘tests/test-expt-ds.aggregate.R’ failed.
 Last 13 lines of output:
-  package 'DSI' was built under R version 4.0.2 
+  Loading required package: R6
   > library(DSOpal)
   Loading required package: opalr
   Loading required package: httr
@@ -106,11 +102,10 @@ Last 13 lines of output:
     cannot open file 'definition_tests/def-ds.aggregate.R': No such file or directory
   Execution halted
 * checking for unstated dependencies in vignettes ... NOTE
-'library' or 'require' calls not declared from:
-  ‘dsBaseClient’ ‘httr’
+'library' or 'require' call not declared from: ‘dsBaseClient’
 * checking package vignettes in ‘inst/doc’ ... OK
 * checking re-building of vignette outputs ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR, 5 WARNINGs, 6 NOTEs
+Status: 1 ERROR, 4 WARNINGs, 6 NOTEs

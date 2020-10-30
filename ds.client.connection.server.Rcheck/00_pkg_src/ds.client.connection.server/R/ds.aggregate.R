@@ -29,6 +29,7 @@ library(httr)
 
 ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
+  
   outcome <- "NR"
   tryCatch(
   {outcome <- .aggregate(connection,expression, asynchronous)},
@@ -40,6 +41,7 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 
 .aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 {
+  
   correct.class <- any(class(connection) %in%  c("list","OpalConnection"))
   if(!correct.class)
   {
@@ -48,8 +50,10 @@ ds.aggregate <- function(connection=NULL, expression=NULL, asynchronous=TRUE)
 
   if(is.character(expression) || is.call(expression))
   {
-    outcome <- DSI::datashield.aggregate(connection,expression,asynchronous)
-    return(outcome)
+    outcome = "NR"
+    tryCatch(outcome <- DSI::datashield.aggregate(connection,expression,asynchronous),
+             error = function(error){ds.error(list("ds.aggregate",as.character(expression), DSI::datashield.errors()), client = FALSE)},
+             finally = {return(outcome)})
   }
   else
   {
