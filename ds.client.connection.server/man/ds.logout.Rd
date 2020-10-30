@@ -2,9 +2,9 @@
 % Please edit documentation in R/ds.logout.R
 \name{ds.logout}
 \alias{ds.logout}
-\title{logout from some DataSHIELD servers}
+\title{log out from some DataSHIELD servers}
 \usage{
-ds.logout(connection, save = NULL)
+ds.logout(datasources, save = NULL)
 }
 \arguments{
 \item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}

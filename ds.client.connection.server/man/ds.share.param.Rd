@@ -3,14 +3,15 @@
 \name{ds.share.param}
 \alias{ds.share.param}
 \title{sharing parameter between}
+\usage{
+ds.share.param(param.names = NULL, tolerance = 15, datasources = NULL)
+}
 \arguments{
-\item{connection}{a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
-
-\item{Save}{datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).}
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
 }
 \description{
 TODO
 }
 \author{
-Patricia Ryser-Welch
+Patricia Ryser-Welch for DataSHIELD development
 }
