@@ -2,15 +2,19 @@
 % Please edit documentation in R/ds.logout.R
 \name{ds.logout}
 \alias{ds.logout}
-\title{logout from some DataSHIELD servers}
+\title{log out from some DataSHIELD servers}
+\usage{
+ds.logout(datasources, save = NULL)
+}
 \arguments{
-\item{connection}{a valid connection to some data repositories. The later needs to be a valid DSConnection-class}
+\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
 
-\item{Save}{datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).}
+\item{Save}{DataSHIELD sessions on each server data repository (if feature is supported)
+with provided ID (must be a character string).}
 }
 \description{
-Clear the Datashield R sessions and logout from DataSHIELD data repositories.
+Clear the DataSHIELD R sessions and logout from DataSHIELD data repositories.
 }
 \author{
-Patricia Ryser-Welch
+Patricia Ryser-Welch for DataSHIELD development team
 }

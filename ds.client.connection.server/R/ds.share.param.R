@@ -1,42 +1,41 @@
 #'@name ds.share.param  
 #'@title sharing parameter between 
 #'@description  TODO
-#'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
-#'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
-#'@author Patricia Ryser-Welch
-#'@export ds.logout
+#'@param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#'@param param.names
+#'@param tolerance
+#'@author Patricia Ryser-Welch for DataSHIELD development
+#'@export ds.share.param 
 #'
 
-library(DSI)
-library(DSOpal)
-library(httr)
 
 
 ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NULL)
 {
   success <- FALSE
   tryCatch(
-    {success <- .share.parameter(connections, param.names)},
+    {success <- .share.parameter(param.names, tolerance, datasources)},
     warning = function(warning) {.warning(warning)},
     error = function(error) {ds.error(error)},
     finally = {return(success)})
 }
 
-.share.parameter <- function(connections=NULL,param.names = NULL, tolerance = 15)
+.share.parameter <- function(param.names = NULL, tolerance = 15, datasources = NULL)
 {
  
   outcome <- FALSE
   
-  if(length(connections) > 1 & is.character(param.names))
+  if(length(datasources) > 1 & is.character(param.names))
   {
     if (length(param.names) > 0)
     {
-        success <- .assign.settings(connections)
+
+        success <- .assign.settings(datasources)
         if (success)
         {
-          outcome <- .complete.exchange(connections,param.names, tolerance)
+          outcome <- .complete.exchange(param.names, tolerance, datasources)
         }
-        .remove.exchange.data(connections)
+        .remove.exchange.data(datasources)
     }
     else
     {
@@ -56,7 +55,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   if (!is.null(connections))
   {
     outcome    <- ds.aggregate(expression = call("assignSharingSettingsDS"), datasources = connections )
-  
     if(is.list(outcome))
     {
       outcome.vector <- unlist(outcome)
@@ -66,7 +64,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
     {
       successful     <- outcome
     }
-  
+    
     if (!successful)
     {
       stop("::ds.share.param::ERR:018")
@@ -111,11 +109,11 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
       
       if(current < last)
       {
-         current  <- current + 1 
+        current  <- current + 1 
       }
       else
       {
-         continue <- FALSE
+        continue <- FALSE
       }
       
     }
@@ -130,11 +128,12 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   outcome    <- FALSE
   step       <-  1
   max.steps  <-  16
- 
+  
   while(step <= max.steps)
   {
    
     success <- switch(          
+
        step,
       .encrypt.data(master,master_mode = TRUE, preserve_mode = FALSE), #1
       .transfer.encrypted.matrix(master,receiver,master_mode = TRUE), #2
@@ -286,8 +285,8 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
             
         }
       }
-   }
-   return(.transform.outcome.to.logical(outcome))
+    }
+  return(.transform.outcome.to.logical(outcome))
 }
 
 
@@ -307,4 +306,4 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
     message(paste(header, "::",  "WAR:001\n", "More than one connection is required for sharing parameters.")) 
   }
 }
-
+                             

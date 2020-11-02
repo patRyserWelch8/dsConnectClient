@@ -1,9 +1,9 @@
 #' @name ds.error
-#' @title displays client-side and server-side error?
-#' @description Shows a error message for an error that originated on the server-side calculations or the client-side.
-#' @param error the error thrown by R
-#' @param client set to true by default, to indicate the error was thrown by the client-side code. Otherwise, it is set to false, 
-#' to indicate the error was thrown by a server-side code.
+#' @title Displays DataSHIELD R session errors  
+#' @description Shows server-side and/or client-side error message. 
+#' @param error The error thrown by R
+#' @param client If TRUE the client-side code error is indicated. If FALSE server-side
+#' @return \code{ds.error} returns client-side or server-side errors. 
 
 ds.error <- function(error, client = TRUE)
 {
