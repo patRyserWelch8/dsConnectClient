@@ -67,9 +67,9 @@ library(dsBaseClient)
 #data computers name
 server.names   <- c("Paris", "Newcastle", "New York")
 #data computers url
-url_Paris     <- 'http://192.168.56.100:8008'
-url_Newcastle <- 'http://192.168.56.100:8008'
-url_NewYork   <-  'http://192.168.56.100:8008'
+url_Paris     <- 'https://192.168.56.100:8443'
+url_Newcastle <- 'https://192.168.56.100:8443'
+url_NewYork   <-  'https://192.168.56.100:8443'
 server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
 table_Paris     <- "TESTING.DATASET1"
 table_Newcastle <- "TESTING.DATASET2"

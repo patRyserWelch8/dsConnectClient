@@ -1,8 +1,3 @@
-library(DSI)
-library(DSOpal)
-library(testthat)
-library(httr)
-
 source("definition_tests/def-ds.aggregate.R")
 source("connection_to_datasets/init_all_datasets.R")
 

@@ -31,22 +31,23 @@
 #' Expectation no 4: the number of rows is 0, if any of the URLs do not start with \code{http}\cr
 #'@author Patricia Ryser-Welch for DataSHIELD development team
 #'
-#' @examples
-#'
-#' #Libraries 
-#'
-#' library(DSI)
-#' library(DSOpal)
-#' library(httr)
-#' library(ds.client.connection.server)
-#' library(dsBaseClient)
+#'@examples 
+#' \dontrun{
+#' 
+#'   ## Version 6, for version 5 see the Wiki
+#'   # Connecting to the Opal servers
+#' 
+#'   require('DSI')
+#'   require('DSOpal')
+#'   require('dsBaseClient')
+#'   require('ds.client.connection.server')
 #'
 #' #data computers name
 #' server.names   <- c("Paris", "Newcastle", "New York")
 #' #data computers url
-#' url_Paris     <- 'http://192.168.56.100:8008'
-#' url_Newcastle <- 'http://192.168.56.100:8008'
-#' url_NewYork   <-  'http://192.168.56.100:8008'
+#' url_Paris     <- 'https://192.168.56.100:8443'
+#' url_Newcastle <- 'https://192.168.56.100:8443'
+#' url_NewYork   <-  'https://192.168.56.100:8443'
 #' server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
 #' table_Paris     <- "TESTING.DATASET1"
 #' table_Newcastle <- "TESTING.DATASET2"
@@ -80,6 +81,7 @@
 #'                                         server.users.pwd,
 #'                                         server.ssl.options,
 #'                                         server.drivers)
+#' }
 #'@export
 
 ds.build.login.data.frame <- function (  data.computers.name = NULL, 

@@ -2,16 +2,18 @@
 % Please edit documentation in R/ds.error.R
 \name{ds.error}
 \alias{ds.error}
-\title{displays client-side and server-side error?}
+\title{Displays DataSHIELD R session errors}
 \usage{
 ds.error(error, client = TRUE)
 }
 \arguments{
-\item{error}{the error thrown by R}
+\item{error}{The error thrown by R}
 
-\item{client}{set to true by default, to indicate the error was thrown by the client-side code. Otherwise, it is set to false, 
-to indicate the error was thrown by a server-side code.}
+\item{client}{If TRUE the client-side code error is indicated. If FALSE server-side}
+}
+\value{
+\code{ds.error} returns client-side or server-side errors.
 }
 \description{
-Shows a error message for an error that originated on the server-side calculations or the client-side.
+Shows server-side and/or client-side error message.
 }

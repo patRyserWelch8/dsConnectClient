@@ -2,7 +2,7 @@
 % Please edit documentation in R/ds.login.R
 \name{ds.login}
 \alias{ds.login}
-\title{Attempts to log to some DataSHIELD servers.}
+\title{DataSHIELD servers login}
 \usage{
 ds.login(
   login.data.frame = NULL,
@@ -32,7 +32,8 @@ table will be assigned after login into the server(s). Default \code{"D"}.}
 if some parameters are incorrect.
 }
 \description{
-This function uses the login details to log on to the specified DataSHIELD server(s).  
+This function uses the login details to log on to 
+the specified DataSHIELD server(s).  
 The login details can be validated
 using the \code{ds.build.login.data.frame} function.
 }
