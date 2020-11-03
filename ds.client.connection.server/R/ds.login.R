@@ -89,7 +89,7 @@
 #' 
 #' # Log onto the remote Opal training servers
 #'                                    
-#' connections <- ds.login(login.data.frame = logindata, assign = TRUE, symbol = "D") 
+#' connections <- ds.login(login.data.frame = login.data, assign = TRUE, symbol = "D") 
 #' }
 #' @author Patricia Ryser-Welch for DataSHIELD development team
 #' @export ds.login

@@ -55,14 +55,15 @@ Each row holds the information concerning one data computer.
 The values for each column are passed  to the function as arguments.
 }
 \examples{
+\dontrun{
 
-#Libraries 
+  ## Version 6, for version 5 see the Wiki
+  # Connecting to the Opal servers
 
-library(DSI)
-library(DSOpal)
-library(httr)
-library(ds.client.connection.server)
-library(dsBaseClient)
+  require('DSI')
+  require('DSOpal')
+  require('dsBaseClient')
+  require('ds.client.connection.server')
 
 #data computers name
 server.names   <- c("Paris", "Newcastle", "New York")
@@ -102,6 +103,7 @@ login.data <- ds.build.login.data.frame(server.names,
                                         server.users.pwd,
                                         server.ssl.options,
                                         server.drivers)
+}
 }
 \author{
 Patricia Ryser-Welch for DataSHIELD development team

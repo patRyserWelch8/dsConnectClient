@@ -108,7 +108,7 @@
 #'
 
 
-ds.exists.on.server <- function(variable.name=NULL, class.type = NULL, datasources = NULL)
+ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, datasources = NULL)
 {
   outcome <- FALSE
   tryCatch(

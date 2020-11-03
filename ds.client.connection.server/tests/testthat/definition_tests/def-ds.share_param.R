@@ -34,19 +34,19 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test_param <- function(connection)
 {
-  ds.remove.variable(connection,'pi_value','numeric')
-  outcome <- ds.aggregate(connection[[1]], "setPiDS('pi_value')")
+  ds.remove.variable(datasources = connection,variable.name = 'pi_value',class.type = 'numeric')
+  outcome <- ds.aggregate(datasources = connection[[1]], expression = "setPiDS('pi_value')")
   expect_equal(as.logical(outcome[[1]][1]),TRUE)
-  expect_true(.share.parameter(connection,c("pi_value")))
-  expect_true(ds.share.param(connection, function.name))
+  expect_true(.share.parameter(datasources = connection,param.names = c("pi_value")))
+  expect_true(ds.share.param(datasources = connection, param.names = function.name))
 }
 
 .test_no_connection <- function()
 {
   connections    <-  NULL
   param.names    <-  c('pi_value','pi_value_b')
-  expect_equal (ds.share.param(connections,param.names), FALSE)
-  expect_warning(.share.parameter(connections))
+  expect_equal (ds.share.param(datasources = connections,param.names = param.names), FALSE)
+  expect_warning(.share.parameter(datasources = connections))
   expect_equal(.assign.settings(connections), FALSE)
   expect_equal(.complete.exchange(connections, param.names), FALSE)
   expect_equal(.exchange(connections, connections, param.names), FALSE)
@@ -64,15 +64,15 @@ source("connection_to_datasets/init_all_datasets.R")
 .test_single_connection <- function(connection)
 {
   expect_equal(length(connection), 1)
-  expect_error(.share.parameter(connection))
+  expect_error(.share.parameter(datasources = connection))
   expect_equal(ds.share.param(datasources = connection),FALSE)
   expect_equal(length(connection), 1)
   
   #create variable and test their have been created
   .create.server.var(connection)
   
-  expect_error(.share.parameter(connection, c("pi_value")))
-  expect_equal(ds.share.param(connection, c("pi_value")),FALSE)
+  expect_error(.share.parameter(datasources = connection, param.names = c("pi_value")))
+  expect_equal(ds.share.param(datasources = connection, param.names = c("pi_value")),FALSE)
   
 }
 
@@ -91,27 +91,27 @@ source("connection_to_datasets/init_all_datasets.R")
   #check actual exchange of parameters
   #
   #print(evaluate_promise(.share.parameter(connections,param.names = c('pi_value', 'pi_value_B')),print=TRUE))
-  result <- .share.parameter(connections,c('pi_value', 'pi_value_B'),15)
-  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value")')
+  result <- .share.parameter(datasources = connections, param.names = c('pi_value', 'pi_value_B'),tolerance = 15)
+  result <- ds.aggregate(datasources = connections, expression = 'DANGERgetparam("pi_value")')
   expect_equal(length(result), length(connections))
-  result <- ds.aggregate(connections, 'DANGERgetparam("pi_value_B")')
+  result <- ds.aggregate(datasources = connections, expression = 'DANGERgetparam("pi_value_B")')
   expect_equal(length(result), length(connections))
   
   #check ds.share.param
   #clear parameters
-  outcome <- ds.remove.variable(connections,"pi_value","numeric")
+  outcome <- ds.remove.variable(datasources = connections,variable.name = "pi_value",class.type= "numeric")
   expect_equal(outcome, TRUE)
-  outcome <- ds.remove.variable(connections,"pi_value_B","numeric")
+  outcome <- ds.remove.variable(datasources = connections,variable.name = "pi_value_B",class.type= "numeric")
   expect_equal(outcome, TRUE)
   
   #create variable and test their have been created
   .create.server.var(connections)
   
   # incorrect parameters
-  expect_equal(ds.share.param(connections),FALSE)
+  expect_equal(ds.share.param(datasources = connections),FALSE)
 
   # correct parameters
-  expect_true(ds.share.param(connections, c('pi_value', 'pi_value_B')))
+  expect_true(ds.share.param(datasources = connections, param.names = c('pi_value', 'pi_value_B')))
 }
 
 .test_assign_testing <- function(connections)
@@ -120,10 +120,10 @@ source("connection_to_datasets/init_all_datasets.R")
   #print(as.logical(outcome[[1]][1]))
   print(outcome)
   
-  ds.remove.variable(connections,variable.name = "settings","list")
-  expect_equal(ds.exists.on.server(connections, "settings", "list"), FALSE)
+  ds.remove.variable(datasources = connections,variable.name = "settings",class.type = "list")
+  expect_equal(ds.exists.on.server(datasources = connections, variable.name = "settings", class.type = "list"), FALSE)
   outcome <- .assign.settings(connections)
   expect_equal(outcome, TRUE)
-  expect_equal(ds.exists.on.server(connections, "settings", "list"), TRUE)
+  expect_equal(ds.exists.on.server(datasources = connections,variable.name =  "settings", class.type = "list"), TRUE)
   
 }
