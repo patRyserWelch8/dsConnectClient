@@ -137,9 +137,9 @@ once the code is efficiently working.
   
   # Assign some values in the server-side
   
-  ds.assign.value(new.variable.name = "lab.tsc",
-                  value = "D$LAB_TSC", 
-                  class.type = "numeric", 
+  ds.assign.value(new.variable.name = "new_var",
+                  value = "D$INTEGER", 
+                  class.type = "integer", 
                   datasources = connections)
            
   # Clear the Datashield/R sessions and logout

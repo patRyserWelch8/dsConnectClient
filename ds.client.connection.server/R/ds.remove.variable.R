@@ -117,14 +117,14 @@
 #'   connections <- ds.login(login.data.frame = login.data, assign = TRUE, symbol = "D")
 #' 
 #'   # Assign some values in the server-side
-#'   ds.assign.value(new.variable.name = "lab.tsc",
-#'                   value = "D$LAB_TSC", 
-#'                   class.type = "numeric", 
+#'   ds.assign.value(new.variable.name = "new_var",
+#'                   value = "D$INTEGER", 
+#'                   class.type = "integer", 
 #'                   datasources = connections)
 #'                   
 #'   #Remove from the server-side the assigned variable
-#'   ds.remove.variable(variable.name = "lab.tsc",
-#'                      class.type = "numeric",
+#'   ds.remove.variable(variable.name = "new_var",
+#'                      class.type = "integer",
 #'                      datasources = connections)
 #'            
 #'   # Clear the Datashield/R sessions and logout

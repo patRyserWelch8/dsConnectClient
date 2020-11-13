@@ -126,14 +126,14 @@
 #'   connections <- ds.login(login.data.frame = login.data, assign = TRUE, symbol = "D")
 #'   
 #'   # Assign new variable in the server
-#'   ds.assign.value(new.variable.name = "lab.tsc",
-#'                   value = "D$LAB_TSC", 
-#'                   class.type = "numeric", 
-#'                   datasources = connections) 
+#'   ds.assign.value(new.variable.name = "new_var",
+#'                   value = "D$INTEGER", 
+#'                   class.type = "integer", 
+#'                   datasources = connections)
 #'   
 #'   # Look if the variable exists on the server-side
-#'   ds.exists.on.server(variable.name = "lab.tsc",
-#'                       class.type = "numeric",
+#'   ds.exists.on.server(variable.name = "new_var",
+#'                       class.type = "integer",
 #'                       datasources = connections)
 #'            
 #'   # Clear the Datashield/R sessions and logout
