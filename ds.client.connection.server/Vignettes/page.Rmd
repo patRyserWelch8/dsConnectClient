@@ -10,37 +10,34 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+knitr::opts_chunk$set(comment="", warning=FALSE, message=FALSE, cache=TRUE)
 ```
 
 # Introduction
-The purpose of this package is support DataSHIELD analysts and programmers to connect to some Opal servers in more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD client scripts and functions. 
+The purpose of this package is to support DataSHIELD analysts and programmers to connect to some Opal servers in a more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD client scripts and functions. 
 
 The latter includes:
 
-0. Prerequists
+0. Prerequisites
 1. Building some login data frames
-2. Loging in and out of some DataSHIELD servers
+2. Logging in and out of some DataSHIELD servers
 3. Assigning values to some server variables
 4. Executing some aggregates server-side functions 
 5. Deleting some server-side variables
 6. Checking some server-side variables exists
 
-This package has been written to be used along the side the [dsBaseClient package](https://github.com/datashield/dsBaseClient).
+This package has been written to be used along the side of the [dsBaseClient package](https://github.com/datashield/dsBaseClient).
 
-We would recommed any new DataSHIELD users to install DataSHIELD and complete the training available on the DataSHIELD wiki; [Installation and training](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943395/Installation+Training).
+We would recommend any new DataSHIELD users to install DataSHIELD and complete the training available on the DataSHIELD wiki; [Installation and training](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943395/Installation+Training).
 
 # Installing client-side and server-side packages
 
 ## Server-side DataSHIELD server
 In order to use all the functions of this package, any DataSHIELD servers 
-needs to have installed the following server-side packages: 
+need to have installed the following server-side packages: 
 
-*[dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
-*[dsBase](https://github.com/datashield/dsBase)
+* [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+* [dsBase](https://github.com/datashield/dsBase)
 * The following servers functions are called and made available in version 6.2 of dsBase [ADD LINK]:
   * existsDS
   * removeDS
@@ -73,11 +70,9 @@ library(ds.client.connection.server)
 library(dsBaseClient)
 ```
 
-Note that if you are using windows operating system, the default implementation of SSL used by the curl R package 
-has an issue when connecting to a server, using \code{HTTPS}, which has a self-signed certificate. 
-The call to \code{Sys.setenv(CURL_SSL_BACKEND = "openssl")} switches implementation of SSL used
-by the curl R package to \code{'openssl'}. This will permit login to such DataSHIELD servers.
-Thus, before executing any code you need to execute the following in the client-side:
+If you are windows operating system user, before login to DataSHIELD server
+you need to switch implementation of SSL used by the curl R package to \code{'openssl'}. 
+
 
 ```{r}
 #Only for windows users
@@ -85,10 +80,8 @@ Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ```
 
 
-
-
 # Building a login data frame
-A login data frame provides the information to connect to any DataSHIELD servers; those servers have an Opal Data Warehouse software installed. On the client side, the following information needs to be provided to log in.
+A login data frame provides the information to connect to any DataSHIELD servers; those servers have an Opal Data Warehouse software installed. On the client-side, the following information needs to be provided to log in.
 
 _data computers name_
 
@@ -142,7 +135,7 @@ server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
 
 _options ssl_
 
-The secure socket layer settings are likely to be unique for each DataSHIELD server. Each organisation should provide the details of these settings, when it gives access to their DataSHIELD server(s).
+The secure socket layer settings are likely to be unique for each DataSHIELD server. Each organisation should provide the details of these settings when it gives access to their DataSHIELD server(s).
 
 ```{R}
 ssl_options_Paris     <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
@@ -180,7 +173,7 @@ print(login.data)
 # Logging in DataSHIELD servers
 Before DataSHIELD analysts can complete some calculations, it is required to log in to each DataSHIELD server. The function _ds.login_ uses again the login data and the statistical variables made available through the datasets.  
 
-The example below uses again the login data obtained in the previous section. Then, the connections object is passed as an argument to obtain all the object listed in the each DataSHIELD server.  
+The example below uses again the login data obtained in the previous section. Then, the connections object is passed as an argument to obtain all the objects listed in each DataSHIELD server.  
 
 The connection does not need to be shown. However, some DataSHIELD analysts may like to verify they have successfully connected to each server.
 
@@ -257,16 +250,16 @@ print(int.std)
 ```
 
 # Assigning values to some server variables
-The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created and stored on the server. The function also returns an indication whether the assignment process has been achieved on all servers. It is a useful function to use in DataSHIELD scripts to create a variable and verify it has been created on the server.  When developing client-side functions, this function can assist with writing succinct code. The developer can verified the variable has been created with the correct data type.
+The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created and stored on the server. The function also returns an indication of whether the assignment process has been achieved on all servers. It is a useful function to use in DataSHIELD scripts to create a variable and verify it has been created on the server.  When developing client-side functions, this function can assist with writing succinct code. The developer can be verified the variable has been created with the correct data type.
 
-In the example below, the _server-side function rUnifDs_ generates a uniform distributions and returns a vector _numeric_ values matching the arguments. The returned distribution is saved on the server against a variable named _rUnifDist_. A data type  must match the server-side function outcome. In this case,  it is set to _numeric_, then the outcome is TRUE. Otherwise, no variable is created.
+In the example below, the _server-side function rUnifDs_ generates uniform distributions and returns a  _numeric_ values vector matching the arguments. The returned distribution is saved on the server against a variable named _rUnifDist_. A data type  must match the server-side function outcome. In this case,  it is set to _numeric_, then the outcome is TRUE. Otherwise, no variable is created.
 
 ```{R}
 #server function header 
 server.function.call <- call("rUnifDS",100,14,50,10)
 var.created <- ds.assign.value(new.variable.name= "rUnifDist",
                                value = server.function.call,
-                               class.type = "expression",
+                               class.type = "numeric",
                                asynchronous = FALSE,
                                datasources = connections)
 print(var.created)
