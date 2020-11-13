@@ -62,47 +62,83 @@ Both functions can be used interchangeably: \cr
 \examples{
 \dontrun{
 
-  ## Version 6, for version 5 see the Wiki
+  ## Version 6.2, for older versions see the Wiki
   # Connecting to the Opal servers
+  
+  # Only for windows user 
+  ## (switches implementation of SSL used by  the curl R package to "openssl")
+  Sys.setenv(CURL_SSL_BACKEND = "openssl")
 
+  # Load necessary client packages
   require('DSI')
   require('DSOpal')
   require('dsBaseClient')
   require('ds.client.connection.server')
 
-  builder <- DSI::newDSLoginBuilder()
-  builder$append(server = "study1", 
-                 url = "http://192.168.56.100:8080/", 
-                 user = "administrator", password = "datashield_test&", 
-                 table = "CNSIM.CNSIM1", driver = "OpalDriver")
-  builder$append(server = "study2", 
-                 url = "http://192.168.56.100:8080/", 
-                 user = "administrator", password = "datashield_test&", 
-                 table = "CNSIM.CNSIM2", driver = "OpalDriver")
-  builder$append(server = "study3",
-                 url = "http://192.168.56.100:8080/", 
-                 user = "administrator", password = "datashield_test&", 
-                 table = "CNSIM.CNSIM3", driver = "OpalDriver")
-  logindata <- builder$build()
+  # Append login information for a specific server
   
-  # Log onto the remote Opal training servers
-  connections <- DSI::datashield.login(logins = logindata, assign = TRUE, symbol = "D") 
+    #Data computers name
+    server.names   <- c("Paris", "Newcastle", "New York")
+    
+    # Data computers url
+    url_Paris     <- 'https://192.168.56.100:8443'
+    url_Newcastle <- 'https://192.168.56.100:8443'
+    url_NewYork   <-  'https://192.168.56.100:8443'
+    server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
+    
+    # Assign datasets
+    table_Paris     <- "TESTING.DATASET1"
+    table_Newcastle <- "TESTING.DATASET2"
+    table_NewYork   <- "TESTING.DATASET3"
+    server.tables   <- c(table_Paris, table_Newcastle, table_NewYork)
+
+    # Set user and password to access the DataSHIELD servers
+    user_Paris      <-  "administrator"
+    user_Newcastle  <-  "administrator"
+    user_NewYork    <-  "administrator"
+    server.users.id <- c(user_Paris, user_Newcastle, user_NewYork)
+
+    password_Paris      <-  "datashield_test&"
+    password_Newcastle  <-  "datashield_test&"
+    password_NewYork    <-  "datashield_test&"
+    server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
+    
+    # Set drivers
+    driver_Paris     <- "OpalDriver"
+    driver_Newcastle <- "OpalDriver"
+    driver_NewYork   <- "OpalDriver"
+    server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
+
+    # Set SSL drivers
+    ssl_options_Paris     <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+    ssl_options_Newcastle <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+    ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+    server.ssl.options    <- c(ssl_options_Paris,ssl_options_Newcastle,ssl_options_NewYork)
+      
+    # Create login data frame
+    login.data <- ds.build.login.data.frame(server.names,
+                                            server.urls,
+                                            server.tables,
+                                            server.users.id,
+                                            server.users.pwd,
+                                            server.ssl.options,
+                                            server.drivers)
+  # Log in to DataSHIELD server                                         
+  connections <- ds.login(login.data.frame = login.data, assign = TRUE, symbol = "D")
 
   # Assign some values in the server-side
-  
   ds.assign.value(new.variable.name = "lab.tsc",
                   value = "D$LAB_TSC", 
                   class.type = "numeric", 
                   datasources = connections)
                   
   #Remove from the server-side the assigned variable
-  
   ds.remove.variable(variable.name = "lab.tsc",
                      class.type = "numeric",
                      datasources = connections)
            
-  # Clear the Datashield R sessions and logout
-  datashield.logout(connections) 
+  # Clear the Datashield/R sessions and logout
+  ds.logout(connections)  
 }
 }
 \seealso{

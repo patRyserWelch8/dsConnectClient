@@ -36,13 +36,16 @@ We would recommed any new DataSHIELD users to install DataSHIELD and complete th
 # Installing client-side and server-side packages
 
 ## Server-side DataSHIELD server
-In order to use all the functions of this package, any DataSHIELD servers needs to have installed the following server-side package or functions:
+In order to use all the functions of this package, any DataSHIELD servers 
+needs to have installed the following server-side packages: 
 
-* [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+*[dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+*[dsBase](https://github.com/datashield/dsBase)
 * The following servers functions are called and made available in version 6.2 of dsBase [ADD LINK]:
   * existsDS
   * removeDS
   
+The instructions to install the server-side packages can be found in DataSHIELD  [Wiki](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
 
 ## Client-side analysis computer
 During the installation, this package will import the following packages: 
@@ -54,9 +57,11 @@ During the installation, this package will import the following packages:
 * R6
 * opalr
 
-These packages are required to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. The latter can be found in this repository: [dsBase](https://github.com/datashield/dsBase). It is worth noting, this package has been installed in an Opal Server. New server-side functions needs to be added or installed in an Opal server; instructions can be found [here](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
+These packages are required in the client-side to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. 
 
 ## Client-side analysis scripts
+
+
 At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages. 
 
 ```{r}
@@ -67,6 +72,20 @@ library(httr)
 library(ds.client.connection.server)
 library(dsBaseClient)
 ```
+
+Note that if you are using windows operating system, the default implementation of SSL used by the curl R package 
+has an issue when connecting to a server, using \code{HTTPS}, which has a self-signed certificate. 
+The call to \code{Sys.setenv(CURL_SSL_BACKEND = "openssl")} switches implementation of SSL used
+by the curl R package to \code{'openssl'}. This will permit login to such DataSHIELD servers.
+Thus, before executing any code you need to execute the following in the client-side:
+
+```{r}
+#Only for windows users
+Sys.setenv(CURL_SSL_BACKEND = "openssl")
+```
+
+
+
 
 # Building a login data frame
 A login data frame provides the information to connect to any DataSHIELD servers; those servers have an Opal Data Warehouse software installed. On the client side, the following information needs to be provided to log in.
@@ -238,16 +257,16 @@ print(int.std)
 ```
 
 # Assigning values to some server variables
-The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created on the server. The function also returns an indication whether the assignment process has been achieved on all servers. It is a useful function to use in DataSHIELD scripts to create a variable and verify it has been created on the server.  When developing client-side functions, this function can assist with writing succinct code. The developer can verified the variable has been created with the correct data type.
+The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created and stored on the server. The function also returns an indication whether the assignment process has been achieved on all servers. It is a useful function to use in DataSHIELD scripts to create a variable and verify it has been created on the server.  When developing client-side functions, this function can assist with writing succinct code. The developer can verified the variable has been created with the correct data type.
 
-In the example below, the _server-side function rUnifDs_ generates a uniform distributions and returns a vector _numeric_ values matching the arguments. The returned distribution is saved on the server against a variable named _rUnifDist_. A data type  must match the server-side function outcome. In this case,  it is set to _numeric_, then the outcome is true. Otherwise, no variable is created.
+In the example below, the _server-side function rUnifDs_ generates a uniform distributions and returns a vector _numeric_ values matching the arguments. The returned distribution is saved on the server against a variable named _rUnifDist_. A data type  must match the server-side function outcome. In this case,  it is set to _numeric_, then the outcome is TRUE. Otherwise, no variable is created.
 
 ```{R}
 #server function header 
 server.function.call <- call("rUnifDS",100,14,50,10)
 var.created <- ds.assign.value(new.variable.name= "rUnifDist",
                                value = server.function.call,
-                               class.type = "numeric",
+                               class.type = "expression",
                                asynchronous = FALSE,
                                datasources = connections)
 print(var.created)
