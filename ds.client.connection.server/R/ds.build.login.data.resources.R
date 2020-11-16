@@ -59,28 +59,24 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
   if (expected.elements != total.elements)
   {
       stop("ERR:001")
-  }
-  else if (length(servers) == 0 || length(urls) == 0 ||  length(users) == 0 || length(passwords) == 0 || length(resources) == 0 
-           || length(options) == 0 || length(drivers) == 0)
+  } else if (length(servers) == 0 || length(urls) == 0 ||  length(users) == 0 || length(passwords) == 0 || length(resources) == 0 || length(options) == 0 || length(drivers) == 0)
   {
       stop("ERR:004")
-  }
-  else if (all(startsWith(urls,"https")))
+  } else if (all(startsWith(urls,"https")))
   {
-      return(.build.object(servers, urls, users, passwords,resources, drivers))
-  }
-  else
+      return(.build.object(servers, urls, users, passwords,resources, options.ssl, drivers))
+  }  else
   {
       stop("ERR:002")
   }
 }
 
-.build.object <- function(servers, urls, users, passwords,resources, drivers)
+.build.object <- function(servers, urls, users, passwords,resources, options.ssl, drivers)
 {
   builder <- DSI::newDSLoginBuilder()
   for(i in 1:length(servers))
   {
-    builder$append(server = servers[i],url = urls[i], user = users[i], password = passwords[i], resource = resources[i], driver = drivers[i])
+    builder$append(server = servers[i],url = urls[i], user = users[i], password = passwords[i], resource = resources[i], options = options.ssl[i], driver = drivers[i])
   }
   login.data <- builder$build()
   return(login.data)
