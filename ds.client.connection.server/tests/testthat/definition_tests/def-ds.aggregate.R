@@ -64,7 +64,7 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   server.call <- call("testObjectTypeErrorDS")
   results <- testthat::evaluate_promise(ds.aggregate(datasources = connections , expression = server.call))
-  expect_true(nchar(results$messages) > 0)
+  expect_true(unique(nchar(results$messages) > 0))
   expect_equal(ds.aggregate(datasources = connections, expression = server.call), "NR")
   expect_equal(.aggregate(datasources = connections,expression = server.call), "NR")
   
@@ -72,7 +72,7 @@ source("connection_to_datasets/init_all_datasets.R")
   results <- testthat::evaluate_promise(ds.aggregate(datasources = connections, expression=  server.call))
   expect_equal(ds.aggregate(datasources = connections, expression=  server.call), "NR")
   expect_equal(.aggregate(datasources = connections, expression=  server.call), "NR")
-  expect_true(nchar(results$messages) > 0)
+  expect_true(unique(nchar(results$messages) > 0))
   
 }
 

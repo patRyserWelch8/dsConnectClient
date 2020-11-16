@@ -22,6 +22,9 @@
 #'   \item "\code{\link{function}}"
 #'   \item "\code{\link{externalptr}}"
 #'   \item "\code{\link{environment}}"
+#'   \item "\code{\link{RangedSummarizedExperiment}}"
+#'   \item "\code{\link{SummarizedExperiment}}"
+#'   \item "\code{\link{ExpressionSet}}"
 #' }
 #' @param  datasources a list of \code{\link{DSConnection-class}} objects obtained after login
 #' @return 

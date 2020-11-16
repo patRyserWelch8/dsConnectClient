@@ -25,6 +25,9 @@
 #' \item "\code{\link{vector}}"
 #' \item  "\code{\link{S4}}"
 #' \item "\code{\link{environment}}"
+#' \item "\code{\link{RangedSummarizedExperiment}}"
+#' \item "\code{\link{SummarizedExperiment}}"
+#' \item "\code{\link{ExpressionSet}}"
 #' }
 #' @param  asynchronous logical. If TRUE, the calls are parallelized over the connections. 
 #' If FALSE no parallelisation occurs. Default TRUE.

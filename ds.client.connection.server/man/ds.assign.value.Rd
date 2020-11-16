@@ -37,6 +37,9 @@ Correct values:
 \item "\code{\link{vector}}"
 \item  "\code{\link{S4}}"
 \item "\code{\link{environment}}"
+\item "\code{\link{RangedSummarizedExperiment}}"
+\item "\code{\link{SummarizedExperiment}}"
+\item "\code{\link{ExpressionSet}}"
 }}
 
 \item{asynchronous}{logical. If TRUE, the calls are parallelized over the connections. 
