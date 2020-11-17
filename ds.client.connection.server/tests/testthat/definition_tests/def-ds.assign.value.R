@@ -16,9 +16,9 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.twice.created.variable <- function(connection)
 {
-  expect_true(.assign (datasources = connection, new.variable.name = "test.var.1", 
+  expect_true(.assign(datasources = connection, new.variable.name = "test.var.1", 
                        value ="D$INTEGER", class.type = "integer", asynchronous = FALSE))
-  expect_true(.assign (datasources = connection, new.variable.name = "test.var.1", 
+  expect_true(.assign(datasources = connection, new.variable.name = "test.var.1", 
                        value ="D$INTEGER", class.type = "integer", asynchronous = FALSE))
   
   expect_true(ds.assign.value(datasources = connection, new.variable.name = "test.var.1", 
