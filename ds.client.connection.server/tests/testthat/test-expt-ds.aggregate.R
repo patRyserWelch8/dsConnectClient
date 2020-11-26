@@ -2,7 +2,7 @@ source("definition_tests/def-ds.aggregate.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 connections <- connect.all.datasets(ds.test_env)
-print(connections)
+
 context('ds.aggregate():server_error:multiple')
 test_that('server_errors',
 {
