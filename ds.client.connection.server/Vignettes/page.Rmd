@@ -73,7 +73,7 @@ At the start of each DataSHIELD client-side script, DataSHIELD analysts need to 
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.client.connection.server)
+library(dsConnectClient)
 library(dsBaseClient)
 ```
 # Windows users - ADDED IN DS LOGIN TO BE DELETED
