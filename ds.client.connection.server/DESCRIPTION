@@ -1,4 +1,4 @@
-Package: ds.client.connection.server
+Package: ds.connect.client
 Title: DataSHIELD Connection Server Tools for the client
 Version: 0.7.0
 Authors@R: person("Patricia ", "Ryser-Welch", email = "patricia.ryser-welch@newcastle.ac.uk",
