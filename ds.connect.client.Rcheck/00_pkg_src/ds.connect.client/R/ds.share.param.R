@@ -78,6 +78,9 @@
 #' @author Patricia Ryser-Welch for DataSHIELD development
 #' @export ds.share.param 
 #'
+
+
+
 ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NULL)
 {
   success <- FALSE
@@ -88,7 +91,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
     finally = {return(success)})
 }
 
-#Helper function that completes the sharing process
 .share.parameter <- function(param.names = NULL, tolerance = 15, datasources = NULL)
 {
  
@@ -98,15 +100,12 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   {
     if (length(param.names) > 0)
     {
-       
+
         success <- .assign.settings(datasources)
-       
         if (success)
         {
-          outcome <- .complete.exchange(connections = datasources, param.names, tolerance)
-          print(outcome)
+          outcome <- .complete.exchange(param.names, tolerance, datasources)
         }
-       
         .remove.exchange.data(datasources)
     }
     else
@@ -121,7 +120,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(outcome)
 }
 
-#assigns settings on each data servers. 
 .assign.settings <- function(connections)
 {
   successful <- FALSE
@@ -146,7 +144,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(successful)
 }
 
-# delete from each servers 
 .remove.exchange.data <- function(connections)
 {
   if (!is.null(connections))
@@ -155,32 +152,27 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   }
 }
 
-#delete from servers parameters
 .remove.existing.parameters <- function(connections, param.names = NULL)
 {
   for (param.name in param.names)
   {
-    ds.remove.variable(connections,param.name,"numeric")
+    ds.remove.variable(connectios,param.name,"numeric")
   }
 }
 
-#launch the steps a whole exchange. Most servers become a master.
 .complete.exchange <- function(connections, param.names = NULL, tolerance = 15)
 {
   outcome        <- FALSE
   no.connections <- length(connections)
-  
   if(no.connections > 1)
   {
-    
     last        <- no.connections-1
     master      <- connections[[1]]
     continue    <- TRUE
     current     <- 1
-
+    
     while(continue)
     {
-     
       master     <- connections[[current]]
       receiver   <- connections[[current+1]]
       success    <- .exchange(master, receiver, param.names, tolerance)
@@ -201,8 +193,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(outcome)
 }
 
-#complete an exchange between a master and a receiver. Both of these argument is a single
-#connection to a server
+
 .exchange <- function(master, receiver, param.names = NULL, tolerance = 15)
 {
   outcome    <- FALSE
@@ -232,7 +223,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
       .decrypt.data(receiver), #15
       .decrypt.param(receiver, param.names, tolerance) #16
     )
-  
+    
     
     if (success)
     {
@@ -252,7 +243,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(outcome)
 }
 
-#single or multiple values are transformed in one logical values.
 .transform.outcome.to.logical <- function(value)
 {
   outcome <- FALSE
@@ -271,7 +261,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(outcome)
 }
 
-#assigns on a datashield server a parameter settings.
 .assign.param.settings <- function(connection, param.names = NULL)
 {
   outcome <- FALSE
@@ -284,7 +273,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#encrypt data
 .encrypt.data <- function(connection, master_mode=TRUE, preserve_mode = FALSE)
 {
    expression <- call("encryptDataDS", master_mode, preserve_mode)
@@ -292,7 +280,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
    return(.transform.outcome.to.logical(outcome))
 }
 
-#encrypt parameters
 .encrypt.param <- function(connection)
 {
   expression <- call("encryptParamDS")
@@ -300,7 +287,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#decrypt data
 .decrypt.data <- function(connection)
 {
   expression <- call("decryptDataDS")
@@ -308,7 +294,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#decrypt parameter
 .decrypt.param <- function(connection, param.names, tolerance = 15)
 {
   names.var.on.server <-  paste(param.names, collapse=";")
@@ -318,7 +303,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#transform coordinates
 .transfer.coordinates <- function(sender = NULL, receiver = NULL)
 {
   outcome <- FALSE
@@ -349,7 +333,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(outcome)
 }
 
-#transfer encrypted matrices from one dataSHIELD server to another
 .transfer.encrypted.matrix <- function(sender = NULL, receiver = NULL, master_mode = TRUE)
 {
   outcome <- FALSE
@@ -377,7 +360,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#delete variable used to encrypt data on a server
+
 .remove.encryption.data <- function(connection = NULL, master.mode = TRUE)
 {
   expression <- call("removeEncryptingDataDS", master.mode)
@@ -385,7 +368,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#may need to become one central function
 .warning <- function(message)
 {
   

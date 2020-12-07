@@ -1,0 +1,16 @@
+ds.aggregate            Executes a function on some R server sessions
+                        and returns the outcome to the client
+ds.assign.value         Assign some values on some DataSHIELD servers
+ds.build.login.data.frame
+                        Builds a data frame on the server-side to login
+                        to DataSHIELD
+ds.build.login.data.resources
+                        Assign a resource in the server-side
+ds.error                Displays DataSHIELD R session errors
+ds.exists.on.server     Is an object defined with a specific class on
+                        the server(s)?
+ds.login                DataSHIELD servers login
+ds.logout               log out from some DataSHIELD servers
+ds.remove.variable      Delete a variable of a specific given type on
+                        the server-side
+ds.share.param          sharing parameter between

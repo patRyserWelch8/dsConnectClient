@@ -6,6 +6,7 @@ source("definition_tests/def-ds.share_param.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 
+
 context('ds.share_param()::expt::no_connections')
 test_that("no_connection_all_function",
 {
@@ -152,7 +153,7 @@ test_that('multiple connections',
   expect_equal(ds.share.param(datasources = connections),FALSE)
   
   # correct parameters
-  outcome <- ds.share.param(param.name = c('pi_value', 'pi_value_B'),tolerance = 15, datasources = connections)
+  outcome <- ds.share.param(datasources = connections, param.name = c('pi_value', 'pi_value_B'),tolerance = 15)
   print(outcome)
   
   
