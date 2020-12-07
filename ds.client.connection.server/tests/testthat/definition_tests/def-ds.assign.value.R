@@ -6,7 +6,8 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_true(.assign(datasources = connection, new.variable.name = variable.name, 
                      value = value, class.type = class.type, asynchronous = FALSE))
   results <- testthat::evaluate_promise(.assign( new.variable.name = variable.name, 
-                                                value = value, class.type = class.type, asynchronous = FALSE,datasources = connection))
+                                                value = value, class.type = class.type, 
+                                                asynchronous = FALSE,datasources = connection))
   
   expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, 
                       value = value, class.type = class.type, asynchronous = FALSE))
@@ -15,9 +16,9 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.twice.created.variable <- function(connection)
 {
-  expect_true(.assign (datasources = connection, new.variable.name = "test.var.1", 
+  expect_true(.assign(datasources = connection, new.variable.name = "test.var.1", 
                        value ="D$INTEGER", class.type = "integer", asynchronous = FALSE))
-  expect_true(.assign (datasources = connection, new.variable.name = "test.var.1", 
+  expect_true(.assign(datasources = connection, new.variable.name = "test.var.1", 
                        value ="D$INTEGER", class.type = "integer", asynchronous = FALSE))
   
   expect_true(ds.assign.value(datasources = connection, new.variable.name = "test.var.1", 
@@ -29,7 +30,7 @@ source("connection_to_datasets/init_all_datasets.R")
 .test.values.from.assign.function <- function(connection)
 {
   server.call <- paste("rUnifDS(",100,",",14,",",50,",",10,")",sep="")
-  expect_true(.assign(datasources = connection,new.variable.name = "test.var.1",value=server.call, class.type =  "numeric", asynchronous = FALSE))
+  expect_true(.assign(datasources = connection,new.variable.name = "test.var.1",value = server.call, class.type =  "numeric", asynchronous = FALSE))
   expect_true(ds.assign.value(datasources = connection, new.variable.name = "test.var.1",value=server.call,
                               class.type = "numeric",asynchronous = FALSE))
   

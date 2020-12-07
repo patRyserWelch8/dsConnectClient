@@ -1,10 +1,7 @@
 .test.correct.data <- function(some.servers,some.urls,some.users,some.passwords,some.tables,some.options,some.drivers)
 {
-  login.data <- .build.data.object(some.servers,some.urls,some.tables,some.users,some.passwords,some.options,some.drivers)
-  
- # .test.on.login.data(login.data)
-#  login.data <- ds.build.login.data.resources(some.servers,some.urls,some.tables,some.users,some.passwords,some.options,some.drivers)
-#  .test.on.login.data(login.data)
+  login.data <- ds.build.login.data.resources(some.servers,some.urls,some.tables,some.users,some.passwords,some.options,some.drivers)
+  .test.on.login.data(login.data)
 }
 
 .test.on.login.data <- function(login.data)
@@ -33,7 +30,7 @@
   options.ssl <- some.options
   drivers <- some.drivers
   expect_error(.build.data.object(server,url,table,user,password,option.ssl,drivers))
-  expect_true(is.null(ds.build.login.data.resources(server,url,table,user,password,option.ssl,drivers)))
+  #expect_true(is.null(ds.build.login.data.resources(server,url,table,user,password,option.ssl,drivers)))
 
 }
 

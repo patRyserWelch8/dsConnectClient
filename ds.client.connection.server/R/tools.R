@@ -2,7 +2,8 @@ is.class.type.correct <- function(class.type)
 {
   valid.types <- c("NULL","character","complex","factor","double","expression","integer",
                    "list","mabrix","logical","numeric","single","raw","vector","S4","NULL",
-                   "function","externalptr","environment")
+                   "function","externalptr","environment", "RangedSummarizedExperiment", "SummarizedExperiment",
+                   "ExpressionSet")
   outcome <- FALSE
   if (is.character(class.type))
   {

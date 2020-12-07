@@ -1,42 +1,112 @@
-#'@name ds.share.param  
-#'@title sharing parameter between 
-#'@description  TODO
-#'@param connection a valid connection to some data repositories. The later needs to be a valid DSConnection-class 
-#'@param Save datashield sessions on each DataSHIELD data repository (if feature is supported) with provided ID (must be a character string).
-#'@author Patricia Ryser-Welch
-#'@export ds.logout
+#' @name ds.share.param  
+#' @title sharing parameter between 
+#' @description  TODO
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' @param param.names a character vector specifying the name of the variables. 
+#' @param tolerance threshold for ignoring small floating point difference when 
+#' comparing numeric vectors
+#' @examples 
+#' \dontrun{
+#' 
+#'   ## Version 6.2, for older versions see the Wiki
+#'   # Connecting to the Opal servers
+#'   
+#'   # Only for windows user 
+#'   ## (switches implementation of SSL used by  the curl R package to "openssl")
+#'   Sys.setenv(CURL_SSL_BACKEND = "openssl")
+#' 
+#'   # Load necessary client packages
+#'   require('DSI')
+#'   require('DSOpal')
+#'   require('dsBaseClient')
+#'   require('ds.client.connection.server')
+#' 
+#'   # Append login information for a specific server
+#'   
+#'     #Data computers name
+#'     server.names   <- c("Paris", "Newcastle", "New York")
+#'     
+#'     # Data computers url
+#'     url_Paris     <- 'https://192.168.56.100:8443'
+#'     url_Newcastle <- 'https://192.168.56.100:8443'
+#'     url_NewYork   <-  'https://192.168.56.100:8443'
+#'     server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
+#'     
+#'     # Assign datasets
+#'     table_Paris     <- "TESTING.DATASET1"
+#'     table_Newcastle <- "TESTING.DATASET2"
+#'     table_NewYork   <- "TESTING.DATASET3"
+#'     server.tables   <- c(table_Paris, table_Newcastle, table_NewYork)
+#'
+#'     # Set user and password to access the DataSHIELD servers
+#'     user_Paris      <-  "administrator"
+#'     user_Newcastle  <-  "administrator"
+#'     user_NewYork    <-  "administrator"
+#'     server.users.id <- c(user_Paris, user_Newcastle, user_NewYork)
+#'
+#'     password_Paris      <-  "datashield_test&"
+#'     password_Newcastle  <-  "datashield_test&"
+#'     password_NewYork    <-  "datashield_test&"
+#'     server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
+#'     
+#'     # Set drivers
+#'     driver_Paris     <- "OpalDriver"
+#'     driver_Newcastle <- "OpalDriver"
+#'     driver_NewYork   <- "OpalDriver"
+#'     server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
+#'
+#'     # Set SSL drivers
+#'     ssl_options_Paris     <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+#'     ssl_options_Newcastle <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+#'     ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+#'     server.ssl.options    <- c(ssl_options_Paris,ssl_options_Newcastle,ssl_options_NewYork)
+#'       
+#'     # Create login data frame
+#'     login.data <- ds.build.login.data.frame(server.names,
+#'                                             server.urls,
+#'                                             server.tables,
+#'                                             server.users.id,
+#'                                             server.users.pwd,
+#'                                             server.ssl.options,
+#'                                             server.drivers)
+#'   # Log in to DataSHIELD server                                         
+#'   connections <- ds.login(login.data.frame = login.data, assign = TRUE, symbol = "D")
+#'   
+#'   # Clear the Datashield/R sessions and logout
+#'   ds.logout(connections) 
+#' }
+#' @author Patricia Ryser-Welch for DataSHIELD development
+#' @export ds.share.param 
 #'
 
-library(DSI)
-library(DSOpal)
-library(httr)
 
 
 ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NULL)
 {
   success <- FALSE
   tryCatch(
-    {success <- .share.parameter(connections, param.names)},
+    {success <- .share.parameter(param.names, tolerance, datasources)},
     warning = function(warning) {.warning(warning)},
     error = function(error) {ds.error(error)},
     finally = {return(success)})
 }
 
-.share.parameter <- function(connections=NULL,param.names = NULL, tolerance = 15)
+.share.parameter <- function(param.names = NULL, tolerance = 15, datasources = NULL)
 {
  
   outcome <- FALSE
   
-  if(length(connections) > 1 & is.character(param.names))
+  if(length(datasources) > 1 & is.character(param.names))
   {
     if (length(param.names) > 0)
     {
-        success <- .assign.settings(connections)
+
+        success <- .assign.settings(datasources)
         if (success)
         {
-          outcome <- .complete.exchange(connections,param.names, tolerance)
+          outcome <- .complete.exchange(param.names, tolerance, datasources)
         }
-        .remove.exchange.data(connections)
+        .remove.exchange.data(datasources)
     }
     else
     {
@@ -56,7 +126,6 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   if (!is.null(connections))
   {
     outcome    <- ds.aggregate(expression = call("assignSharingSettingsDS"), datasources = connections )
-  
     if(is.list(outcome))
     {
       outcome.vector <- unlist(outcome)
@@ -66,7 +135,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
     {
       successful     <- outcome
     }
-  
+    
     if (!successful)
     {
       stop("::ds.share.param::ERR:018")
@@ -111,11 +180,11 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
       
       if(current < last)
       {
-         current  <- current + 1 
+        current  <- current + 1 
       }
       else
       {
-         continue <- FALSE
+        continue <- FALSE
       }
       
     }
@@ -130,11 +199,12 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   outcome    <- FALSE
   step       <-  1
   max.steps  <-  16
- 
+  
   while(step <= max.steps)
   {
    
     success <- switch(          
+
        step,
       .encrypt.data(master,master_mode = TRUE, preserve_mode = FALSE), #1
       .transfer.encrypted.matrix(master,receiver,master_mode = TRUE), #2
@@ -286,8 +356,8 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
             
         }
       }
-   }
-   return(.transform.outcome.to.logical(outcome))
+    }
+  return(.transform.outcome.to.logical(outcome))
 }
 
 
@@ -307,4 +377,4 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
     message(paste(header, "::",  "WAR:001\n", "More than one connection is required for sharing parameters.")) 
   }
 }
-
+                             
