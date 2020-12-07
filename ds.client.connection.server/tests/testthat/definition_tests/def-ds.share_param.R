@@ -117,9 +117,6 @@ source("connection_to_datasets/init_all_datasets.R")
 .test_assign_testing <- function(connections)
 {
   outcome <- ds.aggregate(expression = call("setPiDS","pi_value"), datasources = connections)
-  #print(as.logical(outcome[[1]][1]))
-  print(outcome)
-  
   ds.remove.variable(datasources = connections,variable.name = "settings",class.type = "list")
   expect_equal(ds.exists.on.server(datasources = connections, variable.name = "settings", class.type = "list"), FALSE)
   outcome <- .assign.settings(connections)

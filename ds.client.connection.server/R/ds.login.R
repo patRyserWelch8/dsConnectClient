@@ -132,7 +132,10 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
     stop("::ds.login::ERR:011", call. = FALSE)
   }
   
-  
+  if(is.windows())
+  {
+    Sys.setenv(CURL_SSL_BACKEND = "openssl")
+  }
   connection <- DSI::datashield.login(login.data.frame, assign, variables, symbol)
   
    
@@ -142,6 +145,13 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   }
   
   return(connection)
+}
+
+
+# check the operating system is windows - https://www.r-bloggers.com/2015/06/identifying-the-os-from-r/
+is.windows <- function()
+{
+   return(.Platform$OS.type == "windows")
 }
 
 .warning <- function(message)
