@@ -1,0 +1,19 @@
+Package: dsConnectClient
+Title: DataSHIELD Connection Server Tools for the client
+Version: 1.0.0
+Authors@R: person("Patricia ", "Ryser-Welch", email = "patricia.ryser-welch@newcastle.ac.uk",
+                  role = c("aut", "cre"))
+Description: This package provides simpler methods to connect to a DataSHIELD server. It handles errors on a server and on client in a seamless manner.
+Depends: R (>= 3.5.0)
+License: GPL-3
+LazyData: true
+Imports: DSI, DSOpal, RCurl, R6, opalr, httr
+RoxygenNote: 7.1.1
+Encoding: UTF-8
+VignetteBuilder: knitr
+Suggests: knitr, rmarkdown
+NeedsCompilation: no
+Packaged: 2020-12-07 16:07:08 UTC; patricia
+Author: Patricia Ryser-Welch [aut, cre]
+Maintainer: Patricia  Ryser-Welch <patricia.ryser-welch@newcastle.ac.uk>
+Built: R 4.0.3; ; 2020-12-07 16:07:15 UTC; unix
