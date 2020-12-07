@@ -455,7 +455,7 @@ url: https://192.168.56.100:8443
 name: Paris 
 version: 3.0.0 
 username: administrator 
-rid: 32d99e8e-ebfb-4664-8295-a54d425f96e9 
+rid: 3c6af6d4-37bb-4523-9c76-66837bce9a04 
 
 
 $Newcastle
@@ -468,7 +468,7 @@ url: https://192.168.56.100:8443
 name: Newcastle 
 version: 3.0.0 
 username: administrator 
-rid: d98bde09-f25c-43f0-9ba7-81a44c44a4dc 
+rid: 2e6893ed-698e-4b75-9cda-f56b6a02e5d2 
 
 
 $`New York`
@@ -481,7 +481,7 @@ url: https://192.168.56.100:8443
 name: New York 
 version: 3.0.0 
 username: administrator 
-rid: 70f37cd6-5fc4-4cd0-9139-0db32df0a209 </code></pre>
+rid: 33406ed9-fb81-45e5-9171-cce453d46155 </code></pre>
 </div>
 <div id="basic-server-level-analysis" class="section level1">
 <h1>Basic server-level analysis</h1>
@@ -648,14 +648,14 @@ $`New York`
 <pre><code>[1] &quot;Mean&quot;</code></pre>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">print</span>(runif.mean[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>          EstimatedMean Nmissing Nvalid Ntotal
-Paris          30.69510        0    100    100
-Newcastle      31.26008        0    100    100
-New York       31.24189        0    100    100</code></pre>
+Paris          32.59586        0    100    100
+Newcastle      32.79104        0    100    100
+New York       31.13920        0    100    100</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">print</span>(<span class="st">&quot;Standard deviation&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;Standard deviation&quot;</code></pre>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">print</span>(runif.std)</a></code></pre></div>
 <pre><code>    Paris Newcastle  New York 
-10.207478 11.216580  9.996301 </code></pre>
+ 9.930859  9.763522 10.375527 </code></pre>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">print</span>(<span class="st">&quot;virtually-joined&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;virtually-joined&quot;</code></pre>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">runif.mean    &lt;-<span class="st"> </span><span class="kw">ds.mean</span> (<span class="dt">x =</span> <span class="st">'rUnifDist'</span>, <span class="dt">type =</span> <span class="st">&quot;combined&quot;</span>, <span class="dt">datasources =</span> connections)</a>
@@ -666,11 +666,11 @@ New York       31.24189        0    100    100</code></pre>
 <pre><code>[1] &quot;Mean&quot;</code></pre>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">print</span>(runif.mean[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>                EstimatedMean Nmissing Nvalid Ntotal
-studiesCombined      31.06569        0    300    300</code></pre>
+studiesCombined      32.17537        0    300    300</code></pre>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">print</span>(<span class="st">&quot;Standard deviation&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;Standard deviation&quot;</code></pre>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">print</span>(runif.std)</a></code></pre></div>
-<pre><code>[1] 10.45515</code></pre>
+<pre><code>[1] 10.02027</code></pre>
 </div>
 <div id="checking-some-server-side-variables-exists" class="section level1">
 <h1>Checking some server side variables exists</h1>
