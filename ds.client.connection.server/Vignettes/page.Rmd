@@ -76,16 +76,6 @@ library(httr)
 library(dsConnectClient)
 library(dsBaseClient)
 ```
-# Windows users - ADDED IN DS LOGIN TO BE DELETED
-If you are windows operating system user, before login to DataSHIELD server
-you need to switch implementation of SSL used by the curl R package to \code{'openssl'}. 
-- ADD TO LOGIN
-
-```{r}
-#Only for windows users
-#Sys.setenv(CURL_SSL_BACKEND = "openssl")
-```
-
 
 # Building a login data frame
 A login data frame provides the information to connect to any DataSHIELD servers; those servers have an Opal Data Warehouse software installed. On the client-side, the following information needs to be provided to log in.
