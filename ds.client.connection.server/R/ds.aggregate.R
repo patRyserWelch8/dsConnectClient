@@ -33,16 +33,12 @@
 #' 
 #'   ## Version 6.2, for older versions see the Wiki
 #'   # Connecting to the Opal servers
-#'   
-#'   # Only for windows user 
-#'   ## (switches implementation of SSL used by  the curl R package to "openssl")
-#'   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 #' 
 #'   # Load necessary client packages
 #'   require('DSI')
 #'   require('DSOpal')
 #'   require('dsBaseClient')
-#'   require('ds.client.connection.server')
+#'   require('dsConnectClient')
 #' 
 #'   # Append login information for a specific server
 #'   
