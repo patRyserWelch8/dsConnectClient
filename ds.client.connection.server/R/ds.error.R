@@ -7,7 +7,7 @@
 
 ds.error <- function(error, client = TRUE)
 {
- 
+  print(error)
   if(client)
   {
     .show.client.error(error)
@@ -74,6 +74,7 @@ ds.error <- function(error, client = TRUE)
                           " is not working has expected. An error has occurred on the server.", 
                           "The function ", server.function.name, " has not been able to either assign or return an aggregation. ")
   
+  print(errors)
   if (length(unique(errors)) >= 1)
   {
     error <- as.character(errors[1])
@@ -120,6 +121,14 @@ ds.error <- function(error, client = TRUE)
   else if(any(grepl("SERVER-ERR-000",error)))
   {
     error.message <- paste0(error.message, "Some error thrown by stop function on the server in an aggregate function.")
+  }
+  else if(any(grepl("ERR::SERVER::TESTING::001",error)))
+  {
+    error.message <- paste0(error.message, "options TESTING was set to 1.")
+  }
+  else if(any(grepl("ERR::SERVER::TESTING::002",error)))
+  {
+    error.message <- paste0(error.message, "options TESTING was set to 2.")
   }
   else if(is.na(error))
   {
