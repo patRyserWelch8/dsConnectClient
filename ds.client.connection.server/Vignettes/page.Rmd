@@ -66,7 +66,7 @@ At the start of each DataSHIELD client-side script, DataSHIELD analysts need to 
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.client.connection.server)
+library(ds.connection.client)
 library(dsBaseClient)
 ```
 

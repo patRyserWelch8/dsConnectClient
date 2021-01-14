@@ -11,7 +11,7 @@ output: html_notebook
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.client.connection.server)
+library(ds.connect.client)
 library(dsBaseClient)
 ```
 # Only one server
@@ -78,6 +78,29 @@ server.function.call <- call('test_errorDS')
 print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
 print(outcome)
+```
+```{r}
+#FYI : paris should work.
+# newyork should return an error
+#
+#test_mixed_errorDS <- function()
+#{
+#  if(getOption("TESTING") == 1)
+#  {
+#    stop(‘you are not allowed’)
+#  }
+#   
+#  return(3.14)
+#}
+
+server.function.call <- call('test_mixed_errorDS')
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
+print(outcome)
+```
+
+```{r}
+
 ```
 
 #logout

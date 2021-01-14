@@ -11,14 +11,14 @@ output: html_notebook
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.client.connection.server)
+library(ds.connect.client)
 library(dsBaseClient)
 ```
 # Only one server
 
 ```{r}
 server.names      <- c("Paris")
-url_Paris         <- 'https://192.168.56.101:8443'
+url_Paris         <- 'https://192.168.56.100:8443'
 table_Paris       <- "TESTING.DATASET1"
 user_Paris        <-  "administrator"
 password_Paris    <-  "datashield_test&"
@@ -70,7 +70,12 @@ print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
 print(outcome)
 ```
-
+```{r}
+server.function.call <- call('test_mixed_errorDS')
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
+print(outcome)
+```
 #logout
 ```{R}
 outcome <- ds.logout(connections)

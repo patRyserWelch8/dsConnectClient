@@ -4,17 +4,18 @@
 #' @param error The error thrown by R
 #' @param client If TRUE the client-side code error is indicated. If FALSE server-side
 #' @return \code{ds.error} returns client-side or server-side errors. 
-
+#'@export
 ds.error <- function(error, client = TRUE)
 {
+  print("========")
   print(error)
+
   if(client)
   {
     .show.client.error(error)
   }
   else
   {
-  
     .show.server.error(error)
   }
 }
@@ -32,7 +33,7 @@ ds.error <- function(error, client = TRUE)
 .show.server.error <- function(error)
 {
   client.function.name <- error[[1]][1]
-  server.function.name  <- .get.function.name(error[[2]][1])
+  server.function.name <- .get.function.name(error[[2]][1])
   .message.server.side.error(client.function.name, server.function.name, error[[3]])
 }
 
@@ -59,14 +60,52 @@ ds.error <- function(error, client = TRUE)
   return(outcome)
 }
 
+#need more work
+.get.error.messages <- function(file.name = NULL)
+{
+  print(2)
+  errors <- data.frame(error = c(), message = c())
+  path <- paste0(system.file(package="ds.connect.client"),"/", file.name)
+  print(path)
+  if(file.exists(path))
+  {
+    print(3)
+    errors <- read_csv(path)
+    print(errors)
+  }
+  print(4)
+  return(errors)
+  
+}
 
 .message.server.side.error <- function(client.function.name, server.function.name, server.error)
 {
   #finding the error
   error       <- ""
+  #split error message provided by DSI and the error thrown by the server
   error.split <- lapply(X = server.error, function(x) strsplit(x = x, "->"))
+  
+  #transform each server entry with two vectors. It is easier to manipulate.
   error.split <- lapply(X = error.split, function(x) unlist(x))
+  
+  #keep only the errors from the server.
   errors      <- lapply(X = error.split, function(x) return(x[2]))
+  
+  #get the error thrown by the server
+  errors      <- lapply(X = errors, function(x) unlist(strsplit(x,"() : ")))
+ 
+  #obtain error code or message sent by server. The last element.
+  errors     <- lapply(X = errors, function(x) return(x[length(x)]))
+  
+  messages   <- lapply(X = errors, function(x) find.error.message(x))
+  
+  #matches the names of each server with an error message.
+  messages   <- lapply(seq_along(messages), function(y, n, i){paste("server",n[[i]], " : " , y[[i]])}, 
+                                          y = messages, n = names(errors))
+  
+  
+
+  
   
   
   # displaying the errors
@@ -74,73 +113,17 @@ ds.error <- function(error, client = TRUE)
                           " is not working has expected. An error has occurred on the server.", 
                           "The function ", server.function.name, " has not been able to either assign or return an aggregation. ")
   
-  print(errors)
-  if (length(unique(errors)) >= 1)
-  {
-    error <- as.character(errors[1])
-  }
+  #error.message <- paste0(error.message, messages)
   
+  #if (length(unique(errors)) >= 1)
+  #{
+  #  error <- as.character(errors[1])
+  #}
+  #print(error)
   
 
-  if(any(grepl("SERVER::ERR::PARAM::003",error)))
-  {
-    error.message <- paste0(error.message, "Some data were not encoded at all.Have you encoded any data before calling this function?") 
-  } 
-  else if(any(grepl("SERVER::ERR::PARAM::004",error)))
-  {
-    error.message <- paste0(error.message, "Some data could be obtained securely. Start again the whole exchange.") 
-  } 
-  else if(any(grepl("SERVER::ERR::PARAM::009",error)))
-  {
-    error.message <- paste0(error.message, "Some parameters may not have been encoded on one server. Start again the whole exchange.") 
-  }
-  else if(any(grepl("SERVER::ERR::PARAM::007",error)))
-  {
-    error.message <- paste0(error.message, "Some data may not have been received on a server. Start again the whole exchange.") 
-  }
-  else if(any(grepl("SERVER::ERR::PARAM::008",error)))
-  {
-    error.message <- paste0(error.message, "The parameters may have not been created on the server yet. Please use ds.ls() function to check.") 
-  }
-  else if(any(grepl("SERVER::ERR::PARAM::006",error)))
-  {
-    error.message <- paste0(error.message, "The arguments passed to the servers are incorrect. Their length may indicate they have no character. Numerical values may be set to 0 or be negative. Check the server-side function call.") 
-  }
-  else if(any(grepl("SERVER::ERR::PARAM::005",error)))
-  {
-    error.message <- paste0(error.message, "The arguments passed to the servers are incorrect. The data type is either not numerical or character. Check the server-side function call.") 
-  }
-  else if (any(grepl("SERVER::ERR::PARAM::001",error)))
-  {
-    error.message <- paste0(error.message, "A server is not allowed to taking part in sharing parameters.") 
-  }
-  else if (any(grepl("SERVER::ERR::PARAM::002",error)))
-  {
-    error.message <- paste0(error.message, "A function on the server has not received the appropriate arguments.") 
-  }
-  else if(any(grepl("SERVER-ERR-000",error)))
-  {
-    error.message <- paste0(error.message, "Some error thrown by stop function on the server in an aggregate function.")
-  }
-  else if(any(grepl("ERR::SERVER::TESTING::001",error)))
-  {
-    error.message <- paste0(error.message, "options TESTING was set to 1.")
-  }
-  else if(any(grepl("ERR::SERVER::TESTING::002",error)))
-  {
-    error.message <- paste0(error.message, "options TESTING was set to 2.")
-  }
-  else if(is.na(error))
-  {
-    error.message <- paste0(error.message, "A function or R object may not exists on the server(s).",
-                            "ds.ls() and the tools made available on the Opal server can help you resolving this issue.")
-  }
-  else if (length(error) > 1)
-  {
-    error.message <- paste0(error.message, "R has thrown the following error: \n", error)
-  }
- 
   message(error.message)
+  lapply(messages, function(x) message(x))
 }
 
 .message.client.side.error <- function(function.name, client.error)

@@ -1753,12 +1753,12 @@ summary {
 <h1>Libraries</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0xpYnJhcmllcyBcbmxpYnJhcnkoRFNJKVxubGlicmFyeShEU09wYWwpXG5saWJyYXJ5KGh0dHIpXG5saWJyYXJ5KGRzLmNsaWVudC5jb25uZWN0aW9uLnNlcnZlcilcbmxpYnJhcnkoZHNCYXNlQ2xpZW50KVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0xpYnJhcmllcyBcbmxpYnJhcnkoRFNJKVxubGlicmFyeShEU09wYWwpXG5saWJyYXJ5KGh0dHIpXG5saWJyYXJ5KGRzLmNvbm5lY3QuY2xpZW50KVxubGlicmFyeShkc0Jhc2VDbGllbnQpXG5gYGAifQ== -->
 <pre class="r"><code>#Libraries 
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.client.connection.server)
+library(ds.connect.client)
 library(dsBaseClient)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -1768,9 +1768,9 @@ library(dsBaseClient)</code></pre>
 <h1>Only one server</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLm5hbWVzICAgICAgPC0gYyhcIlBhcmlzXCIpXG51cmxfUGFyaXMgICAgICAgICA8LSAnaHR0cHM6Ly8xOTIuMTY4LjU2LjEwMTo4NDQzJ1xudGFibGVfUGFyaXMgICAgICAgPC0gXCJURVNUSU5HLkRBVEFTRVQxXCJcbnVzZXJfUGFyaXMgICAgICAgIDwtICBcImFkbWluaXN0cmF0b3JcIlxucGFzc3dvcmRfUGFyaXMgICAgPC0gIFwiZGF0YXNoaWVsZF90ZXN0JlwiXG5zc2xfb3B0aW9uc19QYXJpcyA8LSBcImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKVwiXG5kcml2ZXJfUGFyaXMgICAgICA8LSBcIk9wYWxEcml2ZXJcIlxuXG5zZXJ2ZXIudXJscyAgICAgICA8LSBjKHVybF9QYXJpcylcbnNlcnZlci50YWJsZXMgICAgIDwtIGModGFibGVfUGFyaXMpXG5zZXJ2ZXIudXNlcnMuaWQgICA8LSBjKHVzZXJfUGFyaXMpXG5zZXJ2ZXIudXNlcnMucHdkICA8LSAgYyhwYXNzd29yZF9QYXJpcylcbnNlcnZlci5zc2wub3B0aW9ucyA8LSBjKHNzbF9vcHRpb25zX1BhcmlzKVxuc2VydmVyLmRyaXZlcnMgICA8LSBjKGRyaXZlcl9QYXJpcylcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLm5hbWVzICAgICAgPC0gYyhcIlBhcmlzXCIpXG51cmxfUGFyaXMgICAgICAgICA8LSAnaHR0cHM6Ly8xOTIuMTY4LjU2LjEwMDo4NDQzJ1xudGFibGVfUGFyaXMgICAgICAgPC0gXCJURVNUSU5HLkRBVEFTRVQxXCJcbnVzZXJfUGFyaXMgICAgICAgIDwtICBcImFkbWluaXN0cmF0b3JcIlxucGFzc3dvcmRfUGFyaXMgICAgPC0gIFwiZGF0YXNoaWVsZF90ZXN0JlwiXG5zc2xfb3B0aW9uc19QYXJpcyA8LSBcImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKVwiXG5kcml2ZXJfUGFyaXMgICAgICA8LSBcIk9wYWxEcml2ZXJcIlxuXG5zZXJ2ZXIudXJscyAgICAgICA8LSBjKHVybF9QYXJpcylcbnNlcnZlci50YWJsZXMgICAgIDwtIGModGFibGVfUGFyaXMpXG5zZXJ2ZXIudXNlcnMuaWQgICA8LSBjKHVzZXJfUGFyaXMpXG5zZXJ2ZXIudXNlcnMucHdkICA8LSAgYyhwYXNzd29yZF9QYXJpcylcbnNlcnZlci5zc2wub3B0aW9ucyA8LSBjKHNzbF9vcHRpb25zX1BhcmlzKVxuc2VydmVyLmRyaXZlcnMgICA8LSBjKGRyaXZlcl9QYXJpcylcbmBgYCJ9 -->
 <pre class="r"><code>server.names      &lt;- c(&quot;Paris&quot;)
-url_Paris         &lt;- 'https://192.168.56.101:8443'
+url_Paris         &lt;- &#39;https://192.168.56.100:8443&#39;
 table_Paris       &lt;- &quot;TESTING.DATASET1&quot;
 user_Paris        &lt;-  &quot;administrator&quot;
 password_Paris    &lt;-  &quot;datashield_test&amp;&quot;
@@ -1798,10 +1798,10 @@ server.drivers   &lt;- c(driver_Paris)</code></pre>
                                         server.drivers)
 print(login.data)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6OSwibnJvdyI6MX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE0VlNYVS9DTUJRdEgwTzJCQ1h4MFhjL0VobE1rQ0FKRHlTZzhVV056SVEzVXJiaUdrcTd0SjNvbjBlN2o0TDJ4WWRtOTl4emUrKzVaMzJkekx2TzNBRUFWRUJWbllxbFFtQzkrZmV0QVFEVnNnSWxSZGpwOTFNVm5hb2dCYzFmaFBVQ09SWkc4aXlTTWhiRGR0dTd1M0c5L3NDOTdidGV4eHNPZXIydVVkcjBwelAvOGVuQm5Zejk4V3pxZXdZUERPdzh4NUJNT1A1QTNHQWFNTnhnaW9Ya1VES1RiSVpRUWhGaFJNS0ZSRUtlL3pQbWdxaEdsMEtRaFJxRVYxOFJFM0xVdVQ0a1lvVDRxSE5sMkdSUnVFSGFEYnRJMWdUaXFkd2NWUkpPZExXRVM0SUtVT2RJc0lRSEd0ZkNmTWtjVlJPeGorc3hGR0xMZUxodnc5YUlGdUNJeFJJektneGhObWRiVjR0clpFUjIvcW9QaU9wc0dwNDY1NjY0dXF2UXpyaHlHRmRPWDRkbFhDNlovK0Vrb2FtS3NCVkVDVjIzMHRmZ0ZHckFYMlg3Mk01SGxyK0xWcFkyQ05GM1RMVmRGb0ZMcEkwOVZ0dG15N294eDFUcVRWUld1SkpKcU91Y2dCR2R5WFlEdXg4MnJpT0xGQU1BQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6OX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE0VlNUVThDTVJBdEg0dEFnaUh4Nk4yUFJBb3JTSUNFQXdsb3ZLaVJOZUZHeW01eEcwcTdhYnVpZng3dExsdVFldkRRZE42ODZjeWJ0L3M2bnJXcnN5b0FvQUNLK2hRY0hRTG56YnR2OUFBbzVqWElhYUtTM0orNjZFd0hDYWovSXB3WEpJaTBrdWVoVXBFY05KdHUveGE2M1I2ODYwSzMxUnIwT3AyMlZWcjNKbFB2OGVrQmprZmVhRHJ4WElzSEZxNCtSNGlPQmZuQXdtSnFLRmdUUnFRU1NIR2JyQWRJSVJrU1RJTzV3bEpkL0RQbWt1cEdWMUxTdVI1RWxsOGhsMnJZdWpra0lvekZzSFZ0MmVRd3RNYkdqVXFXTEVrc0VyazdWSWdGTmRVS0xTak9RRmxneVdQaEcxd0tka3Z1VURHVys3Z2NJU2szWEFUN05ueUZXUVpPZUtRSVo5SVNWaEY4QTQyNFdrcWs1MWk5VDNWbjIvREVPYmdVK3ExR1crdkpZVncrK1RzYzYzSHV6M2VJV2FJaWFQaGh6RllOdDU5TXlPU0FZMm43dUxLYm1mL09lam5HSWN6ZUNUTitPUlF0c0hIMlZLK2JiZ3NqUVpneXEraXNoSW9yWk9xcVBxY21reTRIdGovdGdVWWhGUU1BQUE9PSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["server"],"name":[1],"type":["chr"],"align":["left"]},{"label":["url"],"name":[2],"type":["chr"],"align":["left"]},{"label":["table"],"name":[3],"type":["chr"],"align":["left"]},{"label":["resource"],"name":[4],"type":["chr"],"align":["left"]},{"label":["driver"],"name":[5],"type":["chr"],"align":["left"]},{"label":["user"],"name":[6],"type":["chr"],"align":["left"]},{"label":["password"],"name":[7],"type":["chr"],"align":["left"]},{"label":["token"],"name":[8],"type":["chr"],"align":["left"]},{"label":["options"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"Paris","2":"https://192.168.56.101:8443","3":"TESTING.DATASET1","4":"","5":"OpalDriver","6":"administrator","7":"datashield_test&","8":"","9":"list(ssl_verifyhost=0,ssl_verifypeer=0)"}],"options":{"columns":{"min":{},"max":[10],"total":[9]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+{"columns":[{"label":["server"],"name":[1],"type":["chr"],"align":["left"]},{"label":["url"],"name":[2],"type":["chr"],"align":["left"]},{"label":["table"],"name":[3],"type":["chr"],"align":["left"]},{"label":["resource"],"name":[4],"type":["chr"],"align":["left"]},{"label":["driver"],"name":[5],"type":["chr"],"align":["left"]},{"label":["user"],"name":[6],"type":["chr"],"align":["left"]},{"label":["password"],"name":[7],"type":["chr"],"align":["left"]},{"label":["token"],"name":[8],"type":["chr"],"align":["left"]},{"label":["options"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"Paris","2":"https://192.168.56.100:8443","3":"TESTING.DATASET1","4":"","5":"OpalDriver","6":"administrator","7":"datashield_test&","8":"","9":"list(ssl_verifyhost=0,ssl_verifypeer=0)"}],"options":{"columns":{"min":{},"max":[10],"total":[9]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -1813,18 +1813,18 @@ print(login.data)</code></pre>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLnZhciA8LSBsaXN0KCdJRCcsJ0NIQVJBQ1RFUicsICdMT0dJQ0FMJywnTkFfVkFMVUVTJywnSU5URUdFUicsJ05VTExfVkFMVUVTJyxcbiAgICAgICAgICAgICAgICAgICAnTk9OX05FR0FUSVZFX0lOVEVHRVInLCdQT1NJVElWRV9JTlRFR0VSJywnTkVHQVRJVkVfSU5URUdFUicsXG4gICAgICAgICAgICAgICAgICAgJ05VTUVSSUMnLCAnTk9OX05FR0FUSVZFX05VTUVSSUMnLCdQT1NJVElWRV9OVU1FUklDJywnTkVHQVRJVkVfTlVNRVJJQycsXG4gICAgICAgICAgICAgICAgICAgJ0ZBQ1RPUl9DSEFSQUNURVInLCdGQUNUT1JfSU5URUdFUicsJ0lERU5USUZJRVInLCdDQVRFR09SWScsJ0lERU5USUZJRVInLFxuICAgICAgICAgICAgICAgICAgICdDQVRFR09SWScpXG5jb25uZWN0aW9ucyA8LSBkcy5sb2dpbihsb2dpbi5kYXRhLCB2YXJpYWJsZXMgPSBzZXJ2ZXIudmFyLCBzeW1ib2wgPSAnRCcpXG5gYGAifQ== -->
-<pre class="r"><code>server.var &lt;- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
-                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
-                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC',
-                   'FACTOR_CHARACTER','FACTOR_INTEGER','IDENTIFIER','CATEGORY','IDENTIFIER',
-                   'CATEGORY')
-connections &lt;- ds.login(login.data, variables = server.var, symbol = 'D')</code></pre>
+<pre class="r"><code>server.var &lt;- list(&#39;ID&#39;,&#39;CHARACTER&#39;, &#39;LOGICAL&#39;,&#39;NA_VALUES&#39;,&#39;INTEGER&#39;,&#39;NULL_VALUES&#39;,
+                   &#39;NON_NEGATIVE_INTEGER&#39;,&#39;POSITIVE_INTEGER&#39;,&#39;NEGATIVE_INTEGER&#39;,
+                   &#39;NUMERIC&#39;, &#39;NON_NEGATIVE_NUMERIC&#39;,&#39;POSITIVE_NUMERIC&#39;,&#39;NEGATIVE_NUMERIC&#39;,
+                   &#39;FACTOR_CHARACTER&#39;,&#39;FACTOR_INTEGER&#39;,&#39;IDENTIFIER&#39;,&#39;CATEGORY&#39;,&#39;IDENTIFIER&#39;,
+                   &#39;CATEGORY&#39;)
+connections &lt;- ds.login(login.data, variables = server.var, symbol = &#39;D&#39;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5Mb2dnaW5nIGludG8gdGhlIGNvbGxhYm9yYXRpbmcgc2VydmVyc1xuXG4gIExvZ2dlZCBpbiBhbGwgc2VydmVycyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDBzXG5cbkFzc2lnbmluZyB0YWJsZSBkYXRhLi4uXG5cbiAgQXNzaWduZWQgYWxsIHRhYmxlcyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XSAxMDAlIC8gMnNcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5Mb2dnaW5nIGludG8gdGhlIGNvbGxhYm9yYXRpbmcgc2VydmVyc1xuXG4gIExvZ2dlZCBpbiBhbGwgc2VydmVycyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDJzXG5cbkFzc2lnbmluZyB0YWJsZSBkYXRhLi4uXG5cbiAgQXNzaWduZWQgYWxsIHRhYmxlcyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XSAxMDAlIC8gMnNcbiJ9 -->
 <pre><code>
 Logging into the collaborating servers
 
-  Logged in all servers [================================================================] 100% / 0s
+  Logged in all servers [================================================================] 100% / 2s
 
 Assigning table data...
 
@@ -1833,18 +1833,18 @@ Assigning table data...
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoY29ubmVjdGlvbnMpXG5gYGAifQ== -->
 <pre class="r"><code>print(connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJFBhcmlzXG5BbiBvYmplY3Qgb2YgY2xhc3MgXCJPcGFsQ29ubmVjdGlvblwiXG5TbG90IFwibmFtZVwiOlxuWzFdIFwiUGFyaXNcIlxuXG5TbG90IFwib3BhbFwiOlxudXJsOiBodHRwczovLzE5Mi4xNjguNTYuMTAxOjg0NDMgXG5uYW1lOiBQYXJpcyBcbnZlcnNpb246IDMuMC43IFxudXNlcm5hbWU6IGFkbWluaXN0cmF0b3IgXG5yaWQ6IDNmOWJjYzczLWZlYmItNDU0MC1hY2FlLTM4NzFmYmYxYWI5YSBcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiJFBhcmlzXG5BbiBvYmplY3Qgb2YgY2xhc3MgXCJPcGFsQ29ubmVjdGlvblwiXG5TbG90IFwibmFtZVwiOlxuWzFdIFwiUGFyaXNcIlxuXG5TbG90IFwib3BhbFwiOlxudXJsOiBodHRwczovLzE5Mi4xNjguNTYuMTAwOjg0NDMgXG5uYW1lOiBQYXJpcyBcbnZlcnNpb246IDMuMC43IFxudXNlcm5hbWU6IGFkbWluaXN0cmF0b3IgXG5yaWQ6IGQ0NzNkNDg3LWZlMjEtNDBhZC05ZThkLTZkNjMzMWUwMzk1NSBcbiJ9 -->
 <pre><code>$Paris
 An object of class &quot;OpalConnection&quot;
 Slot &quot;name&quot;:
 [1] &quot;Paris&quot;
 
 Slot &quot;opal&quot;:
-url: https://192.168.56.101:8443 
+url: https://192.168.56.100:8443 
 name: Paris 
 version: 3.0.7 
 username: administrator 
-rid: 3f9bcc73-febb-4540-acae-3871fbf1ab9a </code></pre>
+rid: d473d487-fe21-40ad-9e8d-6d6331e03955 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1852,7 +1852,7 @@ rid: 3f9bcc73-febb-4540-acae-3871fbf1ab9a </code></pre>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLmZ1bmN0aW9uLmNhbGwgPC0gY2FsbCgnZGltRFMnLCdEJylcbnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKVxuYGBgIn0= -->
-<pre class="r"><code>server.function.call &lt;- call('dimDS','D')
+<pre class="r"><code>server.function.call &lt;- call(&#39;dimDS&#39;,&#39;D&#39;)
 print(server.function.call)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiZGltRFMoXCJEXCIpXG4ifQ== -->
@@ -1877,7 +1877,7 @@ print(server.function.call)</code></pre>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLmZ1bmN0aW9uLmNhbGwgPC0gY2FsbCgndGVzdF9lcnJvckRTJylcbnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKVxuYGBgIn0= -->
-<pre class="r"><code>server.function.call &lt;- call('test_errorDS')
+<pre class="r"><code>server.function.call &lt;- call(&#39;test_errorDS&#39;)
 print(server.function.call)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoidGVzdF9lcnJvckRTKClcbiJ9 -->
@@ -1890,8 +1890,9 @@ print(server.function.call)</code></pre>
 <pre><code>
   Aggregated (test_errorDS()) [==========================================================] 100% / 0s</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cblsxXSBcImRzLmFnZ3JlZ2F0ZVwiXG5cbltbMl1dXG5bMV0gXCJ0ZXN0X2Vycm9yRFNcIlxuXG5bWzNdXVxuW1szXV0kUGFyaXNcblsxXSBcIkNsaWVudCBlcnJvcjogKDQwMCkgQmFkIFJlcXVlc3Q7IFJTZXJ2ZXJSdW50aW1lRXJyb3I6IEVycm9yIHdoaWxlIGV2YWx1YXRpbmcgJy5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCknIC0+IEVycm9yIGluIC5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCkgOiBFUlI6OlNFUlZFUjo6VEVTVElORzo6MDAxOiBFcnJvciBpbiAuQUdHUkVHQVRFJHRlc3RfZXJyb3JEUygpIDogRVJSOjpTRVJWRVI6OlRFU1RJTkc6OjAwMVwiXG5cblxuJFBhcmlzXG5bMV0gXCIgRXJyb3IgaW4gLkFHR1JFR0FURSR0ZXN0X2Vycm9yRFMoKSA6IEVSUjo6U0VSVkVSOjpURVNUSU5HOjowMDE6IEVycm9yIGluIC5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCkgOiBFUlI6OlNFUlZFUjo6VEVTVElORzo6MDAxXCJcbiJ9 -->
-<pre><code>[[1]]
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiPT09PT09PT1cIlxuW1sxXV1cblsxXSBcImRzLmFnZ3JlZ2F0ZVwiXG5cbltbMl1dXG5bMV0gXCJ0ZXN0X2Vycm9yRFNcIlxuXG5bWzNdXVxuW1szXV0kUGFyaXNcblsxXSBcIkNsaWVudCBlcnJvcjogKDQwMCkgQmFkIFJlcXVlc3Q7IFJTZXJ2ZXJSdW50aW1lRXJyb3I6IEVycm9yIHdoaWxlIGV2YWx1YXRpbmcgJy5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCknIC0+IEVycm9yIGluIC5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCkgOiBFUlI6OlNFUlZFUjo6VEVTVElORzo6MDAyOiBFcnJvciBpbiAuQUdHUkVHQVRFJHRlc3RfZXJyb3JEUygpIDogRVJSOjpTRVJWRVI6OlRFU1RJTkc6OjAwMlwiXG4ifQ== -->
+<pre><code>[1] &quot;========&quot;
+[[1]]
 [1] &quot;ds.aggregate&quot;
 
 [[2]]
@@ -1899,20 +1900,40 @@ print(server.function.call)</code></pre>
 
 [[3]]
 [[3]]$Paris
-[1] &quot;Client error: (400) Bad Request; RServerRuntimeError: Error while evaluating '.AGGREGATE$test_errorDS()' -&gt; Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::001: Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::001&quot;
-
-
-$Paris
-[1] &quot; Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::001: Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::001&quot;</code></pre>
+[1] &quot;Client error: (400) Bad Request; RServerRuntimeError: Error while evaluating &#39;.AGGREGATE$test_errorDS()&#39; -&gt; Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::002: Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::002&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZ1bmN0aW9uIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuIEFuIGVycm9yIGhhcyBvY2N1cnJlZCBvbiB0aGUgc2VydmVyLlRoZSBmdW5jdGlvbiB0ZXN0X2Vycm9yRFMgaGFzIG5vdCBiZWVuIGFibGUgdG8gZWl0aGVyIGFzc2lnbiBvciByZXR1cm4gYW4gYWdncmVnYXRpb24uIG9wdGlvbnMgVEVTVElORyB3YXMgc2V0IHRvIDEuXG4ifQ== -->
-<pre><code>The function ds.aggregate is not working has expected. An error has occurred on the server.The function test_errorDS has not been able to either assign or return an aggregation. options TESTING was set to 1.</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZ1bmN0aW9uIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuIEFuIGVycm9yIGhhcyBvY2N1cnJlZCBvbiB0aGUgc2VydmVyLlRoZSBmdW5jdGlvbiB0ZXN0X2Vycm9yRFMgaGFzIG5vdCBiZWVuIGFibGUgdG8gZWl0aGVyIGFzc2lnbiBvciByZXR1cm4gYW4gYWdncmVnYXRpb24uIFxuc2VydmVyIFBhcmlzICA6ICBURVNUSU5HIE9QVElPTiBJUyBTRVQgVE8gMlxuIn0= -->
+<pre><code>The function ds.aggregate is not working has expected. An error has occurred on the server.The function test_errorDS has not been able to either assign or return an aggregation. 
+server Paris  :  TESTING OPTION IS SET TO 2</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
 <pre class="r"><code>print(outcome)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTlJcIlxuIn0= -->
 <pre><code>[1] &quot;NR&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLmZ1bmN0aW9uLmNhbGwgPC0gY2FsbCgndGVzdF9taXhlZF9lcnJvckRTJylcbnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKVxuYGBgIn0= -->
+<pre class="r"><code>server.function.call &lt;- call(&#39;test_mixed_errorDS&#39;)
+print(server.function.call)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoidGVzdF9taXhlZF9lcnJvckRTKClcbiJ9 -->
+<pre><code>test_mixed_errorDS()</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucylcbmBgYCJ9 -->
+<pre class="r"><code>outcome &lt;- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIEFnZ3JlZ2F0ZWQgKHRlc3RfbWl4ZWRfZXJyb3JEUygpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDBzXG4ifQ== -->
+<pre><code>
+  Aggregated (test_mixed_errorDS()) [====================================================] 100% / 0s</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
+<pre class="r"><code>print(outcome)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJFBhcmlzXG5bMV0gMy4xNFxuIn0= -->
+<pre><code>$Paris
+[1] 3.14</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1922,9 +1943,9 @@ $Paris
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3V0Y29tZSA8LSBkcy5sb2dvdXQoY29ubmVjdGlvbnMpXG5gYGAifQ== -->
 <pre class="r"><code>outcome &lt;- ds.logout(connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gIExvZ2dlZCBvdXQgZnJvbSBhbGwgc2VydmVycyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDFzXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIExvZ2dlZCBvdXQgZnJvbSBhbGwgc2VydmVycyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDBzXG4ifQ== -->
 <pre><code>
-  Logged out from all servers [==========================================================] 100% / 1s</code></pre>
+  Logged out from all servers [==========================================================] 100% / 0s</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
 <pre class="r"><code>print(outcome)</code></pre>
@@ -1935,7 +1956,7 @@ $Paris
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiZXJyb3IgdGVzdGluZyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgojIExpYnJhcmllcwpgYGB7cn0KI0xpYnJhcmllcyAKbGlicmFyeShEU0kpCmxpYnJhcnkoRFNPcGFsKQpsaWJyYXJ5KGh0dHIpCmxpYnJhcnkoZHMuY2xpZW50LmNvbm5lY3Rpb24uc2VydmVyKQpsaWJyYXJ5KGRzQmFzZUNsaWVudCkKYGBgCiMgT25seSBvbmUgc2VydmVyCgpgYGB7cn0Kc2VydmVyLm5hbWVzICAgICAgPC0gYygiUGFyaXMiKQp1cmxfUGFyaXMgICAgICAgICA8LSAnaHR0cHM6Ly8xOTIuMTY4LjU2LjEwMTo4NDQzJwp0YWJsZV9QYXJpcyAgICAgICA8LSAiVEVTVElORy5EQVRBU0VUMSIKdXNlcl9QYXJpcyAgICAgICAgPC0gICJhZG1pbmlzdHJhdG9yIgpwYXNzd29yZF9QYXJpcyAgICA8LSAgImRhdGFzaGllbGRfdGVzdCYiCnNzbF9vcHRpb25zX1BhcmlzIDwtICJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MCkiCmRyaXZlcl9QYXJpcyAgICAgIDwtICJPcGFsRHJpdmVyIgoKc2VydmVyLnVybHMgICAgICAgPC0gYyh1cmxfUGFyaXMpCnNlcnZlci50YWJsZXMgICAgIDwtIGModGFibGVfUGFyaXMpCnNlcnZlci51c2Vycy5pZCAgIDwtIGModXNlcl9QYXJpcykKc2VydmVyLnVzZXJzLnB3ZCAgPC0gIGMocGFzc3dvcmRfUGFyaXMpCnNlcnZlci5zc2wub3B0aW9ucyA8LSBjKHNzbF9vcHRpb25zX1BhcmlzKQpzZXJ2ZXIuZHJpdmVycyAgIDwtIGMoZHJpdmVyX1BhcmlzKQpgYGAKCgpgYGB7cn0KbG9naW4uZGF0YSA8LSBkcy5idWlsZC5sb2dpbi5kYXRhLmZyYW1lKHNlcnZlci5uYW1lcywKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51cmxzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnRhYmxlcywKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51c2Vycy5pZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51c2Vycy5wd2QsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIuc3NsLm9wdGlvbnMsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIuZHJpdmVycykKcHJpbnQobG9naW4uZGF0YSkKYGBgCgojIHNldCB0aGUgc2VydmVyIHZhcmlhYmxlcyBhbmQgbG9naW4KYGBge1J9CnNlcnZlci52YXIgPC0gbGlzdCgnSUQnLCdDSEFSQUNURVInLCAnTE9HSUNBTCcsJ05BX1ZBTFVFUycsJ0lOVEVHRVInLCdOVUxMX1ZBTFVFUycsCiAgICAgICAgICAgICAgICAgICAnTk9OX05FR0FUSVZFX0lOVEVHRVInLCdQT1NJVElWRV9JTlRFR0VSJywnTkVHQVRJVkVfSU5URUdFUicsCiAgICAgICAgICAgICAgICAgICAnTlVNRVJJQycsICdOT05fTkVHQVRJVkVfTlVNRVJJQycsJ1BPU0lUSVZFX05VTUVSSUMnLCdORUdBVElWRV9OVU1FUklDJywKICAgICAgICAgICAgICAgICAgICdGQUNUT1JfQ0hBUkFDVEVSJywnRkFDVE9SX0lOVEVHRVInLCdJREVOVElGSUVSJywnQ0FURUdPUlknLCdJREVOVElGSUVSJywKICAgICAgICAgICAgICAgICAgICdDQVRFR09SWScpCmNvbm5lY3Rpb25zIDwtIGRzLmxvZ2luKGxvZ2luLmRhdGEsIHZhcmlhYmxlcyA9IHNlcnZlci52YXIsIHN5bWJvbCA9ICdEJykKcHJpbnQoY29ubmVjdGlvbnMpCmBgYAoKI3Rlc3RfZXJyb3JzCmBgYHtyfQpzZXJ2ZXIuZnVuY3Rpb24uY2FsbCA8LSBjYWxsKCdkaW1EUycsJ0QnKQpwcmludChzZXJ2ZXIuZnVuY3Rpb24uY2FsbCkKb3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucykKcHJpbnQob3V0Y29tZSkKYGBgCgpgYGB7cn0Kc2VydmVyLmZ1bmN0aW9uLmNhbGwgPC0gY2FsbCgndGVzdF9lcnJvckRTJykKcHJpbnQoc2VydmVyLmZ1bmN0aW9uLmNhbGwpCm91dGNvbWUgPC0gZHMuYWdncmVnYXRlKGV4cHJlc3Npb24gPSBzZXJ2ZXIuZnVuY3Rpb24uY2FsbCwgYXN5bmNocm9ub3VzID0gRkFMU0UsIGRhdGFzb3VyY2VzID0gY29ubmVjdGlvbnMpCnByaW50KG91dGNvbWUpCmBgYAoKI2xvZ291dApgYGB7Un0Kb3V0Y29tZSA8LSBkcy5sb2dvdXQoY29ubmVjdGlvbnMpCnByaW50KG91dGNvbWUpCmBgYA==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiZXJyb3IgdGVzdGluZyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgojIExpYnJhcmllcwpgYGB7cn0KI0xpYnJhcmllcyAKbGlicmFyeShEU0kpCmxpYnJhcnkoRFNPcGFsKQpsaWJyYXJ5KGh0dHIpCmxpYnJhcnkoZHMuY29ubmVjdC5jbGllbnQpCmxpYnJhcnkoZHNCYXNlQ2xpZW50KQpgYGAKIyBPbmx5IG9uZSBzZXJ2ZXIKCmBgYHtyfQpzZXJ2ZXIubmFtZXMgICAgICA8LSBjKCJQYXJpcyIpCnVybF9QYXJpcyAgICAgICAgIDwtICdodHRwczovLzE5Mi4xNjguNTYuMTAwOjg0NDMnCnRhYmxlX1BhcmlzICAgICAgIDwtICJURVNUSU5HLkRBVEFTRVQxIgp1c2VyX1BhcmlzICAgICAgICA8LSAgImFkbWluaXN0cmF0b3IiCnBhc3N3b3JkX1BhcmlzICAgIDwtICAiZGF0YXNoaWVsZF90ZXN0JiIKc3NsX29wdGlvbnNfUGFyaXMgPC0gImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKSIKZHJpdmVyX1BhcmlzICAgICAgPC0gIk9wYWxEcml2ZXIiCgpzZXJ2ZXIudXJscyAgICAgICA8LSBjKHVybF9QYXJpcykKc2VydmVyLnRhYmxlcyAgICAgPC0gYyh0YWJsZV9QYXJpcykKc2VydmVyLnVzZXJzLmlkICAgPC0gYyh1c2VyX1BhcmlzKQpzZXJ2ZXIudXNlcnMucHdkICA8LSAgYyhwYXNzd29yZF9QYXJpcykKc2VydmVyLnNzbC5vcHRpb25zIDwtIGMoc3NsX29wdGlvbnNfUGFyaXMpCnNlcnZlci5kcml2ZXJzICAgPC0gYyhkcml2ZXJfUGFyaXMpCmBgYAoKCmBgYHtyfQpsb2dpbi5kYXRhIDwtIGRzLmJ1aWxkLmxvZ2luLmRhdGEuZnJhbWUoc2VydmVyLm5hbWVzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnVybHMsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudGFibGVzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnVzZXJzLmlkLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnVzZXJzLnB3ZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci5zc2wub3B0aW9ucywKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci5kcml2ZXJzKQpwcmludChsb2dpbi5kYXRhKQpgYGAKCiMgc2V0IHRoZSBzZXJ2ZXIgdmFyaWFibGVzIGFuZCBsb2dpbgpgYGB7Un0Kc2VydmVyLnZhciA8LSBsaXN0KCdJRCcsJ0NIQVJBQ1RFUicsICdMT0dJQ0FMJywnTkFfVkFMVUVTJywnSU5URUdFUicsJ05VTExfVkFMVUVTJywKICAgICAgICAgICAgICAgICAgICdOT05fTkVHQVRJVkVfSU5URUdFUicsJ1BPU0lUSVZFX0lOVEVHRVInLCdORUdBVElWRV9JTlRFR0VSJywKICAgICAgICAgICAgICAgICAgICdOVU1FUklDJywgJ05PTl9ORUdBVElWRV9OVU1FUklDJywnUE9TSVRJVkVfTlVNRVJJQycsJ05FR0FUSVZFX05VTUVSSUMnLAogICAgICAgICAgICAgICAgICAgJ0ZBQ1RPUl9DSEFSQUNURVInLCdGQUNUT1JfSU5URUdFUicsJ0lERU5USUZJRVInLCdDQVRFR09SWScsJ0lERU5USUZJRVInLAogICAgICAgICAgICAgICAgICAgJ0NBVEVHT1JZJykKY29ubmVjdGlvbnMgPC0gZHMubG9naW4obG9naW4uZGF0YSwgdmFyaWFibGVzID0gc2VydmVyLnZhciwgc3ltYm9sID0gJ0QnKQpwcmludChjb25uZWN0aW9ucykKYGBgCgojdGVzdF9lcnJvcnMKYGBge3J9CnNlcnZlci5mdW5jdGlvbi5jYWxsIDwtIGNhbGwoJ2RpbURTJywnRCcpCnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKQpvdXRjb21lIDwtIGRzLmFnZ3JlZ2F0ZShleHByZXNzaW9uID0gc2VydmVyLmZ1bmN0aW9uLmNhbGwsIGFzeW5jaHJvbm91cyA9IEZBTFNFLCBkYXRhc291cmNlcyA9IGNvbm5lY3Rpb25zKQpwcmludChvdXRjb21lKQpgYGAKCmBgYHtyfQpzZXJ2ZXIuZnVuY3Rpb24uY2FsbCA8LSBjYWxsKCd0ZXN0X2Vycm9yRFMnKQpwcmludChzZXJ2ZXIuZnVuY3Rpb24uY2FsbCkKb3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucykKcHJpbnQob3V0Y29tZSkKYGBgCmBgYHtyfQpzZXJ2ZXIuZnVuY3Rpb24uY2FsbCA8LSBjYWxsKCd0ZXN0X21peGVkX2Vycm9yRFMnKQpwcmludChzZXJ2ZXIuZnVuY3Rpb24uY2FsbCkKb3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucykKcHJpbnQob3V0Y29tZSkKYGBgCiNsb2dvdXQKYGBge1J9Cm91dGNvbWUgPC0gZHMubG9nb3V0KGNvbm5lY3Rpb25zKQpwcmludChvdXRjb21lKQpgYGA=</div>
 
 
 
