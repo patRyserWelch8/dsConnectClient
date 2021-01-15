@@ -3,6 +3,8 @@ title: "error testing"
 output: html_notebook
 ---
 
+
+
 # Libraries
 ```{r}
 #Libraries 
@@ -15,7 +17,7 @@ library(dsBaseClient)
 # Only one server
 
 ```{r}
-server.names      <- c("Paris", "NewYork")
+server.names      <- c("Paris", "NewYork", "Cambridge")
 url_Paris         <- 'https://192.168.57.101:8443'
 table_Paris       <- "TESTING.DATASET1"
 user_Paris        <-  "administrator"
@@ -24,20 +26,27 @@ ssl_options_Paris <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
 driver_Paris      <- "OpalDriver"
 
 
-url_NewYork   <- 'https://192.168.56.100:8443'
-table_NewYork   <- "TESTING.DATASET3"
-user_NewYork    <-  "administrator"
-password_NewYork    <-  "datashield_test&"
+url_NewYork           <- 'https://192.168.56.100:8443'
+table_NewYork         <- "TESTING.DATASET3"
+user_NewYork          <-  "administrator"
+password_NewYork      <-  "datashield_test&"
 ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
-driver_NewYork   <- "OpalDriver"
+driver_NewYork        <- "OpalDriver"
+
+url_Cambridge         <- 'https://opal-sandbox.mrc-epid.cam.ac.ukor'
+table_Cambridge       <- "TESTING.DATASET2"
+user_Cambridge        <-  "dsuser"
+password_Cambridge    <-  "password"
+ssl_options_Cambridge <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+driver_Cambridge      <- "OpalDriver"
 
 
-server.urls       <- c(url_Paris, url_NewYork)
-server.tables     <- c(table_Paris, table_NewYork)
-server.users.id   <- c(user_Paris, user_NewYork)
-server.users.pwd  <-  c(password_Paris, password_NewYork)
-server.ssl.options <- c(ssl_options_Paris, ssl_options_NewYork)
-server.drivers   <- c(driver_Paris,driver_NewYork)
+server.urls       <- c(url_Paris, url_NewYork,url_Cambridge)
+server.tables     <- c(table_Paris, table_NewYork,table_Cambridge)
+server.users.id   <- c(user_Paris, user_NewYork, user_Cambridge)
+server.users.pwd  <-  c(password_Paris, password_NewYork, password_Cambridge)
+server.ssl.options <- c(ssl_options_Paris, ssl_options_NewYork, ssl_options_Cambridge)
+server.drivers   <- c(driver_Paris,driver_NewYork,driver_Cambridge)
 ```
 
 
