@@ -7,9 +7,6 @@
 #'@export
 ds.error <- function(error, client = TRUE)
 {
-  
-
-
   if(client)
   {
     .show.client.error(error)
@@ -113,6 +110,6 @@ ds.error <- function(error, client = TRUE)
      # remove additional characters
      error <- strsplit(error, ">")
   }
-     message       <- find.error.message(error)
-     message(error.message, message )
+  message       <- find.error.message(error)
+  message(error.message, message )
 }
