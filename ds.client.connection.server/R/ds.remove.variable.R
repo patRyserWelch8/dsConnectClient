@@ -140,7 +140,7 @@ ds.remove.variable <- function(variable.name = NULL, class.type= NULL, datasourc
   outcome <- FALSE
   tryCatch(
      {outcome <- .remove(variable.name, class.type, datasources)},
-      warning = function(warning) {.warning(warning)},
+      warning = function(warning) {ds.warning("ds.remove.variable",warning)},
       error = function(error) {ds.error(error)},
       finally = {return(outcome)}
        )

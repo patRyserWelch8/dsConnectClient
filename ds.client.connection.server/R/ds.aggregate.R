@@ -108,7 +108,7 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, datasources = N
   outcome <- "NR"
   tryCatch(
     {outcome <- .aggregate(expression, asynchronous, datasources)},
-    warning = function(warning) {.warning(warning)},
+    warning = function(warning) {ds.warning("ds.aggregate",warning)},
     error = function(error) {ds.error(error)},
     finally = {return(outcome)}
   )
@@ -137,11 +137,6 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, datasources = N
     stop("::ds.aggregate::ERR:007")
   }
   
-}
-
-.warning <- function(message)
-{
-  message(paste("ds.client.connection.server::ds.aggregate :",   message ))
 }
 
 

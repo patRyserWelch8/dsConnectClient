@@ -81,7 +81,7 @@ ds.logout <- function(datasources, save = NULL)
   outcome <- TRUE
   tryCatch(
      {.logout(datasources,save);},
-      warning = function(warning) {.warning(warning)},
+      warning = function(warning) {ds.warning("ds.logout", warning)},
       error = function(error) {ds.error(error)},
       finally = {return(outcome)}
     )
@@ -98,9 +98,4 @@ ds.logout <- function(datasources, save = NULL)
   
 }
 
-
-.warning <- function(message)
-{
-  message(paste("ds.client.connection.server::ds.logout :",   message ))
-}
 

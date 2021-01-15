@@ -62,7 +62,7 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
   return.data.object <- data.frame()
   tryCatch(
     {return.data.object <- .build.data.object(servers, urls, users, passwords,  resources, options.ssl,  drivers) },
-    warning = function(warning) {.warning(warning)},
+    warning = function(warning) {ds.warning("ds.build.login.data.resources",warning)},
     error = function(error) {.error(error)},
     finally = {return(return.data.object)})
 }

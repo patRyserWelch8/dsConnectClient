@@ -148,7 +148,7 @@ ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, datasou
   outcome <- FALSE
   tryCatch(
   {outcome <- .find.variable(variable.name, class.type, TRUE, datasources)},
-   warning = function(warning) {.warning(warning)},
+   warning = function(warning) {ds.warning("ds.exists.on.server",warning)},
    error = function(error) {ds.error(error)},
    finally = {return(outcome)}
   )
@@ -184,12 +184,6 @@ ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, datasou
   outcome <- ds.aggregate(server.call, TRUE,datasources)
   outcome <- all(outcome == TRUE)
   return(outcome)
-}
-
-
-.warning <- function(message)
-{
-  message(paste("ds.client.connection.server::ds.find.variable :",   message ))
 }
 
 

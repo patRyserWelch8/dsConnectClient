@@ -134,7 +134,7 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   tryCatch(
     {
       outcome <- .assign(new.variable.name, value, class.type, asynchronous, datasources)},
-    warning = function(warning) {.warning(warning)},
+    warning = function(warning) {ds.warning("ds.assign.value", warning)},
     error = function(error) {ds.error(error)},
     finally = {return(outcome)})
 }

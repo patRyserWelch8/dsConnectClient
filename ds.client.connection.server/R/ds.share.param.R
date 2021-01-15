@@ -83,7 +83,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   success <- FALSE
   tryCatch(
     {success <- .share.parameter(param.names, tolerance, datasources)},
-    warning = function(warning) {.warning(warning)},
+    warning = function(warning) {ds.warning(ds.share.param, warning)},
     error = function(error) {ds.error(error)},
     finally = {return(success)})
 }
