@@ -70,13 +70,20 @@ print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
 print(outcome)
 ```
+```{r}
+
+server.function.call <- call('dimDS','D')
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = FALSE, datasources = NULL)
+print(outcome)
+```
 
 ```{r}
 options(datashield.errors.stop = TRUE)
 print(getOption("datashield.errors.stop"))
 server.function.call <- call('test_errorDS')
 print(server.function.call)
-outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
 print(outcome)
 ```
 
@@ -86,7 +93,7 @@ options(datashield.errors.stop = FALSE)
 print(getOption("datashield.errors.stop"))
 server.function.call <- call('test_errorDS')
 print(server.function.call)
-outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = FALSE, datasources = connections)
 print(outcome)
 ```
 ```{r}
@@ -102,8 +109,7 @@ print(outcome)
 #   
 #  return(3.14)
 #}
-options(datashield.errors.stop = TRUE)
-print(getOption("datashield.errors.stop"))
+
 server.function.call <- call('test_mixed_errorDS')
 print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
@@ -112,6 +118,10 @@ print(outcome)
 
 ```{r}
 
+server.function.call <- call('test_mixed_errorDS')
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = FALSE, datasources = connections)
+print(outcome)
 ```
 
 #logout
