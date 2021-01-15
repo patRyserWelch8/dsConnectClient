@@ -1753,13 +1753,13 @@ summary {
 <h1>Libraries</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0xpYnJhcmllcyBcbmxpYnJhcnkoRFNJKVxubGlicmFyeShEU09wYWwpXG5saWJyYXJ5KGh0dHIpXG5saWJyYXJ5KGRzLmNvbm5lY3QuY2xpZW50KVxubGlicmFyeShkc0Jhc2VDbGllbnQpXG5gYGAifQ== -->
-<pre class="r"><code>#Libraries 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcy5jb25uZWN0LmNsaWVudClcbiNMaWJyYXJpZXMgXG5saWJyYXJ5KERTSSlcbmxpYnJhcnkoRFNPcGFsKVxubGlicmFyeShodHRyKVxubGlicmFyeShkcy5jb25uZWN0LmNsaWVudClcbmBgYCJ9 -->
+<pre class="r"><code>library(ds.connect.client)
+#Libraries 
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.connect.client)
-library(dsBaseClient)</code></pre>
+library(ds.connect.client)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1768,8 +1768,9 @@ library(dsBaseClient)</code></pre>
 <h1>Only one server</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLm5hbWVzICAgICAgPC0gYyhcIlBhcmlzXCIsIFwiTmV3WW9ya1wiLCBcIkNhbWJyaWRnZVwiKVxudXJsX1BhcmlzICAgICAgICAgPC0gJ2h0dHBzOi8vMTkyLjE2OC41Ny4xMDE6ODQ0MydcbnRhYmxlX1BhcmlzICAgICAgIDwtIFwiVEVTVElORy5EQVRBU0VUMVwiXG51c2VyX1BhcmlzICAgICAgICA8LSAgXCJhZG1pbmlzdHJhdG9yXCJcbnBhc3N3b3JkX1BhcmlzICAgIDwtICBcImRhdGFzaGllbGRfdGVzdCZcIlxuc3NsX29wdGlvbnNfUGFyaXMgPC0gXCJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MClcIlxuZHJpdmVyX1BhcmlzICAgICAgPC0gXCJPcGFsRHJpdmVyXCJcblxuXG51cmxfTmV3WW9yayAgICAgICAgICAgPC0gJ2h0dHBzOi8vMTkyLjE2OC41Ni4xMDA6ODQ0MydcbnRhYmxlX05ld1lvcmsgICAgICAgICA8LSBcIlRFU1RJTkcuREFUQVNFVDNcIlxudXNlcl9OZXdZb3JrICAgICAgICAgIDwtICBcImFkbWluaXN0cmF0b3JcIlxucGFzc3dvcmRfTmV3WW9yayAgICAgIDwtICBcImRhdGFzaGllbGRfdGVzdCZcIlxuc3NsX29wdGlvbnNfTmV3WW9yayAgIDwtIFwibGlzdChzc2xfdmVyaWZ5aG9zdD0wLHNzbF92ZXJpZnlwZWVyPTApXCJcbmRyaXZlcl9OZXdZb3JrICAgICAgICA8LSBcIk9wYWxEcml2ZXJcIlxuXG51cmxfQ2FtYnJpZGdlICAgICAgICAgPC0gJ2h0dHBzOi8vb3BhbC1zYW5kYm94Lm1yYy1lcGlkLmNhbS5hYy51a29yJ1xudGFibGVfQ2FtYnJpZGdlICAgICAgIDwtIFwiVEVTVElORy5EQVRBU0VUMlwiXG51c2VyX0NhbWJyaWRnZSAgICAgICAgPC0gIFwiZHN1c2VyXCJcbnBhc3N3b3JkX0NhbWJyaWRnZSAgICA8LSAgXCJwYXNzd29yZFwiXG5zc2xfb3B0aW9uc19DYW1icmlkZ2UgPC0gXCJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MClcIlxuZHJpdmVyX0NhbWJyaWRnZSAgICAgIDwtIFwiT3BhbERyaXZlclwiXG5cblxuc2VydmVyLnVybHMgICAgICAgPC0gYyh1cmxfUGFyaXMsIHVybF9OZXdZb3JrLHVybF9DYW1icmlkZ2UpXG5zZXJ2ZXIudGFibGVzICAgICA8LSBjKHRhYmxlX1BhcmlzLCB0YWJsZV9OZXdZb3JrLHRhYmxlX0NhbWJyaWRnZSlcbnNlcnZlci51c2Vycy5pZCAgIDwtIGModXNlcl9QYXJpcywgdXNlcl9OZXdZb3JrLCB1c2VyX0NhbWJyaWRnZSlcbnNlcnZlci51c2Vycy5wd2QgIDwtICBjKHBhc3N3b3JkX1BhcmlzLCBwYXNzd29yZF9OZXdZb3JrLCBwYXNzd29yZF9DYW1icmlkZ2UpXG5zZXJ2ZXIuc3NsLm9wdGlvbnMgPC0gYyhzc2xfb3B0aW9uc19QYXJpcywgc3NsX29wdGlvbnNfTmV3WW9yaywgc3NsX29wdGlvbnNfQ2FtYnJpZGdlKVxuc2VydmVyLmRyaXZlcnMgICA8LSBjKGRyaXZlcl9QYXJpcyxkcml2ZXJfTmV3WW9yayxkcml2ZXJfQ2FtYnJpZGdlKVxuYGBgIn0= -->
-<pre class="r"><code>server.names      &lt;- c(&quot;Paris&quot;, &quot;NewYork&quot;, &quot;Cambridge&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkc0Jhc2VDbGllbnQpXG5zZXJ2ZXIubmFtZXMgICAgICA8LSBjKFwiUGFyaXNcIiwgXCJOZXdZb3JrXCIsIFwiQ2FtYnJpZGdlXCIpXG51cmxfUGFyaXMgICAgICAgICA8LSAnaHR0cHM6Ly8xOTIuMTY4LjU3LjEwMTo4NDQzJ1xudGFibGVfUGFyaXMgICAgICAgPC0gXCJURVNUSU5HLkRBVEFTRVQxXCJcbnVzZXJfUGFyaXMgICAgICAgIDwtICBcImFkbWluaXN0cmF0b3JcIlxucGFzc3dvcmRfUGFyaXMgICAgPC0gIFwiZGF0YXNoaWVsZF90ZXN0JlwiXG5zc2xfb3B0aW9uc19QYXJpcyA8LSBcImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKVwiXG5kcml2ZXJfUGFyaXMgICAgICA8LSBcIk9wYWxEcml2ZXJcIlxuXG5cbnVybF9OZXdZb3JrICAgICAgICAgICA8LSAnaHR0cHM6Ly8xOTIuMTY4LjU2LjEwMDo4NDQzJ1xudGFibGVfTmV3WW9yayAgICAgICAgIDwtIFwiVEVTVElORy5EQVRBU0VUM1wiXG51c2VyX05ld1lvcmsgICAgICAgICAgPC0gIFwiYWRtaW5pc3RyYXRvclwiXG5wYXNzd29yZF9OZXdZb3JrICAgICAgPC0gIFwiZGF0YXNoaWVsZF90ZXN0JlwiXG5zc2xfb3B0aW9uc19OZXdZb3JrICAgPC0gXCJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MClcIlxuZHJpdmVyX05ld1lvcmsgICAgICAgIDwtIFwiT3BhbERyaXZlclwiXG5cbnVybF9DYW1icmlkZ2UgICAgICAgICA8LSAnaHR0cHM6Ly9vcGFsLXNhbmRib3gubXJjLWVwaWQuY2FtLmFjLnVrb3InXG50YWJsZV9DYW1icmlkZ2UgICAgICAgPC0gXCJURVNUSU5HLkRBVEFTRVQyXCJcbnVzZXJfQ2FtYnJpZGdlICAgICAgICA8LSAgXCJkc3VzZXJcIlxucGFzc3dvcmRfQ2FtYnJpZGdlICAgIDwtICBcInBhc3N3b3JkXCJcbnNzbF9vcHRpb25zX0NhbWJyaWRnZSA8LSBcImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKVwiXG5kcml2ZXJfQ2FtYnJpZGdlICAgICAgPC0gXCJPcGFsRHJpdmVyXCJcblxuXG5zZXJ2ZXIudXJscyAgICAgICA8LSBjKHVybF9QYXJpcywgdXJsX05ld1lvcmssdXJsX0NhbWJyaWRnZSlcbnNlcnZlci50YWJsZXMgICAgIDwtIGModGFibGVfUGFyaXMsIHRhYmxlX05ld1lvcmssdGFibGVfQ2FtYnJpZGdlKVxuc2VydmVyLnVzZXJzLmlkICAgPC0gYyh1c2VyX1BhcmlzLCB1c2VyX05ld1lvcmssIHVzZXJfQ2FtYnJpZGdlKVxuc2VydmVyLnVzZXJzLnB3ZCAgPC0gIGMocGFzc3dvcmRfUGFyaXMsIHBhc3N3b3JkX05ld1lvcmssIHBhc3N3b3JkX0NhbWJyaWRnZSlcbnNlcnZlci5zc2wub3B0aW9ucyA8LSBjKHNzbF9vcHRpb25zX1BhcmlzLCBzc2xfb3B0aW9uc19OZXdZb3JrLCBzc2xfb3B0aW9uc19DYW1icmlkZ2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(dsBaseClient)
+server.names      &lt;- c(&quot;Paris&quot;, &quot;NewYork&quot;, &quot;Cambridge&quot;)
 url_Paris         &lt;- &#39;https://192.168.57.101:8443&#39;
 table_Paris       &lt;- &quot;TESTING.DATASET1&quot;
 user_Paris        &lt;-  &quot;administrator&quot;
@@ -1797,15 +1798,15 @@ server.urls       &lt;- c(url_Paris, url_NewYork,url_Cambridge)
 server.tables     &lt;- c(table_Paris, table_NewYork,table_Cambridge)
 server.users.id   &lt;- c(user_Paris, user_NewYork, user_Cambridge)
 server.users.pwd  &lt;-  c(password_Paris, password_NewYork, password_Cambridge)
-server.ssl.options &lt;- c(ssl_options_Paris, ssl_options_NewYork, ssl_options_Cambridge)
-server.drivers   &lt;- c(driver_Paris,driver_NewYork,driver_Cambridge)</code></pre>
+server.ssl.options &lt;- c(ssl_options_Paris, ssl_options_NewYork, ssl_options_Cambridge)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG9naW4uZGF0YSA8LSBkcy5idWlsZC5sb2dpbi5kYXRhLmZyYW1lKHNlcnZlci5uYW1lcyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudXJscyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudGFibGVzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51c2Vycy5pZCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudXNlcnMucHdkLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci5zc2wub3B0aW9ucyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIuZHJpdmVycylcbnByaW50KGxvZ2luLmRhdGEpXG5gYGAifQ== -->
-<pre class="r"><code>login.data &lt;- ds.build.login.data.frame(server.names,
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLmRyaXZlcnMgICA8LSBjKGRyaXZlcl9QYXJpcyxkcml2ZXJfTmV3WW9yayxkcml2ZXJfQ2FtYnJpZGdlKVxubG9naW4uZGF0YSA8LSBkcy5idWlsZC5sb2dpbi5kYXRhLmZyYW1lKHNlcnZlci5uYW1lcyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudXJscyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudGFibGVzLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51c2Vycy5pZCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudXNlcnMucHdkLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci5zc2wub3B0aW9ucyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIuZHJpdmVycylcbnByaW50KGxvZ2luLmRhdGEpXG5gYGAifQ== -->
+<pre class="r"><code>server.drivers   &lt;- c(driver_Paris,driver_NewYork,driver_Cambridge)
+login.data &lt;- ds.build.login.data.frame(server.names,
                                         server.urls,
                                         server.tables,
                                         server.users.id,
@@ -1836,14 +1837,14 @@ print(login.data)</code></pre>
                    &#39;CATEGORY&#39;)
 connections &lt;- ds.login(login.data, variables = server.var, symbol = &#39;D&#39;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5Mb2dnaW5nIGludG8gdGhlIGNvbGxhYm9yYXRpbmcgc2VydmVyc1xuXG4gIExvZ2luIE5ld1lvcmsgWz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Pi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLV0gIDUwJSAvIDJzXG4gIExvZ2luIENhbWJyaWRnZSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Pi0tLS0tLS0tLS0tLS0tLS0tLV0gIDc1JSAvIDVzVGhlIGZ1bmN0aW9uIGN1cmxfZmV0Y2hfbWVtb3J5KHVybCwgaGFuZGxlID0gaGFuZGxlKTogVGltZW91dCB3YXMgcmVhY2hlZDogW29wYWwtc2FuZGJveC5tcmMtZXBpZC5jYW0uYWMudWtvcl0gQ29ubmVjdGlvbiB0aW1lZCBvdXQgYWZ0ZXIgMTAwMDMgbWlsbGlzZWNvbmRzXG4gaXMgbm90IHdvcmtpbmcgaGFzIGV4cGVjdGVkLlxuVGltZW91dCB3YXMgcmVhY2hlZDogW29wYWwtc2FuZGJveC5tcmMtZXBpZC5jYW0uYWMudWtvcl0gQ29ubmVjdGlvbiB0aW1lZCBvdXQgYWZ0ZXIgMTAwMDMgbWlsbGlzZWNvbmRzXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5Mb2dnaW5nIGludG8gdGhlIGNvbGxhYm9yYXRpbmcgc2VydmVyc1xuXG4gIExvZ2luIE5ld1lvcmsgWz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Pi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLV0gIDUwJSAvIDNzXG4gIExvZ2luIENhbWJyaWRnZSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Pi0tLS0tLS0tLS0tLS0tLS0tLV0gIDc1JSAvIDRzVGhlIGZ1bmN0aW9uIGN1cmxfZmV0Y2hfbWVtb3J5KHVybCwgaGFuZGxlID0gaGFuZGxlKTogVGltZW91dCB3YXMgcmVhY2hlZDogW29wYWwtc2FuZGJveC5tcmMtZXBpZC5jYW0uYWMudWtvcl0gQ29ubmVjdGlvbiB0aW1lZCBvdXQgYWZ0ZXIgMTAwMDEgbWlsbGlzZWNvbmRzXG4gaXMgbm90IHdvcmtpbmcgaGFzIGV4cGVjdGVkLlxuVGltZW91dCB3YXMgcmVhY2hlZDogW29wYWwtc2FuZGJveC5tcmMtZXBpZC5jYW0uYWMudWtvcl0gQ29ubmVjdGlvbiB0aW1lZCBvdXQgYWZ0ZXIgMTAwMDEgbWlsbGlzZWNvbmRzXG4ifQ== -->
 <pre><code>
 Logging into the collaborating servers
 
-  Login NewYork [===================================&gt;------------------------------------]  50% / 2s
-  Login Cambridge [===================================================&gt;------------------]  75% / 5sThe function curl_fetch_memory(url, handle = handle): Timeout was reached: [opal-sandbox.mrc-epid.cam.ac.ukor] Connection timed out after 10003 milliseconds
+  Login NewYork [===================================&gt;------------------------------------]  50% / 3s
+  Login Cambridge [===================================================&gt;------------------]  75% / 4sThe function curl_fetch_memory(url, handle = handle): Timeout was reached: [opal-sandbox.mrc-epid.cam.ac.ukor] Connection timed out after 10001 milliseconds
  is not working has expected.
-Timeout was reached: [opal-sandbox.mrc-epid.cam.ac.ukor] Connection timed out after 10003 milliseconds</code></pre>
+Timeout was reached: [opal-sandbox.mrc-epid.cam.ac.ukor] Connection timed out after 10001 milliseconds</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoY29ubmVjdGlvbnMpXG5gYGAifQ== -->
 <pre class="r"><code>print(connections)</code></pre>

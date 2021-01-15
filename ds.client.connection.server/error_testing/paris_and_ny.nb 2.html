@@ -1768,8 +1768,8 @@ library(dsBaseClient)</code></pre>
 <h1>Only one server</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLm5hbWVzICAgICAgPC0gYyhcIlBhcmlzXCIsIFwiTmV3WW9ya1wiLCBcIkNhbWJyaWRnZVwiKVxudXJsX1BhcmlzICAgICAgICAgPC0gJ2h0dHBzOi8vMTkyLjE2OC41Ny4xMDE6ODQ0MydcbnRhYmxlX1BhcmlzICAgICAgIDwtIFwiVEVTVElORy5EQVRBU0VUMVwiXG51c2VyX1BhcmlzICAgICAgICA8LSAgXCJhZG1pbmlzdHJhdG9yXCJcbnBhc3N3b3JkX1BhcmlzICAgIDwtICBcImRhdGFzaGllbGRfdGVzdCZcIlxuc3NsX29wdGlvbnNfUGFyaXMgPC0gXCJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MClcIlxuZHJpdmVyX1BhcmlzICAgICAgPC0gXCJPcGFsRHJpdmVyXCJcblxuXG51cmxfTmV3WW9yayAgICAgICAgICAgPC0gJ2h0dHBzOi8vMTkyLjE2OC41Ni4xMDA6ODQ0MydcbnRhYmxlX05ld1lvcmsgICAgICAgICA8LSBcIlRFU1RJTkcuREFUQVNFVDNcIlxudXNlcl9OZXdZb3JrICAgICAgICAgIDwtICBcImFkbWluaXN0cmF0b3JcIlxucGFzc3dvcmRfTmV3WW9yayAgICAgIDwtICBcImRhdGFzaGllbGRfdGVzdCZcIlxuc3NsX29wdGlvbnNfTmV3WW9yayAgIDwtIFwibGlzdChzc2xfdmVyaWZ5aG9zdD0wLHNzbF92ZXJpZnlwZWVyPTApXCJcbmRyaXZlcl9OZXdZb3JrICAgICAgICA8LSBcIk9wYWxEcml2ZXJcIlxuXG51cmxfQ2FtYnJpZGdlICAgICAgICAgPC0gJ2h0dHBzOi8vb3BhbC1zYW5kYm94Lm1yYy1lcGlkLmNhbS5hYy51a29yJ1xudGFibGVfQ2FtYnJpZGdlICAgICAgIDwtIFwiVEVTVElORy5EQVRBU0VUMlwiXG51c2VyX0NhbWJyaWRnZSAgICAgICAgPC0gIFwiZHN1c2VyXCJcbnBhc3N3b3JkX0NhbWJyaWRnZSAgICA8LSAgXCJwYXNzd29yZFwiXG5zc2xfb3B0aW9uc19DYW1icmlkZ2UgPC0gXCJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MClcIlxuZHJpdmVyX0NhbWJyaWRnZSAgICAgIDwtIFwiT3BhbERyaXZlclwiXG5cblxuc2VydmVyLnVybHMgICAgICAgPC0gYyh1cmxfUGFyaXMsIHVybF9OZXdZb3JrLHVybF9DYW1icmlkZ2UpXG5zZXJ2ZXIudGFibGVzICAgICA8LSBjKHRhYmxlX1BhcmlzLCB0YWJsZV9OZXdZb3JrLHRhYmxlX0NhbWJyaWRnZSlcbnNlcnZlci51c2Vycy5pZCAgIDwtIGModXNlcl9QYXJpcywgdXNlcl9OZXdZb3JrLCB1c2VyX0NhbWJyaWRnZSlcbnNlcnZlci51c2Vycy5wd2QgIDwtICBjKHBhc3N3b3JkX1BhcmlzLCBwYXNzd29yZF9OZXdZb3JrLCBwYXNzd29yZF9DYW1icmlkZ2UpXG5zZXJ2ZXIuc3NsLm9wdGlvbnMgPC0gYyhzc2xfb3B0aW9uc19QYXJpcywgc3NsX29wdGlvbnNfTmV3WW9yaywgc3NsX29wdGlvbnNfQ2FtYnJpZGdlKVxuc2VydmVyLmRyaXZlcnMgICA8LSBjKGRyaXZlcl9QYXJpcyxkcml2ZXJfTmV3WW9yayxkcml2ZXJfQ2FtYnJpZGdlKVxuYGBgIn0= -->
-<pre class="r"><code>server.names      &lt;- c(&quot;Paris&quot;, &quot;NewYork&quot;, &quot;Cambridge&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2VydmVyLm5hbWVzICAgICAgPC0gYyhcIlBhcmlzXCIsIFwiTmV3WW9ya1wiKVxudXJsX1BhcmlzICAgICAgICAgPC0gJ2h0dHBzOi8vMTkyLjE2OC41Ny4xMDE6ODQ0MydcbnRhYmxlX1BhcmlzICAgICAgIDwtIFwiVEVTVElORy5EQVRBU0VUMVwiXG51c2VyX1BhcmlzICAgICAgICA8LSAgXCJhZG1pbmlzdHJhdG9yXCJcbnBhc3N3b3JkX1BhcmlzICAgIDwtICBcImRhdGFzaGllbGRfdGVzdCZcIlxuc3NsX29wdGlvbnNfUGFyaXMgPC0gXCJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MClcIlxuZHJpdmVyX1BhcmlzICAgICAgPC0gXCJPcGFsRHJpdmVyXCJcblxuXG51cmxfTmV3WW9yayAgIDwtICdodHRwczovLzE5Mi4xNjguNTYuMTAwOjg0NDMnXG50YWJsZV9OZXdZb3JrICAgPC0gXCJURVNUSU5HLkRBVEFTRVQzXCJcbnVzZXJfTmV3WW9yayAgICA8LSAgXCJhZG1pbmlzdHJhdG9yXCJcbnBhc3N3b3JkX05ld1lvcmsgICAgPC0gIFwiZGF0YXNoaWVsZF90ZXN0JlwiXG5zc2xfb3B0aW9uc19OZXdZb3JrICAgPC0gXCJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MClcIlxuZHJpdmVyX05ld1lvcmsgICA8LSBcIk9wYWxEcml2ZXJcIlxuXG5cbnNlcnZlci51cmxzICAgICAgIDwtIGModXJsX1BhcmlzLCB1cmxfTmV3WW9yaylcbnNlcnZlci50YWJsZXMgICAgIDwtIGModGFibGVfUGFyaXMsIHRhYmxlX05ld1lvcmspXG5zZXJ2ZXIudXNlcnMuaWQgICA8LSBjKHVzZXJfUGFyaXMsIHVzZXJfTmV3WW9yaylcbnNlcnZlci51c2Vycy5wd2QgIDwtICBjKHBhc3N3b3JkX1BhcmlzLCBwYXNzd29yZF9OZXdZb3JrKVxuc2VydmVyLnNzbC5vcHRpb25zIDwtIGMoc3NsX29wdGlvbnNfUGFyaXMsIHNzbF9vcHRpb25zX05ld1lvcmspXG5zZXJ2ZXIuZHJpdmVycyAgIDwtIGMoZHJpdmVyX1BhcmlzLGRyaXZlcl9OZXdZb3JrKVxuYGBgIn0= -->
+<pre class="r"><code>server.names      &lt;- c(&quot;Paris&quot;, &quot;NewYork&quot;)
 url_Paris         &lt;- &#39;https://192.168.57.101:8443&#39;
 table_Paris       &lt;- &quot;TESTING.DATASET1&quot;
 user_Paris        &lt;-  &quot;administrator&quot;
@@ -1778,27 +1778,20 @@ ssl_options_Paris &lt;- &quot;list(ssl_verifyhost=0,ssl_verifypeer=0)&quot;
 driver_Paris      &lt;- &quot;OpalDriver&quot;
 
 
-url_NewYork           &lt;- &#39;https://192.168.56.100:8443&#39;
-table_NewYork         &lt;- &quot;TESTING.DATASET3&quot;
-user_NewYork          &lt;-  &quot;administrator&quot;
-password_NewYork      &lt;-  &quot;datashield_test&amp;&quot;
+url_NewYork   &lt;- &#39;https://192.168.56.100:8443&#39;
+table_NewYork   &lt;- &quot;TESTING.DATASET3&quot;
+user_NewYork    &lt;-  &quot;administrator&quot;
+password_NewYork    &lt;-  &quot;datashield_test&amp;&quot;
 ssl_options_NewYork   &lt;- &quot;list(ssl_verifyhost=0,ssl_verifypeer=0)&quot;
-driver_NewYork        &lt;- &quot;OpalDriver&quot;
-
-url_Cambridge         &lt;- &#39;https://opal-sandbox.mrc-epid.cam.ac.ukor&#39;
-table_Cambridge       &lt;- &quot;TESTING.DATASET2&quot;
-user_Cambridge        &lt;-  &quot;dsuser&quot;
-password_Cambridge    &lt;-  &quot;password&quot;
-ssl_options_Cambridge &lt;- &quot;list(ssl_verifyhost=0,ssl_verifypeer=0)&quot;
-driver_Cambridge      &lt;- &quot;OpalDriver&quot;
+driver_NewYork   &lt;- &quot;OpalDriver&quot;
 
 
-server.urls       &lt;- c(url_Paris, url_NewYork,url_Cambridge)
-server.tables     &lt;- c(table_Paris, table_NewYork,table_Cambridge)
-server.users.id   &lt;- c(user_Paris, user_NewYork, user_Cambridge)
-server.users.pwd  &lt;-  c(password_Paris, password_NewYork, password_Cambridge)
-server.ssl.options &lt;- c(ssl_options_Paris, ssl_options_NewYork, ssl_options_Cambridge)
-server.drivers   &lt;- c(driver_Paris,driver_NewYork,driver_Cambridge)</code></pre>
+server.urls       &lt;- c(url_Paris, url_NewYork)
+server.tables     &lt;- c(table_Paris, table_NewYork)
+server.users.id   &lt;- c(user_Paris, user_NewYork)
+server.users.pwd  &lt;-  c(password_Paris, password_NewYork)
+server.ssl.options &lt;- c(ssl_options_Paris, ssl_options_NewYork)
+server.drivers   &lt;- c(driver_Paris,driver_NewYork)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1814,10 +1807,10 @@ server.drivers   &lt;- c(driver_Paris,driver_NewYork,driver_Cambridge)</code></p
                                         server.drivers)
 print(login.data)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6OX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE3VlR6MC9iTUJnMVRiTXRrYnBWMm5IM0RhVEZOSlN4RG9rRFdtSGFCYVlSSkRnaE56YlVxbU5IbjUyVjNmYVhBMDRicjYxUjJYYll3YksvNS9mOWVDL3g5K0ZGUDc2SUVVSUJhdHNWaFBhSXd2UHNPQmtnMUc3WllNTmVSUFYrYTBtdjdhRU91azFHZlE2L0VlQzZDWjZmc09tbGdra1RScDlKTVFKT2I1aVg5R1pzVEtuM3Q3ZlRUenM0M1J2Z0R4OXgya3YzQjd1Ny9iV1VQVXZwTFZPMkhFV1ZSQ1NhU0RwU3Q3aUFQR0VscHpnbkJTWTVyaVlLdlBiZDdPZ3MrM3J5QlE4UHM4T3pveXhkZy9mWDREdGVQZlJvWDcyUFQrMkFRK0EvR1B3VnNwcmRJYlRna21zRHhDaDRDbnhHZGFVZjVYY3BNVVNQT1JQMHlqQnQzdjRCZjFFU3JhY0s2RCtxZkNmc09KdGFpeXVyZ1YvL0hDdHREbnJ2RjBESkdCejB0djR6ZmZXL0RTVXBtRzRtalp4UDFxU0Y4MEVGd3JFTkdRbm1mQUNtVlFVNSsrM3U4dmRxejV6MkhYTmwxSVJKOXlaVWFiaVMyaHNzQWpYRmJyaU9YYTFmYzBzRFgwRXViUFZHZ1FQait0dmhhN0Q1TnJyelVoWXRXL1dURGIza0RmQ0FWNVdzSjZGSlBxN2tKT25YRFdiWDg5VnA5bURwSE0xYnR1NmJVcUV6aWNrYkxwMWxvU0FqNXN4OWFSWFBCT01TdURST2lVVTFOc29ReDR0ekpSd3kwNGJ1SGdERStFTS9xUVFBQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6OX0sInJkZiI6Ikg0c0lBQUFBQUFBQUE1VlNYVS9DTUJRdEgwTllncHI0NkxzZmlRd21pRWpDQXdsb2ZFRWpNOEVuVWxpUmh0SXViU2Y2NTlFT1duQUxKUHF3OU43VGMrODk5Nnd2blVIVkh0Z0FnQXpJcWk5anFSQllyOTU5cVFGQU5xMlNsTG9vUk9lbklwMm9JRXFPMVpmV0Y5WXo1RmpvNUtDSEZtK016eEtjMDZtVWdXaVd5KzdkdGVQV0c4N05yZU5XM0dhalZxdnVwZFFWcGJLbXhMc2RlOTIrOTloN2NEcHRyOTN2ZXU0ZVBGa0hObWNjdDU4Q1NEb2NmeUMrQTRsemk5Q2ZZNHFGNUZBeXZodE1xUFdoaEdLS0VmR0hFZ2w1dGhmL205cHpvZ1pkQ0VHR1NoMmVmRTJaa0szSzFSWUlFT0t0eXVWLzZmSGZiVkU0UjBLUExtZ3dKeERmbXBRSk9URnNDVWNFNlNUUGtXQWhINXM4NS8rMk5odUtUWndQb0JBTHh2MU5HelpEMUR3bEZrak1xRWdJSzNDMmNJeTQ0c3FYNkhKMXhqY1lFOVZkYjJCQU96TGRtWEJWcjdKbG9tUTdNaDI5ZEN0Um5PSUo0Q2lra1JLL05KNkdkRmFxUlFPMG1wUldwNVZ0NHNKNlpQcGJ0N0tNU1lpK1kyb3Nzd2djSVdQdW9kcDR0YkFUY0V5bDJVU2h3cEZNUXNPeng0d1laTFViV1A0QUVQQlpuT0FEQUFBPSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["server"],"name":[1],"type":["chr"],"align":["left"]},{"label":["url"],"name":[2],"type":["chr"],"align":["left"]},{"label":["table"],"name":[3],"type":["chr"],"align":["left"]},{"label":["resource"],"name":[4],"type":["chr"],"align":["left"]},{"label":["driver"],"name":[5],"type":["chr"],"align":["left"]},{"label":["user"],"name":[6],"type":["chr"],"align":["left"]},{"label":["password"],"name":[7],"type":["chr"],"align":["left"]},{"label":["token"],"name":[8],"type":["chr"],"align":["left"]},{"label":["options"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"Paris","2":"https://192.168.57.101:8443","3":"TESTING.DATASET1","4":"","5":"OpalDriver","6":"administrator","7":"datashield_test&","8":"","9":"list(ssl_verifyhost=0,ssl_verifypeer=0)","_rn_":"1"},{"1":"NewYork","2":"https://192.168.56.100:8443","3":"TESTING.DATASET3","4":"","5":"OpalDriver","6":"administrator","7":"datashield_test&","8":"","9":"list(ssl_verifyhost=0,ssl_verifypeer=0)","_rn_":"2"},{"1":"Cambridge","2":"https://opal-sandbox.mrc-epid.cam.ac.ukor","3":"TESTING.DATASET2","4":"","5":"OpalDriver","6":"dsuser","7":"password","8":"","9":"list(ssl_verifyhost=0,ssl_verifypeer=0)","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10],"total":[9]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["server"],"name":[1],"type":["chr"],"align":["left"]},{"label":["url"],"name":[2],"type":["chr"],"align":["left"]},{"label":["table"],"name":[3],"type":["chr"],"align":["left"]},{"label":["resource"],"name":[4],"type":["chr"],"align":["left"]},{"label":["driver"],"name":[5],"type":["chr"],"align":["left"]},{"label":["user"],"name":[6],"type":["chr"],"align":["left"]},{"label":["password"],"name":[7],"type":["chr"],"align":["left"]},{"label":["token"],"name":[8],"type":["chr"],"align":["left"]},{"label":["options"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"Paris","2":"https://192.168.57.101:8443","3":"TESTING.DATASET1","4":"","5":"OpalDriver","6":"administrator","7":"datashield_test&","8":"","9":"list(ssl_verifyhost=0,ssl_verifypeer=0)","_rn_":"1"},{"1":"NewYork","2":"https://192.168.56.100:8443","3":"TESTING.DATASET3","4":"","5":"OpalDriver","6":"administrator","7":"datashield_test&","8":"","9":"list(ssl_verifyhost=0,ssl_verifypeer=0)","_rn_":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[9]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
@@ -1836,20 +1829,46 @@ print(login.data)</code></pre>
                    &#39;CATEGORY&#39;)
 connections &lt;- ds.login(login.data, variables = server.var, symbol = &#39;D&#39;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5Mb2dnaW5nIGludG8gdGhlIGNvbGxhYm9yYXRpbmcgc2VydmVyc1xuXG4gIExvZ2luIE5ld1lvcmsgWz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Pi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLV0gIDUwJSAvIDJzXG4gIExvZ2luIENhbWJyaWRnZSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Pi0tLS0tLS0tLS0tLS0tLS0tLV0gIDc1JSAvIDVzVGhlIGZ1bmN0aW9uIGN1cmxfZmV0Y2hfbWVtb3J5KHVybCwgaGFuZGxlID0gaGFuZGxlKTogVGltZW91dCB3YXMgcmVhY2hlZDogW29wYWwtc2FuZGJveC5tcmMtZXBpZC5jYW0uYWMudWtvcl0gQ29ubmVjdGlvbiB0aW1lZCBvdXQgYWZ0ZXIgMTAwMDMgbWlsbGlzZWNvbmRzXG4gaXMgbm90IHdvcmtpbmcgaGFzIGV4cGVjdGVkLlxuVGltZW91dCB3YXMgcmVhY2hlZDogW29wYWwtc2FuZGJveC5tcmMtZXBpZC5jYW0uYWMudWtvcl0gQ29ubmVjdGlvbiB0aW1lZCBvdXQgYWZ0ZXIgMTAwMDMgbWlsbGlzZWNvbmRzXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5Mb2dnaW5nIGludG8gdGhlIGNvbGxhYm9yYXRpbmcgc2VydmVyc1xuXG4gIExvZ2luIE5ld1lvcmsgWz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Pi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLV0gIDY3JSAvIDFzXG4gIExvZ2dlZCBpbiBhbGwgc2VydmVycyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDJzXG5cbkFzc2lnbmluZyB0YWJsZSBkYXRhLi4uXG5cbiAgQXNzaWduaW5nIE5ld1lvcmsgKFRFU1RJTkcuREFUQVNFVDMpIFs9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT4tLS0tLS0tLS0tLS0tLS0tXSAgNjclIC8gMnNcbiAgQXNzaWduZWQgYWxsIHRhYmxlcyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XSAxMDAlIC8gMnNcbiJ9 -->
 <pre><code>
 Logging into the collaborating servers
 
-  Login NewYork [===================================&gt;------------------------------------]  50% / 2s
-  Login Cambridge [===================================================&gt;------------------]  75% / 5sThe function curl_fetch_memory(url, handle = handle): Timeout was reached: [opal-sandbox.mrc-epid.cam.ac.ukor] Connection timed out after 10003 milliseconds
- is not working has expected.
-Timeout was reached: [opal-sandbox.mrc-epid.cam.ac.ukor] Connection timed out after 10003 milliseconds</code></pre>
+  Login NewYork [===============================================&gt;------------------------]  67% / 1s
+  Logged in all servers [================================================================] 100% / 2s
+
+Assigning table data...
+
+  Assigning NewYork (TESTING.DATASET3) [================================&gt;----------------]  67% / 2s
+  Assigned all tables [==================================================================] 100% / 2s</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQoY29ubmVjdGlvbnMpXG5gYGAifQ== -->
 <pre class="r"><code>print(connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTlVMTFxuIn0= -->
-<pre><code>NULL</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiJFBhcmlzXG5BbiBvYmplY3Qgb2YgY2xhc3MgXCJPcGFsQ29ubmVjdGlvblwiXG5TbG90IFwibmFtZVwiOlxuWzFdIFwiUGFyaXNcIlxuXG5TbG90IFwib3BhbFwiOlxudXJsOiBodHRwczovLzE5Mi4xNjguNTcuMTAxOjg0NDMgXG5uYW1lOiBQYXJpcyBcbnZlcnNpb246IDMuMC43IFxudXNlcm5hbWU6IGFkbWluaXN0cmF0b3IgXG5yaWQ6IDIwY2EzMzU5LWI3NGEtNDc0NS1hMjgwLTkzNzNkYmI1ZDFkOCBcblxuXG4kTmV3WW9ya1xuQW4gb2JqZWN0IG9mIGNsYXNzIFwiT3BhbENvbm5lY3Rpb25cIlxuU2xvdCBcIm5hbWVcIjpcblsxXSBcIk5ld1lvcmtcIlxuXG5TbG90IFwib3BhbFwiOlxudXJsOiBodHRwczovLzE5Mi4xNjguNTYuMTAwOjg0NDMgXG5uYW1lOiBOZXdZb3JrIFxudmVyc2lvbjogMy4wLjcgXG51c2VybmFtZTogYWRtaW5pc3RyYXRvciBcbnJpZDogZDFlNzkyYTUtZDZlNy00MWM4LWIwYTEtODk1YTAwNWE0Yzk3IFxuIn0= -->
+<pre><code>$Paris
+An object of class &quot;OpalConnection&quot;
+Slot &quot;name&quot;:
+[1] &quot;Paris&quot;
+
+Slot &quot;opal&quot;:
+url: https://192.168.57.101:8443 
+name: Paris 
+version: 3.0.7 
+username: administrator 
+rid: 20ca3359-b74a-4745-a280-9373dbb5d1d8 
+
+
+$NewYork
+An object of class &quot;OpalConnection&quot;
+Slot &quot;name&quot;:
+[1] &quot;NewYork&quot;
+
+Slot &quot;opal&quot;:
+url: https://192.168.56.100:8443 
+name: NewYork 
+version: 3.0.7 
+username: administrator 
+rid: d1e792a5-d6e7-41c8-b0a1-895a005a4c97 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1866,15 +1885,20 @@ print(server.function.call)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucylcbmBgYCJ9 -->
 <pre class="r"><code>outcome &lt;- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZ1bmN0aW9uIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuXG5IYXZlIHlvdSBjb25uZWN0ZWQgdG8gdGhlIE9wYWwgc2VydmVyPyBIYXZlIHlvdSBzdWNjZXNzZnVsbHkgc3RhcnRlZCB5b3VyIE9wYWwgU2VydmVycz8gSGF2ZSBZb3UgbmVlZCB0byBwYXNzIGEgdmFsaWQgY29ubmVjdGlvbi4gUGxlYXNlIHVzZSBkcy5sb2dpbiBcbiJ9 -->
-<pre><code>The function ds.aggregate is not working has expected.
-Have you connected to the Opal server? Have you successfully started your Opal Servers? Have You need to pass a valid connection. Please use ds.login </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIEFnZ3JlZ2F0aW5nIE5ld1lvcmsgKGRpbURTKFwiRFwiKSkgWz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0+LS0tLS0tLS0tLS0tLS0tLS0tXSAgNjclIC8gMHNcbiAgQWdncmVnYXRlZCAoZGltRFMoXCJEXCIpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1dIDEwMCUgLyAxc1xuIn0= -->
+<pre><code>
+  Aggregating NewYork (dimDS(&quot;D&quot;)) [==================================&gt;------------------]  67% / 0s
+  Aggregated (dimDS(&quot;D&quot;)) [==============================================================] 100% / 1s</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
 <pre class="r"><code>print(outcome)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTlJcIlxuIn0= -->
-<pre><code>[1] &quot;NR&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiJFBhcmlzXG5bMV0gNzEgMTZcblxuJE5ld1lvcmtcblsxXSA3MSAxNlxuIn0= -->
+<pre><code>$Paris
+[1] 71 16
+
+$NewYork
+[1] 71 16</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1897,9 +1921,35 @@ print(server.function.call)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucylcbmBgYCJ9 -->
 <pre class="r"><code>outcome &lt;- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZ1bmN0aW9uIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuXG5IYXZlIHlvdSBjb25uZWN0ZWQgdG8gdGhlIE9wYWwgc2VydmVyPyBIYXZlIHlvdSBzdWNjZXNzZnVsbHkgc3RhcnRlZCB5b3VyIE9wYWwgU2VydmVycz8gSGF2ZSBZb3UgbmVlZCB0byBwYXNzIGEgdmFsaWQgY29ubmVjdGlvbi4gUGxlYXNlIHVzZSBkcy5sb2dpbiBcbiJ9 -->
-<pre><code>The function ds.aggregate is not working has expected.
-Have you connected to the Opal server? Have you successfully started your Opal Servers? Have You need to pass a valid connection. Please use ds.login </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIEFnZ3JlZ2F0aW5nIE5ld1lvcmsgKHRlc3RfZXJyb3JEUygpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0+LS0tLS0tLS0tLS0tLS0tLV0gIDY3JSAvIDBzXG4gIEFnZ3JlZ2F0ZWQgKHRlc3RfZXJyb3JEUygpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDFzXG4ifQ== -->
+<pre><code>
+  Aggregating NewYork (test_errorDS()) [================================&gt;----------------]  67% / 0s
+  Aggregated (test_errorDS()) [==========================================================] 100% / 1s</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiPT09PT09PT1cIlxuW1sxXV1cblsxXSBcImRzLmFnZ3JlZ2F0ZVwiXG5cbltbMl1dXG5bMV0gXCJ0ZXN0X2Vycm9yRFNcIlxuXG5bWzNdXVxuW1szXV0kUGFyaXNcblsxXSBcIkNsaWVudCBlcnJvcjogKDQwMCkgQmFkIFJlcXVlc3Q7IFJTZXJ2ZXJSdW50aW1lRXJyb3I6IEVycm9yIHdoaWxlIGV2YWx1YXRpbmcgJy5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCknIC0+IEVycm9yIGluIC5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCkgOiBFUlI6OlNFUlZFUjo6VEVTVElORzo6MDAxOiBFcnJvciBpbiAuQUdHUkVHQVRFJHRlc3RfZXJyb3JEUygpIDogRVJSOjpTRVJWRVI6OlRFU1RJTkc6OjAwMVwiXG5cbltbM11dJE5ld1lvcmtcblsxXSBcIkNsaWVudCBlcnJvcjogKDQwMCkgQmFkIFJlcXVlc3Q7IFJTZXJ2ZXJSdW50aW1lRXJyb3I6IEVycm9yIHdoaWxlIGV2YWx1YXRpbmcgJy5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCknIC0+IEVycm9yIGluIC5BR0dSRUdBVEUkdGVzdF9lcnJvckRTKCkgOiBFUlI6OlNFUlZFUjo6VEVTVElORzo6MDAyOiBFcnJvciBpbiAuQUdHUkVHQVRFJHRlc3RfZXJyb3JEUygpIDogRVJSOjpTRVJWRVI6OlRFU1RJTkc6OjAwMlwiXG5cblxuWzFdIFwiX19fX18gc2VydmVyIGVycm9yIF9fX19cIlxuIn0= -->
+<pre><code>[1] &quot;========&quot;
+[[1]]
+[1] &quot;ds.aggregate&quot;
+
+[[2]]
+[1] &quot;test_errorDS&quot;
+
+[[3]]
+[[3]]$Paris
+[1] &quot;Client error: (400) Bad Request; RServerRuntimeError: Error while evaluating &#39;.AGGREGATE$test_errorDS()&#39; -&gt; Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::001: Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::001&quot;
+
+[[3]]$NewYork
+[1] &quot;Client error: (400) Bad Request; RServerRuntimeError: Error while evaluating &#39;.AGGREGATE$test_errorDS()&#39; -&gt; Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::002: Error in .AGGREGATE$test_errorDS() : ERR::SERVER::TESTING::002&quot;
+
+
+[1] &quot;_____ server error ____&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGNsaWVudC1zaWRlIGZ1bmN0aW9uIG5hbWVkIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuXG5BbiBlcnJvciBoYXMgb2NjdXJyZWQgb24gdGhlIHNlcnZlci4gVGhlIGZ1bmN0aW9uIHRlc3RfZXJyb3JEUyBoYXMgbm90IGJlZW4gYWJsZSB0byBlaXRoZXIgYXNzaWduIG9yIHJldHVybiBhbiBhZ2dyZWdhdGlvbi4gXG5cbnNlcnZlciBQYXJpcyAgOiAgVEVTVElORyBPUFRJT04gSVMgU0VUIFRPIDFcbnNlcnZlciBOZXdZb3JrICA6ICBURVNUSU5HIE9QVElPTiBJUyBTRVQgVE8gMlxuIn0= -->
+<pre><code>The client-side function named ds.aggregate is not working has expected.
+An error has occurred on the server. The function test_errorDS has not been able to either assign or return an aggregation. 
+
+server Paris  :  TESTING OPTION IS SET TO 1
+server NewYork  :  TESTING OPTION IS SET TO 2</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
 <pre class="r"><code>print(outcome)</code></pre>
@@ -1928,9 +1978,10 @@ print(server.function.call)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucylcbmBgYCJ9 -->
 <pre class="r"><code>outcome &lt;- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZ1bmN0aW9uIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuXG5IYXZlIHlvdSBjb25uZWN0ZWQgdG8gdGhlIE9wYWwgc2VydmVyPyBIYXZlIHlvdSBzdWNjZXNzZnVsbHkgc3RhcnRlZCB5b3VyIE9wYWwgU2VydmVycz8gSGF2ZSBZb3UgbmVlZCB0byBwYXNzIGEgdmFsaWQgY29ubmVjdGlvbi4gUGxlYXNlIHVzZSBkcy5sb2dpbiBcbiJ9 -->
-<pre><code>The function ds.aggregate is not working has expected.
-Have you connected to the Opal server? Have you successfully started your Opal Servers? Have You need to pass a valid connection. Please use ds.login </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIEFnZ3JlZ2F0aW5nIE5ld1lvcmsgKHRlc3RfZXJyb3JEUygpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0+LS0tLS0tLS0tLS0tLS0tLV0gIDY3JSAvIDBzXG4gIEFnZ3JlZ2F0ZWQgKHRlc3RfZXJyb3JEUygpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDFzXG4ifQ== -->
+<pre><code>
+  Aggregating NewYork (test_errorDS()) [================================&gt;----------------]  67% / 0s
+  Aggregated (test_errorDS()) [==========================================================] 100% / 1s</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
 <pre class="r"><code>print(outcome)</code></pre>
@@ -1969,9 +2020,31 @@ print(server.function.call)</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucylcbmBgYCJ9 -->
 <pre class="r"><code>outcome &lt;- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZ1bmN0aW9uIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuXG5IYXZlIHlvdSBjb25uZWN0ZWQgdG8gdGhlIE9wYWwgc2VydmVyPyBIYXZlIHlvdSBzdWNjZXNzZnVsbHkgc3RhcnRlZCB5b3VyIE9wYWwgU2VydmVycz8gSGF2ZSBZb3UgbmVlZCB0byBwYXNzIGEgdmFsaWQgY29ubmVjdGlvbi4gUGxlYXNlIHVzZSBkcy5sb2dpbiBcbiJ9 -->
-<pre><code>The function ds.aggregate is not working has expected.
-Have you connected to the Opal server? Have you successfully started your Opal Servers? Have You need to pass a valid connection. Please use ds.login </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIEFnZ3JlZ2F0aW5nIE5ld1lvcmsgKHRlc3RfbWl4ZWRfZXJyb3JEUygpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT4tLS0tLS0tLS0tLS0tLV0gIDY3JSAvIDBzXG4gIEFnZ3JlZ2F0ZWQgKHRlc3RfbWl4ZWRfZXJyb3JEUygpKSBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDFzXG4ifQ== -->
+<pre><code>
+  Aggregating NewYork (test_mixed_errorDS()) [============================&gt;--------------]  67% / 0s
+  Aggregated (test_mixed_errorDS()) [====================================================] 100% / 1s</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiPT09PT09PT1cIlxuW1sxXV1cblsxXSBcImRzLmFnZ3JlZ2F0ZVwiXG5cbltbMl1dXG5bMV0gXCJ0ZXN0X21peGVkX2Vycm9yRFNcIlxuXG5bWzNdXVxuW1szXV0kUGFyaXNcblsxXSBcIkNsaWVudCBlcnJvcjogKDQwMCkgQmFkIFJlcXVlc3Q7IFJTZXJ2ZXJSdW50aW1lRXJyb3I6IEVycm9yIHdoaWxlIGV2YWx1YXRpbmcgJy5BR0dSRUdBVEUkdGVzdF9taXhlZF9lcnJvckRTKCknIC0+IEVycm9yIGluIC5BR0dSRUdBVEUkdGVzdF9taXhlZF9lcnJvckRTKCkgOiB5b3UgYXJlIG5vdCBhbGxvd2VkOiBFcnJvciBpbiAuQUdHUkVHQVRFJHRlc3RfbWl4ZWRfZXJyb3JEUygpIDogeW91IGFyZSBub3QgYWxsb3dlZFwiXG5cblxuWzFdIFwiX19fX18gc2VydmVyIGVycm9yIF9fX19cIlxuIn0= -->
+<pre><code>[1] &quot;========&quot;
+[[1]]
+[1] &quot;ds.aggregate&quot;
+
+[[2]]
+[1] &quot;test_mixed_errorDS&quot;
+
+[[3]]
+[[3]]$Paris
+[1] &quot;Client error: (400) Bad Request; RServerRuntimeError: Error while evaluating &#39;.AGGREGATE$test_mixed_errorDS()&#39; -&gt; Error in .AGGREGATE$test_mixed_errorDS() : you are not allowed: Error in .AGGREGATE$test_mixed_errorDS() : you are not allowed&quot;
+
+
+[1] &quot;_____ server error ____&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGNsaWVudC1zaWRlIGZ1bmN0aW9uIG5hbWVkIGRzLmFnZ3JlZ2F0ZSBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuXG5BbiBlcnJvciBoYXMgb2NjdXJyZWQgb24gdGhlIHNlcnZlci4gVGhlIGZ1bmN0aW9uIHRlc3RfbWl4ZWRfZXJyb3JEUyBoYXMgbm90IGJlZW4gYWJsZSB0byBlaXRoZXIgYXNzaWduIG9yIHJldHVybiBhbiBhZ2dyZWdhdGlvbi4gXG5cbnNlcnZlciBQYXJpcyAgOiAgeW91IGFyZSBub3QgYWxsb3dlZFxuIn0= -->
+<pre><code>The client-side function named ds.aggregate is not working has expected.
+An error has occurred on the server. The function test_mixed_errorDS has not been able to either assign or return an aggregation. 
+
+server Paris  :  you are not allowed</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
 <pre class="r"><code>print(outcome)</code></pre>
@@ -1991,9 +2064,9 @@ Have you connected to the Opal server? Have you successfully started your Opal S
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3V0Y29tZSA8LSBkcy5sb2dvdXQoY29ubmVjdGlvbnMpXG5gYGAifQ== -->
 <pre class="r"><code>outcome &lt;- ds.logout(connections)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIGZ1bmN0aW9uIGRzLmxvZ291dCBpcyBub3Qgd29ya2luZyBoYXMgZXhwZWN0ZWQuXG5IYXZlIHlvdSBjb25uZWN0ZWQgdG8gdGhlIE9wYWwgc2VydmVyPyBIYXZlIHlvdSBzdWNjZXNzZnVsbHkgc3RhcnRlZCB5b3VyIE9wYWwgU2VydmVycz8gSGF2ZSBZb3UgbmVlZCB0byBwYXNzIGEgdmFsaWQgY29ubmVjdGlvbi4gUGxlYXNlIHVzZSBkcy5sb2dpbiBcbiJ9 -->
-<pre><code>The function ds.logout is not working has expected.
-Have you connected to the Opal server? Have you successfully started your Opal Servers? Have You need to pass a valid connection. Please use ds.login </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIExvZ2dlZCBvdXQgZnJvbSBhbGwgc2VydmVycyBbPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PV0gMTAwJSAvIDBzXG4ifQ== -->
+<pre><code>
+  Logged out from all servers [==========================================================] 100% / 0s</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpbnQob3V0Y29tZSlcbmBgYCJ9 -->
 <pre class="r"><code>print(outcome)</code></pre>
@@ -2004,7 +2077,7 @@ Have you connected to the Opal server? Have you successfully started your Opal S
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiZXJyb3IgdGVzdGluZyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgojIExpYnJhcmllcwpgYGB7cn0KI0xpYnJhcmllcyAKbGlicmFyeShEU0kpCmxpYnJhcnkoRFNPcGFsKQpsaWJyYXJ5KGh0dHIpCmxpYnJhcnkoZHMuY29ubmVjdC5jbGllbnQpCmxpYnJhcnkoZHNCYXNlQ2xpZW50KQpgYGAKIyBPbmx5IG9uZSBzZXJ2ZXIKCmBgYHtyfQpzZXJ2ZXIubmFtZXMgICAgICA8LSBjKCJQYXJpcyIsICJOZXdZb3JrIiwgIkNhbWJyaWRnZSIpCnVybF9QYXJpcyAgICAgICAgIDwtICdodHRwczovLzE5Mi4xNjguNTcuMTAxOjg0NDMnCnRhYmxlX1BhcmlzICAgICAgIDwtICJURVNUSU5HLkRBVEFTRVQxIgp1c2VyX1BhcmlzICAgICAgICA8LSAgImFkbWluaXN0cmF0b3IiCnBhc3N3b3JkX1BhcmlzICAgIDwtICAiZGF0YXNoaWVsZF90ZXN0JiIKc3NsX29wdGlvbnNfUGFyaXMgPC0gImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKSIKZHJpdmVyX1BhcmlzICAgICAgPC0gIk9wYWxEcml2ZXIiCgoKdXJsX05ld1lvcmsgICAgICAgICAgIDwtICdodHRwczovLzE5Mi4xNjguNTYuMTAwOjg0NDMnCnRhYmxlX05ld1lvcmsgICAgICAgICA8LSAiVEVTVElORy5EQVRBU0VUMyIKdXNlcl9OZXdZb3JrICAgICAgICAgIDwtICAiYWRtaW5pc3RyYXRvciIKcGFzc3dvcmRfTmV3WW9yayAgICAgIDwtICAiZGF0YXNoaWVsZF90ZXN0JiIKc3NsX29wdGlvbnNfTmV3WW9yayAgIDwtICJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MCkiCmRyaXZlcl9OZXdZb3JrICAgICAgICA8LSAiT3BhbERyaXZlciIKCnVybF9DYW1icmlkZ2UgICAgICAgICA8LSAnaHR0cHM6Ly9vcGFsLXNhbmRib3gubXJjLWVwaWQuY2FtLmFjLnVrb3InCnRhYmxlX0NhbWJyaWRnZSAgICAgICA8LSAiVEVTVElORy5EQVRBU0VUMiIKdXNlcl9DYW1icmlkZ2UgICAgICAgIDwtICAiZHN1c2VyIgpwYXNzd29yZF9DYW1icmlkZ2UgICAgPC0gICJwYXNzd29yZCIKc3NsX29wdGlvbnNfQ2FtYnJpZGdlIDwtICJsaXN0KHNzbF92ZXJpZnlob3N0PTAsc3NsX3ZlcmlmeXBlZXI9MCkiCmRyaXZlcl9DYW1icmlkZ2UgICAgICA8LSAiT3BhbERyaXZlciIKCgpzZXJ2ZXIudXJscyAgICAgICA8LSBjKHVybF9QYXJpcywgdXJsX05ld1lvcmssdXJsX0NhbWJyaWRnZSkKc2VydmVyLnRhYmxlcyAgICAgPC0gYyh0YWJsZV9QYXJpcywgdGFibGVfTmV3WW9yayx0YWJsZV9DYW1icmlkZ2UpCnNlcnZlci51c2Vycy5pZCAgIDwtIGModXNlcl9QYXJpcywgdXNlcl9OZXdZb3JrLCB1c2VyX0NhbWJyaWRnZSkKc2VydmVyLnVzZXJzLnB3ZCAgPC0gIGMocGFzc3dvcmRfUGFyaXMsIHBhc3N3b3JkX05ld1lvcmssIHBhc3N3b3JkX0NhbWJyaWRnZSkKc2VydmVyLnNzbC5vcHRpb25zIDwtIGMoc3NsX29wdGlvbnNfUGFyaXMsIHNzbF9vcHRpb25zX05ld1lvcmssIHNzbF9vcHRpb25zX0NhbWJyaWRnZSkKc2VydmVyLmRyaXZlcnMgICA8LSBjKGRyaXZlcl9QYXJpcyxkcml2ZXJfTmV3WW9yayxkcml2ZXJfQ2FtYnJpZGdlKQpgYGAKCgpgYGB7cn0KbG9naW4uZGF0YSA8LSBkcy5idWlsZC5sb2dpbi5kYXRhLmZyYW1lKHNlcnZlci5uYW1lcywKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51cmxzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnRhYmxlcywKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51c2Vycy5pZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci51c2Vycy5wd2QsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIuc3NsLm9wdGlvbnMsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIuZHJpdmVycykKcHJpbnQobG9naW4uZGF0YSkKYGBgCgojIHNldCB0aGUgc2VydmVyIHZhcmlhYmxlcyBhbmQgbG9naW4KYGBge1J9CnNlcnZlci52YXIgPC0gbGlzdCgnSUQnLCdDSEFSQUNURVInLCAnTE9HSUNBTCcsJ05BX1ZBTFVFUycsJ0lOVEVHRVInLCdOVUxMX1ZBTFVFUycsCiAgICAgICAgICAgICAgICAgICAnTk9OX05FR0FUSVZFX0lOVEVHRVInLCdQT1NJVElWRV9JTlRFR0VSJywnTkVHQVRJVkVfSU5URUdFUicsCiAgICAgICAgICAgICAgICAgICAnTlVNRVJJQycsICdOT05fTkVHQVRJVkVfTlVNRVJJQycsJ1BPU0lUSVZFX05VTUVSSUMnLCdORUdBVElWRV9OVU1FUklDJywKICAgICAgICAgICAgICAgICAgICdGQUNUT1JfQ0hBUkFDVEVSJywnRkFDVE9SX0lOVEVHRVInLCdJREVOVElGSUVSJywnQ0FURUdPUlknLCdJREVOVElGSUVSJywKICAgICAgICAgICAgICAgICAgICdDQVRFR09SWScpCmNvbm5lY3Rpb25zIDwtIGRzLmxvZ2luKGxvZ2luLmRhdGEsIHZhcmlhYmxlcyA9IHNlcnZlci52YXIsIHN5bWJvbCA9ICdEJykKcHJpbnQoY29ubmVjdGlvbnMpCmBgYAoKI3Rlc3RfZXJyb3JzCmBgYHtyfQpzZXJ2ZXIuZnVuY3Rpb24uY2FsbCA8LSBjYWxsKCdkaW1EUycsJ0QnKQpwcmludChzZXJ2ZXIuZnVuY3Rpb24uY2FsbCkKb3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucykKcHJpbnQob3V0Y29tZSkKYGBgCgpgYGB7cn0Kb3B0aW9ucyhkYXRhc2hpZWxkLmVycm9ycy5zdG9wID0gVFJVRSkKcHJpbnQoZ2V0T3B0aW9uKCJkYXRhc2hpZWxkLmVycm9ycy5zdG9wIikpCnNlcnZlci5mdW5jdGlvbi5jYWxsIDwtIGNhbGwoJ3Rlc3RfZXJyb3JEUycpCnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKQpvdXRjb21lIDwtIGRzLmFnZ3JlZ2F0ZShleHByZXNzaW9uID0gc2VydmVyLmZ1bmN0aW9uLmNhbGwsIGFzeW5jaHJvbm91cyA9IEZBTFNFLCBkYXRhc291cmNlcyA9IGNvbm5lY3Rpb25zKQpwcmludChvdXRjb21lKQpgYGAKCgpgYGB7cn0Kb3B0aW9ucyhkYXRhc2hpZWxkLmVycm9ycy5zdG9wID0gRkFMU0UpCnByaW50KGdldE9wdGlvbigiZGF0YXNoaWVsZC5lcnJvcnMuc3RvcCIpKQpzZXJ2ZXIuZnVuY3Rpb24uY2FsbCA8LSBjYWxsKCd0ZXN0X2Vycm9yRFMnKQpwcmludChzZXJ2ZXIuZnVuY3Rpb24uY2FsbCkKb3V0Y29tZSA8LSBkcy5hZ2dyZWdhdGUoZXhwcmVzc2lvbiA9IHNlcnZlci5mdW5jdGlvbi5jYWxsLCBhc3luY2hyb25vdXMgPSBGQUxTRSwgZGF0YXNvdXJjZXMgPSBjb25uZWN0aW9ucykKcHJpbnQob3V0Y29tZSkKYGBgCmBgYHtyfQojRllJIDogcGFyaXMgc2hvdWxkIHdvcmsuCiMgbmV3eW9yayBzaG91bGQgcmV0dXJuIGFuIGVycm9yCiMKI3Rlc3RfbWl4ZWRfZXJyb3JEUyA8LSBmdW5jdGlvbigpCiN7CiMgIGlmKGdldE9wdGlvbigiVEVTVElORyIpID09IDEpCiMgIHsKIyAgICBzdG9wKOKAmHlvdSBhcmUgbm90IGFsbG93ZWTigJkpCiMgIH0KIyAgIAojICByZXR1cm4oMy4xNCkKI30Kb3B0aW9ucyhkYXRhc2hpZWxkLmVycm9ycy5zdG9wID0gVFJVRSkKcHJpbnQoZ2V0T3B0aW9uKCJkYXRhc2hpZWxkLmVycm9ycy5zdG9wIikpCnNlcnZlci5mdW5jdGlvbi5jYWxsIDwtIGNhbGwoJ3Rlc3RfbWl4ZWRfZXJyb3JEUycpCnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKQpvdXRjb21lIDwtIGRzLmFnZ3JlZ2F0ZShleHByZXNzaW9uID0gc2VydmVyLmZ1bmN0aW9uLmNhbGwsIGFzeW5jaHJvbm91cyA9IEZBTFNFLCBkYXRhc291cmNlcyA9IGNvbm5lY3Rpb25zKQpwcmludChvdXRjb21lKQpgYGAKCmBgYHtyfQoKYGBgCgojbG9nb3V0CmBgYHtSfQpvdXRjb21lIDwtIGRzLmxvZ291dChjb25uZWN0aW9ucykKcHJpbnQob3V0Y29tZSkKYGBg</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiZXJyb3IgdGVzdGluZyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBMaWJyYXJpZXMKYGBge3J9CiNMaWJyYXJpZXMgCmxpYnJhcnkoRFNJKQpsaWJyYXJ5KERTT3BhbCkKbGlicmFyeShodHRyKQpsaWJyYXJ5KGRzLmNvbm5lY3QuY2xpZW50KQpsaWJyYXJ5KGRzQmFzZUNsaWVudCkKYGBgCiMgT25seSBvbmUgc2VydmVyCgpgYGB7cn0Kc2VydmVyLm5hbWVzICAgICAgPC0gYygiUGFyaXMiLCAiTmV3WW9yayIpCnVybF9QYXJpcyAgICAgICAgIDwtICdodHRwczovLzE5Mi4xNjguNTcuMTAxOjg0NDMnCnRhYmxlX1BhcmlzICAgICAgIDwtICJURVNUSU5HLkRBVEFTRVQxIgp1c2VyX1BhcmlzICAgICAgICA8LSAgImFkbWluaXN0cmF0b3IiCnBhc3N3b3JkX1BhcmlzICAgIDwtICAiZGF0YXNoaWVsZF90ZXN0JiIKc3NsX29wdGlvbnNfUGFyaXMgPC0gImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKSIKZHJpdmVyX1BhcmlzICAgICAgPC0gIk9wYWxEcml2ZXIiCgoKdXJsX05ld1lvcmsgICA8LSAnaHR0cHM6Ly8xOTIuMTY4LjU2LjEwMDo4NDQzJwp0YWJsZV9OZXdZb3JrICAgPC0gIlRFU1RJTkcuREFUQVNFVDMiCnVzZXJfTmV3WW9yayAgICA8LSAgImFkbWluaXN0cmF0b3IiCnBhc3N3b3JkX05ld1lvcmsgICAgPC0gICJkYXRhc2hpZWxkX3Rlc3QmIgpzc2xfb3B0aW9uc19OZXdZb3JrICAgPC0gImxpc3Qoc3NsX3ZlcmlmeWhvc3Q9MCxzc2xfdmVyaWZ5cGVlcj0wKSIKZHJpdmVyX05ld1lvcmsgICA8LSAiT3BhbERyaXZlciIKCgpzZXJ2ZXIudXJscyAgICAgICA8LSBjKHVybF9QYXJpcywgdXJsX05ld1lvcmspCnNlcnZlci50YWJsZXMgICAgIDwtIGModGFibGVfUGFyaXMsIHRhYmxlX05ld1lvcmspCnNlcnZlci51c2Vycy5pZCAgIDwtIGModXNlcl9QYXJpcywgdXNlcl9OZXdZb3JrKQpzZXJ2ZXIudXNlcnMucHdkICA8LSAgYyhwYXNzd29yZF9QYXJpcywgcGFzc3dvcmRfTmV3WW9yaykKc2VydmVyLnNzbC5vcHRpb25zIDwtIGMoc3NsX29wdGlvbnNfUGFyaXMsIHNzbF9vcHRpb25zX05ld1lvcmspCnNlcnZlci5kcml2ZXJzICAgPC0gYyhkcml2ZXJfUGFyaXMsZHJpdmVyX05ld1lvcmspCmBgYAoKCmBgYHtyfQpsb2dpbi5kYXRhIDwtIGRzLmJ1aWxkLmxvZ2luLmRhdGEuZnJhbWUoc2VydmVyLm5hbWVzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnVybHMsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXJ2ZXIudGFibGVzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnVzZXJzLmlkLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VydmVyLnVzZXJzLnB3ZCwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci5zc2wub3B0aW9ucywKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlcnZlci5kcml2ZXJzKQpwcmludChsb2dpbi5kYXRhKQpgYGAKCiMgc2V0IHRoZSBzZXJ2ZXIgdmFyaWFibGVzIGFuZCBsb2dpbgpgYGB7Un0Kc2VydmVyLnZhciA8LSBsaXN0KCdJRCcsJ0NIQVJBQ1RFUicsICdMT0dJQ0FMJywnTkFfVkFMVUVTJywnSU5URUdFUicsJ05VTExfVkFMVUVTJywKICAgICAgICAgICAgICAgICAgICdOT05fTkVHQVRJVkVfSU5URUdFUicsJ1BPU0lUSVZFX0lOVEVHRVInLCdORUdBVElWRV9JTlRFR0VSJywKICAgICAgICAgICAgICAgICAgICdOVU1FUklDJywgJ05PTl9ORUdBVElWRV9OVU1FUklDJywnUE9TSVRJVkVfTlVNRVJJQycsJ05FR0FUSVZFX05VTUVSSUMnLAogICAgICAgICAgICAgICAgICAgJ0ZBQ1RPUl9DSEFSQUNURVInLCdGQUNUT1JfSU5URUdFUicsJ0lERU5USUZJRVInLCdDQVRFR09SWScsJ0lERU5USUZJRVInLAogICAgICAgICAgICAgICAgICAgJ0NBVEVHT1JZJykKY29ubmVjdGlvbnMgPC0gZHMubG9naW4obG9naW4uZGF0YSwgdmFyaWFibGVzID0gc2VydmVyLnZhciwgc3ltYm9sID0gJ0QnKQpwcmludChjb25uZWN0aW9ucykKYGBgCgojdGVzdF9lcnJvcnMKYGBge3J9CnNlcnZlci5mdW5jdGlvbi5jYWxsIDwtIGNhbGwoJ2RpbURTJywnRCcpCnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKQpvdXRjb21lIDwtIGRzLmFnZ3JlZ2F0ZShleHByZXNzaW9uID0gc2VydmVyLmZ1bmN0aW9uLmNhbGwsIGFzeW5jaHJvbm91cyA9IEZBTFNFLCBkYXRhc291cmNlcyA9IGNvbm5lY3Rpb25zKQpwcmludChvdXRjb21lKQpgYGAKCmBgYHtyfQpvcHRpb25zKGRhdGFzaGllbGQuZXJyb3JzLnN0b3AgPSBUUlVFKQpwcmludChnZXRPcHRpb24oImRhdGFzaGllbGQuZXJyb3JzLnN0b3AiKSkKc2VydmVyLmZ1bmN0aW9uLmNhbGwgPC0gY2FsbCgndGVzdF9lcnJvckRTJykKcHJpbnQoc2VydmVyLmZ1bmN0aW9uLmNhbGwpCm91dGNvbWUgPC0gZHMuYWdncmVnYXRlKGV4cHJlc3Npb24gPSBzZXJ2ZXIuZnVuY3Rpb24uY2FsbCwgYXN5bmNocm9ub3VzID0gRkFMU0UsIGRhdGFzb3VyY2VzID0gY29ubmVjdGlvbnMpCnByaW50KG91dGNvbWUpCmBgYAoKCmBgYHtyfQpvcHRpb25zKGRhdGFzaGllbGQuZXJyb3JzLnN0b3AgPSBGQUxTRSkKcHJpbnQoZ2V0T3B0aW9uKCJkYXRhc2hpZWxkLmVycm9ycy5zdG9wIikpCnNlcnZlci5mdW5jdGlvbi5jYWxsIDwtIGNhbGwoJ3Rlc3RfZXJyb3JEUycpCnByaW50KHNlcnZlci5mdW5jdGlvbi5jYWxsKQpvdXRjb21lIDwtIGRzLmFnZ3JlZ2F0ZShleHByZXNzaW9uID0gc2VydmVyLmZ1bmN0aW9uLmNhbGwsIGFzeW5jaHJvbm91cyA9IEZBTFNFLCBkYXRhc291cmNlcyA9IGNvbm5lY3Rpb25zKQpwcmludChvdXRjb21lKQpgYGAKYGBge3J9CiNGWUkgOiBwYXJpcyBzaG91bGQgd29yay4KIyBuZXd5b3JrIHNob3VsZCByZXR1cm4gYW4gZXJyb3IKIwojdGVzdF9taXhlZF9lcnJvckRTIDwtIGZ1bmN0aW9uKCkKI3sKIyAgaWYoZ2V0T3B0aW9uKCJURVNUSU5HIikgPT0gMSkKIyAgewojICAgIHN0b3Ao4oCYeW91IGFyZSBub3QgYWxsb3dlZOKAmSkKIyAgfQojICAgCiMgIHJldHVybigzLjE0KQojfQpvcHRpb25zKGRhdGFzaGllbGQuZXJyb3JzLnN0b3AgPSBUUlVFKQpwcmludChnZXRPcHRpb24oImRhdGFzaGllbGQuZXJyb3JzLnN0b3AiKSkKc2VydmVyLmZ1bmN0aW9uLmNhbGwgPC0gY2FsbCgndGVzdF9taXhlZF9lcnJvckRTJykKcHJpbnQoc2VydmVyLmZ1bmN0aW9uLmNhbGwpCm91dGNvbWUgPC0gZHMuYWdncmVnYXRlKGV4cHJlc3Npb24gPSBzZXJ2ZXIuZnVuY3Rpb24uY2FsbCwgYXN5bmNocm9ub3VzID0gRkFMU0UsIGRhdGFzb3VyY2VzID0gY29ubmVjdGlvbnMpCnByaW50KG91dGNvbWUpCmBgYAoKYGBge3J9CgpgYGAKCiNsb2dvdXQKYGBge1J9Cm91dGNvbWUgPC0gZHMubG9nb3V0KGNvbm5lY3Rpb25zKQpwcmludChvdXRjb21lKQpgYGA=</div>
 
 
 
@@ -2051,7 +2124,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("fparis__ny_cambridge.Rmd");
+  window.initializeSourceEmbed("paris_and_ny.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

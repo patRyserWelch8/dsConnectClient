@@ -77,9 +77,9 @@ ds.error <- function(error, client = TRUE)
   errors      <- lapply(X = errors, function(x) unlist(strsplit(x,"() : ")))
   
   #obtain error code or message sent by server. The last element.
-  errors     <- lapply(X = errors, function(x) return(x[length(x)]))
+  messages    <- lapply(X = errors, function(x) return(x[length(x)]))
   
-  messages   <- lapply(X = errors, function(x) find.error.message(x))
+  #messages   <- lapply(X = errors, function(x) find.error.message(x))
   
  
   #matches the names of each server with an error message.

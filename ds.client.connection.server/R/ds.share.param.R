@@ -385,14 +385,5 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#may need to become one central function
-.warning <- function(message)
-{
-  
-  #message(paste("ds.client.connection.server::ds.share.param:",   message ))
-  #if (grepl("WAR:001",message))
-  #{
-  #  message(paste(header, "::",  "WAR:001\n", "More than one connection is required for sharing parameters.")) 
-  #}
-}
-                             
+
+                        
