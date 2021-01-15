@@ -104,8 +104,6 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
                                          driver.connection = NULL)
 {
   return.data.frame <- NULL
-  
-  
   tryCatch(
     {return.data.frame <- .build.data.frame(data.computers.name,
                                            data.computers.url,

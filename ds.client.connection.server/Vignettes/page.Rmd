@@ -1,10 +1,10 @@
 ---
-title: "dsConnectClient - Packages users documentation"
-author: "Patricia Ryser-Welch and Leire Abarrantegui on Behalf of the DataSHIELD Team"
+title: "ds.client.connection.server Packages users documentation"
+author: "Patricia Ryser-Welch on Behalf of the DataSHIELD Team"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ds.connect.client Packages users documentation}
+  %\VignetteIndexEntry{ds.client.connection.server Packages users documentation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(comment="", warning=FALSE, message=FALSE, cache=TRUE)
 ```
 
 # Introduction
-The purpose of this package is to support _DataSHIELD analysts_ and _programmers_ to connect to some Opal servers in a more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD client scripts and functions. 
+The purpose of this package is to support DataSHIELD analysts and programmers to connect to some Opal servers in a more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD client scripts and functions. 
 
 The latter includes:
 
@@ -31,41 +31,34 @@ This package has been written to be used along the side of the [dsBaseClient pac
 We would recommend any new DataSHIELD users to install DataSHIELD and complete the training available on the DataSHIELD wiki; [Installation and training](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943395/Installation+Training).
 
 # Installing client-side and server-side packages
-DataSHIELD wiki provides the instructions to install [DataSHIELD](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/931069953/Installation+Training+Hub+-+DataSHIELD+v6.1).
 
 ## Server-side DataSHIELD server
-### Version 1
 In order to use all the functions of this package, any DataSHIELD servers 
-need to have installed the following server-side functions : 
+need to have installed the following server-side packages: 
 
+* [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+* [dsBase](https://github.com/datashield/dsBase)
+* The following servers functions are called and made available in version 6.2 of dsBase [ADD LINK]:
   * existsDS
   * removeDS
-  * whereDS
-
-[dsBase](https://github.com/datashield/dsBase) (Version 6.2 or above) will include those. 
-
+  
 The instructions to install the server-side packages can be found in DataSHIELD  [Wiki](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
-
-### Version 2 
-Version 2 will provide a new functionality to share parameters in a privacy preserving manner. DataSHIELD servers will need to install this package in their Opal servers.
-
-_Package to install_
-* [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
-
 
 ## Client-side analysis computer
 During the installation, this package will import the following packages: 
 
-* DSI, (>= 1.1.0)
+* DSI
 * DSOpal
 * RCurl
 * httr
 * R6
 * opalr
 
-These packages are required in the client-side to connect to an Opal Server, to manipulate some server-side variables and call server-side functions, remotely.
+These packages are required in the client-side to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. 
 
-# Client-side analysis scripts
+## Client-side analysis scripts
+
+
 At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages. 
 
 ```{r}
@@ -73,9 +66,19 @@ At the start of each DataSHIELD client-side script, DataSHIELD analysts need to 
 library(DSI)
 library(DSOpal)
 library(httr)
-library(dsConnectClient)
+library(ds.connection.client)
 library(dsBaseClient)
 ```
+
+If you are windows operating system user, before login to DataSHIELD server
+you need to switch implementation of SSL used by the curl R package to \code{'openssl'}. 
+
+
+```{r}
+#Only for windows users
+Sys.setenv(CURL_SSL_BACKEND = "openssl")
+```
+
 
 # Building a login data frame
 A login data frame provides the information to connect to any DataSHIELD servers; those servers have an Opal Data Warehouse software installed. On the client-side, the following information needs to be provided to log in.
@@ -325,7 +328,7 @@ print(outcome)
 
 # Calling an aggregate server-side function 
 ```{r}
-server.function.call <- call('dimDS','D')
+server.function.call <- call("varDS","D$POSITIVE_INTEGER")
 print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
 print(outcome)
