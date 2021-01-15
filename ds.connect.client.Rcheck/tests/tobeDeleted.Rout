@@ -1,0 +1,122 @@
+
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #Libraries 
+> library(DSI)
+Loading required package: progress
+Loading required package: R6
+> library(DSOpal)
+Loading required package: opalr
+Loading required package: httr
+> library(httr)
+> library(ds.client.connection.server)
+> library(dsBaseClient)
+> 
+> #data computers name
+> server.names   <- c("Paris", "Newcastle", "New York")
+> 
+> 
+> #data computers url - Those are likely to be unique for each server
+> url_Paris     <- 'https://192.168.56.100:8443'
+> url_Newcastle <- 'https://192.168.56.100:8443'
+> url_NewYork   <-  'https://192.168.56.100:8443'
+> 
+> server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
+> 
+> table_Paris     <- "TESTING.DATASET1"
+> table_Newcastle <- "TESTING.DATASET2"
+> table_NewYork   <- "TESTING.DATASET3"
+> server.tables   <- c(table_Paris, table_Newcastle, table_NewYork)
+> 
+> user_Paris      <-  "administrator"
+> user_Newcastle  <-  "administrator"
+> user_NewYork    <-  "administrator"
+> server.users.id <- c(user_Paris, user_Newcastle, user_NewYork)
+> 
+> driver_Paris     <- "OpalDriver"
+> driver_Newcastle <- "OpalDriver"
+> driver_NewYork   <- "OpalDriver"
+> server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
+> 
+> 
+> password_Paris      <-  "datashield_test&"
+> password_Newcastle  <-  "datashield_test&"
+> password_NewYork    <-  "datashield_test&"
+> server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
+> 
+> ssl_options_Paris     <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+> ssl_options_Newcastle <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+> ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+> server.ssl.options    <- c(ssl_options_Paris,ssl_options_Newcastle,ssl_options_NewYork)
+> 
+> login.data <- ds.build.login.data.frame (server.names,
++                                         server.urls,
++                                         server.tables,
++                                         server.users.id,
++                                         server.users.pwd,
++                                         server.ssl.options,
++                                         server.drivers)
+> 
+> print(login.data)
+     server                         url            table resource     driver
+1     Paris https://192.168.56.100:8443 TESTING.DATASET1          OpalDriver
+2 Newcastle https://192.168.56.100:8443 TESTING.DATASET2          OpalDriver
+3  New York https://192.168.56.100:8443 TESTING.DATASET3          OpalDriver
+           user         password token                                 options
+1 administrator datashield_test&       list(ssl_verifyhost=0,ssl_verifypeer=0)
+2 administrator datashield_test&       list(ssl_verifyhost=0,ssl_verifypeer=0)
+3 administrator datashield_test&       list(ssl_verifyhost=0,ssl_verifypeer=0)
+> 
+> server.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
++                    'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
++                    'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER', 
++                    'FACTOR_INTEGER','IDENTIFIER','CATEGORY','IDENTIFIER','CATEGORY')
+> connections <- ds.login(login.data, variables = server.var,symbol = "DATA")
+
+Logging into the collaborating servers
+
+Assigning table data...
+> 
+> server.function.call <- call("rUnifDS",100,14,50,10)
+> var.created <- ds.assign.value(connections, new.variable.name = "rUnifDist",value=server.function.call,"numeric",asynchronous = FALSE)
+The function ds.assign.value is not working has expected.
+Have you connected to the Opal server? 
+Have you successfully started your Opal Servers? 
+You need to pass a valid connection. Please use ds.login 
+
+> print(var.created)
+[1] FALSE
+> if (var.created)
++ {
++   print("It worked!")
++ }
+> 
+> server.call <- call("varDS",'DATA$POSITIVE_INTEGER')
+> print(server.call)
+varDS("DATA$POSITIVE_INTEGER")
+> server.variance <- ds.aggregate(connections,expression = server.call, asynchronous = FALSE)
+The function ds.aggregate is not working has expected. An error has occurred on the server.The function varDS has not been able to either assign or return an aggregation. 
+> print(server.variance)
+[1] "NR"
+> ds.logout(c)
+The function Error in  is not working has expected.
+
+[1] TRUE
+> 
+> proc.time()
+   user  system elapsed 
+  1.025   0.135  12.557 

@@ -1,0 +1,110 @@
+* using log directory ‘/Users/patricia/Documents/GitHub/ds.client.connection.server/ds.connect.client.Rcheck’
+* using R version 4.0.3 (2020-10-10)
+* using platform: x86_64-apple-darwin17.0 (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘ds.connect.client/DESCRIPTION’ ... OK
+* this is package ‘ds.connect.client’ version ‘1.0.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... WARNING
+Found the following file with a non-portable file name:
+  tests/testthat/definition_tests/def-ds.login 2.R
+These are not fully portable file names.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘ds.connect.client’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+* checking top-level files ... NOTE
+Non-standard file/directory found at top level:
+  ‘Vignettes’
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+.remove.existing.parameters: no visible binding for global variable
+  ‘connectios’
+.warning: no visible binding for global variable ‘header’
+Undefined global functions or variables:
+  connectios header
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... NOTE
+Rd file 'ds.build.login.data.resources.Rd':
+  \examples lines wider than 100 characters:
+       ds.assign.value("rse",quote(as.resource.object(D)), "RangedSummarizedExperiment", FALSE, connections)
+
+These lines will be truncated in the PDF manual.
+* checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'ds.aggregate.Rd':
+  ‘DSI::datashield.aggregate’
+
+Missing link or links in documentation object 'ds.assign.value.Rd':
+  ‘RangedSummarizedExperiment’ ‘SummarizedExperiment’ ‘ExpressionSet’
+  ‘DSI::datashield.assign’
+
+Missing link or links in documentation object 'ds.exists.on.server.Rd':
+  ‘externalptr’ ‘RangedSummarizedExperiment’ ‘SummarizedExperiment’
+  ‘ExpressionSet’
+
+Missing link or links in documentation object 'ds.login.Rd':
+  ‘logindata’
+
+Missing link or links in documentation object 'ds.remove.variable.Rd':
+  ‘externalptr’ ‘RangedSummarizedExperiment’ ‘SummarizedExperiment’
+  ‘ExpressionSet’ ‘removeDS’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'ds.logout'
+  ‘save’
+Documented arguments not in \usage in documentation object 'ds.logout':
+  ‘Save’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in ‘tests’ ... WARNING
+'library' or 'require' call not declared from: ‘testthat’
+* checking tests ... OK
+  Running ‘tobeDeleted.R’ [1s/13s]
+* checking for unstated dependencies in vignettes ... NOTE
+'library' or 'require' calls not declared from:
+  ‘ds.client.connection.server’ ‘dsBaseClient’
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking re-building of vignette outputs ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 4 WARNINGs, 5 NOTEs
