@@ -124,6 +124,65 @@ outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE,
 print(outcome)
 ```
 
+#assign
+
+```{r}
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+server.function.call <- call('rNormDS',1000)
+DSI::datashield.assign(conns = connections, symbol = "aNormDist1", value = server.function.call, async = FALSE)
+print(datashield.errors())
+```
+
+```{r}
+
+#rUnifDS<-function (n, min = 0, max = 1, force.output.to.k.decimal.places=9)
+server.function.call <- call('rUnifDS',1000)
+print(server.function.call)
+outcome <- ds.assign.value(new.variable.name = "aRunifDist", 
+                           value = server.function.call, 
+                           class.type = "numeric", 
+                           asynchronous = FALSE, 
+                           error.stop = TRUE, 
+                           datasources = connections)
+print(outcome)
+```
+
+```{r}
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+server.function.call <- call('rNormDS',1000)
+print(server.function.call)
+outcome <- ds.assign.value(new.variable.name = "aNormDist", 
+                           value = server.function.call, 
+                           class.type = "numeric", 
+                           asynchronous = FALSE, 
+                           error.stop = TRUE, 
+                           datasources = connections)
+print(outcome)
+```
+
+
+```{r}
+#lsDS<-function(search.filter=NULL,env.to.search)
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+print(outcome)
+```
+
+
+```{r}
+server.function.call <- call('test_assign_errorDS')
+print(server.function.call)
+outcome <- ds.assign.value(new.variable.name = "aPie", 
+                           value = server.function.call, 
+                           class.type = "numeric", 
+                           asynchronous = FALSE, 
+                           error.stop = TRUE, 
+                           datasources = connections)
+print(outcome)
+```
+
+
 #logout
 ```{R}
 outcome <- ds.logout(connections)

@@ -135,18 +135,18 @@
 #'
 
 
-ds.remove.variable <- function(variable.name = NULL, class.type= NULL, datasources = NULL)
+ds.remove.variable <- function(variable.name = NULL, class.type= NULL, error.stop = TRUE, datasources = NULL)
 {
   outcome <- FALSE
   tryCatch(
-     {outcome <- .remove(variable.name, class.type, datasources)},
+     {outcome <- .remove(variable.name, class.type, error.stop, datasources)},
       warning = function(warning) {ds.warning("ds.remove.variable",warning)},
       error = function(error) {ds.error(error)},
       finally = {return(outcome)}
        )
 }
 
-.remove <- function(variable.name=NULL, class.type= NULL, datasources = NULL)
+.remove <- function(variable.name=NULL, class.type= NULL, error.stop = TRUE,  datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
@@ -165,19 +165,15 @@ ds.remove.variable <- function(variable.name = NULL, class.type= NULL, datasourc
     stop("::ds.remove.variable::ERR:012", call. = FALSE)
   }
   
-  return(.delete.var(variable.name, class.type, datasources))
+  return(.delete.var(variable.name, class.type, error.stop, datasources))
 }
 
-.delete.var <- function(variable.name, class.type, datasources)
+.delete.var <- function(variable.name, class.type, error.stop, datasources)
 {  
   expression <- paste0("removeDS(variable.name='", variable.name, "',environment.name='.GlobalEnv',class.type='", class.type,"')")
-  ds.aggregate(expression = expression, asynchronous = FALSE, datasources)
+  ds.aggregate(expression = expression, asynchronous = FALSE, error.stop, datasources)
   variable.exists <- ds.exists.on.server(variable.name, class.type, datasources)
   return(as.logical(variable.exists == FALSE))
 }
 
-.warning <- function(message)
-{
-  message(paste("ds.client.connection.server::ds.remove.variable :",   message ))
-}
 

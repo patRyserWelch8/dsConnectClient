@@ -143,18 +143,18 @@
 #'
 
 
-ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, datasources = NULL)
+ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, error.stop = TRUE, datasources = NULL)
 {
   outcome <- FALSE
   tryCatch(
-  {outcome <- .find.variable(variable.name, class.type, TRUE, datasources)},
+  {outcome <- .find.variable(variable.name, class.type, TRUE, error.stop, datasources)},
    warning = function(warning) {ds.warning("ds.exists.on.server",warning)},
    error = function(error) {ds.error(error)},
    finally = {return(outcome)}
   )
 }
 
-.find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, datasources = NULL)
+.find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, error.stop = TRUE,  datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
 
@@ -173,15 +173,18 @@ ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, datasou
     stop("::ds.exists.on.server::ERR:012", call. = FALSE)
   }
   
-  return(.call_existsDS(variable.name, class.type, datasources))
+  return(.call_existsDS(variable.name, class.type, error.stop, datasources))
 }
 
-.call_existsDS <- function(variable.name, class.type, datasources)
+.call_existsDS <- function(variable.name, class.type, error.stop, datasources)
 {
   outcome <- FALSE
 
   server.call <- paste0("existsDS(variable.name='",variable.name,"',environment.name = '.GlobalEnv', class.type='", class.type, "')")
-  outcome <- ds.aggregate(server.call, TRUE,datasources)
+  
+  outcome <- ds.aggregate(server.call, asynchronous = TRUE, error.stop, datasources)
+  print("=======")
+  print(outcome)
   outcome <- all(outcome == TRUE)
   return(outcome)
 }

@@ -47,6 +47,18 @@ is.character.argument.correct <- function(character.value)
   
 }
 
+set.error.stop <- function(error.stop)
+{
+  value.to.set <- TRUE
+  if(is.logical(error.stop))
+  {
+    value.to.set <- error.stop
+  }
+  options(datashield.errors.stop = value.to.set)
+  return(getOption("datashield.errors.stop"))
+}
+
+
 is.value.for.assignment.correct <- function(value)
 {
   outcome <- is.character.argument.correct(value)

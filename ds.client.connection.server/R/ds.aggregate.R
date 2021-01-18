@@ -115,7 +115,7 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TR
                 error = function(error) {ds.error(error, client = TRUE)},
                 finally = {return(outcome)})
   }
-  else #cannot catch server error
+  else #cannot catch server error - no warning other warning is thrown by DSI ....
   {
      tryCatch({outcome <- .aggregate.no.error.stop(expression, asynchronous, datasources)},
               error = function(error) {ds.error(error, client = TRUE)},

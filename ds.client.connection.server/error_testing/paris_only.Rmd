@@ -11,14 +11,20 @@ output: html_notebook
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.connect.client)
+library(dsConnectClient)
 library(dsBaseClient)
 ```
+
+```{r}
+devtools::session_info()
+```
+
+
 # Only one server
 
 ```{r}
 server.names      <- c("Paris")
-url_Paris         <- 'https://192.168.56.100:8443'
+url_Paris         <- 'https://192.168.57.101:8443'
 table_Paris       <- "TESTING.DATASET1"
 user_Paris        <-  "administrator"
 password_Paris    <-  "datashield_test&"
@@ -64,18 +70,137 @@ outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE,
 print(outcome)
 ```
 
+
+The code of the server-side function is:
+
+test_errorDS <- function()
+{
+  if(getOption("TESTING") == 1)
+  {
+    stop("ERR::SERVER::TESTING::001")
+  }
+  
+  if(getOption("TESTING") == 2)
+  {
+    stop("ERR::SERVER::TESTING::002")
+  }
+  
+  if(getOption("TESTING") == 3)
+  {
+    stop("ERR::SERVER::TESTING::003")
+  }
+}
+
+
 ```{r}
 server.function.call <- call('test_errorDS')
 print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
 print(outcome)
 ```
+The code for the server-side function is: 
+
+test_mixed_errorDS <- function()
+{
+  if(getOption("TESTING") == 1)
+  {
+    stop(‘you are not allowed’)
+  }
+   
+  return(3.14)
+}
+
+
 ```{r}
 server.function.call <- call('test_mixed_errorDS')
 print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
 print(outcome)
 ```
+
+#assign
+verify the value set to the option datashield.errors.stop
+```{r}
+#options(datashield.errors.stop = TRUE)
+print(getOption("datashield.errors.stop"))
+```
+
+
+
+```{r}
+#lsDS<-function(search.filter=NULL,env.to.search)
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+print(outcome)
+```
+
+The code for the server-side function is :
+assignPi <- function()
+{
+  return(pi)
+}
+
+```{r}
+#assignPi <- function()
+server.function.call <- call('assignPi')
+DSI::datashield.assign(conns = connections, symbol = "aPieInTheSky", value = server.function.call, async = FALSE)
+```
+
+```{r}
+#assignPi <- function()
+#{
+#  return(pi)
+#}
+#assignPi <- function()
+server.function.call <- call('assignPi')
+print(server.function.call)
+tryCatch(DSI::datashield.assign(conns = connections, symbol = "aPieInTheSky", value = server.function.call, async = FALSE),
+         error = function(error){print(DSI::datashield.errors())})
+```
+
+```{r}
+#assignPi <- function()
+#{
+#  return(pi)
+#}
+#assignPi <- function()
+server.function.call <- call('assignPi')
+print(server.function.call)
+outcome <- ds.assign.value(new.variable.name = "aPieInTheSky", 
+                           value = server.function.call, 
+                           class.type = "numeric", 
+                           asynchronous = FALSE, 
+                           error.stop = TRUE, 
+                           datasources = connections)
+print(outcome)
+```
+
+```{r}
+#lsDS<-function(search.filter=NULL,env.to.search)
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+print(outcome)
+```
+
+```{r}
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+server.function.call <- call('rNormDS',1000)
+DSI::datashield.assign(conns = connections, symbol = "aNormDist1", value = server.function.call, async = FALSE)
+```
+```
+
+```{r}
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+server.function.call <- call('rNormDS',1000)
+tryCatch(DSI::datashield.assign(conns = connections, symbol = "aNormDist1", value = server.function.call, async = FALSE),
+         error = function(error){print(DSI::datashield.errors())})
+```
+
+
+
+
 #logout
 ```{R}
 outcome <- ds.logout(connections)
