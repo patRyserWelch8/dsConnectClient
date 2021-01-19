@@ -141,6 +141,39 @@ assignPi <- function()
   return(pi)
 }
 
+
+```{r}
+print(getOption("datashield.errors.stop"))
+outcome <- ds.assign.value(new.variable.name = "new_var",
+                value = "D$INTEGER", 
+                class.type = "integer", 
+                datasources = connections)
+print(outcome)
+```
+```{r}
+#lsDS<-function(search.filter=NULL,env.to.search)
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+print(outcome)
+```
+
+```{r}
+options(datashield.errors.stop = TRUE)
+DSI::datashield.assign(conns = connections, symbol = "aPieInTheSky", value = as.symbol("D$INTEGER"), async = FALSE)
+print(DSI::datashield.errors())
+```
+```{r}
+tryCatch(DSI::datashield.assign(conns = connections, symbol = "aPieInTheSky", value as.symbol("D$INTEGER"), async = FALSE),error = function(error){print(DSI::datashield.errors())})
+```
+```{r}
+#lsDS<-function(search.filter=NULL,env.to.search)
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+print(outcome)
+```
+
 ```{r}
 #assignPi <- function()
 server.function.call <- call('assignPi')
@@ -189,7 +222,7 @@ print(outcome)
 server.function.call <- call('rNormDS',1000)
 DSI::datashield.assign(conns = connections, symbol = "aNormDist1", value = server.function.call, async = FALSE)
 ```
-```
+
 
 ```{r}
 #rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
