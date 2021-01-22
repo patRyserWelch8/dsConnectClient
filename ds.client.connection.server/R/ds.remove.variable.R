@@ -49,7 +49,7 @@
 #' @return TRUE if the variables have been deleted. 
 #' @return FALSE if the values have not been deleted and exist on the servers.
 #'@seealso
-#'server function used: \code{removeSD} (Aggregate function)\cr
+#'server function used: \code{removeDS} (Aggregate function)\cr
 #'\code{\link{ds.aggregate}}\cr
 #'\code{\link{ds.exists.on.server}}
 #' @examples 

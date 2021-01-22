@@ -4,7 +4,12 @@
 \alias{ds.remove.variable}
 \title{Delete a variable of a specific given type on the server-side}
 \usage{
-ds.remove.variable(variable.name = NULL, class.type = NULL, datasources = NULL)
+ds.remove.variable(
+  variable.name = NULL,
+  class.type = NULL,
+  error.stop = TRUE,
+  datasources = NULL
+)
 }
 \arguments{
 \item{variable.name}{a character string specifying the name of the variable.}

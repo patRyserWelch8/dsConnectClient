@@ -2,22 +2,21 @@ source("definition_tests/def-ds.aggregate.R")
 source("connection_to_datasets/init_all_datasets.R")
 
 connections <- connect.all.datasets(ds.test_env)
-
-context('ds.aggregate():server_error:multiple')
+print("I am here .....")
+context('ds.aggregate:server_error:multiple')
 test_that('server_errors',
 {
   .test.server.error(connections)
 })
 
 
-
-context('ds.aggregate():correct parameters:multiple')
+context('ds.aggregate:correct parameters:multiple')
 test_that('correct parameters',
 {
   .test.all.parameters.correct(connections)
 })
 
-context('ds.aggregate():correct parameters:multiple')
+context('ds.aggregate:correct parameters:multiple')
 test_that('incorrect parameters',
 {
   .test.no.expression(connections)
@@ -30,7 +29,7 @@ disconnect.all.datasets(connections)
 
 
 connections <- connect.dataset.2(ds.test_env)
-context('ds.aggregate():correct parameters:single')
+context('ds.aggregate:correct parameters:single')
 test_that('correct parameters',
 {
   
@@ -38,7 +37,7 @@ test_that('correct parameters',
   
 })
 
-context('ds.aggregate():correct parameters:single')
+context('ds.aggregate:correct parameters:single')
 test_that('incorrect parameters',
 {
   .test.no.expression(connections)
@@ -48,7 +47,7 @@ test_that('incorrect parameters',
 disconnect.dataset.1(connections)
 
 connections <- connect.dataset.1(ds.test_env)
-context('ds.aggregate():correct parameters:single')
+context('ds.aggregate:correct parameters:single')
 test_that('correct parameters',
 {
   
@@ -56,7 +55,7 @@ test_that('correct parameters',
   
 })
 
-context('ds.aggregate():correct parameters:single')
+context('ds.aggregate:correct parameters:single')
 test_that('incorrect parameters',
 {
   .test.no.expression(connections)
@@ -66,7 +65,7 @@ test_that('incorrect parameters',
 disconnect.dataset.3(connections)
 
 connections <- connect.dataset.1(ds.test_env)
-context('ds.aggregate():correct parameters:single')
+context('ds.aggregate:correct parameters:single')
 test_that('correct parameters',
 {
   
@@ -74,7 +73,7 @@ test_that('correct parameters',
   
 })
 
-context('ds.aggregate():correct parameters:single')
+context('ds.aggregate:correct parameters:single')
 test_that('incorrect parameters',
 {
   .test.no.expression(connections)
@@ -83,7 +82,7 @@ test_that('incorrect parameters',
 
 disconnect.dataset.3(connections)
 
-context('ds.aggregate():no_connection')
+context('ds.aggregate:no_connection')
 test_that('incorrect parameters',
 {
   .test.no.connection(connections <- 1)

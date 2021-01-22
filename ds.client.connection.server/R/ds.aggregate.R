@@ -106,6 +106,7 @@
 #'
 ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TRUE, datasources = NULL)
 {
+  
   stop.allowed   <- set.error.stop(error.stop)
   outcome <- "NR"
   if(stop.allowed) #can catch server error
@@ -149,7 +150,7 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TR
 # make a call without using server try catch
 .aggregate.no.error.stop <- function(expression=NULL, asynchronous=TRUE, datasources = NULL)
 {
-  print("NOT ALLOWED ")
+
   correct.class  <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
   if(!correct.class)
@@ -159,9 +160,8 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TR
   
   if(is.character(expression) || is.call(expression) )
   {
-    print("NOT ALLOWED ")
+   
     outcome <- DSI::datashield.aggregate(datasources,expression,asynchronous)
-    print("NOT ALLOWED ")
     return(outcome)
   }
   else
@@ -171,14 +171,5 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TR
 }
 
 
-set.error.stop <- function(error.stop)
-{
-  value.to.set <- TRUE
-  if(is.logical(error.stop))
-  {
-    value.to.set <- error.stop
-  }
-  options(datashield.errors.stop = value.to.set)
-  return(getOption("datashield.errors.stop"))
-}
+
 

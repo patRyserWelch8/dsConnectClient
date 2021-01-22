@@ -29,8 +29,8 @@ ds.error <- function(error, client = TRUE)
 
 .show.server.error <- function(error)
 {
-  print("server")
-  print(error)
+  #print("server")
+  #print(error)
   client.function.name <- error[[1]][1]
   server.function.name <- .get.function.name(error[[2]][1])
   .message.server.side.error(client.function.name, server.function.name, error[[3]])
@@ -40,7 +40,7 @@ ds.error <- function(error, client = TRUE)
 {
   outcome    <- "NF"
   error.char <- as.character(error)
-  print(error.char)
+  ##print(error.char)
  
   if (grepl(pattern = "::", x = error.char))
   { 
@@ -56,7 +56,7 @@ ds.error <- function(error, client = TRUE)
   {
     outcome    <- error
   }
-  print(outcome)
+  ##print(outcome)
   return(outcome)
 }
 

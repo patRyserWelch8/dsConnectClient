@@ -9,6 +9,7 @@ ds.assign.value(
   value = NULL,
   class.type = NULL,
   asynchronous = FALSE,
+  error.stop = TRUE,
   datasources = NULL
 )
 }

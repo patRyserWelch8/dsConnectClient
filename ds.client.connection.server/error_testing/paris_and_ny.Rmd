@@ -9,7 +9,7 @@ output: html_notebook
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.connect.client)
+library(dsConnectClient)
 library(dsBaseClient)
 ```
 # Only one server
@@ -64,6 +64,7 @@ print(connections)
 ```
 
 #test_errors
+sanity check
 ```{r}
 server.function.call <- call('dimDS','D')
 print(server.function.call)
@@ -74,7 +75,7 @@ print(outcome)
 
 server.function.call <- call('dimDS','D')
 print(server.function.call)
-outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = FALSE, datasources = NULL)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = FALSE, datasources = connections)
 print(outcome)
 ```
 
@@ -89,26 +90,25 @@ print(outcome)
 
 
 ```{r}
-options(datashield.errors.stop = FALSE)
-print(getOption("datashield.errors.stop"))
 server.function.call <- call('test_errorDS')
 print(server.function.call)
 outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = FALSE, datasources = connections)
 print(outcome)
 ```
+FYI : paris should work.
+ newyork should return an error
+
+test_mixed_errorDS <- function()
+{
+  if(getOption("TESTING") == 1)
+  {
+    stop(‘you are not allowed’)
+  }
+  
+  return(3.14)
+}
 ```{r}
-#FYI : paris should work.
-# newyork should return an error
-#
-#test_mixed_errorDS <- function()
-#{
-#  if(getOption("TESTING") == 1)
-#  {
-#    stop(‘you are not allowed’)
-#  }
-#   
-#  return(3.14)
-#}
+
 
 server.function.call <- call('test_mixed_errorDS')
 print(server.function.call)
@@ -126,39 +126,23 @@ print(outcome)
 
 #assign
 
-```{r}
-#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
-server.function.call <- call('rNormDS',1000)
-DSI::datashield.assign(conns = connections, symbol = "aNormDist1", value = server.function.call, async = FALSE)
-print(datashield.errors())
-```
+sanity check
 
 ```{r}
-
-#rUnifDS<-function (n, min = 0, max = 1, force.output.to.k.decimal.places=9)
-server.function.call <- call('rUnifDS',1000)
+#lsDS<-function(search.filter=NULL,env.to.search)
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
 print(server.function.call)
-outcome <- ds.assign.value(new.variable.name = "aRunifDist", 
-                           value = server.function.call, 
-                           class.type = "numeric", 
-                           asynchronous = FALSE, 
-                           error.stop = TRUE, 
-                           datasources = connections)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
 print(outcome)
 ```
-
 ```{r}
-#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
-server.function.call <- call('rNormDS',1000)
-print(server.function.call)
-outcome <- ds.assign.value(new.variable.name = "aNormDist", 
-                           value = server.function.call, 
-                           class.type = "numeric", 
-                           asynchronous = FALSE, 
-                           error.stop = TRUE, 
-                           datasources = connections)
-print(outcome)
+DSI::datashield.assign(conns = connections, symbol = "aPieInTheSky", value = as.symbol("D$INTEGER"), async = FALSE)
+print(DSI::datashield.errors())
 ```
+<span style='color:purple'><b>Results shown in the console:
+Assigned expr. (aPieInTheSky <- D$INTEGER) [===========================================] 100% / 2s
+Error: There are some DataSHIELD errors, list them with datashield.errors()</b></span>
+
 
 
 ```{r}
@@ -169,17 +153,60 @@ outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE,
 print(outcome)
 ```
 
+```{r}
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+#server.function.call <- call('rNormDS',1000)
+#DSI::datashield.assign(conns = connections, symbol = "aNormDist1", value = server.function.call, async = FALSE)
+#print(datashield.errors())
+```
 
 ```{r}
-server.function.call <- call('test_assign_errorDS')
-print(server.function.call)
-outcome <- ds.assign.value(new.variable.name = "aPie", 
-                           value = server.function.call, 
-                           class.type = "numeric", 
-                           asynchronous = FALSE, 
-                           error.stop = TRUE, 
-                           datasources = connections)
-print(outcome)
+
+#rUnifDS<-function (n, min = 0, max = 1, force.output.to.k.decimal.places=9)
+#server.function.call <- call('rUnifDS',1000)
+#print(server.function.call)
+#outcome <- ds.assign.value(new.variable.name = "aRunifDist", 
+#                           value = server.function.call, 
+#                           class.type = "numeric", 
+#                           asynchronous = FALSE, 
+#                           error.stop = TRUE, 
+#                           datasources = connections)
+#print(outcome)
+```
+
+```{r}
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+#server.function.call <- call('rNormDS',1000)
+#print(server.function.call)
+#outcome <- ds.assign.value(new.variable.name = "aNormDist", 
+#                           value = server.function.call, 
+#                           class.type = "numeric", 
+#                           asynchronous = FALSE, 
+#                           error.stop = TRUE, 
+#                           datasources = connections)
+#print(outcome)
+```
+
+
+```{r}
+#lsDS<-function(search.filter=NULL,env.to.search)
+#server.function.call <- call('lsDS', NULL,".GlobalEnv")
+#print(server.function.call)
+#outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+#print(outcome)
+```
+
+
+```{r}
+#server.function.call <- call('test_assign_errorDS')
+#print(server.function.call)
+#outcome <- ds.assign.value(new.variable.name = "aPie", 
+#                           value = server.function.call, 
+#                           class.type = "numeric", 
+#                           asynchronous = FALSE, 
+#                           error.stop = TRUE, 
+#                           datasources = connections)
+#print(outcome)
 ```
 
 

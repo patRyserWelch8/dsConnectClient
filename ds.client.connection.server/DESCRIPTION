@@ -8,8 +8,8 @@ Depends: R (>= 3.5.0)
 License: GPL-3
 LazyData: true
 Imports:
-    DSI,
-    DSOpal,
+    DSI (>= 1.1.1),
+    DSOpal (>= 1.5.1),
     RCurl,
     R6,
     opalr,
