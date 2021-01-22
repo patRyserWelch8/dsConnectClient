@@ -9,7 +9,8 @@ License: GPL-3
 LazyData: true
 Imports:
     DSI (>= 1.1.1),
-    DSOpal (>= 1.5.1),
+    DSOpal (>= 1.1.0),
+    dsBaseClient (>= 6.1.0),
     RCurl,
     R6,
     opalr,

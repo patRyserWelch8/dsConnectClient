@@ -176,9 +176,9 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   }
   
   .create.variable.error.stop(new.variable.name, value, class.type, asynchronous, datasources)
-  print(7777)
-  return(TRUE)
-  #return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type, error.stop = TRUE, datasources = datasources))
+ 
+  
+  return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type, error.stop = TRUE, datasources = datasources))
 }
 
 .assign.error.not.stop <- function(new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE, error.stop = FALSE, datasources = NULL)
@@ -206,39 +206,38 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   }
   
   .create.variable.error.not.stop(new.variable.name, value, class.type, asynchronous, error.stop = FALSE, datasources)
-  return(TRUE)
-  #return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type,error.stop = FALSE, error.stop = FALSE, datasources = datasources))
+  return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type,error.stop = FALSE, error.stop = FALSE, datasources = datasources))
 }
 
 #create a variable when error stop is set to true
 .create.variable.error.stop <- function(new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL, error.stop = TRUE, datasources = NULL)
 {
-  print(1)
+  
   #delete variable from the server if it exists already
-  #ds.remove.variable(new.variable.name, class.type, error.stop = TRUE, datasources)
-  #create variable on the server(s)
-  print(2)
+  ds.remove.variable(new.variable.name, class.type, error.stop = TRUE, datasources)
+ 
+   #create variable on the server(s)
   if (is.character(value))
   {
-    print(3)
+   
     tryCatch(DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = as.symbol(value), async = asynchronous),
              error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
   }
   else if (is.symbol(value))
   {
-    print(4)
+   
     tryCatch(DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = value, async = asynchronous),
              error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
   }
   else if (is.call(value))
   {
-    print(5)
+   
     tryCatch(DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = value, async = asynchronous),
              error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
   }
+  
   #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
-  print(6)
-  #ds.remove.variable(new.variable.name, "NULL",error.stop = TRUE, datasources)
+  ds.remove.variable(new.variable.name, "NULL",error.stop = TRUE, datasources)
 }
 
 #create a variable when error stop is set to false. No server error being caught ....

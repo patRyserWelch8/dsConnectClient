@@ -13,14 +13,13 @@ test_that('correct_parameters',
 {
    .test.variables.does.not.exists(connections, "123")
    .test.variables.exists(connections,"number.int","D$INTEGER","integer")
-   #.test.variables.exists(connections,"number.int.negative","D$NEGATIVE_INTEGER","integer")
-   #.test.variables.exists(connections,"number.int.positive","D$POSITIVE_INTEGER","integer")
-   #.test.variables.exists(connections,"number.num.positive","D$POSITIVE_NUMERIC","numeric")
-   #.test.variables.exists(connections,"number.num.negative","D$NEGATIVE_NUMERIC","numeric")
-   #.test.variables.exists(connections,"number.factor","D$FACTOR_INTEGER","factor")
-   #.test.variables.exists(connections,"var.char","D$CHARACTER","character")
-   #.test.variables.exists(connections,"var.logical","D$LOGICAL","logical")
-  
+   .test.variables.exists(connections,"number.int.negative","D$NEGATIVE_INTEGER","integer")
+   .test.variables.exists(connections,"number.int.positive","D$POSITIVE_INTEGER","integer")
+   .test.variables.exists(connections,"number.num.positive","D$POSITIVE_NUMERIC","numeric")
+   .test.variables.exists(connections,"number.num.negative","D$NEGATIVE_NUMERIC","numeric")
+   .test.variables.exists(connections,"number.factor","D$FACTOR_INTEGER","factor")
+   .test.variables.exists(connections,"var.char","D$CHARACTER","character")
+   .test.variables.exists(connections,"var.logical","D$LOGICAL","logical")
 })
 
 

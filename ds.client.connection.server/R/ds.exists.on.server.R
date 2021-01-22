@@ -183,8 +183,6 @@ ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, error.s
   server.call <- paste0("existsDS(variable.name='",variable.name,"',environment.name = '.GlobalEnv', class.type='", class.type, "')")
   
   outcome <- ds.aggregate(server.call, asynchronous = TRUE, error.stop, datasources)
-  print("=======")
-  print(outcome)
   outcome <- all(outcome == TRUE)
   return(outcome)
 }

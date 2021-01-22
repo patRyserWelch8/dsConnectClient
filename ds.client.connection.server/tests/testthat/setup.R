@@ -43,10 +43,14 @@ server.functions <- c("existsDS","removeDS","assignCoordinatesDS",
 
 aggregate.functions <- datashield.methods(connections,type="aggregate")
 
-
-if(all(server.functions %in% aggregate.functions[,"name"]))
+function.found <- server.functions %in% aggregate.functions[,"name"]
+#print(function.found)
+#print(!(server.functions %in% aggregate.functions[,"name"]))
+#print(server.function[function.found]) 
+if(all(function.found))
 { 
   print("All the functions have been uploaded on the server")
 }
+
 
 print("setup finished")

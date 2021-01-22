@@ -7,7 +7,7 @@ library(dsBaseClient)
 
 # one server 
 server.names      <- c("Paris")
-url_Paris         <- 'https://192.168.57.101:8443'
+url_Paris         <- 'https://192.168.56.100:8443'
 table_Paris       <- "TESTING.DATASET1"
 user_Paris        <-  "administrator"
 password_Paris    <-  "datashield_test&"
@@ -56,6 +56,29 @@ print(outcome)
 # more sanity check
 ds.dataFrame(c("D$INTEGER"), newobj = "df", datasources = connections)
 print(datashield.errors())
+
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+print(outcome)
+
+
+
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+server.function.call <- call('rNormDS',1000)
+DSI::datashield.assign(conns = connections, symbol = "aNormDist1", value = server.function.call, async = FALSE)
+
+
+server.function.call <- call('lsDS', NULL,".GlobalEnv")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, error.stop = TRUE, datasources = connections)
+print(outcome)
+
+
+#rNormDS<-function (n, mean = 0, sd = 1, force.output.to.k.decimal.places=9)
+server.function.call <- call('test_assign_mixed_errorDS')
+DSI::datashield.assign(conns = connections, symbol = "aPieInTheSky", value = server.function.call, async = FALSE)
+
 
 server.function.call <- call('lsDS', NULL,".GlobalEnv")
 print(server.function.call)

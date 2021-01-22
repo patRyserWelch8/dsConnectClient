@@ -6,8 +6,6 @@ library(httr)
 source("definition_tests/def-ds.assign.value.R")
 source("connection_to_datasets/init_all_datasets.R")
 
-
-
 context('ds.assign.value():no_connection')
 test_that('no_connection',
 {
@@ -40,11 +38,13 @@ test_that('more_incorrect_parameters',
   .test.no.variable.names(connections)
   .test.no.value(connections)
   .test.values.from.assign.incorrect.function(connections)
+  
 })
 
 log.out.data.server()
 
-
+if(FALSE)
+{
 connect.dataset.1(ds.test_env)
 
 context('ds.assign.value():no_connection')
@@ -79,5 +79,5 @@ test_that('correct_parameters',
 
 log.out.data.server()
 
-
+}
 
