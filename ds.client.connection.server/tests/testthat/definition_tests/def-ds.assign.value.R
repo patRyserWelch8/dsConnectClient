@@ -2,16 +2,18 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.all.parameters.correct <- function(connection,variable.name,value,class.type)
 {
-  print(1)
-  expect_true(.assign.error.stop(datasources = connection, new.variable.name = variable.name, 
-                     value = value, class.type = class.type, asynchronous = FALSE))
-  results <- testthat::evaluate_promise(.assign.error.stop( new.variable.name = variable.name, 
-                                                value = value, class.type = class.type, 
-                                                asynchronous = FALSE,datasources = connection))
-  print(results)
+  expect_true(TRUE)
+  outcome <- .assign.error.not.stop(datasources = connection, new.variable.name = variable.name, 
+                     value = value, class.type = class.type, asynchronous = FALSE)
+  print(outcome)
+  print(ds.class(x = variable.name, datasources = connection))
+ # results <- testthat::evaluate_promise(.assign.error.stop( new.variable.name = variable.name, 
+ #                                                value = value, class.type = class.type, 
+   #                                             asynchronous = FALSE,datasources = connection))
+  #print(results)
   
-  expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, 
-                      value = value, class.type = class.type, asynchronous = FALSE))
+  #expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, 
+#                       value = value, class.type = class.type, asynchronous = FALSE))
  
 }
 
