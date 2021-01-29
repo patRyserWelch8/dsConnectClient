@@ -29,8 +29,6 @@ ds.error <- function(error, client = TRUE)
 
 .show.server.error <- function(error)
 {
-  #print("server")
-  #print(error)
   client.function.name <- error[[1]][1]
   server.function.name <- .get.function.name(error[[2]][1])
   .message.server.side.error(client.function.name, server.function.name, error[[3]])
