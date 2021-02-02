@@ -18,10 +18,13 @@
 #' \code{.aggregate} allows more efficient debugging of some server and client code. 
 #' \code{ds.aggregate} can be used once the code is efficiently working.
 
-#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login. 
+#'
 #' @param expression a call or character expression with a server-side function and its arguments. 
 #' @param asynchronous logical. If TRUE, the calls are parallelized over the connections. 
 #' If FALSE no parallelisation occurs. Default TRUE.
+#' @param error.stop logical. If TRUE(recommended), any error thrown at the server side 
+#' stops the execution of the call. If FALSE, it does not. Default TRUE.
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login. 
 #' @return 
 #' \itemize{
 #' \item The output from specified server function in \code{expression} argument 
@@ -101,47 +104,71 @@
 #' @author Patricia Ryser-Welch for DataSHIELD development team
 #' @export ds.aggregate
 #'
-
-ds.aggregate <- function(expression = NULL, asynchronous = TRUE, datasources = NULL)
+ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TRUE, datasources = NULL)
 {
-  
+  stop.allowed   <- set.error.stop(error.stop)
   outcome <- "NR"
-  tryCatch(
-    {outcome <- .aggregate(expression, asynchronous, datasources)},
-    warning = function(warning) {.warning(warning)},
-    error = function(error) {ds.error(error)},
-    finally = {return(outcome)}
-  )
+  if(stop.allowed) #can catch server error
+  {
+      tryCatch({outcome <- .aggregate.error.stop(expression, asynchronous, datasources)},
+                warning = function(warning) {ds.warning(client.function.name = "ds.aggregate", warning = warning)},
+                error = function(error) {ds.error(error, client = TRUE)},
+                finally = {return(outcome)})
+  }
+  else #cannot catch server error - no warning other warning is thrown by DSI ....
+  {
+     tryCatch({outcome <- .aggregate.no.error.stop(expression, asynchronous, datasources)},
+              error = function(error) {ds.error(error, client = TRUE)},
+              finally = {return(outcome)})
+  }
 }
 
-.aggregate <- function(expression=NULL, asynchronous=TRUE, datasources = NULL)
+# make a call using tryCatch
+.aggregate.error.stop <- function(expression=NULL, asynchronous=TRUE,  datasources = NULL)
 {
-  
-
-  correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
-
+  correct.class  <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
+ 
   if(!correct.class)
   {
-    stop("::ds.aggregate::ERR:006")
+    stop(find.error.message("::ds.aggregate::ERR:006"))
   }
   
   if(is.character(expression) || is.call(expression))
   {
-    outcome = "NR"
-    tryCatch(outcome <- DSI::datashield.aggregate(datasources,expression,asynchronous),
-             error = function(error){ds.error(list("ds.aggregate",as.character(expression), DSI::datashield.errors()), client = FALSE)},
-             finally = {return(outcome)})
+      outcome = "NR"
+      tryCatch(outcome <- DSI::datashield.aggregate(datasources,expression,asynchronous),
+              error = function(error){ds.error(list("ds.aggregate",as.character(expression), DSI::datashield.errors()), client = FALSE)},
+              finally = {return(outcome)})
   }
   else
   {
-    stop("::ds.aggregate::ERR:007")
+    stop(find.error.message("::ds.aggregate::ERR:007"))
   }
-  
 }
 
-.warning <- function(message)
+# make a call without using server try catch
+.aggregate.no.error.stop <- function(expression=NULL, asynchronous=TRUE, datasources = NULL)
 {
-  message(paste("ds.client.connection.server::ds.aggregate :",   message ))
+
+  correct.class  <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
+  
+  if(!correct.class)
+  {
+    stop(find.error.message("::ds.aggregate::ERR:006"))
+  }
+  
+  if(is.character(expression) || is.call(expression) )
+  {
+   
+    outcome <- DSI::datashield.aggregate(datasources,expression,asynchronous)
+    return(outcome)
+  }
+  else
+  {
+    stop(find.error.message("::ds.aggregate::ERR:007"))
+  }
 }
+
+
 
 

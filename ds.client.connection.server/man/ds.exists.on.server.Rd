@@ -7,6 +7,7 @@
 ds.exists.on.server(
   variable.name = NULL,
   class.type = NULL,
+  error.stop = TRUE,
   datasources = NULL
 )
 }

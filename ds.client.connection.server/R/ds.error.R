@@ -7,9 +7,6 @@
 #'@export
 ds.error <- function(error, client = TRUE)
 {
-  
-
-
   if(client)
   {
     .show.client.error(error)
@@ -41,6 +38,7 @@ ds.error <- function(error, client = TRUE)
 {
   outcome    <- "NF"
   error.char <- as.character(error)
+  ##print(error.char)
  
   if (grepl(pattern = "::", x = error.char))
   { 
@@ -56,7 +54,7 @@ ds.error <- function(error, client = TRUE)
   {
     outcome    <- error
   }
-  
+  ##print(outcome)
   return(outcome)
 }
 
@@ -80,9 +78,9 @@ ds.error <- function(error, client = TRUE)
   errors      <- lapply(X = errors, function(x) unlist(strsplit(x,"() : ")))
   
   #obtain error code or message sent by server. The last element.
-  errors     <- lapply(X = errors, function(x) return(x[length(x)]))
+  messages    <- lapply(X = errors, function(x) return(x[length(x)]))
   
-  messages   <- lapply(X = errors, function(x) find.error.message(x))
+  #messages   <- lapply(X = errors, function(x) find.error.message(x))
   
  
   #matches the names of each server with an error message.
@@ -113,6 +111,6 @@ ds.error <- function(error, client = TRUE)
      # remove additional characters
      error <- strsplit(error, ">")
   }
-     message       <- find.error.message(error)
-     message(error.message, message )
+  message       <- find.error.message(error)
+  message(error.message, message )
 }

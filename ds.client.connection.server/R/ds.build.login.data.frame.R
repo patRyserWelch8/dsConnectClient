@@ -112,7 +112,7 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
                                            users.password,
                                            options.ssl,
                                            driver.connection) },
-    warning = function(warning) {.warning(warning)},
+    warning = function(warning) {ds.warning("ds.build.login.data.frame",warning)},
     error = function(error) {ds.error(error)},
     finally = {return(return.data.frame)})
 }
@@ -205,10 +205,3 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
 }
 
 
-.warning <- function(message)
-{
-  if(!is.null(message))
-  {
-    print(paste("ds.client.connection.server::ds.build.login.data.frame :",   message ))
-  }
-}

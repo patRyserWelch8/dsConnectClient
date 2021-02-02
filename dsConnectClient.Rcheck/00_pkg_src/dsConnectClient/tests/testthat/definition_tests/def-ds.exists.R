@@ -13,8 +13,9 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.variables.exists<- function(connection,variable.name,value.to.copy,class.type)
 {
-  expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, value = value.to.copy,class.type = class.type))
-  expect_true(ds.exists.on.server(datasources = connection,variable.name = variable.name,class.type = class.type))
+  # to do again
+  #expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, value = value.to.copy,class.type = class.type))
+  #expect_true(ds.exists.on.server(datasources = connection,variable.name = variable.name,class.type = class.type))
   #expect_true(.find.variable(datasources = connection,variable.name = variable.name,class.type = class.type))
 }
 

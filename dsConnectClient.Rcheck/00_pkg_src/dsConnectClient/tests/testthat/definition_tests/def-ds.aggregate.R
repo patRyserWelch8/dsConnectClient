@@ -5,24 +5,24 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   
   server.call <- paste("dimDS('",'D',"')", sep="")
-  server.values <- .aggregate(datasources = connections, expression = server.call)
+  server.values <- .aggregate.error.stop(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   server.values <- ds.aggregate(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   
   server.call <- call('dimDS','D')
-  server.values <- .aggregate(datasources = connections, expression = server.call)
+  server.values <- .aggregate.error.stop(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   
   server.call <- call('dimDS', x = 'D')
-  server.values <- .aggregate(datasources = connections, expression = server.call)
+  server.values <- .aggregate.error.stop(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   
   server.values <- ds.aggregate(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   
   server.call <- 1
-  expect_error(server.values <- .aggregate(datasources = connections, expression = server.call))
+  expect_error(server.values <- .aggregate.error.stop(datasources = connections, expression = server.call))
   server.values <- ds.aggregate(datasources = connections, expression = server.call)
   expect_equal(server.values, "NR")
   
@@ -37,7 +37,7 @@ source("connection_to_datasets/init_all_datasets.R")
 .test.no.connection <- function(connections)
 {
   server.call <- paste("dimDS(",'D',")")
-  expect_error(.aggregate(datasources = connections, expression = server.call))
+  expect_error(.aggregate.error.stop(datasources = connections, expression = server.call))
   server.values <- ds.aggregate(datasources = connections , expression = server.call)
   expect_true(server.values == "NR")
   
@@ -45,7 +45,7 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.no.expression <- function(connections)
 {
-  expect_error(.aggregate(datasources = connectionsNULL))
+  expect_error(.aggregate.error.stop(datasources = connectionsNULL))
   server.values <- ds.aggregate(datasources = connections , expression = server.call)
   expect_true(server.values == "NR")
 }
@@ -54,7 +54,7 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   
   server.call <- paste("dimDSabdce('",'D',"')")
-  expect_equal(.aggregate(datasources = connections , expression = server.call), "NR")
+  expect_equal(.aggregate.error.stop(datasources = connections , expression = server.call), "NR")
   server.values <- ds.aggregate(datasources = connections , expression = server.call)
   expect_true(server.values == "NR")
   
@@ -66,12 +66,12 @@ source("connection_to_datasets/init_all_datasets.R")
   results <- testthat::evaluate_promise(ds.aggregate(datasources = connections , expression = server.call))
   expect_true(unique(nchar(results$messages) > 0))
   expect_equal(ds.aggregate(datasources = connections, expression = server.call), "NR")
-  expect_equal(.aggregate(datasources = connections,expression = server.call), "NR")
+  expect_equal(.aggregate.error.stop(datasources = connections,expression = server.call), "NR")
   
   server.call <- call("testStopDS")
   results <- testthat::evaluate_promise(ds.aggregate(datasources = connections, expression=  server.call))
   expect_equal(ds.aggregate(datasources = connections, expression=  server.call), "NR")
-  expect_equal(.aggregate(datasources = connections, expression=  server.call), "NR")
+  expect_equal(.aggregate.error.stop(datasources = connections, expression=  server.call), "NR")
   expect_true(unique(nchar(results$messages) > 0))
   
 }

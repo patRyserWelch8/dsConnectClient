@@ -57,16 +57,12 @@
 #' 
 #'   ## Version 6.2, for older versions see the Wiki
 #'   # Connecting to the Opal servers
-#'   
-#'   # Only for windows user 
-#'   ## (switches implementation of SSL used by  the curl R package to "openssl")
-#'   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 #' 
 #'   # Load necessary client packages
 #'   require('DSI')
 #'   require('DSOpal')
 #'   require('dsBaseClient')
-#'   require('ds.client.connection.server')
+#'   require('dsConnectClient')
 #' 
 #'   # Append login information for a specific server
 #'   
@@ -132,111 +128,151 @@
 #' @author Patricia Ryser-Welch for DataSHIELD development team
 #' @export ds.assign.value
 
-ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type = NULL,asynchronous = FALSE, datasources = NULL)
+ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = FALSE,  error.stop = TRUE, datasources = NULL)
 {
-  outcome <- FALSE
-  tryCatch(
-    {
-      outcome <- .assign(new.variable.name, value, class.type, asynchronous, datasources)},
-    warning = function(warning) {.warning(warning)},
-    error = function(error) {ds.error(error)},
-    finally = {return(outcome)})
+  stop.allowed   <- set.error.stop(error.stop)
+  outcome        <- FALSE
+  if(stop.allowed) #can catch server error
+  {
+   
+    tryCatch({
+              outcome <- .assign.error.stop(new.variable.name, value, class.type, asynchronous,error.stop, datasources = datasources)},
+              warning = function(warning) {ds.warning("ds.assign.value", warning)},
+              error = function(error) {ds.error(error)},
+              finally = {return(outcome)})
+  }
+  #else #cannot catch server error - no warning other warning is thrown by DSI ....
+  #{
+  #  tryCatch(
+  #    {
+  #      outcome <- .assign.error.not.stop(new.variable.name, value, class.type, asynchronous, datasources)},
+  #      error = function(error) {ds.error(error)},
+  #      finally = {return(outcome)})
+  #}#if-else
 }
 
-.assign <- function(new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE, datasources = NULL)
+.assign.error.stop <- function(new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE, error.stop = TRUE, datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
   if(!correct.class)
   {
-    stop("::ds.assign.value::ERR:006")
+    stop(find.error.message("::ds.assign.value::ERR:006"))
   }
   
   if (!is.character.argument.correct(new.variable.name))
   {
-    stop("::ds.assign.value::ERR:008")
+    
+    stop(find.error.message("::ds.assign.value::ERR:008"))
   }
   
   if (!is.value.for.assignment.correct(value))
   {
-    stop("::ds.assign.value::ERR:009", call. = FALSE)
+   
+    stop(find.error.message("::ds.assign.value::ERR:009"), call. = FALSE)
   }
   
   if (!is.class.type.correct(class.type))
   {
-    stop("::ds.assign.value::ERR:012", call. = FALSE)
+   
+    stop(find.error.message("::ds.assign.value::ERR:012"), call. = FALSE)
   }
+ 
+ 
+  .create.variable.error.stop(new.variable.name, value, class.type, asynchronous, error.stop = TRUE, datasources = datasources)
   
-  .create.variable(new.variable.name, value, class.type, asynchronous, datasources)
-  return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type, datasources = datasources))
+  
+  outcome <- ds.exists.on.server(variable.name = new.variable.name, class.type = class.type, error.stop = TRUE, datasources = datasources)
+ 
+  return(outcome)
 }
 
-
-.create.variable <- function(new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL, datasources = NULL)
+.assign.error.not.stop <- function(new.variable.name=NULL, value=NULL, class.type = NULL, 
+                                   asynchronous=FALSE, datasources = NULL)
 {
-  #delete variable from the server if it exists already
-  ds.remove.variable(new.variable.name, class.type, datasources)
-  #create variable on the server(s)
+  correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
+  if(!correct.class)
+  {
+    stop(find.error.message("::ds.assign.value::ERR:006"))
+  }
+  
+  if (!is.character.argument.correct(new.variable.name))
+  {
+    stop(find.error.message("::ds.assign.value::ERR:008"))
+  }
+  
+  if (!is.value.for.assignment.correct(value))
+  {
+    stop(find.error.message("::ds.assign.value::ERR:009"), call. = FALSE)
+  }
+  
+  if (!is.class.type.correct(class.type))
+  {
+    stop(find.error.message("::ds.assign.value::ERR:012"), call. = FALSE)
+  }
+  
+  .create.variable.error.not.stop(new.variable.name, value, class.type, asynchronous, datasources)
+  return(TRUE)
+  #return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type,error.stop = FALSE, error.stop = FALSE, datasources = datasources))
+}
+
+#create a variable when error stop is set to true
+.create.variable.error.stop <- function(new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL, error.stop = TRUE, datasources = NULL)
+{
+  
+  #delete variable from the server if it exists already
+  
+  ds.remove.variable(new.variable.name, class.type, error.stop = TRUE, datasources)
+  
+  #create variable on the server(s)
   if (is.character(value))
   {
+   
     tryCatch(DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = as.symbol(value), async = asynchronous),
              error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
   }
   else if (is.symbol(value))
   {
+   
     tryCatch(DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = value, async = asynchronous),
              error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
   }
   else if (is.call(value))
   {
+   
     tryCatch(DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = value, async = asynchronous),
              error = function(error){ds.error(list("ds.assign.value",as.character(value), DSI::datashield.errors()), client = FALSE)})
   }
-  #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
-  ds.remove.variable(new.variable.name, "NULL", datasources)
-}
-
-
-.warning <- function(message)
-{
-  message(paste("ds.client.connection.server::ds.assign.value :",   message ))
-}
-
-.error <- function(error)
-{
-  header <- 'ds.client.connection.server::ds.assign.value'
   
-  if (grepl("ERR:006",error))
-  {
-    message(paste(header, "::",  "ERR:006\n", " You have yet to provide a valid connection to some DataSHIELD servers.")) 
-  }
-  else if (grepl("ERR:008",error))
-  {
-    message(paste(header, "::",  "ERR:008\n", " You have yet to provide name for the new variable. It has to be a variable character.")) 
-  }
-  else if (grepl("ERR:009",error))
-  {
-    message(paste(header, "::",  "ERR:009\n", " The new variable name must be longer than one character.")) 
-  }
-  else if (grepl("ERR:010",error))
-  {
-    message(paste(header, "::",  "ERR:010\n", " You have yet to provide some values. It has to be in a character.")) 
-  }
-  else if (grepl("ERR:011",error))
-  {
-    message(paste(header, "::",  "ERR:011\n", " The value should be a character variable, with a length greater than 1.")) 
-  }
-  else if (grepl("ERR:012",error))
-  {
-    message(paste(header, "::",  "ERR:012\n", " You have yet to provide a valid class type. It should be a valid R internal type. Refer to help.")) 
-  }
-  else if (grepl("ERR:013",error))
-  {
-    message(paste(header, "::",  "ERR:013\n", " You have yet to provide a valid class type. Refer to help.")) 
-  }
-  else
-  {
-    message(paste(header,"\n", error))
-  }
+  #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
+  ds.remove.variable(new.variable.name, "NULL",error.stop = TRUE, datasources)
+  
 }
+
+#create a variable when error stop is set to false. No server error being caught ....
+.create.variable.error.not.stop <- function(new.variable.name = NULL, value = NULL, class.type = NULL, 
+                                            asynchronous = NULL,  datasources = NULL)
+{
+  #delete variable from the server if it exists already
+  #ds.remove.variable(new.variable.name, class.type, error.stop = FALSE, datasources)
+  #create variable on the server(s)
+  
+  if (is.character(value))
+  {
+    DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = as.symbol(value), async = asynchronous)
+  }
+  else if (is.symbol(value))
+  {
+    DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = value, async = asynchronous)
+  }
+  else if (is.call(value))
+  {
+    DSI::datashield.assign(conns = datasources, symbol = new.variable.name, value = value, async = asynchronous)
+  }
+  #remove variable created on the servers if the class type is null. This should remove variable that were not created correctly
+  #ds.remove.variable(new.variable.name, "NULL", error.stop = FALSE, datasources)
+}
+
+
+

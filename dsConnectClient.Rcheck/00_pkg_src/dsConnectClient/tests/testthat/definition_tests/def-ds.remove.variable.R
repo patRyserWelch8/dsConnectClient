@@ -2,7 +2,7 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.all.parameters.correct <- function(connection, variable.name, class.type, server.variable)
 {
-  
+   options(datashield.errors.stop = FALSE)
    DSI::datashield.assign(connection, variable.name, value = as.symbol(server.variable), async = FALSE)
    expect_true(ds.exists.on.server(datasources = connection, variable.name = variable.name,class.type = class.type))
    expect_true(.remove(datasources = connection, variable.name = variable.name, class.type = class.type))

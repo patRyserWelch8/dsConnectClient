@@ -1,3 +1,18 @@
+#set the datashield.errors.stop to a value
+set.error.stop <- function(error.stop)
+{
+  value.to.set <- TRUE
+  if(is.logical(error.stop))
+  {
+    value.to.set <- error.stop
+  }
+  options(datashield.errors.stop = value.to.set)
+  return(getOption("datashield.errors.stop"))
+}
+
+
+
+
 is.class.type.correct <- function(class.type)
 {
   valid.types <- c("NULL","character","complex","factor","double","expression","integer",
@@ -31,6 +46,18 @@ is.character.argument.correct <- function(character.value)
   return(outcome)
   
 }
+
+set.error.stop <- function(error.stop)
+{
+  value.to.set <- TRUE
+  if(is.logical(error.stop))
+  {
+    value.to.set <- error.stop
+  }
+  options(datashield.errors.stop = value.to.set)
+  return(getOption("datashield.errors.stop"))
+}
+
 
 is.value.for.assignment.correct <- function(value)
 {

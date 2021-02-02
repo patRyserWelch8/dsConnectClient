@@ -108,7 +108,7 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   connection <- NULL
   tryCatch(
      {connection <- .make.connection(login.data.frame, assign, variables, symbol)},
-      warning = function(warning) {.warning(warning)},
+      warning = function(warning) {ds.warning("ds.login",warning)},
       error = function(error) {ds.error(error)},
       finally = {return(connection)}
   )
@@ -128,7 +128,7 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
     stop("::ds.login::ERR:011", call. = FALSE)
   }
   
-  if(is.windows())
+  if(.is.windows())
   {
     Sys.setenv(CURL_SSL_BACKEND = "openssl")
   }
@@ -143,17 +143,10 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
   return(connection)
 }
 
-
 # check the operating system is windows - https://www.r-bloggers.com/2015/06/identifying-the-os-from-r/
-is.windows <- function()
+.is.windows <- function()
 {
    return(.Platform$OS.type == "windows")
 }
 
-.warning <- function(message)
-{
-
-  message(paste("ds.client.connection.server::ds.login :",   message ))
- 
-}
 

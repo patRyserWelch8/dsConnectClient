@@ -83,7 +83,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   success <- FALSE
   tryCatch(
     {success <- .share.parameter(param.names, tolerance, datasources)},
-    warning = function(warning) {.warning(warning)},
+    warning = function(warning) {ds.warning(ds.share.param, warning)},
     error = function(error) {ds.error(error)},
     finally = {return(success)})
 }
@@ -98,13 +98,13 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   {
     if (length(param.names) > 0)
     {
-       
+        print("123")
         success <- .assign.settings(datasources)
        
         if (success)
         {
-          outcome <- .complete.exchange(connections = datasources, param.names, tolerance)
-          print(outcome)
+          #outcome <- .complete.exchange(connections = datasources, param.names, tolerance)
+          #print(outcome)
         }
        
         .remove.exchange.data(datasources)
@@ -127,7 +127,12 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   successful <- FALSE
   if (!is.null(connections))
   {
-    outcome    <- ds.aggregate(expression = call("assignSharingSettingsDS"), datasources = connections )
+    print("123")
+    outcome    <- ds.aggregate(expression = call("assignSharingSettingsDS"), error.stop = TRUE , datasources = connections )
+    print("after call")
+    print(outcome)
+    print(successful)
+    
     if(is.list(outcome))
     {
       outcome.vector <- unlist(outcome)
@@ -137,6 +142,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
     {
       successful     <- outcome
     }
+    print("123")
     
     if (!successful)
     {
@@ -149,10 +155,14 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
 # delete from each servers 
 .remove.exchange.data <- function(connections)
 {
+  print("123")
   if (!is.null(connections))
   {
-    outcome <- ds.aggregate(expression = call("removeExchangeDataDS"), datasources = connections)
+    print("123")
+    outcome <- ds.aggregate(expression = call("removeExchangeDataDS"),error.stop = TRUE, datasources = connections)
+    print(outcome)
   }
+  print("123")
 }
 
 #delete from servers parameters
@@ -385,14 +395,5 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   return(.transform.outcome.to.logical(outcome))
 }
 
-#may need to become one central function
-.warning <- function(message)
-{
-  
-  #message(paste("ds.client.connection.server::ds.share.param:",   message ))
-  #if (grepl("WAR:001",message))
-  #{
-  #  message(paste(header, "::",  "WAR:001\n", "More than one connection is required for sharing parameters.")) 
-  #}
-}
-                             
+
+                        

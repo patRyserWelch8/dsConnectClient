@@ -35,16 +35,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D 
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
-##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D 
 ##D   # Append login information for a specific server
 ##D   
@@ -126,16 +122,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D 
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
-##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D 
 ##D   # Append login information for a specific server
 ##D   
@@ -220,16 +212,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D 
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
-##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D 
 ##D   # Append login information for a specific server
 ##D   
@@ -302,16 +290,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D 
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
-##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D   
 ##D   # Build the login data frame
 ##D   login.data.resources<-ds.build.login.data.resources( servers = "liver",
@@ -354,16 +338,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D 
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
-##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D 
 ##D   # Append login information for a specific server
 ##D   
@@ -452,16 +432,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D 
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
-##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D 
 ##D   # Append login information for a specific server
 ##D   
@@ -536,16 +512,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D 
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
-##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D 
 ##D   # Append login information for a specific server
 ##D   
@@ -625,15 +597,12 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ##D   ## Version 6.2, for older versions see the Wiki
 ##D   # Connecting to the Opal servers
 ##D   
-##D   # Only for windows user 
-##D   ## (switches implementation of SSL used by  the curl R package to "openssl")
-##D   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ##D 
 ##D   # Load necessary client packages
 ##D   require('DSI')
 ##D   require('DSOpal')
 ##D   require('dsBaseClient')
-##D   require('ds.client.connection.server')
+##D   require('dsConnectClient')
 ##D 
 ##D   # Append login information for a specific server
 ##D   

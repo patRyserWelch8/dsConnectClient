@@ -4,7 +4,12 @@
 \alias{ds.remove.variable}
 \title{Delete a variable of a specific given type on the server-side}
 \usage{
-ds.remove.variable(variable.name = NULL, class.type = NULL, datasources = NULL)
+ds.remove.variable(
+  variable.name = NULL,
+  class.type = NULL,
+  error.stop = TRUE,
+  datasources = NULL
+)
 }
 \arguments{
 \item{variable.name}{a character string specifying the name of the variable.}
@@ -142,7 +147,7 @@ Both functions can be used interchangeably: \cr
 }
 }
 \seealso{
-server function used: \code{removeSD} (Aggregate function)\cr
+server function used: \code{removeDS} (Aggregate function)\cr
 \code{\link{ds.aggregate}}\cr
 \code{\link{ds.exists.on.server}}
 }

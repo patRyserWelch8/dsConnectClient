@@ -1,6 +1,10 @@
 {
-    "path" : "~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server/Vignettes",
+    "path" : "~/Documents/GitHub/ds.client.connection.server/ds.client.connection.server",
     "sortOrder" : [
+        {
+            "ascending" : false,
+            "columnIndex" : 4
+        },
         {
             "ascending" : false,
             "columnIndex" : 2
