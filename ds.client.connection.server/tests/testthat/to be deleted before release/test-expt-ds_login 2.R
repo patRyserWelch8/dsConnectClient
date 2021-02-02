@@ -6,11 +6,11 @@ library(httr)
 source("definition_tests/def-ds.login.R")
 source("connection_to_datasets/init_all_datasets.R")
 
-print(1)
+
 context('ds.login():http_connection::multiple')
 test_that('http connection multiple',
 {
-  print(2)
+  
   test_equal(TRUE, TRUE)
   .test.http.connection.multiple()
 })

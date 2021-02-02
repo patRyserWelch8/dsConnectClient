@@ -1,0 +1,343 @@
+---
+title: "ds.client.connection.server Packages users documentation"
+author: "Patricia Ryser-Welch on Behalf of the DataSHIELD Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ds.client.connection.server Packages users documentation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment="", warning=FALSE, message=FALSE, cache=TRUE)
+```
+
+# Introduction
+The purpose of this package is to support DataSHIELD analysts and programmers to connect to some Opal servers in a more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD client scripts and functions. 
+
+The latter includes:
+
+0. Prerequisites
+1. Building some login data frames
+2. Logging in and out of some DataSHIELD servers
+3. Assigning values to some server variables
+4. Executing some aggregates server-side functions 
+5. Deleting some server-side variables
+6. Checking some server-side variables exists
+
+This package has been written to be used along the side of the [dsBaseClient package](https://github.com/datashield/dsBaseClient).
+
+We would recommend any new DataSHIELD users to install DataSHIELD and complete the training available on the DataSHIELD wiki; [Installation and training](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943395/Installation+Training).
+
+# Installing client-side and server-side packages
+
+## Server-side DataSHIELD server
+In order to use all the functions of this package, any DataSHIELD servers 
+need to have installed the following server-side packages: 
+
+* [dsParameterServer](https://github.com/patRyserWelch8/dsServerParameter)
+* [dsBase](https://github.com/datashield/dsBase)
+* The following servers functions are called and made available in version 6.2 of dsBase [ADD LINK]:
+  * existsDS
+  * removeDS
+  
+The instructions to install the server-side packages can be found in DataSHIELD  [Wiki](https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function).
+
+## Client-side analysis computer
+During the installation, this package will import the following packages: 
+
+* DSI
+* DSOpal
+* RCurl
+* httr
+* R6
+* opalr
+
+These packages are required in the client-side to connect to an Opal Server, to manipulate some server-side variables and call server-side functions. 
+
+## Client-side analysis scripts
+
+
+At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages. 
+
+```{r}
+#Libraries 
+library(DSI)
+library(DSOpal)
+library(httr)
+library(ds.connection.client)
+library(dsBaseClient)
+```
+
+If you are windows operating system user, before login to DataSHIELD server
+you need to switch implementation of SSL used by the curl R package to \code{'openssl'}. 
+
+
+```{r}
+#Only for windows users
+Sys.setenv(CURL_SSL_BACKEND = "openssl")
+```
+
+
+# Building a login data frame
+A login data frame provides the information to connect to any DataSHIELD servers; those servers have an Opal Data Warehouse software installed. On the client-side, the following information needs to be provided to log in.
+
+_data computers name_
+
+```{r}
+server.names <- c("Paris", "Newcastle", "New York")
+```
+
+_data computers url_
+
+These unique resources link are likely to be unique. In this example, we are connecting to a virtual machine and hence using a different.
+
+```{r}
+url_Paris     <- 'https://192.168.56.100:8443'
+url_Newcastle <- 'https://192.168.56.100:8443'
+url_NewYork   <- 'https://192.168.56.100:8443'
+server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
+```
+
+_data computers table name_ 
+
+The name of these tables should exist on each server.  In the example below the table "TESTING.DATASET1" is assumed to be stored in Paris. 
+
+```{r}
+table_Paris     <- "TESTING.DATASET1"
+table_Newcastle <- "TESTING.DATASET2"
+table_NewYork   <- "TESTING.DATASET3"
+server.tables   <- c(table_Paris, table_Newcastle, table_NewYork)
+```
+
+_users id_
+
+The user id may be unique to each DataSHIELD server. 
+
+```{r}
+user_Paris      <-  "administrator"
+user_Newcastle  <-  "administrator"
+user_NewYork    <-  "administrator"
+server.users.id <- c(user_Paris, user_Newcastle, user_NewYork)
+```
+
+_users password_
+
+The password is likely to be unique for each DataSHIELD server. It should be provided by each organisation involved in giving access to the data.
+
+```{R}
+password_Paris      <-  "datashield_test&"
+password_Newcastle  <-  "datashield_test&"
+password_NewYork    <-  "datashield_test&"
+server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
+```
+
+_options ssl_
+
+The secure socket layer settings are likely to be unique for each DataSHIELD server. Each organisation should provide the details of these settings when it gives access to their DataSHIELD server(s).
+
+```{R}
+ssl_options_Paris     <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+ssl_options_Newcastle <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
+server.ssl.options    <- c(ssl_options_Paris,ssl_options_Newcastle,ssl_options_NewYork)
+```
+
+_driver connection_
+
+The driver is likely to be set to "OpalDriver". This driver is used to connect to the Opal server.
+
+```{R}
+driver_Paris     <- "OpalDriver"
+driver_Newcastle <- "OpalDriver"
+driver_NewYork   <- "OpalDriver"
+server.drivers   <- c(driver_Paris,driver_Newcastle,driver_NewYork)
+```
+
+_building the login data frame_
+
+The function _ds.build.login.data.frame_ generates a valid data frame. Any errors with the entries are pointed out, with a possible solution. In this example, we have printed the login data. It is a method of validating the information are correct, before logging in.
+
+```{R}
+login.data <- ds.build.login.data.frame(server.names,
+                                        server.urls,
+                                        server.tables,
+                                        server.users.id,
+                                        server.users.pwd,
+                                        server.ssl.options,
+                                        server.drivers)
+print(login.data)
+```
+
+# Logging in DataSHIELD servers
+Before DataSHIELD analysts can complete some calculations, it is required to log in to each DataSHIELD server. The function _ds.login_ uses again the login data and the statistical variables made available through the datasets.  
+
+The example below uses again the login data obtained in the previous section. Then, the connections object is passed as an argument to obtain all the objects listed in each DataSHIELD server.  
+
+The connection does not need to be shown. However, some DataSHIELD analysts may like to verify they have successfully connected to each server.
+
+```{R}
+server.var <- list('ID','CHARACTER', 'LOGICAL','NA_VALUES','INTEGER','NULL_VALUES',
+                   'NON_NEGATIVE_INTEGER','POSITIVE_INTEGER','NEGATIVE_INTEGER',
+                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC',
+                   'FACTOR_CHARACTER','FACTOR_INTEGER','IDENTIFIER','CATEGORY','IDENTIFIER',
+                   'CATEGORY')
+connections <- ds.login(login.data, variables = server.var, symbol = 'D')
+print(connections)
+
+
+```
+
+# Basic server-level analysis
+The following code shows the names of the columns of the data.
+```{R}
+tables.colnames <- ds.colnames(x = 'D', 
+                               datasources = connections)
+print("Columns names    : ")
+print(tables.colnames)
+tables.features  <- ds.dim(x = "D", 
+                           type = "split", 
+                           datasources = connections)
+print("Rows and columns : ")
+print(tables.features)
+```
+
+The following code computes some basic statistical measures (i.e., centrality and spread).
+
+```{r}
+int.mean    <- ds.mean (x = 'D$POSITIVE_INTEGER', type = "split", datasources = connections)
+int.var     <- ds.var (x = 'D$POSITIVE_INTEGER', type = "split", datasources = connections)
+int.std     <- sqrt(int.var[[1]][,1])
+
+print("Mean")
+print(int.mean[[1]])
+
+print("Standard deviation")
+print(int.std)
+```
+
+
+
+
+# Basic virtually-joined analysis
+The following code shows the names of the columns of the data.
+```{R}
+tables.colnames <- ds.colnames(x = 'D', 
+                               datasources = connections)
+print("Columns names    : ")
+print(tables.colnames)
+tables.features  <- ds.dim(x = "D", 
+                           type = "combined", 
+                           datasources = connections)
+print("Rows and columns : ")
+print(tables.features)
+```
+
+The following code computes some basic statistical measures (i.e., centrality and spread).
+
+```{r}
+int.mean    <- ds.mean (x = 'D$POSITIVE_INTEGER', type = "combined", datasources = connections)
+int.var     <- ds.var (x = 'D$POSITIVE_INTEGER', type = "combined", datasources = connections)
+int.std     <- sqrt(int.var[[1]][,1])
+
+print("Mean")
+print(int.mean[[1]])
+
+print("Standard deviation")
+print(int.std)
+
+```
+
+# Assigning values to some server variables
+The function _ds.assign_value_ enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created and stored on the server. The function also returns an indication of whether the assignment process has been achieved on all servers. It is a useful function to use in DataSHIELD scripts to create a variable and verify it has been created on the server.  When developing client-side functions, this function can assist with writing succinct code. The developer can be verified the variable has been created with the correct data type.
+
+In the example below, the _server-side function rUnifDs_ generates uniform distributions and returns a  _numeric_ values vector matching the arguments. The returned distribution is saved on the server against a variable named _rUnifDist_. A data type  must match the server-side function outcome. In this case,  it is set to _numeric_, then the outcome is TRUE. Otherwise, no variable is created.
+
+```{R}
+#server function header 
+server.function.call <- call("rUnifDS",100,14,50,10)
+var.created <- ds.assign.value(new.variable.name= "rUnifDist",
+                               value = server.function.call,
+                               class.type = "numeric",
+                               asynchronous = FALSE,
+                               datasources = connections)
+print(var.created)
+print(ds.class(x = "rUnifDist", datasources = connections))
+
+var.created <- ds.assign.value(new.variable.name ="rUnifDistB",
+                               value = server.function.call,
+                               class.type = "character",
+                               asynchronous = FALSE,
+                               datasources = connections)
+print(var.created)
+print(ds.class(x = "rUnifDistB", datasources = connections))
+
+runif.mean    <- ds.mean (x = 'rUnifDist', type = "split", datasources = connections)
+runif.var     <- ds.var (x = 'rUnifDist', type = "split", datasources = connections)
+runif.std     <- sqrt(runif.var[[1]][,1])
+
+print("server-level")
+print("Mean")
+print(runif.mean[[1]])
+
+print("Standard deviation")
+print(runif.std)
+
+print("virtually-joined")
+runif.mean    <- ds.mean (x = 'rUnifDist', type = "combined", datasources = connections)
+runif.var     <- ds.var (x = 'rUnifDist', type = "combined", datasources = connections)
+runif.std     <- sqrt(runif.var[[1]][,1])
+
+print("Mean")
+print(runif.mean[[1]])
+
+print("Standard deviation")
+print(runif.std)
+
+```
+
+# Checking some server side variables exists
+
+```{R}
+print("the variable has been created and should exists on the server. A correct answer should be TRUE")
+rUnif.exists <- ds.exists.on.server(variable.name = "rUnifDist", 
+                                    class.type    = "numeric",
+                                    datasources   = connections)
+print(rUnif.exists)
+
+print("the variable has not been created and should exists on the server. A correct answer should be FALSE")
+rUnif.exists <- ds.exists.on.server(variable.name = "rUnifDistB", 
+                                    class.type    = "character",
+                                    datasources   = connections)
+print(rUnif.exists)
+```
+
+
+
+# Deleting some server-side variables
+```{R}
+
+outcome <- ds.remove.variable(variable.name = "rUnifDist", class.type = "numeric", datasources = connections)
+print(outcome)
+
+outcome <- ds.remove.variable(variable.name = "rUnifDistB", class.type = "character", datasources = connections)
+print(outcome)
+
+```
+
+# Calling an aggregate server-side function 
+```{r}
+server.function.call <- call("varDS","D$POSITIVE_INTEGER")
+print(server.function.call)
+outcome <- ds.aggregate(expression = server.function.call, asynchronous = FALSE, datasources = connections)
+print(outcome)
+```
+
+# Logging out of DataSHIELD servers
+At the end of each DataSHIELD script, the connections between the client and the DataSHIELD servers must be closed. Otherwise, the performance of each server is negatively affected. So, once a DataSHIELD user does not require any more the computing resources of any DataSHIELD server, they log out.
+
+```{R}
+outcome <- ds.logout(connections)
+print(outcome)
+```

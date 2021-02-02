@@ -37,16 +37,12 @@
 #' 
 #'   ## Version 6.2, for older versions see the Wiki
 #'   # Connecting to the Opal servers
-#'   
-#'   # Only for windows user 
-#'   ## (switches implementation of SSL used by  the curl R package to "openssl")
-#'   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 #' 
 #'   # Load necessary client packages
 #'   require('DSI')
 #'   require('DSOpal')
 #'   require('dsBaseClient')
-#'   require('ds.client.connection.server')
+#'   require('dsConnectClient')
 #' 
 #'   # Append login information for a specific server
 #'   
@@ -108,8 +104,6 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
                                          driver.connection = NULL)
 {
   return.data.frame <- NULL
-  
-  
   tryCatch(
     {return.data.frame <- .build.data.frame(data.computers.name,
                                            data.computers.url,
@@ -118,7 +112,7 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
                                            users.password,
                                            options.ssl,
                                            driver.connection) },
-    warning = function(warning) {.warning(warning)},
+    warning = function(warning) {ds.warning("ds.build.login.data.frame",warning)},
     error = function(error) {ds.error(error)},
     finally = {return(return.data.frame)})
 }
@@ -211,10 +205,3 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
 }
 
 
-.warning <- function(message)
-{
-  if(!is.null(message))
-  {
-    print(paste("ds.client.connection.server::ds.build.login.data.frame :",   message ))
-  }
-}

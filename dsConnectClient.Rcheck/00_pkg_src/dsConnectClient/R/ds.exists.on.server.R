@@ -66,16 +66,12 @@
 #' 
 #'   ## Version 6.2, for older versions see the Wiki
 #'   # Connecting to the Opal servers
-#'   
-#'   # Only for windows user 
-#'   ## (switches implementation of SSL used by  the curl R package to "openssl")
-#'   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 #' 
 #'   # Load necessary client packages
 #'   require('DSI')
 #'   require('DSOpal')
 #'   require('dsBaseClient')
-#'   require('ds.client.connection.server')
+#'   require('dsConnectClient')
 #' 
 #'   # Append login information for a specific server
 #'   
@@ -147,18 +143,18 @@
 #'
 
 
-ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, datasources = NULL)
+ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, error.stop = TRUE, datasources = NULL)
 {
   outcome <- FALSE
   tryCatch(
-  {outcome <- .find.variable(variable.name, class.type, TRUE, datasources)},
-   warning = function(warning) {.warning(warning)},
+  {outcome <- .find.variable(variable.name, class.type, TRUE, error.stop, datasources)},
+   warning = function(warning) {ds.warning("ds.exists.on.server",warning)},
    error = function(error) {ds.error(error)},
    finally = {return(outcome)}
   )
 }
 
-.find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, datasources = NULL)
+.find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, error.stop = TRUE,  datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
 
@@ -177,23 +173,18 @@ ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, datasou
     stop("::ds.exists.on.server::ERR:012", call. = FALSE)
   }
   
-  return(.call_existsDS(variable.name, class.type, datasources))
+  return(.call_existsDS(variable.name, class.type, error.stop, datasources))
 }
 
-.call_existsDS <- function(variable.name, class.type, datasources)
+.call_existsDS <- function(variable.name, class.type, error.stop, datasources)
 {
   outcome <- FALSE
 
   server.call <- paste0("existsDS(variable.name='",variable.name,"',environment.name = '.GlobalEnv', class.type='", class.type, "')")
-  outcome <- ds.aggregate(server.call, TRUE,datasources)
+  
+  outcome <- ds.aggregate(server.call, asynchronous = TRUE, error.stop, datasources)
   outcome <- all(outcome == TRUE)
   return(outcome)
-}
-
-
-.warning <- function(message)
-{
-  message(paste("ds.client.connection.server::ds.find.variable :",   message ))
 }
 
 

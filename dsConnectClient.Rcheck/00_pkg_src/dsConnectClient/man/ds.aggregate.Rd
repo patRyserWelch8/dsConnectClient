@@ -4,13 +4,21 @@
 \alias{ds.aggregate}
 \title{Executes a function on some R server sessions and returns the outcome to the client}
 \usage{
-ds.aggregate(expression = NULL, asynchronous = TRUE, datasources = NULL)
+ds.aggregate(
+  expression = NULL,
+  asynchronous = TRUE,
+  error.stop = TRUE,
+  datasources = NULL
+)
 }
 \arguments{
 \item{expression}{a call or character expression with a server-side function and its arguments.}
 
 \item{asynchronous}{logical. If TRUE, the calls are parallelized over the connections. 
 If FALSE no parallelisation occurs. Default TRUE.}
+
+\item{error.stop}{logical. If TRUE(recommended), any error thrown at the server side 
+stops the execution of the call. If FALSE, it does not. Default TRUE.}
 
 \item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
 }
@@ -45,16 +53,12 @@ Both functions can be used interchangeably.
 
   ## Version 6.2, for older versions see the Wiki
   # Connecting to the Opal servers
-  
-  # Only for windows user 
-  ## (switches implementation of SSL used by  the curl R package to "openssl")
-  Sys.setenv(CURL_SSL_BACKEND = "openssl")
 
   # Load necessary client packages
   require('DSI')
   require('DSOpal')
   require('dsBaseClient')
-  require('ds.client.connection.server')
+  require('dsConnectClient')
 
   # Append login information for a specific server
   

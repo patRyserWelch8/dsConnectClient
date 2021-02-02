@@ -147,7 +147,7 @@ Both functions can be used interchangeably: \cr
 }
 }
 \seealso{
-server function used: \code{removeSD} (Aggregate function)\cr
+server function used: \code{removeDS} (Aggregate function)\cr
 \code{\link{ds.aggregate}}\cr
 \code{\link{ds.exists.on.server}}
 }

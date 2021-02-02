@@ -106,7 +106,6 @@
 #'
 ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TRUE, datasources = NULL)
 {
-  
   stop.allowed   <- set.error.stop(error.stop)
   outcome <- "NR"
   if(stop.allowed) #can catch server error

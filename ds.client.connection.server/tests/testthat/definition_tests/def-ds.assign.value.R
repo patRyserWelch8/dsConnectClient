@@ -5,15 +5,15 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_true(TRUE)
   outcome <- .assign.error.not.stop(datasources = connection, new.variable.name = variable.name, 
                      value = value, class.type = class.type, asynchronous = FALSE)
-  print(outcome)
-  print(ds.class(x = variable.name, datasources = connection))
- # results <- testthat::evaluate_promise(.assign.error.stop( new.variable.name = variable.name, 
- #                                                value = value, class.type = class.type, 
-   #                                             asynchronous = FALSE,datasources = connection))
-  #print(results)
   
-  #expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, 
-#                       value = value, class.type = class.type, asynchronous = FALSE))
+  
+  results <- testthat::evaluate_promise(.assign.error.stop( new.variable.name = variable.name, 
+                                                 value = value, class.type = class.type, 
+                                                 asynchronous = FALSE,datasources = connection))
+  
+  
+  expect_true(ds.assign.value(datasources = connection, new.variable.name = variable.name, 
+                       value = value, class.type = class.type, asynchronous = FALSE))
  
 }
 
@@ -46,9 +46,8 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.values.from.assign.incorrect.function <- function(connection)
 { 
-  
-  expect_error(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="", class.type = "integer",asynchronous = FALSE))
-  print(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="D$RUBBISH", class.type = "integer",asynchronous = FALSE))
+  expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="", class.type = "integer",asynchronous = FALSE))
+  expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="D$RUBBISH", class.type = "integer",asynchronous = FALSE))
   
   expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="D$RUBBISH", class.type = "integer",asynchronous = FALSE))
   expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1",value="D$RUBBISH", class.type =  "integer",asynchronous = FALSE))
@@ -65,8 +64,6 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1",value=server.call, class.type = "numeric", asynchronous = FALSE))
   expect_false(ds.assign.value(datasources = connection, new.variable.name = "test.var.1",value=server.call,class.type = "numeric",asynchronous = FALSE))
   results <- testthat::evaluate_promise(ds.assign.value(datasources = connection, new.variable.name = "test.var.1",value=server.call,class.type = "numeric",asynchronous = FALSE))
-  
-  
 }
 
 

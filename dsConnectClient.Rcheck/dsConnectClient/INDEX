@@ -14,3 +14,4 @@ ds.logout               log out from some DataSHIELD servers
 ds.remove.variable      Delete a variable of a specific given type on
                         the server-side
 ds.share.param          sharing parameter between
+ds.warning              Displays DataSHIELD and R warnings
