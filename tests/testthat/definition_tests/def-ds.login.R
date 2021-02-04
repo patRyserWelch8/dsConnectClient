@@ -1,6 +1,6 @@
 source("connection_to_datasets/init_local_settings.R")
 source("connection_to_datasets/init_all_datasets.R")
-print(ds.test_env)
+
 
 .test.no.login.info <- function()
 {
@@ -29,7 +29,6 @@ print(ds.test_env)
 
 .test.http.connection.multiple <- function()
 {
-  print(3)
   ds.test_env <- new.env()
   connections <- connect.all.datasets(ds.test_env)
   server <-   c('study1','study2', 'study3')
@@ -56,14 +55,14 @@ print(ds.test_env)
   login <- ds.build.login.data.frame(server,url,user,password,table,options.ssl,drivers)
   connection <- ds.login(login,assign = FALSE,table)
   expect_true(is.null(connection))
-  
 }
 
 
 .test.https.connection.multiple <- function()
 {
+  
   #use this function set the relevant information
-  init.all.datasets()
+  init.all.datasets(ds.test_env)
   connection <- .make.connection(ds.test_env$login.data,assign = FALSE,ds.test_env$stat.vars, "D")
   expect_true(!is.null(connection))
   ds.logout(connection,NULL)

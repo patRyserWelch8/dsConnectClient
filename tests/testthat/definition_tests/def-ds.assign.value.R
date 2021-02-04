@@ -46,7 +46,7 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.values.from.assign.incorrect.function <- function(connection)
 { 
-  expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="", class.type = "integer",asynchronous = FALSE))
+  expect_error(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="", class.type = "integer",asynchronous = FALSE))
   expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="D$RUBBISH", class.type = "integer",asynchronous = FALSE))
   
   expect_false(.assign.error.stop(datasources = connection,new.variable.name = "test.var.1", value="D$RUBBISH", class.type = "integer",asynchronous = FALSE))

@@ -3,7 +3,7 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.no.login.info <- function()
 {
-  ds.login(NULL)
+  expect_error(ds.login(NULL))
   expect_error(.make.connection(NULL))
   expect_true(is.null(ds.login(NULL)))
 }

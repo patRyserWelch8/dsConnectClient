@@ -10,8 +10,6 @@ source("connection_to_datasets/init_all_datasets.R")
 context('ds.login():http_connection::multiple')
 test_that('http connection multiple',
 {
-  
-  test_equal(TRUE, TRUE)
   .test.http.connection.multiple()
 })
 
@@ -28,12 +26,15 @@ test_that('https connection multiple',
   .test.https.connection.multiple()
 })
 
+
+
 context('ds.login():https_connection::single')
 test_that('https connection single',
 {
   .test.https.connection.single()
 })
 
+ds.test_env <- new.env()
 context('ds.login()::incorrect_url::single')
 test_that('https connection single',
 {
