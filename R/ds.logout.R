@@ -1,9 +1,10 @@
-#'@name ds.logout
-#'@title log out from some DataSHIELD servers 
-#'@description Clear the DataSHIELD R sessions and logout from DataSHIELD data repositories.
-#'@param datasources a list of \code{\link{DSConnection-class}} objects obtained after login. 
-#'@param Save DataSHIELD sessions on each server data repository (if feature is supported)
+#' @name ds.logout
+#' @title log out from some DataSHIELD servers 
+#' @description Clear the DataSHIELD R sessions and logout from DataSHIELD data repositories.
+#' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login. 
+#' @param save DataSHIELD sessions on each server data repository (if feature is supported)
 #' with provided ID (must be a character string).
+#' 
 #'@examples 
 #' \dontrun{
 #' 

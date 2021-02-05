@@ -25,12 +25,12 @@
 #' \item "\code{\link{vector}}"
 #' \item  "\code{\link{S4}}"
 #' \item "\code{\link{environment}}"
-#' \item "\code{\link{RangedSummarizedExperiment}}"
-#' \item "\code{\link{SummarizedExperiment}}"
-#' \item "\code{\link{ExpressionSet}}"
+#' \item "\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}"
+#' \item "\code{\link[Biobase]{ExpressionSet}}"
 #' }
 #' @param  asynchronous logical. If TRUE, the calls are parallelized over the connections. 
 #' If FALSE no parallelisation occurs. Default TRUE.
+#' @param  error.stop a boolean. Default is TRUE. 
 #' @return 
 #' \itemize{
 #' \item TRUE if the values have been created in all the servers. 
@@ -42,7 +42,7 @@
 #' \item \code{ds.assign.value} captures any errors and warnings 
 #' thrown by the function \code{.assign}. No error or warning is displayed. 
 #' If an error or a warning is caught, then the function returns FALSE.
-#' \item \code{.assign} wraps the function \code{\link{DSI::datashield.assign}}. 
+#' \item \code{.assign} wraps the function \code{\link[DSI]{datashield.assign}}. 
 #' A valid OpalConnection, a valid server variable name and value is checked. 
 #' When  all these conditions are met, then a server call is made. 
 #' }
@@ -50,7 +50,7 @@
 #' \code{.assign} allows more efficient debugging of some server and client code. 
 #' \code{ds.assign.value} can be used 
 #' once the code is efficiently working.
-#' @seealso  \code{\link{DSI::datashield.assign}}
+#' @seealso  \code{\link[DSI]{datashield.assign}}
 #' @seealso \code{\link{ds.exists.on.server}}
 #' @examples 
 #' \dontrun{

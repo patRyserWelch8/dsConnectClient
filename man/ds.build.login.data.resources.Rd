@@ -75,7 +75,9 @@ DataSHIELD R session.
   connections <- ds.login(login.data.frame = login.data.resources, assign = TRUE, symbol = "D") 
   
   # Assign a resource to a "RangedSummarizedExperiment" which is the type of the object
-  ds.assign.value("rse",quote(as.resource.object(D)), "RangedSummarizedExperiment", FALSE, connections)
+  ds.assign.value("rse",quote(as.resource.object(D)),
+                  "RangedSummarizedExperiment", FALSE, 
+                  connections)
   
   # Clear the Datashield/R sessions and logout
   ds.logout(connections) 

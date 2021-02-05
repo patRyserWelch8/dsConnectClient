@@ -9,7 +9,7 @@
 #' thrown by the function \code{.aggregate}. 
 #' No error or warning is displayed. If an error or a warning is caught, then
 #' \code{"NR"} is returned.
-#' \item \code{.aggregate} wraps the function \code{\link{DSI::datashield.aggregate}} function. 
+#' \item \code{.aggregate} wraps the function \code{\link[DSI]{datashield.aggregate}} function. 
 #' A valid Opal Connection and a valid expression (character) is checked. 
 #' When these two conditions are both met, then a server call is made. 
 #' }
@@ -30,7 +30,7 @@
 #' \item The output from specified server function in \code{expression} argument 
 #' \item \code{"NR"} indicates no function has been executed on the server
 #' }
-#' @seealso \code{\link{DSI::datashield.aggregate}} function.
+#' @seealso \code{\link[DSI]{datashield.aggregate}} function.
 #' @examples 
 #' \dontrun{
 #' 

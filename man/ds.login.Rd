@@ -53,8 +53,8 @@ The expected column names are:\cr
   (if supported by data repository)
 }
  
- To built the mentioned table go to \code{\link{ds.build.login.data.frame}} example. 
- The input table \code{\link{logindata}} for details of the login elements.
+ To built the mentioned table go to \code{\link[dsConnectClient]{ds.build.login.data.frame}} example. 
+ The input table \code{logindata} for details of the login elements.
 }
 \examples{
 \dontrun{

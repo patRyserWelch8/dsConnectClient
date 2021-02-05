@@ -9,7 +9,7 @@ ds.logout(datasources, save = NULL)
 \arguments{
 \item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
 
-\item{Save}{DataSHIELD sessions on each server data repository (if feature is supported)
+\item{save}{DataSHIELD sessions on each server data repository (if feature is supported)
 with provided ID (must be a character string).}
 }
 \description{
