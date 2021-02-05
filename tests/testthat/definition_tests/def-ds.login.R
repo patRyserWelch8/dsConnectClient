@@ -60,7 +60,7 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.https.connection.multiple <- function()
 {
-  
+  ds.test_env <- new.env()
   #use this function set the relevant information
   init.all.datasets(ds.test_env)
   connection <- .make.connection(ds.test_env$login.data,assign = FALSE,ds.test_env$stat.vars, "D")
@@ -74,8 +74,8 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.https.connection.single <- function()
 {
-  
-  init.dataset.1()
+  ds.test_env <- new.env()
+  init.dataset.1(ds.test_env)
   connection <- .make.connection(ds.test_env$login.data,assign = FALSE,ds.test_env$stat.vars, "D")
   expect_true(!is.null(connection))
   ds.logout(connection,NULL)
@@ -83,7 +83,7 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_true(!is.null(connection))
   ds.logout(connection,NULL)
   
-  init.dataset.2()
+  init.dataset.2(ds.test_env)
   connection <- .make.connection(ds.test_env$login.data,assign = FALSE,ds.test_env$stat.vars, "D")
   expect_true(!is.null(connection))
   ds.logout(connection,NULL)
@@ -91,7 +91,7 @@ source("connection_to_datasets/init_all_datasets.R")
   expect_true(!is.null(connection))
   ds.logout(connection,NULL)
   
-  init.dataset.3()
+  init.dataset.3(ds.test_env)
   connection <- .make.connection(ds.test_env$login.data,assign = FALSE,ds.test_env$stat.vars, "D")
   expect_true(!is.null(connection))
   ds.logout(connection,NULL)
@@ -106,11 +106,11 @@ source("connection_to_datasets/init_all_datasets.R")
 {
   server <-   c('study1')
   url <- c("https://my.website")
-  user <-  c(ds.test_env$user_1)
-  password <- c(ds.test_env$password_1)
+  user <-  c(login.details$user_1)
+  password <- c(login.details$password_1)
   table <-  c("TESTING.DATASET1")
-  options.ssl <-  c("c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)","c(ssl.verifyhost=0,ssl.verifypeer=0)")
-  drivers <- c("OpalDriver","OpalDriver","OpalDriver")
+  options.ssl <-  c("c(ssl.verifyhost=0,ssl.verifypeer=0)")
+  drivers <- c("OpalDriver")
   
   
   login <- data.frame(server,url,user,password,table)
