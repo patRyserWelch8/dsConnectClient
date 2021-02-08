@@ -17,7 +17,7 @@ ds.aggregate(
 \item{asynchronous}{logical. If TRUE, the calls are parallelized over the connections. 
 If FALSE no parallelisation occurs. Default TRUE.}
 
-\item{error.stop}{logical. If TRUE(recommended), any error thrown at the server side 
+\item{error.stop}{a boolean. If TRUE(recommended), any error thrown at the server-side 
 stops the execution of the call. If FALSE, it does not. Default TRUE.}
 
 \item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}

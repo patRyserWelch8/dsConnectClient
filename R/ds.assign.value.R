@@ -30,7 +30,8 @@
 #' }
 #' @param  asynchronous logical. If TRUE, the calls are parallelized over the connections. 
 #' If FALSE no parallelisation occurs. Default TRUE.
-#' @param  error.stop a boolean. Default is TRUE. 
+#' @param  error.stop a boolean. If TRUE(recommended), any error thrown at the server-side 
+#' stops the execution of the call. If FALSE, it does not. Default TRUE. 
 #' @return 
 #' \itemize{
 #' \item TRUE if the values have been created in all the servers. 

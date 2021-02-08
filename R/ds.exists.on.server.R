@@ -25,7 +25,8 @@
 #'   \item "\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}"
 #'   \item "\code{\link[Biobase]{ExpressionSet}}"
 #' }
-#' @param  error.stop a boolean. Default is TRUE.
+#' @param  error.stop a boolean. If TRUE(recommended), any error thrown at the server-side 
+#' stops the execution of the call. If FALSE, it does not. Default TRUE. 
 #' @param  datasources a list of \code{\link{DSConnection-class}} objects obtained after login
 #' @return 
 #' 
