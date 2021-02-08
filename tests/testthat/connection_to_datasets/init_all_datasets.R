@@ -159,9 +159,9 @@ init.data.resources<-function(ds.test_env = NULL)
 }
 log.in.data.server <- function(ds.test_env = NULL)
 {
-  ds.test_env$connections <- datashield.login(logins=ds.test_env$login.data, 
-                                              assign=TRUE,
-                                              variables=ds.test_env$stats.var)
+  ds.test_env$connections <- ds.login(login.data.frame = ds.test_env$login.data, 
+                                              assign = TRUE,
+                                              variables = ds.test_env$stats.var)
   return(ds.test_env)
   
 }
