@@ -66,17 +66,8 @@ At the start of each DataSHIELD client-side script, DataSHIELD analysts need to 
 library(DSI)
 library(DSOpal)
 library(httr)
-library(ds.connection.client)
+library(dsConnectClient)
 library(dsBaseClient)
-```
-
-If you are windows operating system user, before login to DataSHIELD server
-you need to switch implementation of SSL used by the curl R package to \code{'openssl'}. 
-
-
-```{r}
-#Only for windows users
-Sys.setenv(CURL_SSL_BACKEND = "openssl")
 ```
 
 
@@ -256,8 +247,8 @@ In the example below, the _server-side function rUnifDs_ generates uniform distr
 
 ```{R}
 #server function header 
-server.function.call <- call("rUnifDS",100,14,50,10)
-var.created <- ds.assign.value(new.variable.name= "rUnifDist",
+server.function.call <- call("rUnifDS", 100, 14, 50, 10)
+var.created <- ds.assign.value(new.variable.name = "rUnifDist",
                                value = server.function.call,
                                class.type = "numeric",
                                asynchronous = FALSE,

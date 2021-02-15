@@ -23,12 +23,13 @@
 #'   \item "\code{\link{S4}}"
 #'   \item "\code{\link{NULL}}"
 #'   \item "\code{\link{function}}"
-#'   \item "\code{\link{externalptr}}"
+#'   \item "\code{externalptr}"
 #'   \item "\code{\link{environment}}"
-#'   \item "\code{\link{RangedSummarizedExperiment}}"
-#'   \item "\code{\link{SummarizedExperiment}}"
-#'   \item "\code{\link{ExpressionSet}}"
+#'   \item "\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}"
+#'   \item "\code{\link[Biobase]{ExpressionSet}}"
 #' }
+#' @param  error.stop a boolean. If TRUE(recommended), any error thrown at the server-side 
+#' stops the execution of the call. If FALSE, it does not. Default TRUE.
 #' @param  datasources a list of \code{\link{DSConnection-class}} objects obtained after login
 
 #' @details
@@ -37,7 +38,7 @@
 #' \item \code{ds.remove.variable} captures any errors and warnings 
 #' thrown by the function \code{.remove}. 
 #' \item \code{.remove} verifies all the arguments meet some constraints stated above. 
-#' The server function \code{\link{removeDS}} only deletes
+#' The server function \code{removeDS} only deletes
 #'  an R object with a specific name and data type. 
 #'  \code{.remove} verifies the variable has been deleted successfully on each server, 
 #'  using \code{\link{ds.exists.on.server}}.

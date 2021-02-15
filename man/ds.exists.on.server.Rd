@@ -32,12 +32,14 @@ ds.exists.on.server(
   \item "\code{\link{S4}}"
   \item "\code{\link{NULL}}"
   \item "\code{\link{function}}"
-  \item "\code{\link{externalptr}}"
+  \item "\code{externalptr}"
   \item "\code{\link{environment}}"
-  \item "\code{\link{RangedSummarizedExperiment}}"
-  \item "\code{\link{SummarizedExperiment}}"
-  \item "\code{\link{ExpressionSet}}"
+  \item "\code{\link[SummarizedExperiment]{RangedSummarizedExperiment}}"
+  \item "\code{\link[Biobase]{ExpressionSet}}"
 }}
+
+\item{error.stop}{a boolean. If TRUE(recommended), any error thrown at the server-side 
+stops the execution of the call. If FALSE, it does not. Default TRUE.}
 
 \item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login}
 }

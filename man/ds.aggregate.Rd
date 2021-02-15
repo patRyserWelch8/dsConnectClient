@@ -17,7 +17,7 @@ ds.aggregate(
 \item{asynchronous}{logical. If TRUE, the calls are parallelized over the connections. 
 If FALSE no parallelisation occurs. Default TRUE.}
 
-\item{error.stop}{logical. If TRUE(recommended), any error thrown at the server side 
+\item{error.stop}{a boolean. If TRUE(recommended), any error thrown at the server-side 
 stops the execution of the call. If FALSE, it does not. Default TRUE.}
 
 \item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
@@ -39,7 +39,7 @@ returns some non-disclosive value to the client-side.
 thrown by the function \code{.aggregate}. 
 No error or warning is displayed. If an error or a warning is caught, then
 \code{"NR"} is returned.
-\item \code{.aggregate} wraps the function \code{\link{DSI::datashield.aggregate}} function. 
+\item \code{.aggregate} wraps the function \code{\link[DSI]{datashield.aggregate}} function. 
 A valid Opal Connection and a valid expression (character) is checked. 
 When these two conditions are both met, then a server call is made. 
 }
@@ -120,7 +120,7 @@ Both functions can be used interchangeably.
 }
 }
 \seealso{
-\code{\link{DSI::datashield.aggregate}} function.
+\code{\link[DSI]{datashield.aggregate}} function.
 }
 \author{
 Patricia Ryser-Welch for DataSHIELD development team

@@ -10,11 +10,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Patricia Ryser-Welch and Leire Abarrantegui on Behalf of the DataSHIELD Team" />
+<meta name="author" content="Patricia Ryser-Welch on Behalf of the DataSHIELD Team" />
 
-<meta name="date" content="2020-12-15" />
+<meta name="date" content="2021-02-05" />
 
-<title>dsConnectClient - Packages users documentation</title>
+<title>ds.client.connection.server Packages users documentation</title>
 
 <style type="text/css">
 a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
@@ -347,15 +347,15 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">dsConnectClient - Packages users documentation</h1>
-<h4 class="author">Patricia Ryser-Welch and Leire Abarrantegui on Behalf of the DataSHIELD Team</h4>
-<h4 class="date">2020-12-15</h4>
+<h1 class="title toc-ignore">ds.client.connection.server Packages users documentation</h1>
+<h4 class="author">Patricia Ryser-Welch on Behalf of the DataSHIELD Team</h4>
+<h4 class="date">2021-02-05</h4>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The purpose of this package is to support <em>DataSHIELD analysts</em> and <em>programmers</em> to connect to some Opal servers in a more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD client scripts and functions.</p>
+<p>The purpose of this package is to support DataSHIELD analysts and programmers to connect to some Opal servers in a more supportive manner. The package offers some functions that can simplify certain operations within DataSHIELD client scripts and functions.</p>
 <p>The latter includes:</p>
 <ol start="0" style="list-style-type: decimal">
 <li>Prerequisites</li>
@@ -371,42 +371,35 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="installing-client-side-and-server-side-packages" class="section level1">
 <h1>Installing client-side and server-side packages</h1>
-<p>DataSHIELD wiki provides the instructions to install <a href="https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/931069953/Installation+Training+Hub+-+DataSHIELD+v6.1">DataSHIELD</a>.</p>
 <div id="server-side-datashield-server" class="section level2">
 <h2>Server-side DataSHIELD server</h2>
-<div id="version-1" class="section level3">
-<h3>Version 1</h3>
-<p>In order to use all the functions of this package, any DataSHIELD servers need to have installed the following server-side functions :</p>
+<p>In order to use all the functions of this package, any DataSHIELD servers need to have installed the following server-side packages:</p>
+<ul>
+<li><a href="https://github.com/patRyserWelch8/dsServerParameter">dsParameterServer</a></li>
+<li><a href="https://github.com/datashield/dsBase">dsBase</a></li>
+<li>The following servers functions are called and made available in version 6.2 of dsBase [ADD LINK]:
 <ul>
 <li>existsDS</li>
 <li>removeDS</li>
-<li>whereDS</li>
+</ul></li>
 </ul>
-<p><a href="https://github.com/datashield/dsBase">dsBase</a> (Version 6.2 or above) will include those.</p>
 <p>The instructions to install the server-side packages can be found in DataSHIELD <a href="https://data2knowledge.atlassian.net/wiki/spaces/DSDEV/pages/12943483/How+to+upload+a+server-side+function">Wiki</a>.</p>
-</div>
-<div id="version-2" class="section level3">
-<h3>Version 2</h3>
-<p>Version 2 will provide a new functionality to share parameters in a privacy preserving manner. DataSHIELD servers will need to install this package in their Opal servers.</p>
-<p><em>Package to install</em> * <a href="https://github.com/patRyserWelch8/dsServerParameter">dsParameterServer</a></p>
-</div>
 </div>
 <div id="client-side-analysis-computer" class="section level2">
 <h2>Client-side analysis computer</h2>
 <p>During the installation, this package will import the following packages:</p>
 <ul>
-<li>DSI, (&gt;= 1.1.0)</li>
+<li>DSI</li>
 <li>DSOpal</li>
 <li>RCurl</li>
 <li>httr</li>
 <li>R6</li>
 <li>opalr</li>
 </ul>
-<p>These packages are required in the client-side to connect to an Opal Server, to manipulate some server-side variables and call server-side functions, remotely.</p>
+<p>These packages are required in the client-side to connect to an Opal Server, to manipulate some server-side variables and call server-side functions.</p>
 </div>
-</div>
-<div id="client-side-analysis-scripts" class="section level1">
-<h1>Client-side analysis scripts</h1>
+<div id="client-side-analysis-scripts" class="section level2">
+<h2>Client-side analysis scripts</h2>
 <p>At the start of each DataSHIELD client-side script, DataSHIELD analysts need to load and attach these packages.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co">#Libraries </span></a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(DSI)</a>
@@ -414,6 +407,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb1-4" title="4"><span class="kw">library</span>(httr)</a>
 <a class="sourceLine" id="cb1-5" title="5"><span class="kw">library</span>(dsConnectClient)</a>
 <a class="sourceLine" id="cb1-6" title="6"><span class="kw">library</span>(dsBaseClient)</a></code></pre></div>
+</div>
 </div>
 <div id="building-a-login-data-frame" class="section level1">
 <h1>Building a login data frame</h1>
@@ -497,7 +491,7 @@ url: https://192.168.56.100:8443
 name: Paris 
 version: 3.0.3 
 username: administrator 
-rid: 9bb982a7-ab0f-4512-89a3-64d8d1b49a26 
+rid: f64ff867-2b07-497e-8b3d-65105720187a 
 
 
 $Newcastle
@@ -510,7 +504,7 @@ url: https://192.168.56.100:8443
 name: Newcastle 
 version: 3.0.3 
 username: administrator 
-rid: 3396d4bd-aad8-457b-8daf-df6dec43808d 
+rid: a8ff5c7d-8af3-433b-9a5c-c3a84edc31f2 
 
 
 $`New York`
@@ -523,7 +517,7 @@ url: https://192.168.56.100:8443
 name: New York 
 version: 3.0.3 
 username: administrator 
-rid: 60cff307-185d-4c35-bb0e-47aa60303bae </code></pre>
+rid: 0e3ab04c-7ae6-4f9e-a00c-70f136d78c03 </code></pre>
 </div>
 <div id="basic-server-level-analysis" class="section level1">
 <h1>Basic server-level analysis</h1>
@@ -647,8 +641,8 @@ studiesCombined      3644.197        0    213    213</code></pre>
 <p>The function <em>ds.assign_value</em> enforces a valid R data type being attached to any server variable. No variable is created locally, instead the variable is created and stored on the server. The function also returns an indication of whether the assignment process has been achieved on all servers. It is a useful function to use in DataSHIELD scripts to create a variable and verify it has been created on the server. When developing client-side functions, this function can assist with writing succinct code. The developer can be verified the variable has been created with the correct data type.</p>
 <p>In the example below, the <em>server-side function rUnifDs</em> generates uniform distributions and returns a <em>numeric</em> values vector matching the arguments. The returned distribution is saved on the server against a variable named <em>rUnifDist</em>. A data type must match the server-side function outcome. In this case, it is set to <em>numeric</em>, then the outcome is TRUE. Otherwise, no variable is created.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co">#server function header </span></a>
-<a class="sourceLine" id="cb45-2" title="2">server.function.call &lt;-<span class="st"> </span><span class="kw">call</span>(<span class="st">&quot;rUnifDS&quot;</span>,<span class="dv">100</span>,<span class="dv">14</span>,<span class="dv">50</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb45-3" title="3">var.created &lt;-<span class="st"> </span><span class="kw">ds.assign.value</span>(<span class="dt">new.variable.name=</span> <span class="st">&quot;rUnifDist&quot;</span>,</a>
+<a class="sourceLine" id="cb45-2" title="2">server.function.call &lt;-<span class="st"> </span><span class="kw">call</span>(<span class="st">&quot;rUnifDS&quot;</span>, <span class="dv">100</span>, <span class="dv">14</span>, <span class="dv">50</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb45-3" title="3">var.created &lt;-<span class="st"> </span><span class="kw">ds.assign.value</span>(<span class="dt">new.variable.name =</span> <span class="st">&quot;rUnifDist&quot;</span>,</a>
 <a class="sourceLine" id="cb45-4" title="4">                               <span class="dt">value =</span> server.function.call,</a>
 <a class="sourceLine" id="cb45-5" title="5">                               <span class="dt">class.type =</span> <span class="st">&quot;numeric&quot;</span>,</a>
 <a class="sourceLine" id="cb45-6" title="6">                               <span class="dt">asynchronous =</span> <span class="ot">FALSE</span>,</a>
@@ -690,14 +684,14 @@ $`New York`
 <pre><code>[1] &quot;Mean&quot;</code></pre>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">print</span>(runif.mean[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>          EstimatedMean Nmissing Nvalid Ntotal
-Paris          31.64707        0    100    100
-Newcastle      31.38865        0    100    100
-New York       31.50932        0    100    100</code></pre>
+Paris          31.58862        0    100    100
+Newcastle      32.98437        0    100    100
+New York       33.32203        0    100    100</code></pre>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="kw">print</span>(<span class="st">&quot;Standard deviation&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;Standard deviation&quot;</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="kw">print</span>(runif.std)</a></code></pre></div>
 <pre><code>    Paris Newcastle  New York 
- 11.24376  10.89025  10.00369 </code></pre>
+ 10.26680  10.90146   9.96010 </code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">print</span>(<span class="st">&quot;virtually-joined&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;virtually-joined&quot;</code></pre>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">runif.mean    &lt;-<span class="st"> </span><span class="kw">ds.mean</span> (<span class="dt">x =</span> <span class="st">&#39;rUnifDist&#39;</span>, <span class="dt">type =</span> <span class="st">&quot;combined&quot;</span>, <span class="dt">datasources =</span> connections)</a>
@@ -708,11 +702,11 @@ New York       31.50932        0    100    100</code></pre>
 <pre><code>[1] &quot;Mean&quot;</code></pre>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">print</span>(runif.mean[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>                EstimatedMean Nmissing Nvalid Ntotal
-studiesCombined      31.51502        0    300    300</code></pre>
+studiesCombined      32.63167        0    300    300</code></pre>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">print</span>(<span class="st">&quot;Standard deviation&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;Standard deviation&quot;</code></pre>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">print</span>(runif.std)</a></code></pre></div>
-<pre><code>[1] 10.68985</code></pre>
+<pre><code>[1] 10.37599</code></pre>
 </div>
 <div id="checking-some-server-side-variables-exists" class="section level1">
 <h1>Checking some server side variables exists</h1>
@@ -742,19 +736,12 @@ studiesCombined      31.51502        0    300    300</code></pre>
 </div>
 <div id="calling-an-aggregate-server-side-function" class="section level1">
 <h1>Calling an aggregate server-side function</h1>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">server.function.call &lt;-<span class="st"> </span><span class="kw">call</span>(<span class="st">&#39;dimDS&#39;</span>,<span class="st">&#39;D&#39;</span>)</a>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">server.function.call &lt;-<span class="st"> </span><span class="kw">call</span>(<span class="st">&quot;varDS&quot;</span>,<span class="st">&quot;D$POSITIVE_INTEGER&quot;</span>)</a>
 <a class="sourceLine" id="cb85-2" title="2"><span class="kw">print</span>(server.function.call)</a></code></pre></div>
-<pre><code>dimDS(&quot;D&quot;)</code></pre>
+<pre><code>varDS(&quot;D$POSITIVE_INTEGER&quot;)</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">outcome &lt;-<span class="st"> </span><span class="kw">ds.aggregate</span>(<span class="dt">expression =</span> server.function.call, <span class="dt">asynchronous =</span> <span class="ot">FALSE</span>, <span class="dt">datasources =</span> connections)</a>
 <a class="sourceLine" id="cb87-2" title="2"><span class="kw">print</span>(outcome)</a></code></pre></div>
-<pre><code>$Paris
-[1] 71 16
-
-$Newcastle
-[1] 71 16
-
-$`New York`
-[1] 71 16</code></pre>
+<pre><code>[1] &quot;NR&quot;</code></pre>
 </div>
 <div id="logging-out-of-datashield-servers" class="section level1">
 <h1>Logging out of DataSHIELD servers</h1>

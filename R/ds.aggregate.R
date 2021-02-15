@@ -9,7 +9,7 @@
 #' thrown by the function \code{.aggregate}. 
 #' No error or warning is displayed. If an error or a warning is caught, then
 #' \code{"NR"} is returned.
-#' \item \code{.aggregate} wraps the function \code{\link{DSI::datashield.aggregate}} function. 
+#' \item \code{.aggregate} wraps the function \code{\link[DSI]{datashield.aggregate}} function. 
 #' A valid Opal Connection and a valid expression (character) is checked. 
 #' When these two conditions are both met, then a server call is made. 
 #' }
@@ -22,7 +22,7 @@
 #' @param expression a call or character expression with a server-side function and its arguments. 
 #' @param asynchronous logical. If TRUE, the calls are parallelized over the connections. 
 #' If FALSE no parallelisation occurs. Default TRUE.
-#' @param error.stop logical. If TRUE(recommended), any error thrown at the server side 
+#' @param error.stop a boolean. If TRUE(recommended), any error thrown at the server-side 
 #' stops the execution of the call. If FALSE, it does not. Default TRUE.
 #' @param datasources a list of \code{\link{DSConnection-class}} objects obtained after login. 
 #' @return 
@@ -30,7 +30,7 @@
 #' \item The output from specified server function in \code{expression} argument 
 #' \item \code{"NR"} indicates no function has been executed on the server
 #' }
-#' @seealso \code{\link{DSI::datashield.aggregate}} function.
+#' @seealso \code{\link[DSI]{datashield.aggregate}} function.
 #' @examples 
 #' \dontrun{
 #' 
