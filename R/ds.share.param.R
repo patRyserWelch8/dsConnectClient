@@ -98,13 +98,12 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
   {
     if (length(param.names) > 0)
     {
-        print("123")
+        
         success <- .assign.settings(datasources)
        
         if (success)
         {
-          #outcome <- .complete.exchange(connections = datasources, param.names, tolerance)
-          #print(outcome)
+          outcome <- .complete.exchange(connections = datasources, param.names, tolerance)
         }
        
         .remove.exchange.data(datasources)
