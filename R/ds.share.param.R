@@ -214,16 +214,13 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
 #connection to a server
 .exchange <- function(master, receiver, param.names = NULL, tolerance = 15)
 {
-  outcome    <- FALSE
   step       <-  1
   max.steps  <-  16
   
   while(step <= max.steps)
   {
-   
     success <- switch(          
-
-       step,
+      step,
       .encrypt.data(master,master_mode = TRUE, preserve_mode = FALSE), #1
       .transfer.encrypted.matrix(master,receiver,master_mode = TRUE), #2
       .encrypt.data(receiver,master_mode = FALSE, preserve_mode = FALSE), #3
@@ -241,8 +238,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
       .decrypt.data(receiver), #15
       .decrypt.param(receiver, param.names, tolerance) #16
     )
-  
-    
+ 
     if (success)
     {
       step <- step + 1
@@ -252,13 +248,7 @@ ds.share.param <- function(param.names = NULL, tolerance = 15, datasources = NUL
       step <- step * 1000
     }
   }
-  
-  if(step == (max.steps + 1))
-  {
-    outcome <- TRUE
-  }
- 
-  return(outcome)
+  return(step == (max.steps + 1))
 }
 
 #single or multiple values are transformed in one logical values.
