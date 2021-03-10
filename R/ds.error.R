@@ -9,36 +9,37 @@ ds.error <- function(error, client = TRUE)
 {
   if(client)
   {
-    .show.client.error(error)
+    dser.show.client.error(error)
   }
   else
   {
-    .show.server.error(error)
+    dser.show.server.error(error)
   }
 }
 
 
-.show.client.error <- function(error)
+dser.show.client.error <- function(error)
 {
-  function.name <- .get.function.name(error)
+  
+  function.name <- dser.get.function.name(error)
   if(!identical(function.name, "NF"))
   {
-    .message.client.side.error(function.name, error)
+    dser.message.client.side.error(function.name, error)
   }
 }
 
-.show.server.error <- function(error)
+dser.show.server.error <- function(error)
 {
   client.function.name <- error[[1]][1]
-  server.function.name <- .get.function.name(error[[2]][1])
-  .message.server.side.error(client.function.name, server.function.name, error[[3]])
+  server.function.name <- dser.get.function.name(error[[2]][1])
+  dser.message.server.side.error(client.function.name, server.function.name, error[[3]])
 }
 
-.get.function.name <- function(error)
+dser.get.function.name <- function(error)
 {
   outcome    <- "NF"
   error.char <- as.character(error)
-  ##print(error.char)
+ 
  
   if (grepl(pattern = "::", x = error.char))
   { 
@@ -54,13 +55,12 @@ ds.error <- function(error, client = TRUE)
   {
     outcome    <- error
   }
-  ##print(outcome)
   return(outcome)
 }
 
 
 
-.message.server.side.error <- function(client.function.name, server.function.name, server.error)
+dser.message.server.side.error <- function(client.function.name, server.function.name, server.error)
 {
   
   #finding the error
@@ -96,21 +96,25 @@ ds.error <- function(error, client = TRUE)
   lapply(messages, function(x) message(x))
 }
 
-.message.client.side.error <- function(function.name, client.error)
+dser.message.client.side.error <- function(function.name, client.error)
 {
   error.message <- paste0("The function ", function.name, " is not working has expected.", "\n")
   # find the error thrown 
   is.error <- "error" %in% class(client.error)
+  
   if(is.error)
   {
     error <- client.error$message
+    
   }
   else
   {
      error <- unlist(strsplit(client.error, "::"))
      # remove additional characters
      error <- strsplit(error, ">")
+     
   }
   message       <- find.error.message(error)
+
   message(error.message, message )
 }

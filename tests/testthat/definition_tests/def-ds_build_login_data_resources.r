@@ -29,9 +29,8 @@
   table <- some.tables
   options.ssl <- some.options
   drivers <- some.drivers
-  expect_error(.build.data.object(server,url,table,user,password,option.ssl,drivers))
-  #expect_true(is.null(ds.build.login.data.resources(server,url,table,user,password,option.ssl,drivers)))
-
+  expect_error(dsdr.build.data.object(server,url,table,user,password,option.ssl,drivers))
+  
 }
 
 .test.incorrrect.url <- function(some.server,some.urls,some.users,some.passwords,some.tables,some.options,some.drivers)

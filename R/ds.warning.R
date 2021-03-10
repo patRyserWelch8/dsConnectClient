@@ -13,8 +13,4 @@ ds.warning <- function(client.function.name, warning)
   print(client.function.name)
   warning.message <- paste("The following warning has been thrown by the function name", client.function.name, ":\n")
   message(warning.message, warning)
-  #if (grepl("WAR:001",message))
-  #{
-  #  message(paste(header, "::",  "WAR:001\n", "More than one connection is required for sharing parameters.")) 
-  #}
 }

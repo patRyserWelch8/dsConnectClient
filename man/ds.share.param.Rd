@@ -9,7 +9,7 @@ ds.share.param(param.names = NULL, tolerance = 15, datasources = NULL)
 \arguments{
 \item{param.names}{a character vector specifying the name of the variables.}
 
-\item{tolerance}{threshold for ignoring small floating point difference when 
+\item{tolerance}{threshold for ignoring small floating point difference when
 comparing numeric vectors}
 
 \item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
@@ -22,8 +22,8 @@ TODO
 
   ## Version 6.2, for older versions see the Wiki
   # Connecting to the Opal servers
-  
-  # Only for windows user 
+
+  # Only for windows user
   ## (switches implementation of SSL used by  the curl R package to "openssl")
   Sys.setenv(CURL_SSL_BACKEND = "openssl")
 
@@ -34,16 +34,16 @@ TODO
   require('ds.client.connection.server')
 
   # Append login information for a specific server
-  
+
     #Data computers name
     server.names   <- c("Paris", "Newcastle", "New York")
-    
+
     # Data computers url
     url_Paris     <- 'https://192.168.56.100:8443'
     url_Newcastle <- 'https://192.168.56.100:8443'
     url_NewYork   <-  'https://192.168.56.100:8443'
     server.urls     <- c(url_Paris,url_Newcastle,url_NewYork)
-    
+
     # Assign datasets
     table_Paris     <- "TESTING.DATASET1"
     table_Newcastle <- "TESTING.DATASET2"
@@ -60,7 +60,7 @@ TODO
     password_Newcastle  <-  "datashield_test&"
     password_NewYork    <-  "datashield_test&"
     server.users.pwd    <-  c(password_Paris, password_Newcastle, password_NewYork)
-    
+
     # Set drivers
     driver_Paris     <- "OpalDriver"
     driver_Newcastle <- "OpalDriver"
@@ -72,7 +72,7 @@ TODO
     ssl_options_Newcastle <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
     ssl_options_NewYork   <- "list(ssl_verifyhost=0,ssl_verifypeer=0)"
     server.ssl.options    <- c(ssl_options_Paris,ssl_options_Newcastle,ssl_options_NewYork)
-      
+
     # Create login data frame
     login.data <- ds.build.login.data.frame(server.names,
                                             server.urls,
@@ -81,11 +81,11 @@ TODO
                                             server.users.pwd,
                                             server.ssl.options,
                                             server.drivers)
-  # Log in to DataSHIELD server                                         
+  # Log in to DataSHIELD server
   connections <- ds.login(login.data.frame = login.data, assign = TRUE, symbol = "D")
-  
+
   # Clear the Datashield/R sessions and logout
-  ds.logout(connections) 
+  ds.logout(connections)
 }
 }
 \author{

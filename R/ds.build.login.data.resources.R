@@ -49,8 +49,13 @@
 #'   # Log in to DataSHIELD server 
 #'   connections <- ds.login(login.data.frame = login.data.resources, assign = TRUE, symbol = "D") 
 #'   
-#'   # Assign a resource to a "RangedSummarizedExperiment" which is the type of the object
-#'   ds.assign.value("rse",quote(as.resource.object(D)), "RangedSummarizedExperiment", FALSE, connections)
+#'   # Assign a resource to a "RangedSummarizedExperiment" 
+#'   which is the type of the object
+#'   ds.assign.value("rse",
+#'                   quote(as.resource.object(D)), 
+#'                   "RangedSummarizedExperiment", 
+#'                   FALSE, 
+#'                   connections)
 #'   
 #'   # Clear the Datashield/R sessions and logout
 #'   ds.logout(connections) 
@@ -61,14 +66,14 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
 {
   return.data.object <- data.frame()
   tryCatch(
-    {return.data.object <- .build.data.object(servers, urls, users, passwords,  resources, options.ssl,  drivers) },
+    {return.data.object <- dsdr.build.data.object(servers, urls, users, passwords,  resources, options.ssl,  drivers) },
     warning = function(warning) {ds.warning("ds.build.login.data.resources",warning)},
-    error = function(error) {.error(error)},
+    error = function(error) {ds.error(error)},
     finally = {return(return.data.object)})
 }
 
 
-.build.data.object <- function(some.servers, some.urls, some.users, some.passwords, some.resources, some.options.ssl, some.drivers) 
+dsdr.build.data.object <- function(some.servers, some.urls, some.users, some.passwords, some.resources, some.options.ssl, some.drivers) 
 {
 
   #assign the arguments to the data frame format.
@@ -95,14 +100,14 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
       stop("ERR:004")
   } else if (all(startsWith(urls,"https")))
   {
-      return(.build.object(servers, urls, users, passwords,resources, options.ssl, drivers))
+      return(dsdr.build.object(servers, urls, users, passwords,resources, options.ssl, drivers))
   }  else
   {
       stop("ERR:002")
   }
 }
 
-.build.object <- function(servers, urls, users, passwords,resources, options.ssl, drivers)
+dsdr.build.object <- function(servers, urls, users, passwords,resources, options.ssl, drivers)
 {
   builder <- DSI::newDSLoginBuilder()
   for(i in 1:length(servers))
@@ -113,34 +118,5 @@ ds.build.login.data.resources <- function (servers, urls, users, passwords, reso
   return(login.data)
 }
 
-.warning <- function(message)
-{
-  if(!is.null(message))
-  {
-    messaget(paste("ds.client.connection.server::ds.build.login.data.frame :",   message ))
-  }
-}
-
-.error <- function(error)
-{
-  header <- 'ds.client.connection.server::ds.build.login.data.frame'
-
-  if (grepl("ERR:004",error))
-  {
-    message(paste(header, "::",  "ERR:004\n", " The length of the vectors passed as arguments must be at least 1.")) 
-  }
-  else if (grepl("ERR:001",error))
-  {
-    message(paste(header, "::",   "ERR:001\n", " The length of the vectors passed as arguments are not the same length."))
-  }
-  else if (grepl("ERR:002",error))
-  {
-    message(paste(header, "::",   "ERR:002\n", " The URL should starts with https"))
-  }
-  else
-  {
-    message(paste(header,"\n", error))
-  }
-}
 
 

@@ -2,11 +2,12 @@
 #' @title Assign some values on some DataSHIELD servers
 #' @description Assign a table or an expression result to an R variable, 
 #' within a DataSHIELD R session on at least one server.
-#' @param  datasources a list of \code{\link{DSConnection-class}} objects obtained after login.
+#' @param  datasources a list of \code{DSConnection-class} objects obtained after login.
 #' @param  new.variable.name  a character string specifying 
 #' the name of a new variable created on a server
 #' @param  value the name of a column in a data repositories or 
 #' an R expression allowed to assign function calls
+#' @param error.stop a logical value to stop the code execution (TRUE) or not (FALSE)
 #' @param  class.type  a character string stating the R internal type. \cr
 #' Correct values:
 #' \itemize{
@@ -25,9 +26,9 @@
 #' \item "\code{\link{vector}}"
 #' \item  "\code{\link{S4}}"
 #' \item "\code{\link{environment}}"
-#' \item "\code{\link{RangedSummarizedExperiment}}"
-#' \item "\code{\link{SummarizedExperiment}}"
-#' \item "\code{\link{ExpressionSet}}"
+#' \item "\code{RangedSummarizedExperiment}"
+#' \item "\code{SummarizedExperiment}"
+#' \item "\code{ExpressionSet}"
 #' }
 #' @param  asynchronous logical. If TRUE, the calls are parallelized over the connections. 
 #' If FALSE no parallelisation occurs. Default TRUE.
@@ -42,7 +43,7 @@
 #' \item \code{ds.assign.value} captures any errors and warnings 
 #' thrown by the function \code{.assign}. No error or warning is displayed. 
 #' If an error or a warning is caught, then the function returns FALSE.
-#' \item \code{.assign} wraps the function \code{\link{DSI::datashield.assign}}. 
+#' \item \code{.assign} wraps the function \code{DSI::datashield.assign}. 
 #' A valid OpalConnection, a valid server variable name and value is checked. 
 #' When  all these conditions are met, then a server call is made. 
 #' }
@@ -50,8 +51,8 @@
 #' \code{.assign} allows more efficient debugging of some server and client code. 
 #' \code{ds.assign.value} can be used 
 #' once the code is efficiently working.
-#' @seealso  \code{\link{DSI::datashield.assign}}
-#' @seealso \code{\link{ds.exists.on.server}}
+#' @seealso  \code{DSI::datashield.assign}
+#' @seealso \code{ds.exists.on.server}
 #' @examples 
 #' \dontrun{
 #' 
@@ -136,7 +137,7 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   {
    
     tryCatch({
-              outcome <- .assign.error.stop(new.variable.name, value, class.type, asynchronous,error.stop, datasources = datasources)},
+              outcome <- dsav.assign.error.stop(new.variable.name, value, class.type, asynchronous,error.stop, datasources = datasources)},
               warning = function(warning) {ds.warning("ds.assign.value", warning)},
               error = function(error) {ds.error(error)},
               finally = {return(outcome)})
@@ -145,13 +146,13 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   {
      tryCatch(
      {
-        outcome <- .assign.error.not.stop(new.variable.name, value, class.type, asynchronous, datasources)},
+        outcome <- dsav.assign.error.not.stop(new.variable.name, value, class.type, asynchronous, datasources)},
         error = function(error) {ds.error(error)},
         finally = {return(outcome)})
   }#if-else
 }
 
-.assign.error.stop <- function(new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE, error.stop = TRUE, datasources = NULL)
+dsav.assign.error.stop <- function(new.variable.name=NULL, value=NULL, class.type = NULL, asynchronous=FALSE, error.stop = TRUE, datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
@@ -179,7 +180,7 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   }
  
  
-  .create.variable.error.stop(new.variable.name, value, class.type, asynchronous, error.stop = TRUE, datasources = datasources)
+  dsav.create.variable.error.stop(new.variable.name, value, class.type, asynchronous, error.stop = TRUE, datasources = datasources)
   
   
   outcome <- ds.exists.on.server(variable.name = new.variable.name, class.type = class.type, error.stop = TRUE, datasources = datasources)
@@ -187,7 +188,7 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
   return(outcome)
 }
 
-.assign.error.not.stop <- function(new.variable.name=NULL, value=NULL, class.type = NULL, 
+dsav.assign.error.not.stop <- function(new.variable.name=NULL, value=NULL, class.type = NULL, 
                                    asynchronous=FALSE, datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
@@ -212,13 +213,13 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
     stop(find.error.message("::ds.assign.value::ERR:012"), call. = FALSE)
   }
   
-  .create.variable.error.not.stop(new.variable.name, value, class.type, asynchronous, datasources)
+  dsav.create.variable.error.not.stop(new.variable.name, value, class.type, asynchronous, datasources)
   
   return(ds.exists.on.server(variable.name = new.variable.name, class.type = class.type,error.stop = FALSE,  datasources = datasources))
 }
 
 #create a variable when error stop is set to true
-.create.variable.error.stop <- function(new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL, error.stop = TRUE, datasources = NULL)
+dsav.create.variable.error.stop <- function(new.variable.name = NULL, value = NULL, class.type = NULL, asynchronous = NULL, error.stop = TRUE, datasources = NULL)
 {
   
   #delete variable from the server if it exists already
@@ -251,7 +252,7 @@ ds.assign.value <- function(new.variable.name = NULL, value = NULL, class.type =
 }
 
 #create a variable when error stop is set to false. No server error being caught ....
-.create.variable.error.not.stop <- function(new.variable.name = NULL, value = NULL, class.type = NULL, 
+dsav.create.variable.error.not.stop <- function(new.variable.name = NULL, value = NULL, class.type = NULL, 
                                             asynchronous = NULL,  datasources = NULL)
 {
   #delete variable from the server if it exists already

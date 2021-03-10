@@ -42,7 +42,7 @@ In \code{login.data.frame} table five elements are required to log in to the ser
 where the data to analyse is stored. 
 The expected column names are:\cr
 \itemize{
-  \item \code{driver}: the \code{\link{DSDriver-class}} name, default is \code{OpalDriver} 
+  \item \code{driver}: the \code{DSDriver-class} name, default is \code{OpalDriver} 
   \item \code{server}: the server name
   \item \code{url}: the server URL
   \item \code{user}: the user name or the certificate file path
@@ -53,8 +53,8 @@ The expected column names are:\cr
   (if supported by data repository)
 }
  
- To built the mentioned table go to \code{\link{ds.build.login.data.frame}} example. 
- The input table \code{\link{logindata}} for details of the login elements.
+ To built the mentioned table go to \code{ds.build.login.data.frame} example. 
+ The input table \code{login.data.frame} for details of the login elements.
 }
 \examples{
 \dontrun{

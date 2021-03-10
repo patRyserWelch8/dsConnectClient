@@ -105,7 +105,7 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
 {
   return.data.frame <- NULL
   tryCatch(
-    {return.data.frame <- .build.data.frame(data.computers.name,
+    {return.data.frame <- dsdf.build.data.frame(data.computers.name,
                                            data.computers.url,
                                            data.computers.table.name,
                                            users.id,
@@ -118,7 +118,7 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
 }
 
 
-.build.data.frame <- function(data.computers.name, 
+dsdf.build.data.frame <- function(data.computers.name, 
                               data.computers.url, 
                               data.computers.table.name, 
                               users.id, 
@@ -167,7 +167,7 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
     stop("::ds.build.login.data.frame::ERR:016")
   }
   
-  return(.use.builder(data.computers.name, data.computers.url, 
+  return(dsdf.use.builder(data.computers.name, data.computers.url, 
                       data.computers.table.name,users.id, users.password, 
                       options.ssl, 
                       driver.connection))
@@ -175,7 +175,7 @@ ds.build.login.data.frame <- function (  data.computers.name = NULL,
 
 
 
-.use.builder <- function(data.computers.name, data.computers.url, 
+dsdf.use.builder <- function(data.computers.name, data.computers.url, 
                     data.computers.table.name,users.id, users.password, 
                     options.ssl, 
                     driver.connection)

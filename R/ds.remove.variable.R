@@ -23,12 +23,14 @@
 #'   \item "\code{\link{S4}}"
 #'   \item "\code{\link{NULL}}"
 #'   \item "\code{\link{function}}"
-#'   \item "\code{\link{externalptr}}"
+#'   \item "\code{externalptr}"
 #'   \item "\code{\link{environment}}"
-#'   \item "\code{\link{RangedSummarizedExperiment}}"
-#'   \item "\code{\link{SummarizedExperiment}}"
-#'   \item "\code{\link{ExpressionSet}}"
+#'   \item "\code{RangedSummarizedExperiment}"
+#'   \item "\code{SummarizedExperiment}"
+#'   \item "\code{ExpressionSet}"
 #' }
+#'@param error.stop logical. If TRUE(recommended), any error thrown at the server side 
+#' stops the execution of the call. If FALSE, it does not. Default TRUE.
 #' @param  datasources a list of \code{\link{DSConnection-class}} objects obtained after login
 
 #' @details
@@ -37,7 +39,7 @@
 #' \item \code{ds.remove.variable} captures any errors and warnings 
 #' thrown by the function \code{.remove}. 
 #' \item \code{.remove} verifies all the arguments meet some constraints stated above. 
-#' The server function \code{\link{removeDS}} only deletes
+#' The server function \code{removeDS§} only deletes
 #'  an R object with a specific name and data type. 
 #'  \code{.remove} verifies the variable has been deleted successfully on each server, 
 #'  using \code{\link{ds.exists.on.server}}.
@@ -139,14 +141,14 @@ ds.remove.variable <- function(variable.name = NULL, class.type= NULL, error.sto
 {
   outcome <- FALSE
   tryCatch(
-     {outcome <- .remove(variable.name, class.type, error.stop, datasources)},
+     {outcome <- dsrv.remove(variable.name, class.type, error.stop, datasources)},
       warning = function(warning) {ds.warning("ds.remove.variable",warning)},
       error = function(error) {ds.error(error)},
       finally = {return(outcome)}
        )
 }
 
-.remove <- function(variable.name=NULL, class.type= NULL, error.stop = TRUE,  datasources = NULL)
+dsrv.remove <- function(variable.name=NULL, class.type= NULL, error.stop = TRUE,  datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
   
@@ -165,10 +167,10 @@ ds.remove.variable <- function(variable.name = NULL, class.type= NULL, error.sto
     stop("::ds.remove.variable::ERR:012", call. = FALSE)
   }
   
-  return(.delete.var(variable.name, class.type, error.stop, datasources))
+  return(dsrv.delete.var(variable.name, class.type, error.stop, datasources))
 }
 
-.delete.var <- function(variable.name, class.type, error.stop, datasources)
+dsrv.delete.var <- function(variable.name, class.type, error.stop, datasources)
 {  
   expression <- paste0("removeDS(variable.name='", variable.name, "',environment.name='.GlobalEnv',class.type='", class.type,"')")
   ds.aggregate(expression = expression, asynchronous = FALSE, error.stop, datasources)
