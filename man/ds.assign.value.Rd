@@ -38,15 +38,17 @@ Correct values:
 \item "\code{\link{vector}}"
 \item  "\code{\link{S4}}"
 \item "\code{\link{environment}}"
-\item "\code{\link{RangedSummarizedExperiment}}"
-\item "\code{\link{SummarizedExperiment}}"
-\item "\code{\link{ExpressionSet}}"
+\item "\code{RangedSummarizedExperiment}"
+\item "\code{SummarizedExperiment}"
+\item "\code{ExpressionSet}"
 }}
 
 \item{asynchronous}{logical. If TRUE, the calls are parallelized over the connections. 
 If FALSE no parallelisation occurs. Default TRUE.}
 
-\item{datasources}{a list of \code{\link{DSConnection-class}} objects obtained after login.}
+\item{error.stop}{a logical value to stop the code execution (TRUE) or not (FALSE)}
+
+\item{datasources}{a list of \code{DSConnection-class} objects obtained after login.}
 }
 \value{
 \itemize{
@@ -63,7 +65,7 @@ within a DataSHIELD R session on at least one server.
 \item \code{ds.assign.value} captures any errors and warnings 
 thrown by the function \code{.assign}. No error or warning is displayed. 
 If an error or a warning is caught, then the function returns FALSE.
-\item \code{.assign} wraps the function \code{\link{DSI::datashield.assign}}. 
+\item \code{.assign} wraps the function \code{DSI::datashield.assign}. 
 A valid OpalConnection, a valid server variable name and value is checked. 
 When  all these conditions are met, then a server call is made. 
 }
@@ -147,9 +149,9 @@ once the code is efficiently working.
 }
 }
 \seealso{
-\code{\link{DSI::datashield.assign}}
+\code{DSI::datashield.assign}
 
-\code{\link{ds.exists.on.server}}
+\code{ds.exists.on.server}
 }
 \author{
 Patricia Ryser-Welch for DataSHIELD development team

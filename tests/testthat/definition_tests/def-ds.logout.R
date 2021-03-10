@@ -2,7 +2,7 @@
 .test.no.connection <- function()
 {
   log.out.data.server()
-  expect_error(.logout(NULL, NULL))
+  expect_error(dslo.logout(NULL, NULL))
 }
 
 .test.valid.connection <- function(connections)

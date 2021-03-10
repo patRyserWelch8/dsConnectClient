@@ -2,7 +2,7 @@
 #'@title log out from some DataSHIELD servers 
 #'@description Clear the DataSHIELD R sessions and logout from DataSHIELD data repositories.
 #'@param datasources a list of \code{\link{DSConnection-class}} objects obtained after login. 
-#'@param Save DataSHIELD sessions on each server data repository (if feature is supported)
+#'@param save DataSHIELD sessions on each server data repository (if feature is supported)
 #' with provided ID (must be a character string).
 #'@examples 
 #' \dontrun{
@@ -80,14 +80,14 @@ ds.logout <- function(datasources, save = NULL)
 {
   outcome <- TRUE
   tryCatch(
-     {.logout(datasources,save);},
+     {ds.logout(datasources,save);},
       warning = function(warning) {ds.warning("ds.logout", warning)},
       error = function(error) {ds.error(error)},
       finally = {return(outcome)}
     )
 }
 
-.logout <- function(datasources, save)
+dslo.logout <- function(datasources, save)
 {
   if(is.null(datasources))
   {

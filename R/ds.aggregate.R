@@ -9,7 +9,7 @@
 #' thrown by the function \code{.aggregate}. 
 #' No error or warning is displayed. If an error or a warning is caught, then
 #' \code{"NR"} is returned.
-#' \item \code{.aggregate} wraps the function \code{\link{DSI::datashield.aggregate}} function. 
+#' \item \code{.aggregate} wraps the function \code{DSI::datashield.aggregate} function. 
 #' A valid Opal Connection and a valid expression (character) is checked. 
 #' When these two conditions are both met, then a server call is made. 
 #' }
@@ -30,7 +30,7 @@
 #' \item The output from specified server function in \code{expression} argument 
 #' \item \code{"NR"} indicates no function has been executed on the server
 #' }
-#' @seealso \code{\link{DSI::datashield.aggregate}} function.
+#' @seealso \code{DSI::datashield.aggregate} function.
 #' @examples 
 #' \dontrun{
 #' 
@@ -110,21 +110,21 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TR
   outcome <- "NR"
   if(stop.allowed) #can catch server error
   {
-      tryCatch({outcome <- .aggregate.error.stop(expression, asynchronous, datasources)},
+      tryCatch({outcome <- dsag.aggregate.error.stop(expression, asynchronous, datasources)},
                 warning = function(warning) {ds.warning(client.function.name = "ds.aggregate", warning = warning)},
                 error = function(error) {ds.error(error, client = TRUE)},
                 finally = {return(outcome)})
   }
   else #cannot catch server error - no warning other warning is thrown by DSI ....
   {
-     tryCatch({outcome <- .aggregate.no.error.stop(expression, asynchronous, datasources)},
+     tryCatch({outcome <- dsag.aggregate.no.error.stop(expression, asynchronous, datasources)},
               error = function(error) {ds.error(error, client = TRUE)},
               finally = {return(outcome)})
   }
 }
 
 # make a call using tryCatch
-.aggregate.error.stop <- function(expression=NULL, asynchronous=TRUE,  datasources = NULL)
+dsag.aggregate.error.stop <- function(expression=NULL, asynchronous=TRUE,  datasources = NULL)
 {
   correct.class  <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
  
@@ -147,7 +147,7 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TR
 }
 
 # make a call without using server try catch
-.aggregate.no.error.stop <- function(expression=NULL, asynchronous=TRUE, datasources = NULL)
+dsag.aggregate.no.error.stop <- function(expression=NULL, asynchronous=TRUE, datasources = NULL)
 {
 
   correct.class  <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))

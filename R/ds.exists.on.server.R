@@ -20,12 +20,14 @@
 #'   \item "\code{\link{S4}}"
 #'   \item "\code{\link{NULL}}"
 #'   \item "\code{\link{function}}"
-#'   \item "\code{\link{externalptr}}"
+#'   \item "\code{externalptr}"
 #'   \item "\code{\link{environment}}"
-#'   \item "\code{\link{RangedSummarizedExperiment}}"
-#'   \item "\code{\link{SummarizedExperiment}}"
-#'   \item "\code{\link{ExpressionSet}}"
+#'   \item "\code{RangedSummarizedExperiment}"
+#'   \item "\code{SummarizedExperiment}"
+#'   \item "\code{ExpressionSet}"
 #' }
+#' @param error.stop logical. If TRUE(recommended), any error thrown at the server side 
+#' stops the execution of the call. If FALSE, it does not. Default TRUE.
 #' @param  datasources a list of \code{\link{DSConnection-class}} objects obtained after login
 #' @return 
 #' 
@@ -140,21 +142,19 @@
 #' }
 #' @author Patricia Ryser-Welch for DataSHIELD development team
 #' @export ds.exists.on.server
-#'
-
 
 ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, error.stop = TRUE, datasources = NULL)
 {
   outcome <- FALSE
   tryCatch(
-  {outcome <- .find.variable(variable.name, class.type, TRUE, error.stop, datasources)},
+  {outcome <- dses.find.variable(variable.name, class.type, TRUE, error.stop, datasources)},
    warning = function(warning) {ds.warning("ds.exists.on.server",warning)},
    error = function(error) {ds.error(error)},
    finally = {return(outcome)}
   )
 }
 
-.find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, error.stop = TRUE,  datasources = NULL)
+dses.find.variable <- function(variable.name=NULL, class.type = NULL, asynchronous=TRUE, error.stop = TRUE,  datasources = NULL)
 {
   correct.class <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
 
@@ -173,10 +173,10 @@ ds.exists.on.server <- function(variable.name = NULL, class.type = NULL, error.s
     stop("::ds.exists.on.server::ERR:012", call. = FALSE)
   }
   
-  return(.call_existsDS(variable.name, class.type, error.stop, datasources))
+  return(dses.call_existsDS(variable.name, class.type, error.stop, datasources))
 }
 
-.call_existsDS <- function(variable.name, class.type, error.stop, datasources)
+dses.call_existsDS <- function(variable.name, class.type, error.stop, datasources)
 {
   outcome <- FALSE
 

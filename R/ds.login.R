@@ -20,7 +20,7 @@
 #' where the data to analyse is stored. 
 #' The expected column names are:\cr
 #' \itemize{
-#'   \item \code{driver}: the \code{\link{DSDriver-class}} name, default is \code{OpalDriver} 
+#'   \item \code{driver}: the \code{DSDriver-class} name, default is \code{OpalDriver} 
 #'   \item \code{server}: the server name
 #'   \item \code{url}: the server URL
 #'   \item \code{user}: the user name or the certificate file path
@@ -31,8 +31,8 @@
 #'   (if supported by data repository)
 #' }
 #'  
-#'  To built the mentioned table go to \code{\link{ds.build.login.data.frame}} example. 
-#'  The input table \code{\link{logindata}} for details of the login elements.
+#'  To built the mentioned table go to \code{ds.build.login.data.frame} example. 
+#'  The input table \code{login.data.frame} for details of the login elements.
 #'  
 #' @return \code{ds.login} returns object(s) of class \code{DSConnection} or NULL
 #' if some parameters are incorrect. 
@@ -107,14 +107,14 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
 {
   connection <- NULL
   tryCatch(
-     {connection <- .make.connection(login.data.frame, assign, variables, symbol)},
+     {connection <- dsli.make.connection(login.data.frame, assign, variables, symbol)},
       warning = function(warning) {ds.warning("ds.login",warning)},
       error = function(error) {ds.error(error)},
       finally = {return(connection)}
   )
 }
 
-.make.connection <- function(login.data.frame, assign, variables, symbol)
+dsli.make.connection <- function(login.data.frame, assign, variables, symbol)
 {
   connection <- NULL
   
@@ -128,7 +128,7 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
     stop("::ds.login::ERR:011", call. = FALSE)
   }
   
-  if(.is.windows())
+  if(dsli.is.windows())
   {
     Sys.setenv(CURL_SSL_BACKEND = "openssl")
   }
@@ -144,7 +144,7 @@ ds.login <- function(login.data.frame = NULL, assign = TRUE, variables = NULL, s
 }
 
 # check the operating system is windows - https://www.r-bloggers.com/2015/06/identifying-the-os-from-r/
-.is.windows <- function()
+dsli.is.windows <- function()
 {
    return(.Platform$OS.type == "windows")
 }

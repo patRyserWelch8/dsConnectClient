@@ -46,6 +46,7 @@ init.all.datasets <- function(ds.test_env = NULL)
                                   'NUMERIC', 'NON_NEGATIVE_NUMERIC','POSITIVE_NUMERIC','NEGATIVE_NUMERIC','FACTOR_CHARACTER', 
                                   'FACTOR_INTEGER','IDENTIFIER','CATEGORY','IDENTIFIER','CATEGORY')
   }
+  return(ds.test_env)
 }
 
 # Connect to one server and the three datasets. One local variables named ds.test_env$local.values.3 is created.

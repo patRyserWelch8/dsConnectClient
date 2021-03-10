@@ -41,7 +41,7 @@
   table <- some.tables
   options.ssl <- some.options
   drivers <- some.drivers
-  expect_error(.build.data.frame(server,url,table,user,password,option.ssl,drivers))
+  expect_error(dsdf.build.data.frame(server,url,table,user,password,option.ssl,drivers))
   #expect_true(is.null(ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)))
   ds.build.login.data.frame(server,url,table,user,password,option.ssl,drivers)
 
@@ -63,7 +63,7 @@
   options.ssl <- some.options
   drivers <- some.drivers
   
-  expect_error(.build.data.frame(server,url,table,user,password,option.ssl,drivers))
+  expect_error(dsdf.build.data.frame(server,url,table,user,password,option.ssl,drivers))
   expect_equal(ds.build.login.data.frame(server,url,table,user,password,options.ssl,drivers), NULL)
   
 }
