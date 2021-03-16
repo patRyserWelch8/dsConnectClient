@@ -1,0 +1,21 @@
+﻿error_code,error_message
+ERR:001,Some elements are missing. Check you have passed as arguments the expected information 
+ERR:002,All URLs should starts with `https'. It is more secure.
+ERR:003,You have yet to specify some data computers name.
+ERR:004,You have yet to specify the URLs of each data computer.
+ERR:005,You have yet to specify the data tables.
+ERR:006,Have you connected to the Opal server? Have you successfully started your Opal Servers? Have You need to pass a valid connection. Please use ds.login 
+ERR:007,You have yet to provide a valid function. It should either be a character or a call type.
+ERR:008,You have yet to provide an appropriate variable.name. It should a character of length greater than 1
+ERR:009,You have yet to provide a valid value. It can be a valid 'assign server-side function' or a value.
+ERR:010,You have yet to provide some login details. Have you build your login data frame?
+ERR:011,The login data frame is too short. No server is specified. It needs to be greater of equal 1. Have you build your login data frame? 
+ERR:012,You have yet to provide a valid class type. It should a valid R type.
+ERR:013,You have yet to provide some users id; one for each server.
+ERR:014,You have yet to provide some user passwords; one for each server.
+ERR:015,You have yet to provide some ssl options; one for each server.
+ERR:016,You have yet to provide some drivers for connecting to the servers; one for each server.
+ERR:017,The connection data frame returned was set to null. Something must have gone wrong with the connection to the server(s). Check they are running or restart them.
+ERR:018,The parameters could not be shared. Some settings could not be created on each server involved in the exchanged.
+ERR:019,The parameters could not be shared. Some errors occurred during the exchange.
+ERR:020,More than one DataSHIELD server is required for sharing parameters.
