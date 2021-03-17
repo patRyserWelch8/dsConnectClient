@@ -64,14 +64,14 @@ dser.message.show.error.message <- function(error.code = NULL)
   indeces.errors.env <- which(search.list == "error_message", arr.ind = TRUE)
   index.env          <- 1
   continue           <- index.env <= length(indeces.errors.env)
-  errors             <- "No error message found"
-  print(indeces.errors.env)
+  errors             <- error.code
+ 
  
   while(continue)
   {
       err    <- get("error_message", pos = index.env)
       filter <- err[1] == "ERR:003"
-      errors <- err[filter,]
+      errors <- err[filter,] 
       
       if (length(errors) == 2)
       {
@@ -84,6 +84,7 @@ dser.message.show.error.message <- function(error.code = NULL)
       }
       
       index.env <- index.env + 1
+      print(errors)
   }
   
   return(errors)
@@ -91,7 +92,7 @@ dser.message.show.error.message <- function(error.code = NULL)
 
 dser.message.server.side.error <- function(client.function.name, server.function.name, server.error)
 {
-  
+  print(server.error)
   #finding the error
   error       <- ""
   #split error message provided by DSI and the error thrown by the server
