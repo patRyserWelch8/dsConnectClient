@@ -3,17 +3,19 @@ source("connection_to_datasets/init_all_datasets.R")
 
 .test.all.parameters.correct <- function(connections)
 {
-  
+  print(1)
   server.call <- paste("dimDS('",'D',"')", sep="")
   server.values <- dsag.aggregate.error.stop(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   server.values <- ds.aggregate(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   
+  print(2)
   server.call <- call('dimDS','D')
   server.values <- dsag.aggregate.error.stop(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   
+  print(3)
   server.call <- call('dimDS', x = 'D')
   server.values <- dsag.aggregate.error.stop(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
@@ -21,9 +23,13 @@ source("connection_to_datasets/init_all_datasets.R")
   server.values <- ds.aggregate(datasources = connections, expression = server.call)
   expect_true(length(server.values) == length(connections))
   
+  print(4)
   server.call <- 1
+  print(server.call)
   expect_error(server.values <- dsag.aggregate.error.stop(datasources = connections, expression = server.call))
+  print(server.values)
   server.values <- ds.aggregate(datasources = connections, expression = server.call)
+  print(server.values)
   expect_equal(server.values, "NR")
   
   #server.call <- call('DANGER_Error')

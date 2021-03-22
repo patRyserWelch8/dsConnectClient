@@ -126,6 +126,7 @@ ds.aggregate <- function(expression = NULL, asynchronous = TRUE, error.stop = TR
 # make a call using tryCatch
 dsag.aggregate.error.stop <- function(expression=NULL, asynchronous=TRUE,  datasources = NULL)
 {
+  
   correct.class  <- any(class(datasources) %in%  c("list","OpalConnection", "DSOpal"))
  
   if(!correct.class)

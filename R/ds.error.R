@@ -7,6 +7,7 @@
 #'@export
 ds.error <- function(error, client = TRUE)
 {
+  print(error)
   if(client)
   {
     dser.show.client.error(error)
@@ -92,7 +93,10 @@ dser.message.show.error.message <- function(error.code = NULL)
 
 dser.message.server.side.error <- function(client.function.name, server.function.name, server.error)
 {
-  print(server.error)
+  message(unlist(server.error))
+  #lapply(server.error, function(x) message(x))
+  if (FALSE)
+  {
   #finding the error
   error       <- ""
   #split error message provided by DSI and the error thrown by the server
@@ -124,6 +128,7 @@ dser.message.server.side.error <- function(client.function.name, server.function
   
   message(client.function, server.function)
   lapply(messages, function(x) message(x))
+  }
 }
 
 dser.message.client.side.error <- function(function.name, client.error)
@@ -147,7 +152,8 @@ dser.message.client.side.error <- function(function.name, client.error)
     error <- strsplit(error, ">")
   }
   
-  message       <- dser.message.show.error.message(error)
+  message(error)
+  #message       <- dser.message.show.error.message(error)
 
-  message(error.message, message )
+  #message(error.message, message )
 }
