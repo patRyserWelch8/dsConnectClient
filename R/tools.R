@@ -16,7 +16,7 @@ set.error.stop <- function(error.stop)
 is.class.type.correct <- function(class.type)
 {
   valid.types <- c("NULL","character","complex","factor","double","expression","integer",
-                   "list","mabrix","logical","numeric","single","raw","vector","S4","NULL",
+                   "list","mabrix","logical","numeric","single","raw","vector","S4","NULL", "data.frame",
                    "function","externalptr","environment", "RangedSummarizedExperiment", "SummarizedExperiment",
                    "ExpressionSet")
   outcome <- FALSE
