@@ -1,6 +1,6 @@
 Package: dsConnectClient
 Title: DataSHIELD Connection Server Tools for the client
-Version: 1.0.0
+Version: 1.0.9
 Authors@R: person("Patricia ", "Ryser-Welch", email = "patricia.ryser-welch@newcastle.ac.uk",
                   role = c("aut", "cre"))
 Description: This package provides simpler methods to connect to a DataSHIELD server. It handles errors on a server and on client in a seamless manner.

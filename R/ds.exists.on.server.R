@@ -7,6 +7,7 @@
 #'   \item  "\code{\link{NULL}}"
 #'   \item "\code{\link{character}}"
 #'   \item "\code{\link{complex}}"
+#'   \item "\code{\link{data.frame}}"
 #'   \item  "\code{\link{factor}}"
 #'   \item "\code{\link{double}}"
 #'   \item "\code{\link{expression}}"

@@ -1,5 +1,5 @@
 
-
+# not needed
 find.error.message <- function(error)
 {
  
@@ -22,7 +22,7 @@ find.error.message <- function(error)
   } 
   else if(any(grepl("SERVER::ERR::SHARING::009",error)))
   {
-    error.message <-  "Some SHARINGeters may not have been encoded on one server. Start again the whole exchange." 
+    error.message <-  "Some SHARING information may not have been encoded on one server. Start again the whole exchange." 
   }
   else if(any(grepl("SERVER::ERR::SHARING::007",error)))
   {
@@ -30,7 +30,7 @@ find.error.message <- function(error)
   }
   else if(any(grepl("SERVER::ERR::SHARING::008",error)))
   {
-    error.message <-  "The SHARINGeters may have not been created on the server yet. Please use ds.ls() function to check." 
+    error.message <-  "The SHARING settings may have not been created on the server yet. Please use ds.ls() function to check." 
   }
   else if(any(grepl("SERVER::ERR::SHARING::006",error)))
   {
@@ -42,7 +42,7 @@ find.error.message <- function(error)
   }
   else if (any(grepl("SERVER::ERR::SHARING::001",error)))
   {
-    error.message <-  "A server is not allowed to taking part in sharing SHARINGeters." 
+    error.message <-  "A server is not allowed to taking part in sharing SHARING parameters." 
   }
   else if (any(grepl("SERVER::ERR::SHARING::002",error)))
   {

@@ -7,6 +7,7 @@
 #'@export
 ds.error <- function(error, client = TRUE)
 {
+  print(error)
   if(client)
   {
     dser.show.client.error(error)
@@ -58,11 +59,44 @@ dser.get.function.name <- function(error)
   return(outcome)
 }
 
-
+dser.message.show.error.message <- function(error.code = NULL)
+{
+  search.list        <- lapply(1:length(search()), function(x)return(ls(pos=x, pattern="error_message")))
+  indeces.errors.env <- which(search.list == "error_message", arr.ind = TRUE)
+  index.env          <- 1
+  continue           <- index.env <= length(indeces.errors.env)
+  errors             <- error.code
+ 
+ 
+  while(continue)
+  {
+      err    <- get("error_message", pos = index.env)
+      filter <- err[1] == "ERR:003"
+      errors <- err[filter,] 
+      
+      if (length(errors) == 2)
+      {
+        errors   <- errors[2]
+        continue <- FALSE
+      }
+      else
+      {
+        continue <- index.env <= length(indeces.errors.env)
+      }
+      
+      index.env <- index.env + 1
+      print(errors)
+  }
+  
+  return(errors)
+}
 
 dser.message.server.side.error <- function(client.function.name, server.function.name, server.error)
 {
-  
+  message(unlist(server.error))
+  #lapply(server.error, function(x) message(x))
+  if (FALSE)
+  {
   #finding the error
   error       <- ""
   #split error message provided by DSI and the error thrown by the server
@@ -94,27 +128,32 @@ dser.message.server.side.error <- function(client.function.name, server.function
   
   message(client.function, server.function)
   lapply(messages, function(x) message(x))
+  }
 }
 
 dser.message.client.side.error <- function(function.name, client.error)
 {
   error.message <- paste0("The function ", function.name, " is not working has expected.", "\n")
   # find the error thrown 
-  is.error <- "error" %in% class(client.error)
-  
+  is.error      <- "error" %in% class(client.error)
+  error         <- ""
   if(is.error)
   {
-    error <- client.error$message
     
+    error <- client.error$message
+    error <- unlist(strsplit(error, "::"))
+    error <- strsplit(error, ">")
   }
   else
   {
-     error <- unlist(strsplit(client.error, "::"))
-     # remove additional characters
-     error <- strsplit(error, ">")
-     
+    error <- unlist(strsplit(client.error, "::"))
+    error <- unlist(strsplit(client.error, "::"))
+    # remove additional characters
+    error <- strsplit(error, ">")
   }
-  message       <- find.error.message(error)
+  
+  message(error)
+  #message       <- dser.message.show.error.message(error)
 
-  message(error.message, message )
+  #message(error.message, message )
 }
